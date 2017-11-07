@@ -15,9 +15,9 @@ class MainCell: UICollectionViewCell {
     @IBOutlet var playerView: PlayerView!
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         imageView.image = nil
         playerView.player = nil
-        super.prepareForReuse()
     }
     
     override func awakeFromNib() {

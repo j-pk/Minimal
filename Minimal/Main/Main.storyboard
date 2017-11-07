@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U9c-yd-Mfx">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main-->
+        <scene sceneID="0K9-wD-VeM">
+            <objects>
+                <collectionViewController id="U9c-yd-Mfx" customClass="MainViewController" customModule="Minimal" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="wJe-mO-fTd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UtO-tu-ZD5">
+                            <size key="itemSize" width="155" height="216"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MainCell" id="lt8-Qd-K8q" customClass="MainCell" customModule="Minimal" customModuleProvider="target">
+                                <rect key="frame" x="20" y="0.0" width="155" height="216"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="155" height="216"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="adv-eV-iJv" customClass="PlayerView" customModule="Minimal" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="155" height="216"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I4y-4X-pxm" customClass="FLAnimatedImageView">
+                                            <rect key="frame" x="0.0" y="0.0" width="155" height="216"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="I4y-4X-pxm" firstAttribute="top" secondItem="lt8-Qd-K8q" secondAttribute="top" id="3gw-RZ-Sxa"/>
+                                    <constraint firstAttribute="bottom" secondItem="I4y-4X-pxm" secondAttribute="bottom" id="PuL-5v-m1f"/>
+                                    <constraint firstItem="adv-eV-iJv" firstAttribute="leading" secondItem="lt8-Qd-K8q" secondAttribute="leading" id="Qp6-iA-hOw"/>
+                                    <constraint firstAttribute="trailing" secondItem="I4y-4X-pxm" secondAttribute="trailing" id="akQ-gf-Yj2"/>
+                                    <constraint firstItem="I4y-4X-pxm" firstAttribute="leading" secondItem="lt8-Qd-K8q" secondAttribute="leading" id="k99-ca-Bxl"/>
+                                    <constraint firstItem="adv-eV-iJv" firstAttribute="top" secondItem="lt8-Qd-K8q" secondAttribute="top" id="peC-NW-Pe9"/>
+                                    <constraint firstAttribute="bottom" secondItem="adv-eV-iJv" secondAttribute="bottom" id="tna-Vn-rtl"/>
+                                    <constraint firstAttribute="trailing" secondItem="adv-eV-iJv" secondAttribute="trailing" id="vHK-ah-SXl"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="I4y-4X-pxm" id="h1G-qB-eBm"/>
+                                    <outlet property="playerView" destination="adv-eV-iJv" id="EoE-or-rVa"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="U9c-yd-Mfx" id="Igj-EF-ogb"/>
+                            <outlet property="delegate" destination="U9c-yd-Mfx" id="vNl-H1-svY"/>
+                        </connections>
+                    </collectionView>
+                    <tabBarItem key="tabBarItem" title="Main" id="f2F-ON-bAz"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="collectionView" destination="wJe-mO-fTd" id="8VU-X2-fEX"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pcj-ip-4iB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="79.200000000000003" y="982.75862068965523"/>
+        </scene>
+    </scenes>
+</document>
