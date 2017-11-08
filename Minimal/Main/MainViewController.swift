@@ -198,6 +198,7 @@ extension MainViewController: UIViewControllerPreviewingDelegate {
     
     private func prepareCommitViewController(url: String?) -> UIViewController {
         let detailViewController = DetailViewController()
+        detailViewController.preferredContentSize = CGSize(width: 0, height: 460)
         detailViewController.url = url
         return detailViewController
     }

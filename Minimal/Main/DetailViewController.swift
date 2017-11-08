@@ -41,18 +41,20 @@ class DetailViewController: UIViewController {
                                                             views: ["imageView":imageView]))
     }
     
-    func addMenuItems(menu:String ...) -> [UIPreviewActionItem] {
-        var arrPreview = [UIPreviewActionItem]()
-        for m in menu {
-            let likeAction = UIPreviewAction(title:m, style: .default) { (action, viewController) -> Void in
-                print(action.title)
-            }
-            arrPreview.append(likeAction)
-        }
-        return arrPreview
-    }
+
     override var previewActionItems: [UIPreviewActionItem] {
-        return self.addMenuItems(menu: "Upvote", "Downvote", "Share", "Save")
+        
+        let upvoteAction = UIPreviewAction(title: NSLocalizedString("Upvote", comment: ""), style: .default, handler: { (previewAction, viewController) -> Void in
+        })
+        
+        let downvoteAction = UIPreviewAction(title: NSLocalizedString("Downvote", comment: ""), style: .default, handler: { (previewAction, viewController) -> Void in
+        })
+        
+        let shareAction = UIPreviewAction(title: NSLocalizedString("Share", comment: "mhjhjhjh"), style: .default, handler: { (previewAction, viewController) -> Void in
+            
+        })
+        
+        return [upvoteAction, downvoteAction, shareAction]
     }
     
     @objc func didPanImageView(sender: UIPanGestureRecognizer) {
