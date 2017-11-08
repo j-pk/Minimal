@@ -16,11 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        SyncManager.default.syncListing(forUrlData: URLData(subreddit: nil, after: nil, limit: nil, category: nil), completionHandler: { error in
-            if let error = error {
-                print(error)
-            }
-        })
+//        SyncManager.default.syncListing(forUrlData: URLData(subreddit: nil, after: nil, limit: nil, category: nil), completionHandler: { error in
+//            if let error = error {
+//                print(error)
+//            }
+//        })
         
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         print(urls[urls.count-1] as URL)

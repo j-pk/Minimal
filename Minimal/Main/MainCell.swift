@@ -30,7 +30,8 @@ class MainCell: UICollectionViewCell {
         }
         
         imageView.isHidden = listing.isPlayable
-        
+        imageView.sd_setShowActivityIndicatorView(true)
+        imageView.sd_setIndicatorStyle(.gray)
         if listing.isPlayable {
             if listing.hint == .hostedVideo {
                 //if reddit hosted video cell tapped present AVPlayerViewController and Play
@@ -39,9 +40,7 @@ class MainCell: UICollectionViewCell {
             playerView.player = AVPlayer(url: url)
             playerView.playAndLoop()
         } else {
-            imageView.sd_setImage(with: url, completed: nil)
+            imageView.sd_setImage(with: url, placeholderImage: nil)
         }
-        
-//        titleLabel.text = listing.title
     }
 }

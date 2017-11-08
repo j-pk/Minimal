@@ -32,9 +32,15 @@ class MainViewController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 44, left: 10, bottom: 0, right: 10)
         return layout
     }()
+    var isPaginating: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //SDImageCache.shared().config.shouldCacheImagesInMemory = false
+        //SDImageCache.shared().config.shouldDecompressImages = false
+        
+        registerForPreviewing(with: self, sourceView: collectionView)
+        
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = collectionViewLayout
@@ -42,6 +48,10 @@ class MainViewController: UIViewController {
         listingResultsController.delegate = self
         collectionView.prefetchDataSource = self
         performFetch()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        SDImageCache.shared().clearMemory()
     }
     
     deinit {
@@ -77,25 +87,31 @@ extension MainViewController: UICollectionViewDataSource {
         cell.layer.cornerRadius = 4.0
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let listingsCount = self.listingResultsController.fetchedObjects?.count else { return }
+        guard indexPath.item == listingsCount - 1 && isPaginating == false else { return }
+        isPaginating = true
+        let listing = self.listingResultsController.object(at: indexPath)
+        let urlData = URLData(subreddit: nil, after: listing.after, limit: 15, category: nil)
+        SyncManager.default.syncListing(forUrlData: urlData, completionHandler: { error in
+            if let error = error {
+                print(error)
+            } else {
+                self.isPaginating = false
+            }
+        })
+    }
 }
 
 extension MainViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        let fetchRequest: NSFetchRequest<Listing> = Listing.fetchRequest()
-        fetchRequest.returnsObjectsAsFaults = false
-        let listings = indexPaths.map({ (index) -> Listing in
-            self.listingResultsController.object(at: index)
-        })
-        fetchRequest.predicate = NSPredicate(format: "SELF IN %@", listings as CVarArg)
-        let asyncFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest, completionBlock: nil)
-        do {
-            try listingResultsController.managedObjectContext.execute(asyncFetchRequest)
-        } catch {
-            
-        }
+        let urls = indexPaths.map({ self.listingResultsController.object(at: $0).url.flatMap { URL(string: $0) }!  })
+        SDWebImagePrefetcher.shared().prefetchURLs(urls)
     }
     
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        SDWebImagePrefetcher.shared().cancelPrefetching()
     }
 }
 
@@ -108,29 +124,9 @@ extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
     }
 }
 
-extension MainViewController: UIScrollViewDelegate {
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
-        let currentOffset = scrollView.contentOffset.y
-        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        
-        if maximumOffset - currentOffset <= 10.0 {
-            let indexPaths = collectionView.indexPathsForVisibleItems
-            guard let listingsCount = self.listingResultsController.fetchedObjects?.count else { return }
-            guard let indexPath = indexPaths.filter({ $0.item == listingsCount - 1 }).first else { return }
-            let listing = self.listingResultsController.object(at: indexPath)
-            let urlData = URLData(subreddit: nil, after: listing.after, limit: 15, category: nil)
-            SyncManager.default.syncListing(forUrlData: urlData, completionHandler: { error in
-                if let error = error {
-                    print(error)
-                }
-            })
-        }
-    }
-}
-
 extension MainViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.collectionView.numberOfItems(inSection: 0)
         self.collectionView.performBatchUpdates({ () -> Void in
             for operation: BlockOperation in self.blockOperations {
                 operation.start()
@@ -143,15 +139,6 @@ extension MainViewController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
         switch type {
-        case .update:
-            //print("Update Object: \(String(describing: indexPath))")
-            blockOperations.append(
-                BlockOperation(block: { [weak self] in
-                    if let this = self, let indexPath = indexPath {
-                        this.collectionView.reloadItems(at: [indexPath])
-                    }
-                })
-            )
         case .insert:
             //print("Insert Object: \(String(describing: newIndexPath))")
             blockOperations.append(
@@ -161,12 +148,23 @@ extension MainViewController: NSFetchedResultsControllerDelegate {
                     }
                 })
             )
+        case .update:
+            //print("Update Object: \(String(describing: indexPath))")
+            blockOperations.append(
+                BlockOperation(block: { [weak self] in
+                    if let this = self, let indexPath = indexPath {
+                        this.collectionView.reloadItems(at: [indexPath])
+                    }
+                })
+            )
         case .move:
             //print("Move Object: \(String(describing: indexPath))")
             blockOperations.append(
                 BlockOperation(block: { [weak self] in
                     if let this = self, let indexPath = indexPath, let newIndexPath = newIndexPath {
-                        this.collectionView.moveItem(at: indexPath, to: newIndexPath)
+                        if indexPath != newIndexPath {
+                            this.collectionView.moveItem(at: indexPath, to: newIndexPath)
+                        }
                     }
                 })
             )
@@ -183,3 +181,24 @@ extension MainViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
+extension MainViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = collectionView.indexPathForItem(at: location), let attributes = collectionView.layoutAttributesForItem(at: indexPath) {
+            previewingContext.sourceRect = attributes.frame
+            let listing = self.listingResultsController.object(at: indexPath)
+            let viewController = prepareCommitViewController(url: listing.url)
+            return viewController
+        }
+        return nil
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        present(viewControllerToCommit, animated: true, completion: nil)
+    }
+    
+    private func prepareCommitViewController(url: String?) -> UIViewController {
+        let detailViewController = DetailViewController()
+        detailViewController.url = url
+        return detailViewController
+    }
+}
