@@ -20,7 +20,7 @@ class SyncManager {
     
     static let `default` = SyncManager()
     private let defaultAPIUrl = "https://www.reddit.com/"
-    
+    private var isSyncing = false
     //What do I need to paginate?
     //reddit api url
     //subreddit /r/~

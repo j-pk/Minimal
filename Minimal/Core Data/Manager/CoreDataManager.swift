@@ -98,7 +98,7 @@ class CoreDataManager {
         })
     }
     
-    func purgeRecords(_ predicate: NSPredicate, entity: String, completionHandler: @escaping ((Error?) -> ())) {
+    func purgeRecords(predicate: NSPredicate? = nil, entity: String, completionHandler: @escaping ((Error?) -> ())) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         fetchRequest.predicate = predicate
         self.persistentContainer.performBackgroundTask({ moc in

@@ -18,10 +18,14 @@ class APIManager {
     
     static let `default` = APIManager()
     
+    private let defaultSession = URLSession(configuration: .default)
+    private var task: URLSessionDataTask?
+    
     func fetchListing(forUrl url: URL, completionHandler: @escaping ((NetworkError?, [ListingMapped]?)->())) {
-        let request = URLRequest(url: url)
+        task?.cancel()
         
-        let task = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
+        let request = URLRequest(url: url)
+        task = defaultSession.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
                 completionHandler(NetworkError.serverError(description: error.localizedDescription), nil)
             }
@@ -43,7 +47,7 @@ class APIManager {
                 }
             }
         }
-        task.resume()
+        task?.resume()
     }
     
 }

@@ -43,7 +43,7 @@ extension Listing: Managed {
             listing.before = json.before
             listing.after = json.after
             listing.postHint = json.postHint
-            listing.added = Date()
+            listing.populatedDate = Date()
             
             let results = modifyUrlAndSetIsPlayable(url: json.mediaUrl ?? json.url)
             listing.url = results.url

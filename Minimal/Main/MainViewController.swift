@@ -14,10 +14,12 @@ class MainViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     fileprivate var blockOperations: [BlockOperation] = []
     
+    //NOTE: Sync happens when data is older than an hour, perhaps this can be configurable
+    //Still need to figure this out as far when to clear out old listings
     fileprivate var listingResultsController: NSFetchedResultsController<Listing> = {
         let fetchRequest = NSFetchRequest<Listing>(entityName: Listing.entityName)
-        fetchRequest.predicate = NSPredicate(format: "isImage == true")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "added", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "isImage == true && populatedDate <= %@", Date().add(hours: 1) as CVarArg)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "populatedDate", ascending: true)]
         let fetchedResultsController = NSFetchedResultsController<Listing>(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.default.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         return fetchedResultsController
     }()
@@ -64,6 +66,13 @@ class MainViewController: UIViewController {
     func performFetch() {
         do {
             try self.listingResultsController.performFetch()
+            if self.listingResultsController.fetchedObjects?.count == 0 && self.isPaginating == false {
+                SyncManager.default.syncListing(forUrlData: URLData(subreddit: nil, after: nil, limit: nil, category: nil), completionHandler: { error in
+                    if let error = error {
+                        print(error)
+                    }
+                })
+            }
         } catch let error {
             print("Error: \(error.localizedDescription)")
         }

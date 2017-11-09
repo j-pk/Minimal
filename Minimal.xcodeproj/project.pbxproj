@@ -35,6 +35,7 @@
 		C0DA84D91FA00D10006BE949 /* Listing+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */; };
 		C0DA84DC1FA01769006BE949 /* ListingTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84DB1FA01769006BE949 /* ListingTypeEnum.swift */; };
 		C0ED1F9C1FB2AC1900580C1E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */; };
+		C0ED1F9E1FB3F0DB00580C1E /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED1F9D1FB3F0DB00580C1E /* Date+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Listing+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C0DA84DB1FA01769006BE949 /* ListingTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTypeEnum.swift; sourceTree = "<group>"; };
 		C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		C0ED1F9D1FB3F0DB00580C1E /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		E24D1E61FEBD271FBA772ED4 /* Pods-Minimal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minimal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minimal/Pods-Minimal.debug.xcconfig"; sourceTree = "<group>"; };
 		F61CBBD01DF4E0DDD853B07D /* Pods_Minimal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Minimal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -130,7 +132,7 @@
 				C0A3858B1F9E5691005064DF /* Search */,
 				C0A3858D1F9E56B0005064DF /* Settings */,
 				C0A3858A1F9E5625005064DF /* Subscribed */,
-				C0A3859F1F9EA1B9005064DF /* Reddit API */,
+				C0A3859F1F9EA1B9005064DF /* Network */,
 				C0A385981F9E913F005064DF /* Resources */,
 			);
 			path = Minimal;
@@ -204,14 +206,14 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		C0A3859F1F9EA1B9005064DF /* Reddit API */ = {
+		C0A3859F1F9EA1B9005064DF /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				C0A385A21F9F8834005064DF /* Data Contract */,
 				C0A385A01F9EA1D9005064DF /* APIManager.swift */,
 				C03F92211FA022B9009EEEF3 /* SyncManager.swift */,
 			);
-			path = "Reddit API";
+			path = Network;
 			sourceTree = "<group>";
 		};
 		C0A385A21F9F8834005064DF /* Data Contract */ = {
@@ -229,6 +231,7 @@
 				C01445731FAA50FE0020C6B5 /* UICollectionViewFlowLayout.swift */,
 				C0897DA71FABB4FB00801E08 /* PlayerView.swift */,
 				C03167BD1FB13DEC00E420D0 /* GradientView.swift */,
+				C0ED1F9D1FB3F0DB00580C1E /* Date+Extensions.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 			files = (
 				C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */,
 				C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */,
+				C0ED1F9E1FB3F0DB00580C1E /* Date+Extensions.swift in Sources */,
 				C0A385A11F9EA1D9005064DF /* APIManager.swift in Sources */,
 				C0DA84DC1FA01769006BE949 /* ListingTypeEnum.swift in Sources */,
 				C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */,

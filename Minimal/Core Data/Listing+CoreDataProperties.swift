@@ -27,7 +27,7 @@ extension Listing {
     @NSManaged public var over18: Bool
     @NSManaged public var hidden: Bool
     @NSManaged public var created: Date?
-    @NSManaged public var added: Date
+    @NSManaged public var populatedDate: Date
     @NSManaged public var url: String?
     @NSManaged public var author: String?
     @NSManaged public var subredditNamePrefixed: String?

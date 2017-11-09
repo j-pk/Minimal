@@ -28,6 +28,7 @@ class DetailViewController: UIViewController {
     
     func configureDetailViewController() {
         imageView = FLAnimatedImageView()
+        imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
@@ -50,7 +51,7 @@ class DetailViewController: UIViewController {
         let downvoteAction = UIPreviewAction(title: NSLocalizedString("Downvote", comment: ""), style: .default, handler: { (previewAction, viewController) -> Void in
         })
         
-        let shareAction = UIPreviewAction(title: NSLocalizedString("Share", comment: "mhjhjhjh"), style: .default, handler: { (previewAction, viewController) -> Void in
+        let shareAction = UIPreviewAction(title: NSLocalizedString("Share", comment: ""), style: .default, handler: { (previewAction, viewController) -> Void in
             
         })
         
@@ -62,20 +63,22 @@ class DetailViewController: UIViewController {
         
         let velocity = sender.velocity(in: self.imageView)
         let imagePushBehavior = UIPushBehavior(items: [self.imageView], mode: UIPushBehaviorMode.instantaneous)
-        imagePushBehavior.pushDirection = CGVector(dx: velocity.x, dy: velocity.y)
-        imagePushBehavior.magnitude = 1
+        imagePushBehavior.pushDirection = CGVector(dx: velocity.x * 0.5, dy: velocity.y * 0.5)
+        imagePushBehavior.magnitude = 35
+        imagePushBehavior.setTargetOffsetFromCenter(UIOffsetMake(-400, 400), for: self.imageView)
         
         let itemBehavior = UIDynamicItemBehavior(items: [imageView])
-        itemBehavior.friction = 0.5
+        itemBehavior.friction = 0.2
         itemBehavior.allowsRotation = true
         
         animator.addBehavior(itemBehavior)
         animator.addBehavior(imagePushBehavior)
         
-        UIView.animate(withDuration: 0.6, animations: { () -> Void in
-            self.imageView.alpha = 0
-        }, completion: { _ in
-            self.dismiss(animated: true, completion: nil)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.alpha = 0
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                self.dismiss(animated: false, completion: nil)
+            }
         })
     }
 }
