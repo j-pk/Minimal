@@ -195,20 +195,22 @@ extension MainViewController: UIViewControllerPreviewingDelegate {
         if let indexPath = collectionView.indexPathForItem(at: location), let attributes = collectionView.layoutAttributesForItem(at: indexPath) {
             previewingContext.sourceRect = attributes.frame
             let listing = self.listingResultsController.object(at: indexPath)
-            let viewController = prepareCommitViewController(url: listing.url)
+            let viewController = prepareCommitViewController(listing: listing)
             return viewController
         }
         return nil
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        NotificationCenter.default.post(name: .isPeeking, object: nil)
         present(viewControllerToCommit, animated: true, completion: nil)
     }
     
-    private func prepareCommitViewController(url: String?) -> UIViewController {
-        let detailViewController = DetailViewController()
+    private func prepareCommitViewController(listing: Listing?) -> UIViewController {
+        let detailViewController = DetailViewController.make()
         detailViewController.preferredContentSize = CGSize(width: 0, height: 460)
-        detailViewController.url = url
+        detailViewController.listing = listing
+        detailViewController.isPeeking = true
         return detailViewController
     }
 }

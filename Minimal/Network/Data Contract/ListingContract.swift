@@ -50,7 +50,7 @@ struct ListingData: Decodable {
     let postHint: String?
     let over18: Bool
     let hidden: Bool
-    let created: Date
+    let created: Double
     let url: String
     let author: String
     let subredditNamePrefixed: String
@@ -74,7 +74,7 @@ struct ListingData: Decodable {
         case postHint = "post_hint"
         case over18 = "over_18"
         case hidden
-        case created
+        case created = "created_utc"
         case url
         case author
         case subredditNamePrefixed = "subreddit_name_prefixed"
@@ -105,7 +105,7 @@ struct ListingData: Decodable {
         postHint = try data.decodeIfPresent(String.self, forKey: .postHint)
         over18 = try data.decode(Bool.self, forKey: .over18)
         hidden = try data.decode(Bool.self, forKey: .hidden)
-        created = try data.decode(Date.self, forKey: .created)
+        created = try data.decode(Double.self, forKey: .created)
         url = try data.decode(String.self, forKey: .url)
         author = try data.decode(String.self, forKey: .author)
         subredditNamePrefixed = try data.decode(String.self, forKey: .subredditNamePrefixed)
@@ -165,7 +165,7 @@ struct ListingMapped: Mappable {
         postHint = data.postHint
         over18 = data.over18
         hidden = data.hidden
-        created = data.created
+        created = Date(timeIntervalSince1970: data.created)
         url = data.url
         author = data.author
         subredditNamePrefixed = data.subredditNamePrefixed

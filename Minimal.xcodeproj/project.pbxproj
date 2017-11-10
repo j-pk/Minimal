@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4EB09F33097B2134019A918D /* Pods_Minimal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61CBBD01DF4E0DDD853B07D /* Pods_Minimal.framework */; };
-		C01445741FAA50FE0020C6B5 /* UICollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01445731FAA50FE0020C6B5 /* UICollectionViewFlowLayout.swift */; };
+		C0110E141FB4DF5700410478 /* TypeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0110E131FB4DF5700410478 /* TypeName.swift */; };
+		C0110E161FB5671400410478 /* Notification+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0110E151FB5671400410478 /* Notification+Extensions.swift */; };
 		C03167BE1FB13DEC00E420D0 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03167BD1FB13DEC00E420D0 /* GradientView.swift */; };
 		C03167C01FB175A900E420D0 /* MainCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */; };
 		C03F92221FA022B9009EEEF3 /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92211FA022B9009EEEF3 /* SyncManager.swift */; };
@@ -40,7 +41,8 @@
 
 /* Begin PBXFileReference section */
 		6EE6E699A8CC366AF9CF9E08 /* Pods-Minimal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minimal.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minimal/Pods-Minimal.release.xcconfig"; sourceTree = "<group>"; };
-		C01445731FAA50FE0020C6B5 /* UICollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		C0110E131FB4DF5700410478 /* TypeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeName.swift; sourceTree = "<group>"; };
+		C0110E151FB5671400410478 /* Notification+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extensions.swift"; sourceTree = "<group>"; };
 		C03167BD1FB13DEC00E420D0 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		C03F92211FA022B9009EEEF3 /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
@@ -227,11 +229,12 @@
 		C0DA84DA1FA01030006BE949 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C0ED1F9D1FB3F0DB00580C1E /* Date+Extensions.swift */,
 				C03F92261FA11DE6009EEEF3 /* NSManagedObject+Extensions.swift */,
-				C01445731FAA50FE0020C6B5 /* UICollectionViewFlowLayout.swift */,
+				C0110E151FB5671400410478 /* Notification+Extensions.swift */,
 				C0897DA71FABB4FB00801E08 /* PlayerView.swift */,
 				C03167BD1FB13DEC00E420D0 /* GradientView.swift */,
-				C0ED1F9D1FB3F0DB00580C1E /* Date+Extensions.swift */,
+				C0110E131FB4DF5700410478 /* TypeName.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -382,9 +385,11 @@
 			files = (
 				C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */,
 				C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */,
+				C0110E141FB4DF5700410478 /* TypeName.swift in Sources */,
 				C0ED1F9E1FB3F0DB00580C1E /* Date+Extensions.swift in Sources */,
 				C0A385A11F9EA1D9005064DF /* APIManager.swift in Sources */,
 				C0DA84DC1FA01769006BE949 /* ListingTypeEnum.swift in Sources */,
+				C0110E161FB5671400410478 /* Notification+Extensions.swift in Sources */,
 				C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */,
 				C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */,
 				C03167C01FB175A900E420D0 /* MainCollectionViewFlowLayout.swift in Sources */,
@@ -393,7 +398,6 @@
 				C0A3859E1F9E98AC005064DF /* MainCell.swift in Sources */,
 				C03167BE1FB13DEC00E420D0 /* GradientView.swift in Sources */,
 				C03F92221FA022B9009EEEF3 /* SyncManager.swift in Sources */,
-				C01445741FAA50FE0020C6B5 /* UICollectionViewFlowLayout.swift in Sources */,
 				C03F92251FA049BE009EEEF3 /* CoreDataManager.swift in Sources */,
 				C0DA84D91FA00D10006BE949 /* Listing+CoreDataProperties.swift in Sources */,
 				C0DA84D81FA00D10006BE949 /* Listing+CoreDataClass.swift in Sources */,
