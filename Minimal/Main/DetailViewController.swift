@@ -14,11 +14,10 @@ class DetailViewController: UIViewController {
     @IBOutlet var detailLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var imageView: FLAnimatedImageView!
-    @IBOutlet var voteStackView: UIStackView!
+    //@IBOutlet var voteStackView: UIStackView!
     
     var animator: UIDynamicAnimator!
     var listing: Listing?
-    var isPeeking: Bool = false
 
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -28,10 +27,8 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(isPopped), name: Notification.Name.isPeeking, object: nil)
         configureDetailViewController()
-        guard let listing = listing, let url = listing.url, let imageUrl = URL(string: url) else { return }
-        imageView.sd_setImage(with: imageUrl)
         
-        self.animator = UIDynamicAnimator(referenceView: imageView)
+        animator = UIDynamicAnimator(referenceView: imageView)
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanImageView))
         imageView.addGestureRecognizer(panGestureRecognizer)
@@ -42,12 +39,14 @@ class DetailViewController: UIViewController {
     }
     
     @objc func isPopped() {
-        self.voteStackView.isHidden = false
+        //voteStackView.isHidden = false
     }
     
     func configureDetailViewController() {
-        self.voteStackView.isHidden = isPeeking
-        guard let listing = listing else { return }
+        guard let listing = listing, let url = listing.url, let imageUrl = URL(string: url) else { return }
+        imageView.sd_setImage(with: imageUrl)
+        //voteStackView.isHidden = true
+        
         let mutableAttributedString = NSMutableAttributedString()
         
         if let title = listing.title {

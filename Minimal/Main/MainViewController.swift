@@ -15,10 +15,10 @@ class MainViewController: UIViewController {
     fileprivate var blockOperations: [BlockOperation] = []
     
     //NOTE: Sync happens when data is older than an hour, perhaps this can be configurable
-    //Still need to figure this out as far when to clear out old listings
+    //Still need to figure this out and when to clear out old listings
     fileprivate var listingResultsController: NSFetchedResultsController<Listing> = {
         let fetchRequest = NSFetchRequest<Listing>(entityName: Listing.entityName)
-        fetchRequest.predicate = NSPredicate(format: "isImage == true && populatedDate <= %@", Date().add(hours: 1) as CVarArg)
+        fetchRequest.predicate = NSPredicate(format: "isImage == true && populatedDate <= %@ && populatedDate >= %@", Date().add(hours: 1) as CVarArg, Date() as CVarArg)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "populatedDate", ascending: true)]
         let fetchedResultsController = NSFetchedResultsController<Listing>(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.default.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         return fetchedResultsController
@@ -38,9 +38,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //SDImageCache.shared().config.shouldCacheImagesInMemory = false
-        //SDImageCache.shared().config.shouldDecompressImages = false
-        
         registerForPreviewing(with: self, sourceView: collectionView)
         
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -210,7 +207,6 @@ extension MainViewController: UIViewControllerPreviewingDelegate {
         let detailViewController = DetailViewController.make()
         detailViewController.preferredContentSize = CGSize(width: 0, height: 460)
         detailViewController.listing = listing
-        detailViewController.isPeeking = true
         return detailViewController
     }
 }
