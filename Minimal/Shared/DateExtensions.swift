@@ -1,5 +1,5 @@
 //
-//  Date+Extensions.swift
+//  DateExtensions.swift
 //  Minimal
 //
 //  Created by Jameson Kirby on 11/8/17.

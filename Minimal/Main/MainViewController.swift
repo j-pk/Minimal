@@ -12,6 +12,10 @@ import SDWebImage
 
 class MainViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var titleButton: UIButton!
+    @IBOutlet weak var categoryButton: UIButton!
+    
     fileprivate var blockOperations: [BlockOperation] = []
     
     //NOTE: Sync happens when data is older than an hour, perhaps this can be configurable
@@ -40,12 +44,26 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         registerForPreviewing(with: self, sourceView: collectionView)
         
+        if !UIAccessibilityIsReduceTransparencyEnabled() {
+            headerView.backgroundColor = UIColor.clear
+            
+            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.extraLight)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            //always fill the view
+            blurEffectView.frame = headerView.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            headerView.insertSubview(blurEffectView, at: 0) //if you have more UIViews, use an insertSubview API to place it where needed
+        } else {
+            headerView.backgroundColor = UIColor.black
+        }
+        
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = collectionViewLayout
-        
-        listingResultsController.delegate = self
         collectionView.prefetchDataSource = self
+
+        listingResultsController.delegate = self
         performFetch()
     }
     
@@ -74,6 +92,18 @@ class MainViewController: UIViewController {
             print("Error: \(error.localizedDescription)")
         }
     }
+    
+    @IBAction func didPressTitleButton(_ sender: UIButton) {
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "popOverControllerSegue" {
+            segue.destination.popoverPresentationController?.delegate = self
+            segue.destination.preferredContentSize = CGSize(width: 110, height: 130)
+            segue.destination.popoverPresentationController?.sourceRect = CGRect(x: 5, y: categoryButton.frame.maxY, width:0, height: 0)
+        }
+    }
+
 }
 
 extension MainViewController: UICollectionViewDataSource {
@@ -199,14 +229,42 @@ extension MainViewController: UIViewControllerPreviewingDelegate {
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        NotificationCenter.default.post(name: .isPeeking, object: nil)
+        NotificationCenter.default.post(name: .isPopped, object: nil)
         present(viewControllerToCommit, animated: true, completion: nil)
     }
     
     private func prepareCommitViewController(listing: Listing?) -> UIViewController {
-        let detailViewController = DetailViewController.make()
+        let detailViewController: DetailViewController = UIViewController.make()
         detailViewController.preferredContentSize = CGSize(width: 0, height: 460)
         detailViewController.listing = listing
         return detailViewController
+    }
+}
+
+extension MainViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
+        if velocity < 0 {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.headerView.alpha = 0.0
+                self.headerView.isUserInteractionEnabled = false
+            })
+        } else if velocity > 0 {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+                self.headerView.alpha = 1.0
+                self.headerView.isUserInteractionEnabled = true
+            })
+        }
+    }
+}
+
+extension MainViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        
     }
 }

@@ -1,5 +1,5 @@
 //
-//  Notification+Extensions.swift
+//  NotificationExtensions.swift
 //  Minimal
 //
 //  Created by Jameson Kirby on 11/9/17.
@@ -9,5 +9,5 @@
 import Foundation
 
 extension Notification.Name {
-    static let isPeeking = Notification.Name("isPeeking")
+    static let isPopped = Notification.Name("isPopped")
 }

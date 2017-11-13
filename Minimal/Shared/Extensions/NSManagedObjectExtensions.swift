@@ -1,5 +1,5 @@
 //
-//  NSManagedObject+Extensions.swift
+//  NSManagedObjectExtensions.swift
 //  Minimal
 //
 //  Created by Jameson Kirby on 10/25/17.

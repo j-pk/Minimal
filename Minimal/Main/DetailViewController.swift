@@ -14,7 +14,8 @@ class DetailViewController: UIViewController {
     @IBOutlet var detailLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var imageView: FLAnimatedImageView!
-    //@IBOutlet var voteStackView: UIStackView!
+    @IBOutlet weak var upVoteButton: UIButton!
+    @IBOutlet weak var downVoteButton: UIButton!
     
     var animator: UIDynamicAnimator!
     var listing: Listing?
@@ -25,7 +26,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(isPopped), name: Notification.Name.isPeeking, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(isPopped), name: Notification.Name.isPopped, object: nil)
         configureDetailViewController()
         
         animator = UIDynamicAnimator(referenceView: imageView)
@@ -34,18 +35,14 @@ class DetailViewController: UIViewController {
         imageView.addGestureRecognizer(panGestureRecognizer)
     }
     
-    static func make() -> DetailViewController {
-        return UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: self.typeName) as! DetailViewController
-    }
-    
     @objc func isPopped() {
-        //voteStackView.isHidden = false
+        upVoteButton.isHidden = false
+        downVoteButton.isHidden = false
     }
     
     func configureDetailViewController() {
         guard let listing = listing, let url = listing.url, let imageUrl = URL(string: url) else { return }
         imageView.sd_setImage(with: imageUrl)
-        //voteStackView.isHidden = true
         
         let mutableAttributedString = NSMutableAttributedString()
         
@@ -69,6 +66,9 @@ class DetailViewController: UIViewController {
         
         //Storyboard refuses to like it when I set the numberOfLines
         titleLabel.numberOfLines = 0
+        detailLabel.numberOfLines = 0
+        descriptionLabel.numberOfLines = 0
+        
         titleLabel.attributedText = mutableAttributedString
         detailLabel.text = listing.subredditNamePrefixed
         
