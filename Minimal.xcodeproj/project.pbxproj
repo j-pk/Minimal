@@ -17,6 +17,7 @@
 		C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA31FAAC75900801E08 /* SearchViewController.swift */; };
 		C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA51FAAC89700801E08 /* SearchCell.swift */; };
 		C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA71FABB4FB00801E08 /* PlayerView.swift */; };
+		C08D56F91FBAA10E0053FEA5 /* CategoryPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D56F81FBAA10E0053FEA5 /* CategoryPopoverViewController.swift */; };
 		C0A385761F9E54AF005064DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385751F9E54AF005064DF /* AppDelegate.swift */; };
 		C0A385781F9E54B0005064DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385771F9E54B0005064DF /* ViewController.swift */; };
 		C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0A3857C1F9E54B0005064DF /* Minimal.xcdatamodeld */; };
@@ -50,6 +51,7 @@
 		C0897DA31FAAC75900801E08 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C0897DA51FAAC89700801E08 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		C0897DA71FABB4FB00801E08 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		C08D56F81FBAA10E0053FEA5 /* CategoryPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPopoverViewController.swift; sourceTree = "<group>"; };
 		C0A385721F9E54AF005064DF /* Minimal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minimal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A385751F9E54AF005064DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0A385771F9E54B0005064DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				C0A3859D1F9E98AC005064DF /* MainCell.swift */,
 				C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */,
 				C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */,
+				C08D56F81FBAA10E0053FEA5 /* CategoryPopoverViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				C03F92221FA022B9009EEEF3 /* SyncManager.swift in Sources */,
 				C03F92251FA049BE009EEEF3 /* CoreDataManager.swift in Sources */,
 				C0DA84D91FA00D10006BE949 /* Listing+CoreDataProperties.swift in Sources */,
+				C08D56F91FBAA10E0053FEA5 /* CategoryPopoverViewController.swift in Sources */,
 				C0DA84D81FA00D10006BE949 /* Listing+CoreDataClass.swift in Sources */,
 				C0A385A41F9F885E005064DF /* ListingContract.swift in Sources */,
 				C0D584591FB75297002BCFA9 /* UIViewControllerExtensions.swift in Sources */,
