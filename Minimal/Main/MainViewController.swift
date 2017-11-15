@@ -99,7 +99,7 @@ class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popOverControllerSegue" {
             segue.destination.popoverPresentationController?.delegate = self
-            segue.destination.preferredContentSize = CGSize(width: 160, height: 100)
+            segue.destination.preferredContentSize = CGSize(width: 160, height: 60)
             segue.destination.popoverPresentationController?.sourceRect = CGRect(x: 5, y: categoryButton.frame.maxY, width:0, height: 0)
         }
     }

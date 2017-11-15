@@ -15,9 +15,21 @@ class CategoryPopoverViewController: UIViewController {
     @IBOutlet weak var risingButton: UIButton!
     @IBOutlet weak var controversialButton: UIButton!
     @IBOutlet weak var topButton: UIButton!
+    @IBOutlet weak var timeFrameScrollView: UIScrollView!
     
     @IBAction func didPressCategoryButton(_ sender: UIButton) {
-        self.preferredContentSize = CGSize(width: 160, height: 60)
+        guard let type = ListingCategoryType.allValues.filter({ $0.titleValue == sender.titleLabel?.text }).first else { return }
+        if type.isSetByTimeFrame {
+            self.preferredContentSize = CGSize(width: 160, height: 100)
+            timeFrameScrollView.isHidden = false
+        } else {
+            timeFrameScrollView.isHidden = true
+            self.preferredContentSize = CGSize(width: 160, height: 60)
+        }
+        DispatchQueue.main.async {
+            let x = (self.timeFrameScrollView.contentSize.width / 2) - (self.view.bounds.size.width / 2)
+            self.timeFrameScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+        }
         selectButton(button: sender)
     }
     

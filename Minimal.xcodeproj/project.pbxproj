@@ -35,7 +35,7 @@
 		C0D584591FB75297002BCFA9 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D584581FB75297002BCFA9 /* UIViewControllerExtensions.swift */; };
 		C0DA84D81FA00D10006BE949 /* Listing+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84D61FA00D10006BE949 /* Listing+CoreDataClass.swift */; };
 		C0DA84D91FA00D10006BE949 /* Listing+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */; };
-		C0DA84DC1FA01769006BE949 /* ListingTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84DB1FA01769006BE949 /* ListingTypeEnum.swift */; };
+		C0DA84DC1FA01769006BE949 /* ListingEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84DB1FA01769006BE949 /* ListingEnums.swift */; };
 		C0ED1F9C1FB2AC1900580C1E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */; };
 		C0ED1F9E1FB3F0DB00580C1E /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED1F9D1FB3F0DB00580C1E /* DateExtensions.swift */; };
 /* End PBXBuildFile section */
@@ -47,7 +47,7 @@
 		C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		C03F92211FA022B9009EEEF3 /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		C03F92241FA049BE009EEEF3 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSManagedObjectExtensions.swift; path = Extensions/NSManagedObjectExtensions.swift; sourceTree = "<group>"; };
+		C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectExtensions.swift; sourceTree = "<group>"; };
 		C0897DA31FAAC75900801E08 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C0897DA51FAAC89700801E08 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		C0897DA71FABB4FB00801E08 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 		C0D584581FB75297002BCFA9 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		C0DA84D61FA00D10006BE949 /* Listing+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Listing+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Listing+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C0DA84DB1FA01769006BE949 /* ListingTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTypeEnum.swift; sourceTree = "<group>"; };
+		C0DA84DB1FA01769006BE949 /* ListingEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingEnums.swift; sourceTree = "<group>"; };
 		C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C0ED1F9D1FB3F0DB00580C1E /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		E24D1E61FEBD271FBA772ED4 /* Pods-Minimal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minimal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minimal/Pods-Minimal.debug.xcconfig"; sourceTree = "<group>"; };
@@ -104,6 +104,18 @@
 				C03F92241FA049BE009EEEF3 /* CoreDataManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		C097F1A81FBBF8F200706F89 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C0ED1F9D1FB3F0DB00580C1E /* DateExtensions.swift */,
+				C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */,
+				C0110E151FB5671400410478 /* NotificationExtensions.swift */,
+				C0D584581FB75297002BCFA9 /* UIViewControllerExtensions.swift */,
+			);
+			name = Extensions;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		C0A385691F9E54AF005064DF = {
@@ -199,7 +211,6 @@
 				C0A3857C1F9E54B0005064DF /* Minimal.xcdatamodeld */,
 				C0DA84D61FA00D10006BE949 /* Listing+CoreDataClass.swift */,
 				C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */,
-				C0DA84DB1FA01769006BE949 /* ListingTypeEnum.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -232,12 +243,10 @@
 		C0DA84DA1FA01030006BE949 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				C0ED1F9D1FB3F0DB00580C1E /* DateExtensions.swift */,
-				C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */,
-				C0110E151FB5671400410478 /* NotificationExtensions.swift */,
-				C0D584581FB75297002BCFA9 /* UIViewControllerExtensions.swift */,
+				C097F1A81FBBF8F200706F89 /* Extensions */,
 				C0897DA71FABB4FB00801E08 /* PlayerView.swift */,
 				C0110E131FB4DF5700410478 /* TypeName.swift */,
+				C0DA84DB1FA01769006BE949 /* ListingEnums.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -391,7 +400,7 @@
 				C0110E141FB4DF5700410478 /* TypeName.swift in Sources */,
 				C0ED1F9E1FB3F0DB00580C1E /* DateExtensions.swift in Sources */,
 				C0A385A11F9EA1D9005064DF /* APIManager.swift in Sources */,
-				C0DA84DC1FA01769006BE949 /* ListingTypeEnum.swift in Sources */,
+				C0DA84DC1FA01769006BE949 /* ListingEnums.swift in Sources */,
 				C0110E161FB5671400410478 /* NotificationExtensions.swift in Sources */,
 				C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */,
 				C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */,

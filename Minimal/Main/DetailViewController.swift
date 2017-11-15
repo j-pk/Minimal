@@ -16,6 +16,8 @@ class DetailViewController: UIViewController {
     @IBOutlet var imageView: FLAnimatedImageView!
     @IBOutlet weak var upVoteButton: UIButton!
     @IBOutlet weak var downVoteButton: UIButton!
+    @IBOutlet weak var downVoteWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var upVoteWidthConstraint: NSLayoutConstraint!
     
     var animator: UIDynamicAnimator!
     var listing: Listing?
@@ -36,8 +38,8 @@ class DetailViewController: UIViewController {
     }
     
     @objc func isPopped() {
-        upVoteButton.isHidden = false
-        downVoteButton.isHidden = false
+        downVoteWidthConstraint.priority = UILayoutPriority(rawValue: 999)
+        upVoteWidthConstraint.priority = UILayoutPriority(rawValue: 999)
     }
     
     func configureDetailViewController() {
@@ -63,11 +65,6 @@ class DetailViewController: UIViewController {
             let regularAttributedString = NSAttributedString(string: " (\(domain))", attributes: regularAttribute)
             mutableAttributedString.append(regularAttributedString)
         }
-        
-        //Storyboard refuses to like it when I set the numberOfLines
-        titleLabel.numberOfLines = 0
-        detailLabel.numberOfLines = 0
-        descriptionLabel.numberOfLines = 0
         
         titleLabel.attributedText = mutableAttributedString
         detailLabel.text = listing.subredditNamePrefixed

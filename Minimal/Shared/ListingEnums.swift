@@ -1,5 +1,5 @@
 //
-//  ListingTypesEnum.swift
+//  ListingEnums.swift
 //  Minimal
 //
 //  Created by Jameson Kirby on 10/24/17.
@@ -24,6 +24,37 @@ enum ListingCategoryType {
         case .top: return "top"
         }
     }
+    
+    var titleValue: String {
+        switch self {
+        case .hot: return "hot"
+        case .new: return "new"
+        case .rising: return "rising"
+        case .controversial: return "controversial"
+        case .top: return "top"
+        }
+    }
+    
+    var isSetByTimeFrame: Bool {
+        switch self {
+        case .controversial, .top: return true
+        default:
+            return false
+        }
+    }
+    
+    static let allValues = [hot, new, rising, controversial, top]
+}
+
+enum CategoryTimeFrame {
+    case hour
+    case twentyFourHours
+    case week
+    case month
+    case year
+    case allTime
+    
+    static let allValues = [hour, twentyFourHours, week, month, year, allTime]
 }
 
 enum ListingPostHint: String {
