@@ -155,7 +155,7 @@
                                 <rect key="frame" x="0.0" y="20" width="500" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ayd-12-549">
-                                        <rect key="frame" x="8" y="8" width="44" height="44"/>
+                                        <rect key="frame" x="20" y="8" width="44" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="Xuw-vi-DAB"/>
@@ -170,7 +170,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LrY-gF-Tgj">
-                                        <rect key="frame" x="112" y="8" width="54" height="44"/>
+                                        <rect key="frame" x="124" y="8" width="54" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="54" id="6Tm-zL-fPL"/>
@@ -185,7 +185,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Rm-ov-7Vt">
-                                        <rect key="frame" x="174" y="8" width="100" height="44"/>
+                                        <rect key="frame" x="186" y="8" width="100" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="VIh-d4-i0O"/>
@@ -200,7 +200,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XYc-qK-Sa0">
-                                        <rect key="frame" x="60" y="8" width="44" height="44"/>
+                                        <rect key="frame" x="72" y="8" width="44" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="3Mu-kN-IRP"/>
@@ -215,7 +215,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEA-Vm-zog">
-                                        <rect key="frame" x="282" y="8" width="44" height="44"/>
+                                        <rect key="frame" x="294" y="8" width="44" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="Ncv-7y-2cq"/>
@@ -233,7 +233,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="51Q-PB-Gc9"/>
                                     <constraint firstItem="XYc-qK-Sa0" firstAttribute="centerY" secondItem="QK8-YL-nHf" secondAttribute="centerY" id="AWo-Zu-7gA"/>
-                                    <constraint firstItem="ayd-12-549" firstAttribute="leading" secondItem="QK8-YL-nHf" secondAttribute="leading" constant="8" id="FgL-9V-idR"/>
+                                    <constraint firstItem="ayd-12-549" firstAttribute="leading" secondItem="QK8-YL-nHf" secondAttribute="leading" constant="20" id="FgL-9V-idR"/>
                                     <constraint firstItem="kEA-Vm-zog" firstAttribute="leading" secondItem="4Rm-ov-7Vt" secondAttribute="trailing" constant="8" id="IyT-pA-tBW"/>
                                     <constraint firstItem="LrY-gF-Tgj" firstAttribute="centerY" secondItem="QK8-YL-nHf" secondAttribute="centerY" id="Kx0-LD-srD"/>
                                     <constraint firstItem="ayd-12-549" firstAttribute="centerY" secondItem="QK8-YL-nHf" secondAttribute="centerY" id="MgW-3S-Qbj"/>
@@ -242,7 +242,7 @@
                                     <constraint firstItem="4Rm-ov-7Vt" firstAttribute="leading" secondItem="LrY-gF-Tgj" secondAttribute="trailing" constant="8" id="emM-7X-9Fj"/>
                                     <constraint firstItem="XYc-qK-Sa0" firstAttribute="leading" secondItem="ayd-12-549" secondAttribute="trailing" constant="8" id="hVj-nm-jyX"/>
                                     <constraint firstAttribute="bottom" secondItem="ayd-12-549" secondAttribute="bottom" constant="8" id="lvH-1b-ASa"/>
-                                    <constraint firstAttribute="trailing" secondItem="kEA-Vm-zog" secondAttribute="trailing" constant="8" id="mho-zt-DO4"/>
+                                    <constraint firstAttribute="trailing" secondItem="kEA-Vm-zog" secondAttribute="trailing" constant="20" id="mho-zt-DO4"/>
                                     <constraint firstItem="LrY-gF-Tgj" firstAttribute="leading" secondItem="XYc-qK-Sa0" secondAttribute="trailing" constant="8" id="sF4-5w-GIF"/>
                                 </constraints>
                             </scrollView>
@@ -260,21 +260,27 @@
                                         <state key="normal" title="1 hour">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didPressTimeFrameButton:" destination="coe-Gc-YPD" eventType="touchUpInside" id="LCb-tN-6Tp"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIj-Rf-a6n">
-                                        <rect key="frame" x="68" y="4" width="52" height="30"/>
+                                        <rect key="frame" x="68" y="4" width="64" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="52" id="JlX-Zd-lMV"/>
+                                            <constraint firstAttribute="width" constant="64" id="JlX-Zd-lMV"/>
                                             <constraint firstAttribute="height" constant="30" id="ak3-cF-zic"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <state key="normal" title="24 hours">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didPressTimeFrameButton:" destination="coe-Gc-YPD" eventType="touchUpInside" id="UCS-NU-p0x"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4mt-K7-wRs">
-                                        <rect key="frame" x="128" y="4" width="52" height="30"/>
+                                        <rect key="frame" x="140" y="4" width="52" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="D3u-7Z-AoF"/>
@@ -284,9 +290,12 @@
                                         <state key="normal" title="week">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didPressTimeFrameButton:" destination="coe-Gc-YPD" eventType="touchUpInside" id="p4G-Rh-CRU"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Si-aM-RtE">
-                                        <rect key="frame" x="188" y="4" width="52" height="30"/>
+                                        <rect key="frame" x="200" y="4" width="52" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="52" id="6mc-LD-3KW"/>
@@ -296,9 +305,12 @@
                                         <state key="normal" title="month">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didPressTimeFrameButton:" destination="coe-Gc-YPD" eventType="touchUpInside" id="2K3-zh-m6u"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4CA-9p-CGn">
-                                        <rect key="frame" x="248" y="4" width="52" height="30"/>
+                                        <rect key="frame" x="260" y="4" width="52" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="52" id="6xG-1o-Ehn"/>
@@ -308,9 +320,12 @@
                                         <state key="normal" title="year">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didPressTimeFrameButton:" destination="coe-Gc-YPD" eventType="touchUpInside" id="NpI-e3-hsr"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ox5-oZ-IkH">
-                                        <rect key="frame" x="308" y="4" width="52" height="30"/>
+                                        <rect key="frame" x="320" y="4" width="52" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="52" id="Iuc-qV-aHz"/>
@@ -320,6 +335,9 @@
                                         <state key="normal" title="all time">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="didPressTimeFrameButton:" destination="coe-Gc-YPD" eventType="touchUpInside" id="10q-Oa-sQI"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -334,7 +352,7 @@
                                     <constraint firstItem="ox5-oZ-IkH" firstAttribute="leading" secondItem="4CA-9p-CGn" secondAttribute="trailing" constant="8" id="ZaE-Bw-KY8"/>
                                     <constraint firstAttribute="bottom" secondItem="ox5-oZ-IkH" secondAttribute="bottom" constant="4" id="a54-SI-Uoi"/>
                                     <constraint firstAttribute="height" constant="38" id="ayf-Do-k1D"/>
-                                    <constraint firstAttribute="trailing" secondItem="ox5-oZ-IkH" secondAttribute="trailing" constant="8" id="c13-4z-7B5"/>
+                                    <constraint firstAttribute="trailing" secondItem="ox5-oZ-IkH" secondAttribute="trailing" constant="10" id="c13-4z-7B5"/>
                                     <constraint firstItem="NIj-Rf-a6n" firstAttribute="leading" secondItem="zPT-fl-bL7" secondAttribute="trailing" constant="8" id="daN-zc-INN"/>
                                     <constraint firstItem="4mt-K7-wRs" firstAttribute="top" secondItem="Q1H-VZ-UF4" secondAttribute="top" constant="4" id="fqV-KV-mkb"/>
                                     <constraint firstItem="zPT-fl-bL7" firstAttribute="top" secondItem="Q1H-VZ-UF4" secondAttribute="top" constant="4" id="jh9-qN-F96"/>
@@ -360,12 +378,18 @@
                     </view>
                     <size key="freeformSize" width="500" height="667"/>
                     <connections>
+                        <outlet property="allTime" destination="ox5-oZ-IkH" id="sKo-0b-aXq"/>
                         <outlet property="controversialButton" destination="4Rm-ov-7Vt" id="NuN-WN-uZv"/>
                         <outlet property="hotButton" destination="ayd-12-549" id="4Xu-9e-y8e"/>
+                        <outlet property="month" destination="3Si-aM-RtE" id="3dc-yr-PjW"/>
                         <outlet property="newButton" destination="XYc-qK-Sa0" id="a9R-Ep-LvN"/>
+                        <outlet property="oneHour" destination="zPT-fl-bL7" id="k6k-L3-ntZ"/>
                         <outlet property="risingButton" destination="LrY-gF-Tgj" id="oSw-ut-6o0"/>
                         <outlet property="timeFrameScrollView" destination="Q1H-VZ-UF4" id="VD9-uN-pFP"/>
                         <outlet property="topButton" destination="kEA-Vm-zog" id="jOw-0i-Sii"/>
+                        <outlet property="twentyFourHours" destination="NIj-Rf-a6n" id="WAi-EF-Oy5"/>
+                        <outlet property="week" destination="4mt-K7-wRs" id="GJo-1I-X29"/>
+                        <outlet property="year" destination="4CA-9p-CGn" id="T8q-bi-9AX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AZu-E9-98i" userLabel="First Responder" sceneMemberID="firstResponder"/>

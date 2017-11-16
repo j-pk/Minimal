@@ -54,6 +54,17 @@ enum CategoryTimeFrame {
     case year
     case allTime
     
+    var titleValue: String {
+        switch self {
+        case .hour: return "1 hour"
+        case .twentyFourHours: return "24 hours"
+        case .week: return "week"
+        case .month: return "month"
+        case .year: return "year"
+        case .allTime: return "all time"
+        }
+    }
+    
     static let allValues = [hour, twentyFourHours, week, month, year, allTime]
 }
 

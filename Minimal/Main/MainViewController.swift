@@ -99,7 +99,7 @@ class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popOverControllerSegue" {
             segue.destination.popoverPresentationController?.delegate = self
-            segue.destination.preferredContentSize = CGSize(width: 160, height: 60)
+            segue.destination.preferredContentSize = CGSize(width: self.view.frame.width, height: 60)
             segue.destination.popoverPresentationController?.sourceRect = CGRect(x: 5, y: categoryButton.frame.maxY, width:0, height: 0)
         }
     }
@@ -265,6 +265,10 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
     }
     
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        
+        guard let categoryPopOverViewController = popoverPresentationController.presentedViewController as? CategoryPopoverViewController else { return }
+        categoryButton.setTitle(categoryPopOverViewController.category.titleValue, for: .normal)
+        categoryButton.sizeToFit()
+        print(categoryPopOverViewController.category)
+        print(categoryPopOverViewController.timeFrame)
     }
 }
