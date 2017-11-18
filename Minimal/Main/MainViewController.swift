@@ -13,6 +13,7 @@ import SDWebImage
 class MainViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleButton: UIButton!
     @IBOutlet weak var categoryButton: UIButton!
     
@@ -43,21 +44,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForPreviewing(with: self, sourceView: collectionView)
-        
-        if !UIAccessibilityIsReduceTransparencyEnabled() {
-            headerView.backgroundColor = UIColor.clear
-            
-            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.extraLight)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            //always fill the view
-            blurEffectView.frame = headerView.bounds
-            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            
-            headerView.insertSubview(blurEffectView, at: 0) //if you have more UIViews, use an insertSubview API to place it where needed
-        } else {
-            headerView.backgroundColor = UIColor.black
-        }
-        
+
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = collectionViewLayout
@@ -65,6 +52,11 @@ class MainViewController: UIViewController {
 
         listingResultsController.delegate = self
         performFetch()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -245,15 +237,17 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
         if velocity < 0 {
+            self.headerViewTopConstraint.priority = UILayoutPriority(999)
             UIView.animate(withDuration: 0.3, animations: {
-                self.headerView.alpha = 0.0
-                self.headerView.isUserInteractionEnabled = false
-            })
-        } else if velocity > 0 {
-            UIView.animate(withDuration: 0.3, animations: {
+                self.headerView.backgroundColor = .clear
                 self.view.layoutIfNeeded()
-                self.headerView.alpha = 1.0
-                self.headerView.isUserInteractionEnabled = true
+            })
+            
+        } else if velocity > 0 {
+            self.headerViewTopConstraint.priority = UILayoutPriority(997)
+            UIView.animate(withDuration: 0.3, animations: {
+                self.headerView.backgroundColor = .white
+                self.view.layoutIfNeeded()
             })
         }
     }
