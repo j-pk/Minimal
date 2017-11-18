@@ -54,11 +54,6 @@ class MainViewController: UIViewController {
         performFetch()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-    
     override func didReceiveMemoryWarning() {
         SDImageCache.shared().clearMemory()
     }
@@ -93,9 +88,15 @@ class MainViewController: UIViewController {
             segue.destination.popoverPresentationController?.delegate = self
             segue.destination.preferredContentSize = CGSize(width: self.view.frame.width, height: 60)
             segue.destination.popoverPresentationController?.sourceRect = CGRect(x: 5, y: categoryButton.frame.maxY, width:0, height: 0)
+        } else if segue.identifier == "commentsControllerSegue" {
+            if let commentsViewController = segue.destination as? CommentsViewController {
+                guard let cell = sender as? MainCell else { return }
+                guard let indexPath = collectionView.indexPath(for: cell) else { return }
+                let listing = self.listingResultsController.object(at: indexPath)
+                commentsViewController.listing = listing
+            }
         }
     }
-
 }
 
 extension MainViewController: UICollectionViewDataSource {

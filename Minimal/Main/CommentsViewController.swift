@@ -7,10 +7,17 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CommentsViewController: UIViewController {
+    @IBOutlet weak var imageView: FLAnimatedImageView!
+    
+    var listing: Listing?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        guard let listing = listing, let url = listing.url, let imageUrl = URL(string: url) else { return }
+        imageView.sd_setImage(with: imageUrl)
     }
 }

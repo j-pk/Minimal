@@ -62,7 +62,7 @@
                                         <connections>
                                             <outlet property="imageView" destination="gJD-1I-lQf" id="ToY-TN-O0K"/>
                                             <outlet property="playerView" destination="6SU-pf-L1l" id="otr-7T-N8I"/>
-                                            <segue destination="gO7-rA-08V" kind="show" id="67v-Q5-tWu"/>
+                                            <segue destination="gO7-rA-08V" kind="show" identifier="commentsControllerSegue" id="67v-Q5-tWu"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -432,14 +432,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Stm-tl-BGQ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Stm-tl-BGQ" customClass="FLAnimatedImageView">
+                                <rect key="frame" x="0.0" y="20" width="414" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="KOL-dm-wH9"/>
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UcT-V0-iMp">
-                                <rect key="frame" x="0.0" y="300" width="414" height="387"/>
+                                <rect key="frame" x="0.0" y="320" width="414" height="367"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="UNo-JR-NpI">
@@ -457,7 +457,7 @@
                         <constraints>
                             <constraint firstItem="UcT-V0-iMp" firstAttribute="top" secondItem="Stm-tl-BGQ" secondAttribute="bottom" id="2kR-Mo-YNH"/>
                             <constraint firstItem="Stm-tl-BGQ" firstAttribute="trailing" secondItem="veW-cm-XEw" secondAttribute="trailing" id="BnD-kY-fYQ"/>
-                            <constraint firstItem="Stm-tl-BGQ" firstAttribute="top" secondItem="HWK-Lj-gYD" secondAttribute="top" id="Kmr-ZY-gwO"/>
+                            <constraint firstItem="Stm-tl-BGQ" firstAttribute="top" secondItem="veW-cm-XEw" secondAttribute="top" id="Kmr-ZY-gwO"/>
                             <constraint firstItem="UcT-V0-iMp" firstAttribute="bottom" secondItem="veW-cm-XEw" secondAttribute="bottom" id="brC-c6-OTC"/>
                             <constraint firstItem="Stm-tl-BGQ" firstAttribute="leading" secondItem="veW-cm-XEw" secondAttribute="leading" id="d7g-J6-cC2"/>
                             <constraint firstItem="UcT-V0-iMp" firstAttribute="trailing" secondItem="veW-cm-XEw" secondAttribute="trailing" id="q73-ac-F6z"/>
@@ -465,6 +465,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="veW-cm-XEw"/>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="Stm-tl-BGQ" id="fMq-2H-vQw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I8x-eN-bSY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -569,7 +572,7 @@
         <!--Main-->
         <scene sceneID="9Zc-Gk-FAY">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="LmF-fu-8v3" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="LmF-fu-8v3" customClass="HiddenNavBarNavigationController" customModule="Minimal" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Main" id="f2F-ON-bAz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5Nf-Hx-OVE">
