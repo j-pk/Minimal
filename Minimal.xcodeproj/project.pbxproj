@@ -38,6 +38,9 @@
 		C0DA84DC1FA01769006BE949 /* ListingEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84DB1FA01769006BE949 /* ListingEnums.swift */; };
 		C0EC9B951FBFE3980073FF7A /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */; };
 		C0EC9B971FC0A1750073FF7A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B961FC0A1750073FF7A /* NavigationController.swift */; };
+		C0EC9B991FC0EC780073FF7A /* TitleAndDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EC9B981FC0EC780073FF7A /* TitleAndDetailsView.xib */; };
+		C0EC9B9B1FC0ED9A0073FF7A /* TitleAndDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B9A1FC0ED9A0073FF7A /* TitleAndDetailsView.swift */; };
+		C0EC9B9D1FC112B90073FF7A /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B9C1FC112B90073FF7A /* HeaderCell.swift */; };
 		C0ED1F9C1FB2AC1900580C1E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */; };
 		C0ED1F9E1FB3F0DB00580C1E /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED1F9D1FB3F0DB00580C1E /* DateExtensions.swift */; };
 /* End PBXBuildFile section */
@@ -76,6 +79,9 @@
 		C0DA84DB1FA01769006BE949 /* ListingEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingEnums.swift; sourceTree = "<group>"; };
 		C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		C0EC9B961FC0A1750073FF7A /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		C0EC9B981FC0EC780073FF7A /* TitleAndDetailsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleAndDetailsView.xib; sourceTree = "<group>"; };
+		C0EC9B9A1FC0ED9A0073FF7A /* TitleAndDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleAndDetailsView.swift; sourceTree = "<group>"; };
+		C0EC9B9C1FC112B90073FF7A /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C0ED1F9D1FB3F0DB00580C1E /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		E24D1E61FEBD271FBA772ED4 /* Pods-Minimal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minimal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minimal/Pods-Minimal.debug.xcconfig"; sourceTree = "<group>"; };
@@ -186,6 +192,9 @@
 				C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */,
 				C08D56F81FBAA10E0053FEA5 /* CategoryPopoverViewController.swift */,
 				C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */,
+				C0EC9B981FC0EC780073FF7A /* TitleAndDetailsView.xib */,
+				C0EC9B9A1FC0ED9A0073FF7A /* TitleAndDetailsView.swift */,
+				C0EC9B9C1FC112B90073FF7A /* HeaderCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -334,6 +343,7 @@
 				C0A385951F9E90DF005064DF /* Main.storyboard in Resources */,
 				C0A3858F1F9E5718005064DF /* Root.storyboard in Resources */,
 				C0A385931F9E9089005064DF /* Search.storyboard in Resources */,
+				C0EC9B991FC0EC780073FF7A /* TitleAndDetailsView.xib in Resources */,
 				C0A385971F9E9130005064DF /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,7 +424,9 @@
 				C03167C01FB175A900E420D0 /* MainCollectionViewFlowLayout.swift in Sources */,
 				C0ED1F9C1FB2AC1900580C1E /* DetailViewController.swift in Sources */,
 				C0A385781F9E54B0005064DF /* ViewController.swift in Sources */,
+				C0EC9B9D1FC112B90073FF7A /* HeaderCell.swift in Sources */,
 				C0A3859E1F9E98AC005064DF /* MainCell.swift in Sources */,
+				C0EC9B9B1FC0ED9A0073FF7A /* TitleAndDetailsView.swift in Sources */,
 				C03F92221FA022B9009EEEF3 /* SyncManager.swift in Sources */,
 				C03F92251FA049BE009EEEF3 /* CoreDataManager.swift in Sources */,
 				C0DA84D91FA00D10006BE949 /* Listing+CoreDataProperties.swift in Sources */,
