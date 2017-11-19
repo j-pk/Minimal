@@ -10,14 +10,12 @@ import UIKit
 import SDWebImage
 
 class DetailViewController: UIViewController {
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var detailLabel: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var imageView: FLAnimatedImageView!
     @IBOutlet weak var upVoteButton: UIButton!
     @IBOutlet weak var downVoteButton: UIButton!
     @IBOutlet weak var downVoteWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var upVoteWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleAndDetailsView: TitleAndDetailsView!
     
     var animator: UIDynamicAnimator!
     var listing: Listing?
@@ -46,37 +44,13 @@ class DetailViewController: UIViewController {
         guard let listing = listing, let url = listing.url, let imageUrl = URL(string: url) else { return }
         imageView.sd_setImage(with: imageUrl)
         
-        let mutableAttributedString = NSMutableAttributedString()
-        
-        if let title = listing.title {
-            let boldAttribute = [
-                NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 12),
-                NSAttributedStringKey.foregroundColor: UIColor.black
-            ]
-            let boldAttributedString = NSAttributedString(string: title, attributes: boldAttribute)
-            
-            mutableAttributedString.append(boldAttributedString)
-        }
-        if let domain = listing.domain {
-            let regularAttribute = [
-                NSAttributedStringKey.font: UIFont.systemFont(ofSize: 8),
-                NSAttributedStringKey.foregroundColor: UIColor.gray
-            ]
-            let regularAttributedString = NSAttributedString(string: " (\(domain))", attributes: regularAttribute)
-            mutableAttributedString.append(regularAttributedString)
-        }
-        
-        titleLabel.attributedText = mutableAttributedString
-        detailLabel.text = listing.subredditNamePrefixed
-        
-        var descriptionString = "\(listing.score) upvotes"
-        if let author = listing.author {
-            descriptionString += " submitted by \(author)"
-        }
-        if let dateCreated = listing.created {
-            descriptionString += " \(dateCreated.timeAgoSinceNow())"
-        }
-        descriptionLabel.text = descriptionString
+        titleAndDetailsView.author = listing.author
+        titleAndDetailsView.title = listing.title
+        titleAndDetailsView.domain = listing.domain
+        titleAndDetailsView.score = listing.score
+        titleAndDetailsView.dateCreated = listing.created
+        titleAndDetailsView.subredditNamePrefixed = listing.subredditNamePrefixed
+        titleAndDetailsView.setLabels()
     }
 
     override var previewActionItems: [UIPreviewActionItem] {

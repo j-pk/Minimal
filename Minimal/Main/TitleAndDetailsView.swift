@@ -46,7 +46,7 @@ class TitleAndDetailsView: UIView {
         addSubview(contentView)
     }
     
-    func configureView() {
+    func setLabels() {
         let mutableAttributedString = NSMutableAttributedString()
         
         if let title = title {

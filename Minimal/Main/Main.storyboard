@@ -11,7 +11,6 @@
     <customFonts key="customFonts">
         <array key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
-            <string>HelveticaNeue-Medium</string>
         </array>
     </customFonts>
     <scenes>
@@ -585,31 +584,12 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="ReX-9y-Hsf">
-                                <rect key="frame" x="24" y="666" width="414" height="58"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Nc-se-n4D">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="20.333333333333332"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWj-UQ-lDh">
-                                        <rect key="frame" x="0.0" y="26.333333333333371" width="414" height="14"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMg-Oa-V8o">
-                                        <rect key="frame" x="0.0" y="46.333333333333371" width="414" height="11.666666666666664"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oXo-Lj-kgv" customClass="TitleAndDetailsView" customModule="Minimal" customModuleProvider="target">
+                                <rect key="frame" x="24" y="666" width="366" height="58"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="two-f8-FJw">
-                                <rect key="frame" x="414" y="675.33333333333337" width="0.0" height="40"/>
+                                <rect key="frame" x="402" y="675.33333333333337" width="0.0" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="LZ3-zI-JOp" userLabel="height = 40"/>
                                     <constraint firstAttribute="width" priority="998" id="uZb-kL-RpW"/>
@@ -632,31 +612,29 @@
                             <constraint firstItem="JJG-UX-wal" firstAttribute="trailing" secondItem="two-f8-FJw" secondAttribute="trailing" constant="12" id="4HW-Sr-R7b"/>
                             <constraint firstItem="Lli-R5-wRw" firstAttribute="top" secondItem="JJG-UX-wal" secondAttribute="top" id="57q-Ox-JiO"/>
                             <constraint firstItem="Lli-R5-wRw" firstAttribute="trailing" secondItem="JJG-UX-wal" secondAttribute="trailing" id="6ky-qV-ugQ"/>
-                            <constraint firstItem="JJG-UX-wal" firstAttribute="bottom" secondItem="ReX-9y-Hsf" secondAttribute="bottom" constant="12" id="9MO-eO-mxD"/>
                             <constraint firstItem="ef8-dd-cxh" firstAttribute="leading" secondItem="JJG-UX-wal" secondAttribute="leading" constant="12" id="BxC-hR-2U4"/>
                             <constraint firstItem="Lli-R5-wRw" firstAttribute="leading" secondItem="JJG-UX-wal" secondAttribute="leading" id="Hey-zo-k3B"/>
-                            <constraint firstItem="ReX-9y-Hsf" firstAttribute="top" secondItem="Lli-R5-wRw" secondAttribute="bottom" constant="12" id="IAc-Of-sCF"/>
-                            <constraint firstItem="ef8-dd-cxh" firstAttribute="centerY" secondItem="ReX-9y-Hsf" secondAttribute="centerY" id="YVB-AW-aXH"/>
-                            <constraint firstItem="two-f8-FJw" firstAttribute="leading" secondItem="ReX-9y-Hsf" secondAttribute="trailing" constant="8" id="o0Z-Yd-RHE"/>
-                            <constraint firstItem="two-f8-FJw" firstAttribute="centerY" secondItem="ReX-9y-Hsf" secondAttribute="centerY" id="pTJ-pf-dzy"/>
-                            <constraint firstItem="6Nc-se-n4D" firstAttribute="leading" secondItem="ef8-dd-cxh" secondAttribute="trailing" constant="12" id="x0T-Ni-mEW"/>
+                            <constraint firstItem="oXo-Lj-kgv" firstAttribute="leading" secondItem="ef8-dd-cxh" secondAttribute="trailing" constant="12" id="KW4-9e-qFy"/>
+                            <constraint firstItem="ef8-dd-cxh" firstAttribute="centerY" secondItem="oXo-Lj-kgv" secondAttribute="centerY" id="Nwr-ni-rEB"/>
+                            <constraint firstItem="JJG-UX-wal" firstAttribute="bottom" secondItem="oXo-Lj-kgv" secondAttribute="bottom" constant="12" id="Pz3-D6-DoS"/>
+                            <constraint firstItem="two-f8-FJw" firstAttribute="centerY" secondItem="oXo-Lj-kgv" secondAttribute="centerY" id="e0B-an-kCo"/>
+                            <constraint firstItem="oXo-Lj-kgv" firstAttribute="top" secondItem="Lli-R5-wRw" secondAttribute="bottom" constant="12" id="fSD-zf-mtc"/>
+                            <constraint firstItem="two-f8-FJw" firstAttribute="leading" secondItem="oXo-Lj-kgv" secondAttribute="trailing" constant="12" id="iGC-0b-LaE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JJG-UX-wal"/>
                     </view>
                     <connections>
-                        <outlet property="descriptionLabel" destination="HMg-Oa-V8o" id="fCZ-Ir-51f"/>
-                        <outlet property="detailLabel" destination="YWj-UQ-lDh" id="Jjw-8v-y3Q"/>
                         <outlet property="downVoteButton" destination="two-f8-FJw" id="QS4-Na-inD"/>
                         <outlet property="downVoteWidthConstraint" destination="v49-Xd-Mav" id="X34-x4-I8l"/>
                         <outlet property="imageView" destination="Lli-R5-wRw" id="w9z-6u-3VL"/>
-                        <outlet property="titleLabel" destination="6Nc-se-n4D" id="nUi-hw-q2I"/>
+                        <outlet property="titleAndDetailsView" destination="oXo-Lj-kgv" id="ams-1P-mFw"/>
                         <outlet property="upVoteButton" destination="ef8-dd-cxh" id="PSe-Gf-ihq"/>
                         <outlet property="upVoteWidthConstraint" destination="u4N-zd-lnL" id="aNm-Ro-wTs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KE4-WY-dKw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1120.2898550724638" y="982.33695652173924"/>
+            <point key="canvasLocation" x="1118.840579710145" y="982.33695652173924"/>
         </scene>
         <!--Main-->
         <scene sceneID="9Zc-Gk-FAY">

@@ -34,7 +34,7 @@ class HeaderCell: UITableViewCell {
         titleAndDetailsView.score = listing.score
         titleAndDetailsView.dateCreated = listing.created
         titleAndDetailsView.subredditNamePrefixed = listing.subredditNamePrefixed
-        titleAndDetailsView.configureView()
+        titleAndDetailsView.setLabels()
         sdImageView.sd_setImage(with: url, placeholderImage: nil)
     }
 }
