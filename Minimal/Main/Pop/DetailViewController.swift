@@ -10,12 +10,12 @@ import UIKit
 import SDWebImage
 
 class DetailViewController: UIViewController {
-    @IBOutlet var imageView: FLAnimatedImageView!
+    @IBOutlet weak var presentationView: PresentationView!
     @IBOutlet weak var upVoteButton: UIButton!
     @IBOutlet weak var downVoteButton: UIButton!
     @IBOutlet weak var downVoteWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var upVoteWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var titleAndDetailsView: TitleAndDetailsView!
+    @IBOutlet weak var subscriptLabelView: SubscriptLabelView!
     
     var animator: UIDynamicAnimator!
     var listing: Listing?
@@ -29,10 +29,10 @@ class DetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(isPopped), name: Notification.Name.isPopped, object: nil)
         configureDetailViewController()
         
-        animator = UIDynamicAnimator(referenceView: imageView)
+        animator = UIDynamicAnimator(referenceView: presentationView)
         
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanImageView))
-        imageView.addGestureRecognizer(panGestureRecognizer)
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanPresentationView))
+        presentationView.addGestureRecognizer(panGestureRecognizer)
     }
     
     @objc func isPopped() {
@@ -41,16 +41,10 @@ class DetailViewController: UIViewController {
     }
     
     func configureDetailViewController() {
-        guard let listing = listing, let url = listing.url, let imageUrl = URL(string: url) else { return }
-        imageView.sd_setImage(with: imageUrl)
+        guard let listing = listing else { return }
         
-        titleAndDetailsView.author = listing.author
-        titleAndDetailsView.title = listing.title
-        titleAndDetailsView.domain = listing.domain
-        titleAndDetailsView.score = listing.score
-        titleAndDetailsView.dateCreated = listing.created
-        titleAndDetailsView.subredditNamePrefixed = listing.subredditNamePrefixed
-        titleAndDetailsView.setLabels()
+        presentationView.setView(forListing: listing)
+        subscriptLabelView.setLabels(forListing: listing)
     }
 
     override var previewActionItems: [UIPreviewActionItem] {
@@ -68,16 +62,16 @@ class DetailViewController: UIViewController {
         return [upvoteAction, downvoteAction, shareAction]
     }
     
-    @objc func didPanImageView(sender: UIPanGestureRecognizer) {
+    @objc func didPanPresentationView(sender: UIPanGestureRecognizer) {
         animator.removeAllBehaviors()
         
-        let velocity = sender.velocity(in: self.imageView)
-        let imagePushBehavior = UIPushBehavior(items: [self.imageView], mode: UIPushBehaviorMode.instantaneous)
+        let velocity = sender.velocity(in: presentationView)
+        let imagePushBehavior = UIPushBehavior(items: [presentationView], mode: UIPushBehaviorMode.instantaneous)
         imagePushBehavior.pushDirection = CGVector(dx: velocity.x * 0.5, dy: velocity.y * 0.5)
         imagePushBehavior.magnitude = 35
-        imagePushBehavior.setTargetOffsetFromCenter(UIOffsetMake(-400, 400), for: self.imageView)
+        imagePushBehavior.setTargetOffsetFromCenter(UIOffsetMake(-400, 400), for: presentationView)
         
-        let itemBehavior = UIDynamicItemBehavior(items: [imageView])
+        let itemBehavior = UIDynamicItemBehavior(items: [presentationView])
         itemBehavior.friction = 0.2
         itemBehavior.allowsRotation = true
         

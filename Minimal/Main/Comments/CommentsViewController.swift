@@ -11,7 +11,7 @@ import UIKit
 class CommentsViewController: UIViewController {    
     @IBOutlet weak var tableView: UITableView!
     var listing: Listing?
-    
+    	
     override func viewDidLoad() {
         super.viewDidLoad()
         //in addition to passing the listing, perhaps just pass the image to instead of setting it to do

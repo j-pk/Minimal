@@ -8,12 +8,12 @@
 
 import CoreData
 
-protocol Managed: class, NSFetchRequestResult {
+protocol Manageable: class, NSFetchRequestResult {
     static var entityName: String { get }
     static func populateObject<T: Decodable>(fromJSON json: T, save: Bool, moc: NSManagedObjectContext, completionHandler: @escaping ((Error?)->()))
 }
 
-extension Managed where Self: NSManagedObject {
+extension Manageable where Self: NSManagedObject {
     static var entityName: String {
         return String(describing: self)
     }
@@ -38,7 +38,7 @@ extension Managed where Self: NSManagedObject {
         }
     }
     
-    private static func insert<T: NSManagedObject>(context: NSManagedObjectContext) throws -> T? where T: Managed {
+    private static func insert<T: NSManagedObject>(context: NSManagedObjectContext) throws -> T? where T: Manageable {
         
         guard let object = NSEntityDescription.insertNewObject(forEntityName: T.entityName, into: context) as? T else {
             throw CoreDataError.failedToInsertObject("\(T.entityName)")

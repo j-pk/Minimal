@@ -85,7 +85,7 @@ struct ListingData: Decodable {
     
     enum MediaCodingKeys: String, CodingKey {
         case oembed
-        case mediaUrl = "thumbnail_url"
+        case mediaUrl = "author_url"
         case redditVideo = "reddit_video"
         case hlsUrl = "hls_url"
     }
