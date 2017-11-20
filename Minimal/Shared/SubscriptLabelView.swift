@@ -14,27 +14,28 @@ class SubscriptLabelView: XibView {
     @IBOutlet weak var descriptionLabel: UILabel!
     
     func setLabels(forListing listing: Listing) {
-        let mutableAttributedString = NSMutableAttributedString()
         
+        let boldAttribute = [
+            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 12),
+            NSAttributedStringKey.foregroundColor: UIColor.black
+        ]
+        
+        let regularAttribute = [
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 8),
+            NSAttributedStringKey.foregroundColor: UIColor.gray
+        ]
+        
+        let mutableAttributedTitleString = NSMutableAttributedString()
         if let title = listing.title {
-            let boldAttribute = [
-                NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 12),
-                NSAttributedStringKey.foregroundColor: UIColor.black
-            ]
             let boldAttributedString = NSAttributedString(string: title, attributes: boldAttribute)
-            
-            mutableAttributedString.append(boldAttributedString)
+            mutableAttributedTitleString.append(boldAttributedString)
         }
         if let domain = listing.domain {
-            let regularAttribute = [
-                NSAttributedStringKey.font: UIFont.systemFont(ofSize: 8),
-                NSAttributedStringKey.foregroundColor: UIColor.gray
-            ]
             let regularAttributedString = NSAttributedString(string: " (\(domain))", attributes: regularAttribute)
-            mutableAttributedString.append(regularAttributedString)
+            mutableAttributedTitleString.append(regularAttributedString)
         }
         
-        titleLabel.attributedText = mutableAttributedString
+        titleLabel.attributedText = mutableAttributedTitleString
         detailLabel.text = listing.subredditNamePrefixed
         
         var descriptionString = "\(listing.score) upvotes"

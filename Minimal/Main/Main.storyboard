@@ -630,7 +630,6 @@
                         <outlet property="downVoteWidthConstraint" destination="v49-Xd-Mav" id="X34-x4-I8l"/>
                         <outlet property="presentationView" destination="3YO-K0-vmO" id="Wvt-OK-Oq4"/>
                         <outlet property="subscriptLabelView" destination="oXo-Lj-kgv" id="3L2-FA-pdf"/>
-                        <outlet property="titleAndDetailsView" destination="oXo-Lj-kgv" id="ams-1P-mFw"/>
                         <outlet property="upVoteButton" destination="ef8-dd-cxh" id="PSe-Gf-ihq"/>
                         <outlet property="upVoteWidthConstraint" destination="u4N-zd-lnL" id="aNm-Ro-wTs"/>
                     </connections>

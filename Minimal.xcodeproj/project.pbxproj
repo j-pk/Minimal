@@ -265,6 +265,8 @@
 				C0110E131FB4DF5700410478 /* TypeName.swift */,
 				C0DA84DB1FA01769006BE949 /* ListingEnums.swift */,
 				C0EC9B961FC0A1750073FF7A /* NavigationController.swift */,
+				C0EC9B981FC0EC780073FF7A /* SubscriptLabelView.xib */,
+				C0EC9B9A1FC0ED9A0073FF7A /* SubscriptLabelView.swift */,
 				C0EC9BA01FC237AA0073FF7A /* PresentationView.xib */,
 				C0EC9BA21FC237BE0073FF7A /* PresentationView.swift */,
 			);
@@ -275,8 +277,6 @@
 			isa = PBXGroup;
 			children = (
 				C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */,
-				C0EC9B981FC0EC780073FF7A /* SubscriptLabelView.xib */,
-				C0EC9B9A1FC0ED9A0073FF7A /* SubscriptLabelView.swift */,
 				C0EC9B9C1FC112B90073FF7A /* HeaderCell.swift */,
 			);
 			path = Comments;
