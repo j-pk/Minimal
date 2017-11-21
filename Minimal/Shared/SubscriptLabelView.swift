@@ -25,6 +25,11 @@ class SubscriptLabelView: XibView {
             NSAttributedStringKey.foregroundColor: UIColor.gray
         ]
         
+        let highlightedAttribute = [
+            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 8),
+            NSAttributedStringKey.foregroundColor: UIColor.orange
+        ]
+        
         let mutableAttributedTitleString = NSMutableAttributedString()
         if let title = listing.title {
             let boldAttributedString = NSAttributedString(string: title, attributes: boldAttribute)
@@ -45,6 +50,8 @@ class SubscriptLabelView: XibView {
         if let dateCreated = listing.created {
             descriptionString += " \(dateCreated.timeAgoSinceNow())"
         }
-        descriptionLabel.text = descriptionString
+        let descriptionAttributedString = NSMutableAttributedString(string: descriptionString)
+        descriptionAttributedString.addAttributes(highlightedAttribute, range: (descriptionString as NSString).range(of: "\(listing.score)"))
+        descriptionLabel.attributedText = descriptionAttributedString
     }
 }

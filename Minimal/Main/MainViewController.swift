@@ -69,7 +69,7 @@ class MainViewController: UIViewController {
         do {
             try self.listingResultsController.performFetch()
             if self.listingResultsController.fetchedObjects?.count == 0 && self.isPaginating == false {
-                SyncManager.default.syncListing(forUrlData: URLData(subreddit: nil, after: nil, limit: nil, category: nil), completionHandler: { error in
+                SyncManager.default.syncListing(prefix: "", category: nil, timeframe: nil, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     }
@@ -123,14 +123,14 @@ extension MainViewController: UICollectionViewDataSource {
         guard indexPath.item == listingsCount - 1 && isPaginating == false else { return }
         isPaginating = true
         let listing = self.listingResultsController.object(at: indexPath)
-        let urlData = URLData(subreddit: nil, after: listing.after, limit: 15, category: nil)
-        SyncManager.default.syncListing(forUrlData: urlData, completionHandler: { error in
-            if let error = error {
-                print(error)
-            } else {
-                self.isPaginating = false
-            }
-        })
+//        let urlData = URLData(subreddit: nil, after: listing.after, limit: 15, category: nil)
+//        SyncManager.default.syncListing(forUrlData: urlData, completionHandler: { error in
+//            if let error = error {
+//                print(error)
+//            } else {
+//                self.isPaginating = false
+//            }
+//        })
     }
 }
 
