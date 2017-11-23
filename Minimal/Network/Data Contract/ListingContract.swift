@@ -29,6 +29,8 @@ struct ListingRoot: Decodable {
         case after
     }
     
+    enum CodingError: Error { case decoding(String) }
+    
     init(from decoder: Decoder) throws {
         let root = try decoder.container(keyedBy: CodingKeys.self)
         let data = try root.nestedContainer(keyedBy: ChildrenCodingKeys.self, forKey: .data)
@@ -60,7 +62,7 @@ struct ListingData: Decodable {
     
     enum KindCodingKeys: String, CodingKey {
         case kind
-        case data = "data"
+        case listing = "data"
     }
     
     enum DataCodingKeys: String, CodingKey {
@@ -90,11 +92,16 @@ struct ListingData: Decodable {
         case hlsUrl = "hls_url"
     }
     
+    enum CodingError: Error {
+        case unrecognizedVersion(String, Swift.DecodingError.Context)
+        case contentMissing(Swift.DecodingError.Context)
+    }
+    
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: KindCodingKeys.self)
         kind = try values.decode(String.self, forKey: .kind)
         
-        let data = try values.nestedContainer(keyedBy: DataCodingKeys.self, forKey: .data)
+        let data = try values.nestedContainer(keyedBy: DataCodingKeys.self, forKey: .listing)
         id = try data.decode(String.self, forKey: .id)
         subredditId  = try data.decode(String.self, forKey: .subredditId)
         name = try data.decode(String.self, forKey: .name)

@@ -9,7 +9,7 @@
 import Foundation
 
 enum NetworkError: Error {
-    case failedToParse(description: String)
+    case failedToParse(Error)
     case responseError(response: URLResponse?)
     case serverError(description: String)
 }
@@ -20,6 +20,19 @@ protocol Routable {
 
 extension Routable {
     public var urlRequest: URLRequest? { return try? setURLRequest() }
+    
+    func generateBaseURL(forPath path: String, queryItems: [URLQueryItem], method: HTTPMethod) -> URLRequest {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "www.reddit.com"
+        components.path = path
+        components.queryItems = queryItems
+        
+        let urlRequest = NSMutableURLRequest(url: components.url!)
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpMethod = method.rawValue
+        return urlRequest as URLRequest
+    }
 }
 
 public enum HTTPMethod: String {
@@ -37,9 +50,9 @@ public enum HTTPMethod: String {
 class APIManager {
     
     static let `default` = APIManager()
+    
     private let defaultSession = URLSession(configuration: .default)
     private var task: URLSessionDataTask?
-    private let baseURLString = "https://www.reddit.com/"
     
     func fetch<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping ((NetworkError?, T?)->())) where T: Decodable  {
         guard let request = route.urlRequest else { return }
@@ -59,39 +72,13 @@ class APIManager {
                 do {
                     let decoded = try decoder.decode(T.self, from: data)
                     completionHandler(nil, decoded)
-                } catch let error as NSError {
-                    completionHandler(NetworkError.failedToParse(description: error.debugDescription), nil)
+                } catch let error {
+                    completionHandler(NetworkError.failedToParse(error), nil)
                 }
             }
         }
         task?.resume()
     }
-    
-    func generateBaseURL(forPath path: String, method: HTTPMethod) -> URLRequest {
-        let url = URL(string: baseURLString)!
-        let urlRequest = NSMutableURLRequest(url: url.appendingPathComponent(path))
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.httpMethod = method.rawValue
-        return urlRequest as URLRequest
-    }
-    
+
 }
 
-extension APIManager {
-    func fetchListings(prefix: String, category: String?, timeframe: String?, completion: @escaping ((NetworkError?, [ListingMapped]?)->())) {
-        let router = ListingRouter.subreddit(prefix: prefix, category: category, timeframe: timeframe)
-        fetch(forRoute: router, withDecodable: ListingRoot.self) { (error, decoded) in
-            if let error = error {
-                print(error)
-                completion(error, nil)
-            } else {
-                if let root = decoded {
-                    let listings = root.listings.map({ listingData in ListingMapped(root: root, data: listingData) })
-                    completion(nil, listings)
-                } else {
-                    //errpr
-                }
-            }
-        }
-    }
-}

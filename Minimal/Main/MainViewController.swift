@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
     //Still need to figure this out and when to clear out old listings
     fileprivate var listingResultsController: NSFetchedResultsController<Listing> = {
         let fetchRequest = NSFetchRequest<Listing>(entityName: Listing.entityName)
-        fetchRequest.predicate = NSPredicate(format: "isImage == true && populatedDate <= %@ && populatedDate >= %@", Date().add(hours: 1) as CVarArg, Date() as CVarArg)
+        fetchRequest.predicate = NSPredicate(format: "isImage == true")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "populatedDate", ascending: true)]
         let fetchedResultsController = NSFetchedResultsController<Listing>(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.default.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         return fetchedResultsController
@@ -52,6 +52,8 @@ class MainViewController: UIViewController {
 
         listingResultsController.delegate = self
         performFetch()
+        guard let isEmpty = listingResultsController.fetchedObjects?.isEmpty, isEmpty else { return }
+        reloadCollectionView(forListing: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -67,20 +69,26 @@ class MainViewController: UIViewController {
     
     func performFetch() {
         do {
-            try self.listingResultsController.performFetch()
-            if self.listingResultsController.fetchedObjects?.count == 0 && self.isPaginating == false {
-                SyncManager.default.syncListing(prefix: "", category: nil, timeframe: nil, completionHandler: { (error) in
-                    if let error = error {
-                        print(error)
-                    }
-                })
-            }
+            try listingResultsController.performFetch()
         } catch let error {
             print("Error: \(error.localizedDescription)")
         }
     }
     
+    func reloadCollectionView(forListing listing: Listing?) {
+        if let _ = listing {
+            
+        } else {
+            SyncManager.default.syncListings(prefix: "", category: nil, timeframe: nil) { (error) in
+                if let error = error {
+                    print(error)
+                }
+            }
+        }
+    }
+    
     @IBAction func didPressTitleButton(_ sender: UIButton) {
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -116,21 +124,6 @@ extension MainViewController: UICollectionViewDataSource {
         cell.configureCell(forListing: listing)
         cell.layer.cornerRadius = 4.0
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let listingsCount = self.listingResultsController.fetchedObjects?.count else { return }
-        guard indexPath.item == listingsCount - 1 && isPaginating == false else { return }
-        isPaginating = true
-        let listing = self.listingResultsController.object(at: indexPath)
-//        let urlData = URLData(subreddit: nil, after: listing.after, limit: 15, category: nil)
-//        SyncManager.default.syncListing(forUrlData: urlData, completionHandler: { error in
-//            if let error = error {
-//                print(error)
-//            } else {
-//                self.isPaginating = false
-//            }
-//        })
     }
 }
 
@@ -250,6 +243,15 @@ extension MainViewController: UIScrollViewDelegate {
             UIView.animate(withDuration: 0.3, animations: {
                 self.headerView.backgroundColor = .white
                 self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
+            guard let lastViewedListing = self.listingResultsController.fetchedObjects?.last else { return }
+            SyncManager.default.syncListingsPage(prefix: "", category: nil, timeframe: nil, limit: 25, after: lastViewedListing.after ?? "", completionHandler: { (error) in
+                print(error?.localizedDescription)
             })
         }
     }
