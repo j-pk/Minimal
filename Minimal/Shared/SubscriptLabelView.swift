@@ -8,13 +8,18 @@
 
 import UIKit
 
+protocol SubscriptLabelViewDelegate: class {
+    func didTapDetailLabel(subredditNamePrefixed: String)
+}
+
 class SubscriptLabelView: XibView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    weak var delegate: SubscriptLabelViewDelegate?
+    
     func setLabels(forListing listing: Listing) {
-        
         let boldAttribute = [
             NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 12),
             NSAttributedStringKey.foregroundColor: UIColor.black
@@ -42,6 +47,7 @@ class SubscriptLabelView: XibView {
         
         titleLabel.attributedText = mutableAttributedTitleString
         detailLabel.text = listing.subredditNamePrefixed
+        detailLabel.textColor = .blue
         
         var descriptionString = "\(listing.score) upvotes"
         if let author = listing.author {
@@ -53,5 +59,17 @@ class SubscriptLabelView: XibView {
         let descriptionAttributedString = NSMutableAttributedString(string: descriptionString)
         descriptionAttributedString.addAttributes(highlightedAttribute, range: (descriptionString as NSString).range(of: "\(listing.score)"))
         descriptionLabel.attributedText = descriptionAttributedString
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapDetailLabel))
+        detailLabel.addGestureRecognizer(tapGestureRecognizer)
+        detailLabel.isUserInteractionEnabled = true
+    }
+    
+    @objc func didTapDetailLabel(sender: UITapGestureRecognizer) {
+        guard let subredditNamePrefixed = (sender.view as? UILabel)?.text else { return }
+        delegate?.didTapDetailLabel(subredditNamePrefixed: subredditNamePrefixed)
     }
 }

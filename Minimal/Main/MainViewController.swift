@@ -57,6 +57,7 @@ class MainViewController: UIViewController {
     }
     
     override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
         SDImageCache.shared().clearMemory()
     }
     
@@ -237,7 +238,6 @@ extension MainViewController: UIScrollViewDelegate {
                 self.headerView.backgroundColor = .clear
                 self.view.layoutIfNeeded()
             })
-            
         } else if velocity > 0 {
             self.headerViewTopConstraint.priority = UILayoutPriority(997)
             UIView.animate(withDuration: 0.3, animations: {
@@ -250,7 +250,7 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             guard let lastViewedListing = self.listingResultsController.fetchedObjects?.last else { return }
-            SyncManager.default.syncListingsPage(prefix: "", category: nil, timeframe: nil, limit: 25, after: lastViewedListing.after ?? "", completionHandler: { (error) in
+            SyncManager.default.syncListingsPage(prefix: "", category: nil, timeframe: nil, after: lastViewedListing.after ?? "", completionHandler: { (error) in
                 print(error?.localizedDescription)
             })
         }

@@ -29,6 +29,8 @@ class DetailViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(isPopped), name: Notification.Name.isPopped, object: nil)
         configureDetailViewController()
         
+        subscriptLabelView.delegate = self
+        
         animator = UIDynamicAnimator(referenceView: presentationView)
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanPresentationView))
@@ -87,3 +89,8 @@ class DetailViewController: UIViewController {
     }
 }
 
+extension DetailViewController: SubscriptLabelViewDelegate {
+    func didTapDetailLabel(prefix: String) {
+        print(prefix)
+    }
+}

@@ -36,8 +36,8 @@ class SyncManager {
         }
     }
     
-    func syncListingsPage(prefix: String, category: String?, timeframe: String?, limit: Int, after: String, completionHandler: @escaping ((Error?)->())) {
-        APIManager.default.requestListingsPage(prefix: prefix, category: category, timeframe: timeframe, limit: limit, after: after) { (error, listingObjects) in
+    func syncListingsPage(prefix: String, category: String?, timeframe: String?, limit: Int? = 25, after: String, completionHandler: @escaping ((Error?)->())) {
+        APIManager.default.requestListingsPage(prefix: prefix, category: category, timeframe: timeframe, limit: (limit ?? 25), after: after) { (error, listingObjects) in
             if let error = error {
                 completionHandler(error)
             }
