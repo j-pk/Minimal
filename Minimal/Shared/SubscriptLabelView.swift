@@ -70,6 +70,8 @@ class SubscriptLabelView: XibView {
     
     @objc func didTapDetailLabel(sender: UITapGestureRecognizer) {
         guard let subredditNamePrefixed = (sender.view as? UILabel)?.text else { return }
-        delegate?.didTapDetailLabel(subredditNamePrefixed: subredditNamePrefixed)
+        if let delegate = delegate {
+            delegate.didTapDetailLabel(subredditNamePrefixed: subredditNamePrefixed)
+        }
     }
 }

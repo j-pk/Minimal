@@ -90,7 +90,7 @@ class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: SubscriptLabelViewDelegate {
-    func didTapDetailLabel(prefix: String) {
-        print(prefix)
+    func didTapDetailLabel(subredditNamePrefixed: String) {
+        print(subredditNamePrefixed)
     }
 }

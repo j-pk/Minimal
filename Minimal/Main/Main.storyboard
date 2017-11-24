@@ -110,11 +110,6 @@
                                     <constraint firstAttribute="trailing" secondItem="cuU-0f-Wlj" secondAttribute="trailing" constant="8" id="4lH-fY-A3E"/>
                                     <constraint firstAttribute="bottom" secondItem="cuU-0f-Wlj" secondAttribute="bottom" constant="8" id="X7t-pB-owT"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="blurEffect">
-                                        <integer key="value" value="0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sNy-Gu-NBz">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
