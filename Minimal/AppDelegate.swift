@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         print(urls[urls.count-1] as URL)
         
+        configureTheme()
+        
         return true
     }
 
@@ -49,6 +51,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        } catch {
 //            print(error)
 //        }
+    }
+}
+
+// Override point for customization after application launch.
+
+extension AppDelegate {
+    
+    func configureTheme() {
+        ThemeManager.setUpTheme()
     }
 }
 

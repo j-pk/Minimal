@@ -20,44 +20,49 @@ class SubscriptLabelView: XibView {
     weak var delegate: SubscriptLabelViewDelegate?
     
     func setLabels(forListing listing: Listing) {
-        let boldAttribute = [
-            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 12),
-            NSAttributedStringKey.foregroundColor: UIColor.black
+        self.backgroundColor = ThemeManager.theme()
+
+        let boldAttributes = [
+            NSAttributedStringKey.font: ThemeManager.font(fontType: .primary),
+            NSAttributedStringKey.foregroundColor: ThemeManager.titleTextTheme()
         ]
         
-        let regularAttribute = [
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 8),
-            NSAttributedStringKey.foregroundColor: UIColor.gray
+        let regularAttributes = [
+            NSAttributedStringKey.font: ThemeManager.font(fontType: .secondary),
+            NSAttributedStringKey.foregroundColor: ThemeManager.textTheme()
         ]
         
-        let highlightedAttribute = [
-            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 8),
-            NSAttributedStringKey.foregroundColor: UIColor.orange
+        let scoreAttributes = [
+            NSAttributedStringKey.font: ThemeManager.font(fontType: .secondary),
+            NSAttributedStringKey.foregroundColor: ThemeManager.negativeTheme()
         ]
         
         let mutableAttributedTitleString = NSMutableAttributedString()
         if let title = listing.title {
-            let boldAttributedString = NSAttributedString(string: title, attributes: boldAttribute)
-            mutableAttributedTitleString.append(boldAttributedString)
+            let titleAttributedString = NSAttributedString(string: title, attributes: boldAttributes)
+            mutableAttributedTitleString.append(titleAttributedString)
         }
         if let domain = listing.domain {
-            let regularAttributedString = NSAttributedString(string: " (\(domain))", attributes: regularAttribute)
-            mutableAttributedTitleString.append(regularAttributedString)
+            let domainAttributedString = NSAttributedString(string: " (\(domain))", attributes: regularAttributes)
+            mutableAttributedTitleString.append(domainAttributedString)
         }
-        
         titleLabel.attributedText = mutableAttributedTitleString
-        detailLabel.text = listing.subredditNamePrefixed
-        detailLabel.textColor = .blue
         
-        var descriptionString = "\(listing.score) upvotes"
+        detailLabel.text = listing.subredditNamePrefixed
+        detailLabel.textColor = ThemeManager.tintTheme()
+        
+        let descriptionAttributedString = NSMutableAttributedString()
+        let scoreAttributedString = NSAttributedString(string: "\(listing.score) upvotes", attributes: scoreAttributes)
+        descriptionAttributedString.append(scoreAttributedString)
+        
         if let author = listing.author {
-            descriptionString += " submitted by \(author)"
+            let authorAttributedString = NSAttributedString(string: " submitted by \(author)", attributes: regularAttributes)
+            descriptionAttributedString.append(authorAttributedString)
         }
         if let dateCreated = listing.created {
-            descriptionString += " \(dateCreated.timeAgoSinceNow())"
+            let dateCreatedAttributedString = NSAttributedString(string: " \(dateCreated.timeAgoSinceNow())", attributes: regularAttributes)
+            descriptionAttributedString.append(dateCreatedAttributedString)
         }
-        let descriptionAttributedString = NSMutableAttributedString(string: descriptionString)
-        descriptionAttributedString.addAttributes(highlightedAttribute, range: (descriptionString as NSString).range(of: "\(listing.score)"))
         descriptionLabel.attributedText = descriptionAttributedString
     }
     

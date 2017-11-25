@@ -9,10 +9,12 @@
 import UIKit
 import CoreData
 import SDWebImage
+import ChameleonFramework
 
 class MainViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerViewStatusCover: UIView!
     @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleButton: UIButton!
     @IBOutlet weak var categoryButton: UIButton!
@@ -36,7 +38,7 @@ class MainViewController: UIViewController {
         layout.columnCount = 2
         layout.headerHeight = 10
         layout.footerHeight = 10
-        layout.sectionInset = UIEdgeInsets(top: 44, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 54, left: 10, bottom: 0, right: 10)
         return layout
     }()
     var isPaginating: Bool = false
@@ -49,7 +51,13 @@ class MainViewController: UIViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = collectionViewLayout
         collectionView.prefetchDataSource = self
-
+        collectionView.backgroundColor = ThemeManager.backgroudTheme()
+        headerView.backgroundColor = ThemeManager.titleTheme()
+        headerViewStatusCover.backgroundColor = ThemeManager.titleTheme()
+        self.view.backgroundColor = ThemeManager.backgroudTheme()
+        self.setStatusBarStyle(UIStatusBarStyleContrast)
+        tabBarController?.tabBar.barTintColor = ThemeManager.tabBarTheme()
+        
         listingResultsController.delegate = self
         performFetch()
         guard let isEmpty = listingResultsController.fetchedObjects?.isEmpty, isEmpty else { return }
@@ -236,12 +244,14 @@ extension MainViewController: UIScrollViewDelegate {
             self.headerViewTopConstraint.priority = UILayoutPriority(999)
             UIView.animate(withDuration: 0.3, animations: {
                 self.headerView.backgroundColor = .clear
+                self.headerViewStatusCover.backgroundColor = .clear
                 self.view.layoutIfNeeded()
             })
         } else if velocity > 0 {
             self.headerViewTopConstraint.priority = UILayoutPriority(997)
             UIView.animate(withDuration: 0.3, animations: {
-                self.headerView.backgroundColor = .white
+                self.headerView.backgroundColor = ThemeManager.titleTheme()
+                self.headerViewStatusCover.backgroundColor = ThemeManager.titleTheme()
                 self.view.layoutIfNeeded()
             })
         }

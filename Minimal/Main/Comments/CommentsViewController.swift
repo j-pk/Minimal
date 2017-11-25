@@ -12,12 +12,17 @@ class CommentsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var listing: Listing?
     	
+    @IBOutlet weak var bottomMenuBar: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         //in addition to passing the listing, perhaps just pass the image to instead of setting it to do
         //calculations on sectionHeaderHeight
         tableView.sectionHeaderHeight = 400
         tableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
+        
+        tableView.backgroundColor = ThemeManager.theme()
+        self.view.backgroundColor = ThemeManager.tabBarTheme()
+        bottomMenuBar.backgroundColor = ThemeManager.tabBarTheme()
     }
 }
 
@@ -27,7 +32,7 @@ extension CommentsViewController: UITableViewDataSource {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -27,9 +27,11 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(isPopped), name: Notification.Name.isPopped, object: nil)
-        configureDetailViewController()
+        configureDetailViewControllerViews()
         
         subscriptLabelView.delegate = self
+        
+        self.view.backgroundColor = ThemeManager.theme()
         
         animator = UIDynamicAnimator(referenceView: presentationView)
         
@@ -40,9 +42,10 @@ class DetailViewController: UIViewController {
     @objc func isPopped() {
         downVoteWidthConstraint.priority = UILayoutPriority(rawValue: 999)
         upVoteWidthConstraint.priority = UILayoutPriority(rawValue: 999)
+        self.view.layoutIfNeeded()
     }
     
-    func configureDetailViewController() {
+    func configureDetailViewControllerViews() {
         guard let listing = listing else { return }
         
         presentationView.setView(forListing: listing)
