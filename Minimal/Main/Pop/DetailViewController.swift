@@ -30,9 +30,7 @@ class DetailViewController: UIViewController {
         configureDetailViewControllerViews()
         
         subscriptLabelView.delegate = self
-        
-        self.view.backgroundColor = ThemeManager.theme()
-        
+                
         animator = UIDynamicAnimator(referenceView: presentationView)
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanPresentationView))

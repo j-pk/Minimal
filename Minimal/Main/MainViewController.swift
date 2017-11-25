@@ -51,12 +51,9 @@ class MainViewController: UIViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = collectionViewLayout
         collectionView.prefetchDataSource = self
-        collectionView.backgroundColor = ThemeManager.backgroudTheme()
-        headerView.backgroundColor = ThemeManager.titleTheme()
-        headerViewStatusCover.backgroundColor = ThemeManager.titleTheme()
-        self.view.backgroundColor = ThemeManager.backgroudTheme()
-        self.setStatusBarStyle(UIStatusBarStyleContrast)
-        tabBarController?.tabBar.barTintColor = ThemeManager.tabBarTheme()
+        
+        self.headerView.backgroundColor = ThemeManager.default.primaryTheme
+        self.headerViewStatusCover.backgroundColor = ThemeManager.default.primaryTheme
         
         listingResultsController.delegate = self
         performFetch()
@@ -243,15 +240,15 @@ extension MainViewController: UIScrollViewDelegate {
         if velocity < 0 {
             self.headerViewTopConstraint.priority = UILayoutPriority(999)
             UIView.animate(withDuration: 0.3, animations: {
-                self.headerView.backgroundColor = .clear
-                self.headerViewStatusCover.backgroundColor = .clear
+                self.headerView.alpha = 0.0
+                self.headerViewStatusCover.alpha = 0.0
                 self.view.layoutIfNeeded()
             })
         } else if velocity > 0 {
             self.headerViewTopConstraint.priority = UILayoutPriority(997)
             UIView.animate(withDuration: 0.3, animations: {
-                self.headerView.backgroundColor = ThemeManager.titleTheme()
-                self.headerViewStatusCover.backgroundColor = ThemeManager.titleTheme()
+                self.headerView.alpha = 1.0
+                self.headerViewStatusCover.alpha = 1.0
                 self.view.layoutIfNeeded()
             })
         }

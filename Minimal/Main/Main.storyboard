@@ -438,7 +438,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UcT-V0-iMp">
-                                <rect key="frame" x="0.0" y="20" width="414" height="618"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="617"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderCell" rowHeight="400" id="UNo-JR-NpI" customClass="HeaderCell" customModule="Minimal" customModuleProvider="target">
@@ -479,11 +479,14 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dsv-20-lsS">
-                                <rect key="frame" x="0.0" y="650" width="414" height="25"/>
+                                <rect key="frame" x="0.0" y="637" width="414" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Iyf-nR-RSp"/>
+                                </constraints>
                             </view>
                             <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACR-tR-Gm2">
-                                <rect key="frame" x="0.0" y="650" width="414" height="25"/>
+                                <rect key="frame" x="0.0" y="649" width="414" height="26"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7C2-AQ-xGD">
                                         <rect key="frame" x="18" y="0.0" width="378" height="25"/>
@@ -506,10 +509,10 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ra-zt-ksb">
                                                 <rect key="frame" x="353" y="0.0" width="25" height="25"/>
-                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="share"/>
                                             </button>
                                         </subviews>
+                                        <color key="backgroundColor" red="0.792156862745098" green="0.82352941176470584" blue="0.77647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="DlM-yN-ddS" firstAttribute="width" secondItem="nMV-jq-Be5" secondAttribute="width" id="ClZ-M9-yyz"/>
                                             <constraint firstItem="TZv-cD-gW4" firstAttribute="height" secondItem="nMV-jq-Be5" secondAttribute="height" id="Hkx-nT-zuI"/>
@@ -523,9 +526,8 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="7C2-AQ-xGD" secondAttribute="trailing" constant="18" id="FeG-hy-WOK"/>
-                                    <constraint firstItem="7C2-AQ-xGD" firstAttribute="centerY" secondItem="ACR-tR-Gm2" secondAttribute="centerY" id="SoL-pm-0Pd"/>
-                                    <constraint firstItem="7C2-AQ-xGD" firstAttribute="top" secondItem="ACR-tR-Gm2" secondAttribute="top" id="hRA-Xx-dQH"/>
                                     <constraint firstItem="7C2-AQ-xGD" firstAttribute="leading" secondItem="ACR-tR-Gm2" secondAttribute="leading" constant="18" id="kFq-gP-Rav"/>
+                                    <constraint firstItem="7C2-AQ-xGD" firstAttribute="centerY" secondItem="ACR-tR-Gm2" secondAttribute="centerY" id="nLP-jR-ldI"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -533,15 +535,16 @@
                         <constraints>
                             <constraint firstItem="Dsv-20-lsS" firstAttribute="leading" secondItem="veW-cm-XEw" secondAttribute="leading" id="0t2-Un-urD"/>
                             <constraint firstItem="UcT-V0-iMp" firstAttribute="trailing" secondItem="veW-cm-XEw" secondAttribute="trailing" id="2bY-X0-vZe"/>
+                            <constraint firstItem="veW-cm-XEw" firstAttribute="bottom" secondItem="Dsv-20-lsS" secondAttribute="bottom" id="6Xg-uX-fdX"/>
+                            <constraint firstItem="UcT-V0-iMp" firstAttribute="bottom" secondItem="Dsv-20-lsS" secondAttribute="top" id="7rb-9S-iyN"/>
                             <constraint firstItem="Dsv-20-lsS" firstAttribute="trailing" secondItem="veW-cm-XEw" secondAttribute="trailing" id="7yF-zR-xqB"/>
                             <constraint firstItem="ACR-tR-Gm2" firstAttribute="trailing" secondItem="veW-cm-XEw" secondAttribute="trailing" id="PhM-hW-zEX"/>
-                            <constraint firstItem="ACR-tR-Gm2" firstAttribute="top" secondItem="UcT-V0-iMp" secondAttribute="bottom" constant="12" id="ROp-IU-yDj"/>
+                            <constraint firstItem="ACR-tR-Gm2" firstAttribute="centerY" secondItem="Dsv-20-lsS" secondAttribute="centerY" id="S3p-28-sqv"/>
                             <constraint firstItem="ACR-tR-Gm2" firstAttribute="leading" secondItem="veW-cm-XEw" secondAttribute="leading" id="Uda-dy-BSx"/>
-                            <constraint firstItem="veW-cm-XEw" firstAttribute="bottom" secondItem="ACR-tR-Gm2" secondAttribute="bottom" constant="12" id="Yf0-JN-m9T"/>
-                            <constraint firstItem="Dsv-20-lsS" firstAttribute="bottom" secondItem="ACR-tR-Gm2" secondAttribute="bottom" id="iWA-G6-hKk"/>
+                            <constraint firstItem="Dsv-20-lsS" firstAttribute="bottom" secondItem="ACR-tR-Gm2" secondAttribute="bottom" constant="12" id="Yf0-JN-m9T"/>
                             <constraint firstItem="UcT-V0-iMp" firstAttribute="top" secondItem="veW-cm-XEw" secondAttribute="top" id="kBJ-zW-rhw"/>
                             <constraint firstItem="UcT-V0-iMp" firstAttribute="leading" secondItem="veW-cm-XEw" secondAttribute="leading" id="tVC-6L-Qya"/>
-                            <constraint firstItem="Dsv-20-lsS" firstAttribute="top" secondItem="ACR-tR-Gm2" secondAttribute="top" id="tie-ch-acP"/>
+                            <constraint firstItem="ACR-tR-Gm2" firstAttribute="top" secondItem="Dsv-20-lsS" secondAttribute="top" constant="12" id="zqY-ej-QLk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="veW-cm-XEw"/>
                     </view>

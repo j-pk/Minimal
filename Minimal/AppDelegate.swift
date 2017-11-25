@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     func configureTheme() {
-        ThemeManager.setUpTheme()
+        ThemeManager.setGlobalTheme()
     }
 }
 

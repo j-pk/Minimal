@@ -12,6 +12,7 @@
 		C0110E141FB4DF5700410478 /* TypeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0110E131FB4DF5700410478 /* TypeName.swift */; };
 		C0110E161FB5671400410478 /* NotificationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0110E151FB5671400410478 /* NotificationExtensions.swift */; };
 		C03167C01FB175A900E420D0 /* MainCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */; };
+		C03EC9EC1FC8CCEC00ACA0F5 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */; };
 		C03F92221FA022B9009EEEF3 /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92211FA022B9009EEEF3 /* SyncManager.swift */; };
 		C03F92251FA049BE009EEEF3 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92241FA049BE009EEEF3 /* CoreDataManager.swift */; };
 		C03F92271FA11DE7009EEEF3 /* NSManagedObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */; };
@@ -55,6 +56,7 @@
 		C0110E131FB4DF5700410478 /* TypeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeName.swift; sourceTree = "<group>"; };
 		C0110E151FB5671400410478 /* NotificationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtensions.swift; sourceTree = "<group>"; };
 		C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		C03F92211FA022B9009EEEF3 /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		C03F92241FA049BE009EEEF3 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectExtensions.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				C0EC9B9A1FC0ED9A0073FF7A /* SubscriptLabelView.swift */,
 				C0EC9BA01FC237AA0073FF7A /* PresentationView.xib */,
 				C0EC9BA21FC237BE0073FF7A /* PresentationView.swift */,
+				C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -413,11 +416,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Minimal/Pods-Minimal-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
@@ -467,6 +472,7 @@
 				C0A3859E1F9E98AC005064DF /* MainCell.swift in Sources */,
 				C0EC9B9B1FC0ED9A0073FF7A /* SubscriptLabelView.swift in Sources */,
 				C03F92221FA022B9009EEEF3 /* SyncManager.swift in Sources */,
+				C03EC9EC1FC8CCEC00ACA0F5 /* ThemeManager.swift in Sources */,
 				C03F92251FA049BE009EEEF3 /* CoreDataManager.swift in Sources */,
 				C0DA84D91FA00D10006BE949 /* Listing+CoreDataProperties.swift in Sources */,
 				C08D56F91FBAA10E0053FEA5 /* CategoryPopoverViewController.swift in Sources */,

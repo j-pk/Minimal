@@ -20,21 +20,19 @@ class SubscriptLabelView: XibView {
     weak var delegate: SubscriptLabelViewDelegate?
     
     func setLabels(forListing listing: Listing) {
-        self.backgroundColor = ThemeManager.theme()
-
         let boldAttributes = [
-            NSAttributedStringKey.font: ThemeManager.font(fontType: .primary),
-            NSAttributedStringKey.foregroundColor: ThemeManager.titleTextTheme()
+            NSAttributedStringKey.font: ThemeManager.font(fontType: .primaryBold),
+            NSAttributedStringKey.foregroundColor: ThemeManager.default.primaryTextColor
         ]
         
         let regularAttributes = [
             NSAttributedStringKey.font: ThemeManager.font(fontType: .secondary),
-            NSAttributedStringKey.foregroundColor: ThemeManager.textTheme()
+            NSAttributedStringKey.foregroundColor: ThemeManager.default.secondaryTextColor
         ]
         
         let scoreAttributes = [
             NSAttributedStringKey.font: ThemeManager.font(fontType: .secondary),
-            NSAttributedStringKey.foregroundColor: ThemeManager.negativeTheme()
+            NSAttributedStringKey.foregroundColor: ThemeManager.default.redditOrange
         ]
         
         let mutableAttributedTitleString = NSMutableAttributedString()
@@ -49,7 +47,7 @@ class SubscriptLabelView: XibView {
         titleLabel.attributedText = mutableAttributedTitleString
         
         detailLabel.text = listing.subredditNamePrefixed
-        detailLabel.textColor = ThemeManager.tintTheme()
+        detailLabel.textColor = ThemeManager.default.secondaryTextColor
         
         let descriptionAttributedString = NSMutableAttributedString()
         let scoreAttributedString = NSAttributedString(string: "\(listing.score) upvotes", attributes: scoreAttributes)

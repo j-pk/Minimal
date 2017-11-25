@@ -20,7 +20,6 @@ class PresentationView: XibView {
         guard let listingUrlString = listing.url, let url = URL(string: listingUrlString) else {
             return
         }
-        self.backgroundColor = ThemeManager.theme()
         imageView.isHidden = listing.isPlayable
         webView.isHidden = !listing.isPlayable
         playerView.isHidden = !listing.isPlayable

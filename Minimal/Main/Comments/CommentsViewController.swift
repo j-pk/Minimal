@@ -19,10 +19,6 @@ class CommentsViewController: UIViewController {
         //calculations on sectionHeaderHeight
         tableView.sectionHeaderHeight = 400
         tableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
-        
-        tableView.backgroundColor = ThemeManager.theme()
-        self.view.backgroundColor = ThemeManager.tabBarTheme()
-        bottomMenuBar.backgroundColor = ThemeManager.tabBarTheme()
     }
 }
 
