@@ -27,5 +27,6 @@ class HeaderCell: UITableViewCell {
         self.contentView.backgroundColor = ThemeManager.default.primaryTheme
         subscriptLabelView.setLabels(forListing: listing)
         presentationView.setView(forListing: listing)
+        self.layoutIfNeeded()
     }
 }

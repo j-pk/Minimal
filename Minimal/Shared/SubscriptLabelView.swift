@@ -47,14 +47,14 @@ class SubscriptLabelView: XibView {
         titleLabel.attributedText = mutableAttributedTitleString
         
         detailLabel.text = listing.subredditNamePrefixed
-        detailLabel.textColor = ThemeManager.default.secondaryTextColor
+        detailLabel.textColor = ThemeManager.default.linkTextColor
         
         let descriptionAttributedString = NSMutableAttributedString()
-        let scoreAttributedString = NSAttributedString(string: "\(listing.score) upvotes", attributes: scoreAttributes)
+        let scoreAttributedString = NSAttributedString(string: "\(listing.score)", attributes: scoreAttributes) 
         descriptionAttributedString.append(scoreAttributedString)
         
         if let author = listing.author {
-            let authorAttributedString = NSAttributedString(string: " submitted by \(author)", attributes: regularAttributes)
+            let authorAttributedString = NSAttributedString(string: " upvotes submitted by \(author)", attributes: regularAttributes)
             descriptionAttributedString.append(authorAttributedString)
         }
         if let dateCreated = listing.created {
