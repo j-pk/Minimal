@@ -49,10 +49,18 @@ extension CommentsViewController: UITableViewDelegate {
         case 0:
             if let listing = listing {
                 cell.configureCell(forListing: listing)
+                cell.subscriptLabelView.delegate = self
             }
             return cell.contentView
         default:
             return nil
         }
+    }
+}
+
+extension CommentsViewController: SubscriptLabelViewDelegate {
+    func didTapDetailLabel(subredditNamePrefixed: String) {
+        print(subredditNamePrefixed)
+        //KVO
     }
 }

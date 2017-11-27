@@ -21,11 +21,11 @@
             <rect key="frame" x="0.0" y="0.0" width="533" height="502"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Bw-Hs-xDd" customClass="FLAnimatedImageView">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Bw-Hs-xDd" customClass="FLAnimatedImageView">
                     <rect key="frame" x="0.0" y="0.0" width="533" height="502"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </imageView>
-                <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2wf-NA-THk">
+                <wkWebView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2wf-NA-THk">
                     <rect key="frame" x="0.0" y="0.0" width="533" height="502"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <wkWebViewConfiguration key="configuration">
@@ -33,7 +33,7 @@
                         <wkPreferences key="preferences"/>
                     </wkWebViewConfiguration>
                 </wkWebView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evY-h1-3R3" customClass="PlayerView" customModule="Minimal" customModuleProvider="target">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evY-h1-3R3" customClass="PlayerView" customModule="Minimal" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="533" height="502"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>

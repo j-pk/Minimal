@@ -29,14 +29,13 @@ extension Listing {
     @NSManaged public var created: Date?
     @NSManaged public var populatedDate: Date
     @NSManaged public var url: String?
+    @NSManaged public var thumbnailUrl: String?
     @NSManaged public var author: String?
     @NSManaged public var subredditNamePrefixed: String?
     @NSManaged public var numberOfComments: Int32
     @NSManaged public var postHint: String?
-    @NSManaged public var isImage: Bool
-    @NSManaged public var isPlayable: Bool
     @NSManaged public var before: String?
     @NSManaged public var after: String?
-    @NSManaged public var domain: String? 
-    
+    @NSManaged public var domain: String?
+    @NSManaged var mediaType: MediaType
 }

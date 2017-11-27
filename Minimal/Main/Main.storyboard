@@ -39,11 +39,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="121" height="195"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mGH-vh-ofn" customClass="PlayerView" customModule="Minimal" customModuleProvider="target">
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mGH-vh-ofn" customClass="PlayerView" customModule="Minimal" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="121" height="195"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gJD-1I-lQf" customClass="FLAnimatedImageView">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gJD-1I-lQf" customClass="FLAnimatedImageView">
                                                     <rect key="frame" x="0.0" y="0.0" width="121" height="195"/>
                                                 </imageView>
                                             </subviews>

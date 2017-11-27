@@ -19,10 +19,11 @@ enum ListingRouter: Routable {
         case .subreddit(let prefix, let category, _), .paginate(let prefix, let category, _, _, _):
             var buildPath = prefix
             if let category = category {
-                buildPath += "/\(category)/.json"
+                buildPath += "\(category)/.json"
             } else {
-                buildPath += "/.json"
+                buildPath += ".json"
             }
+            buildPath.insert("/", at: buildPath.startIndex)
             return buildPath
         }
     }

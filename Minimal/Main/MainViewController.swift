@@ -25,7 +25,7 @@ class MainViewController: UIViewController {
     //Still need to figure this out and when to clear out old listings
     fileprivate var listingResultsController: NSFetchedResultsController<Listing> = {
         let fetchRequest = NSFetchRequest<Listing>(entityName: Listing.entityName)
-        fetchRequest.predicate = NSPredicate(format: "isImage == true")
+        fetchRequest.predicate = NSPredicate(format: "mediaType != %@", MediaType(mediaType: .none) as CVarArg)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "populatedDate", ascending: true)]
         let fetchedResultsController = NSFetchedResultsController<Listing>(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.default.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         return fetchedResultsController
@@ -38,7 +38,7 @@ class MainViewController: UIViewController {
         layout.columnCount = 2
         layout.headerHeight = 10
         layout.footerHeight = 10
-        layout.sectionInset = UIEdgeInsets(top: 54, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 44, left: 10, bottom: 0, right: 10)
         return layout
     }()
     var isPaginating: Bool = false
@@ -85,11 +85,17 @@ class MainViewController: UIViewController {
         if let _ = listing {
             
         } else {
-            SyncManager.default.syncListings(prefix: "", category: nil, timeframe: nil) { (error) in
+            CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
                 if let error = error {
                     print(error)
+                } else {
+                    SyncManager.default.syncListings(prefix: "", category: nil, timeframe: nil) { (error) in
+                        if let error = error {
+                            print(error)
+                        }
+                    }
                 }
-            }
+            })
         }
     }
     
@@ -128,7 +134,6 @@ extension MainViewController: UICollectionViewDataSource {
         
         let listing = self.listingResultsController.object(at: indexPath)
         cell.configureCell(forListing: listing)
-        cell.layer.cornerRadius = 4.0
         return cell
     }
 }

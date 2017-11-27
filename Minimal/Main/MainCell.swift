@@ -18,10 +18,14 @@ class MainCell: UICollectionViewCell {
         super.prepareForReuse()
         imageView.image = nil
         playerView.player = nil
+        imageView.isHidden = true
+        playerView.isHidden = true 
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        layer.cornerRadius = 4.0
+        layoutIfNeeded()
     }
     
     func configureCell(forListing listing: Listing) {
@@ -29,18 +33,26 @@ class MainCell: UICollectionViewCell {
             return
         }
         
-        imageView.isHidden = listing.isPlayable
-        imageView.sd_setShowActivityIndicatorView(true)
-        imageView.sd_setIndicatorStyle(.gray)
-        if listing.isPlayable {
-            if listing.hint == .hostedVideo {
-                //if reddit hosted video cell tapped present AVPlayerViewController and Play
-                return
-            }
-            playerView.player = AVPlayer(url: url)
-            playerView.playAndLoop()
-        } else {
+        switch listing.mediaType.listingMediaType {
+        case .image:
+            imageView.isHidden = false
             imageView.sd_setImage(with: url, placeholderImage: nil)
+        case .animatedImage:
+            guard let components = URLComponents(string: listingUrlString) else { return }
+            if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
+                imageView.isHidden = false
+                imageView.sd_setImage(with: url, placeholderImage: nil)
+            } else {
+                playerView.isHidden = false
+                playerView.player = AVPlayer(url: url)
+                playerView.playAndLoop()
+            }
+        case .video:
+            guard let thumbnailString = listing.thumbnailUrl, let thumbnailUrl = URL(string: thumbnailString) else { return }
+            imageView.isHidden = false
+            imageView.sd_setImage(with: thumbnailUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"))
+        default:
+            return
         }
     }
 }

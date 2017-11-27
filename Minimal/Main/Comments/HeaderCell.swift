@@ -12,11 +12,11 @@ import SDWebImage
 class HeaderCell: UITableViewCell {
     @IBOutlet weak var subscriptLabelView: SubscriptLabelView!
     @IBOutlet weak var presentationView: PresentationView!
+    
     var url: URL?
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
     }
     
     override func awakeFromNib() {

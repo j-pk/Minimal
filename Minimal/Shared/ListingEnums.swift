@@ -77,13 +77,32 @@ enum ListingPostHint: String {
     case hostedVideo = "hosted:video" 
 }
 
-enum ListingImageFormat: String {
+enum ListingMediaType: String {
+    case image
+    case animatedImage
+    case video
+    case none
+    
+    var format: [ListingMediaFormat] {
+        switch self {
+        case .image:
+            return [.png, .jpg, .jpeg]
+        case .animatedImage:
+            return [.gif, .mp4]
+        case .video:
+            return [.m3u8]
+        case .none:
+            return []
+        }
+    }
+}
+
+enum ListingMediaFormat: String {
     case png
     case jpeg
     case jpg
     case gif
     case mp4
-    case gifv
-    case webm
-    static let allValues = [png, jpeg, jpg, gif, mp4, gifv, webm]
+    case m3u8
+    static let allValues = [png, jpeg, jpg, gif, mp4, m3u8]
 }

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(urls[urls.count-1] as URL)
         
         configureTheme()
-        
+        ValueTransformer.setValueTransformer(ListingMediaTypeTransformer(), forName: .listingMediaTypeName)
         return true
     }
 

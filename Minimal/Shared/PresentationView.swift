@@ -20,27 +20,28 @@ class PresentationView: XibView {
         guard let listingUrlString = listing.url, let url = URL(string: listingUrlString) else {
             return
         }
-        imageView.isHidden = listing.isPlayable
-        webView.isHidden = !listing.isPlayable
-        playerView.isHidden = !listing.isPlayable
         
-        if listing.isPlayable {
-            switch listing.hint {
-            case .hostedVideo, .link:
-                webView.isHidden = true
+        switch listing.mediaType.listingMediaType {
+        case .image:
+            imageView.isHidden = false
+            imageView.sd_setImage(with: url, placeholderImage: nil)
+        case .animatedImage:
+            guard let components = URLComponents(string: listingUrlString) else { return }
+            if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
+                imageView.isHidden = false
+                imageView.sd_setImage(with: url, placeholderImage: nil)
+            } else {
+                playerView.isHidden = false
                 playerView.player = AVPlayer(url: url)
                 playerView.playAndLoop()
-            case .richVideo:
-                playerView.isHidden = true
-                webView.load( URLRequest(url: url) )
-            default:
-                break
             }
-        } else {
-            imageView.sd_setShowActivityIndicatorView(true)
-            imageView.sd_setIndicatorStyle(.gray)
-            imageView.sd_setImage(with: url)
+        case .video:
+            webView.isHidden = false
+            webView.load( URLRequest(url: url) )
+        default:
+            return
         }
+        
     }
 }
 

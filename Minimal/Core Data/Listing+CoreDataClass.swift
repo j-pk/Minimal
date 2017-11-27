@@ -44,15 +44,16 @@ extension Listing: Manageable {
             listing.after = json.after
             listing.postHint = json.postHint
             listing.populatedDate = Date()
-            
-            let results = modifyUrlAndSetIsPlayable(url: json.mediaUrl ?? json.url)
-            listing.url = results.url
-            listing.isPlayable = results.isPlayable
-            
+            listing.url = modifyUrl(url: json.mediaUrl ?? json.url)
+            listing.thumbnailUrl = json.thumbnailUrl
+
             if let postHint = listing.postHint, let hint = ListingPostHint(rawValue: postHint)  {
-                listing.isImage = detectImageUrl(url: listing.url, postHint: hint)
+                let listingMediaType = determineMediaType(url: listing.url, postHint: hint)
+                listing.mediaType = MediaType(fromMapped: listingMediaType)
+            } else {
+                listing.mediaType = MediaType(fromMapped: .none)
             }
-            
+
             if save {
                 try moc.save()
             }
@@ -64,45 +65,43 @@ extension Listing: Manageable {
         }
     }
     
-    static private func detectImageUrl(url: String?, postHint: ListingPostHint) -> Bool {
-        guard let url = url else { return false }
-        guard let components = URLComponents(string: url) else { return false }
-        guard let scheme = components.scheme, scheme == "https" else { return false }
+    static private func determineMediaType(url: String?, postHint: ListingPostHint) -> ListingMediaType {
+        guard let url = url else { return .none }
+        guard let components = URLComponents(string: url) else { return .none }
+        guard let scheme = components.scheme, scheme == "https" else { return .none }
         
         switch postHint {
-        case .image, .hostedVideo, .richVideo:
-            return true
+        case .image:
+            return .image
+        case .hostedVideo, .richVideo:
+            return .video
         case .link:
-            if ListingImageFormat.allValues.contains(where:{ components.path.hasSuffix($0.rawValue)  }) {
-                return true
+            if ListingMediaType.animatedImage.format.contains(where:{ components.path.hasSuffix($0.rawValue)  }) {
+                return .animatedImage
+            } else if ListingMediaType.image.format.contains(where:{ components.path.hasSuffix($0.rawValue)  }) {
+                return .image
             }
         default:
-            return false
+            return .none
         }
-        return false
+        return .none
     }
     
-    static private func modifyUrlAndSetIsPlayable(url: String?) -> (url: String?, isPlayable: Bool) {
-        guard let url = url else { return (url: "", isPlayable: false) }
-        guard let components = URLComponents(string: url) else { return (url: "", isPlayable: false) }
-        var isPlayable: Bool = false
+    static private func modifyUrl(url: String?) -> String? {
+        guard let url = url else { return nil }
+        guard let components = URLComponents(string: url) else { return nil }
         var modifiedUrlComponents = URLComponents()
         modifiedUrlComponents.scheme = components.scheme
         modifiedUrlComponents.host = components.host
         
         if components.path.hasSuffix("gifv") {
             modifiedUrlComponents.path = components.path.replacingOccurrences(of: "gifv", with: "mp4")
-            isPlayable = true
         } else if components.path.hasSuffix("webm") {
             modifiedUrlComponents.path = components.path.replacingOccurrences(of: "webm", with: "mp4")
-            isPlayable = true
-        } else if components.path.hasSuffix("m3u8") {
-            modifiedUrlComponents.path = components.path
-            isPlayable = true
         } else {
             modifiedUrlComponents.path = components.path
         }
         
-        return (url: modifiedUrlComponents.url?.absoluteString, isPlayable: isPlayable)
+        return modifiedUrlComponents.url?.absoluteString
     }
 }

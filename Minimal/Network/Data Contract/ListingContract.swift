@@ -59,6 +59,7 @@ struct ListingData: Decodable {
     let numberOfComments: Int32
     let domain: String
     let mediaUrl: String?
+    let thumbnailUrl: String?
     
     enum KindCodingKeys: String, CodingKey {
         case kind
@@ -90,6 +91,7 @@ struct ListingData: Decodable {
         case mediaUrl = "author_url"
         case redditVideo = "reddit_video"
         case hlsUrl = "hls_url"
+        case thumbnailUrl = "thumbnail_url"
     }
     
     enum CodingError: Error {
@@ -124,14 +126,18 @@ struct ListingData: Decodable {
             if media.contains(.oembed) {
                 let oembed = try media.nestedContainer(keyedBy: MediaCodingKeys.self, forKey: .oembed)
                 mediaUrl = try oembed.decodeIfPresent(String.self, forKey: .mediaUrl)
+                thumbnailUrl = try oembed.decodeIfPresent(String.self, forKey: .thumbnailUrl)
             } else if media.contains(.redditVideo) {
                 let oembed = try media.nestedContainer(keyedBy: MediaCodingKeys.self, forKey: .redditVideo)
                 mediaUrl = try oembed.decodeIfPresent(String.self, forKey: .hlsUrl)
+                thumbnailUrl = try oembed.decodeIfPresent(String.self, forKey: .thumbnailUrl)
             } else {
                 mediaUrl = nil
+                thumbnailUrl = nil
             }
         } else  {
             mediaUrl = nil
+            thumbnailUrl = nil
         }
     }
 }
@@ -157,7 +163,8 @@ struct ListingMapped: Mappable {
     let numberOfComments: Int32
     let domain: String
     let mediaUrl: String?
-    
+    let thumbnailUrl: String?
+
     init(root: ListingRoot, data: ListingData) {
         before = root.before
         after = root.after
@@ -179,6 +186,7 @@ struct ListingMapped: Mappable {
         numberOfComments = data.numberOfComments
         domain = data.domain
         mediaUrl = data.mediaUrl
+        thumbnailUrl = data.thumbnailUrl
     }
 }
 

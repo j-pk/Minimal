@@ -95,5 +95,6 @@ class DetailViewController: UIViewController {
 extension DetailViewController: SubscriptLabelViewDelegate {
     func didTapDetailLabel(subredditNamePrefixed: String) {
         print(subredditNamePrefixed)
+        //KVO
     }
 }
