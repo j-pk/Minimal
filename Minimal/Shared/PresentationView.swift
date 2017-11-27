@@ -20,6 +20,8 @@ class PresentationView: XibView {
         guard let listingUrlString = listing.url, let url = URL(string: listingUrlString) else {
             return
         }
+        self.backgroundColor = ThemeManager.default.primaryTheme
+        webView.navigationDelegate = self
         
         switch listing.mediaType.listingMediaType {
         case .image:
@@ -41,7 +43,15 @@ class PresentationView: XibView {
         default:
             return
         }
-        
     }
 }
 
+extension PresentationView: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        
+    }
+}

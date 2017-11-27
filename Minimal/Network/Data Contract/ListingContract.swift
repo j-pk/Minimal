@@ -125,7 +125,7 @@ struct ListingData: Decodable {
             let media = try data.nestedContainer(keyedBy: MediaCodingKeys.self, forKey: .media)
             if media.contains(.oembed) {
                 let oembed = try media.nestedContainer(keyedBy: MediaCodingKeys.self, forKey: .oembed)
-                mediaUrl = try oembed.decodeIfPresent(String.self, forKey: .mediaUrl)
+                mediaUrl = nil
                 thumbnailUrl = try oembed.decodeIfPresent(String.self, forKey: .thumbnailUrl)
             } else if media.contains(.redditVideo) {
                 let oembed = try media.nestedContainer(keyedBy: MediaCodingKeys.self, forKey: .redditVideo)

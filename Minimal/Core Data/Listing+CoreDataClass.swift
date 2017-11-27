@@ -93,15 +93,26 @@ extension Listing: Manageable {
         var modifiedUrlComponents = URLComponents()
         modifiedUrlComponents.scheme = components.scheme
         modifiedUrlComponents.host = components.host
+        modifiedUrlComponents.queryItems = components.queryItems
         
         if components.path.hasSuffix("gifv") {
             modifiedUrlComponents.path = components.path.replacingOccurrences(of: "gifv", with: "mp4")
         } else if components.path.hasSuffix("webm") {
             modifiedUrlComponents.path = components.path.replacingOccurrences(of: "webm", with: "mp4")
+        } else if let host = components.host, host.contains("youtube") || host.contains("youtu.be") {
+            if let id = components.queryItems?.filter({ $0.name == "v" }).flatMap({ $0.value }).first {
+                modifiedUrlComponents.path = components.path.replacingOccurrences(of: "/watch", with: "/embed/\(id)")
+                modifiedUrlComponents.queryItems = nil
+            } else {
+                var path = components.path
+                path.insert(contentsOf: "/embed", at: path.startIndex)
+                modifiedUrlComponents.host = "youtube.com"
+                modifiedUrlComponents.path = path
+            }
         } else {
             modifiedUrlComponents.path = components.path
         }
-        
+
         return modifiedUrlComponents.url?.absoluteString
     }
 }

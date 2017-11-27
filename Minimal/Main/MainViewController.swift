@@ -85,17 +85,7 @@ class MainViewController: UIViewController {
         if let _ = listing {
             
         } else {
-            CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
-                if let error = error {
-                    print(error)
-                } else {
-                    SyncManager.default.syncListings(prefix: "", category: nil, timeframe: nil) { (error) in
-                        if let error = error {
-                            print(error)
-                        }
-                    }
-                }
-            })
+    
         }
     }
     
@@ -152,8 +142,7 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
 extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         let listing = self.listingResultsController.object(at: indexPath as IndexPath)
-        guard let image = SDImageCache.shared().imageFromCache(forKey: listing.url) else { return CGSize.zero }
-        
+        guard let image = SDImageCache.shared().imageFromCache(forKey: listing.thumbnailUrl ?? listing.url) else { return CGSize.zero }
         return image.size
     }
 }
@@ -262,7 +251,7 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             guard let lastViewedListing = self.listingResultsController.fetchedObjects?.last else { return }
-            SyncManager.default.syncListingsPage(prefix: "", category: nil, timeframe: nil, after: lastViewedListing.after ?? "", completionHandler: { (error) in
+            SyncManager.default.syncListingsPage(prefix: "r/videos", category: nil, timeframe: nil, after: lastViewedListing.after ?? "", completionHandler: { (error) in
                 print(error?.localizedDescription)
             })
         }

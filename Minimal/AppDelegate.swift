@@ -22,6 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         configureTheme()
         ValueTransformer.setValueTransformer(ListingMediaTypeTransformer(), forName: .listingMediaTypeName)
+        
+        CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
+            if let error = error {
+                print(error)
+            } else {
+                SyncManager.default.syncListings(prefix: "r/videos", category: nil, timeframe: nil) { (error) in
+                    if let error = error {
+                        print(error)
+                    }
+                }
+            }
+        })
         return true
     }
 

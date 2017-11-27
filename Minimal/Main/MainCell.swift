@@ -36,12 +36,12 @@ class MainCell: UICollectionViewCell {
         switch listing.mediaType.listingMediaType {
         case .image:
             imageView.isHidden = false
-            imageView.sd_setImage(with: url, placeholderImage: nil)
+            imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "placeholder"))
         case .animatedImage:
             guard let components = URLComponents(string: listingUrlString) else { return }
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
                 imageView.isHidden = false
-                imageView.sd_setImage(with: url, placeholderImage: nil)
+                imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "placeholder"))
             } else {
                 playerView.isHidden = false
                 playerView.player = AVPlayer(url: url)
