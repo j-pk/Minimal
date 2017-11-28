@@ -33,7 +33,7 @@ class MainCell: UICollectionViewCell {
             return
         }
         
-        switch listing.mediaType.listingMediaType {
+        switch listing.type {
         case .image:
             imageView.isHidden = false
             imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "placeholder"))

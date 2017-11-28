@@ -37,5 +37,5 @@ extension Listing {
     @NSManaged public var before: String?
     @NSManaged public var after: String?
     @NSManaged public var domain: String?
-    @NSManaged var mediaType: MediaType
+    @NSManaged public var mediaType: String
 }

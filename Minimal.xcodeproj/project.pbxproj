@@ -48,8 +48,6 @@
 		C0EC9BA51FC25A760073FF7A /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9BA41FC25A760073FF7A /* UIViewExtension.swift */; };
 		C0ED1F9C1FB2AC1900580C1E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */; };
 		C0ED1F9E1FB3F0DB00580C1E /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED1F9D1FB3F0DB00580C1E /* DateExtensions.swift */; };
-		C0FEC4B31FCAF21300B82DC7 /* ListingMediaTypeTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FEC4B21FCAF21300B82DC7 /* ListingMediaTypeTransformer.swift */; };
-		C0FEC4B61FCAF68800B82DC7 /* ListingMediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FEC4B51FCAF68800B82DC7 /* ListingMediaType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,8 +94,6 @@
 		C0EC9BA41FC25A760073FF7A /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C0ED1F9D1FB3F0DB00580C1E /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
-		C0FEC4B21FCAF21300B82DC7 /* ListingMediaTypeTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingMediaTypeTransformer.swift; sourceTree = "<group>"; };
-		C0FEC4B51FCAF68800B82DC7 /* ListingMediaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingMediaType.swift; sourceTree = "<group>"; };
 		E24D1E61FEBD271FBA772ED4 /* Pods-Minimal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minimal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minimal/Pods-Minimal.debug.xcconfig"; sourceTree = "<group>"; };
 		F61CBBD01DF4E0DDD853B07D /* Pods_Minimal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Minimal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -277,7 +273,6 @@
 		C0DA84DA1FA01030006BE949 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				C0FEC4B41FCAF21B00B82DC7 /* Transformers */,
 				C097F1A81FBBF8F200706F89 /* Extensions */,
 				C0897DA71FABB4FB00801E08 /* PlayerView.swift */,
 				C0110E131FB4DF5700410478 /* TypeName.swift */,
@@ -308,15 +303,6 @@
 				C08D56F81FBAA10E0053FEA5 /* CategoryPopoverViewController.swift */,
 			);
 			path = Pop;
-			sourceTree = "<group>";
-		};
-		C0FEC4B41FCAF21B00B82DC7 /* Transformers */ = {
-			isa = PBXGroup;
-			children = (
-				C0FEC4B21FCAF21300B82DC7 /* ListingMediaTypeTransformer.swift */,
-				C0FEC4B51FCAF68800B82DC7 /* ListingMediaType.swift */,
-			);
-			path = Transformers;
 			sourceTree = "<group>";
 		};
 		F5C3049FE95056FF784690EE /* Pods */ = {
@@ -468,7 +454,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */,
-				C0FEC4B31FCAF21300B82DC7 /* ListingMediaTypeTransformer.swift in Sources */,
 				C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */,
 				C0110E141FB4DF5700410478 /* TypeName.swift in Sources */,
 				C0ED1F9E1FB3F0DB00580C1E /* DateExtensions.swift in Sources */,
@@ -485,7 +470,6 @@
 				C0A385781F9E54B0005064DF /* ViewController.swift in Sources */,
 				C0EC9B9D1FC112B90073FF7A /* HeaderCell.swift in Sources */,
 				C0A3859E1F9E98AC005064DF /* MainCell.swift in Sources */,
-				C0FEC4B61FCAF68800B82DC7 /* ListingMediaType.swift in Sources */,
 				C0EC9B9B1FC0ED9A0073FF7A /* SubscriptLabelView.swift in Sources */,
 				C03F92221FA022B9009EEEF3 /* SyncManager.swift in Sources */,
 				C03EC9EC1FC8CCEC00ACA0F5 /* ThemeManager.swift in Sources */,

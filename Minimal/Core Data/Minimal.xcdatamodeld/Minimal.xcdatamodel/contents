@@ -9,7 +9,7 @@
         <attribute name="downs" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="hidden" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="id" attributeType="String" syncable="YES"/>
-        <attribute name="mediaType" attributeType="Transformable" valueTransformerName="ListingMediaTypeTransformer" customClassName="MediaType" syncable="YES"/>
+        <attribute name="mediaType" attributeType="String" valueTransformerName="ListingMediaTypeTransformer" customClassName="MediaType" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="numberOfComments" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="over18" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>

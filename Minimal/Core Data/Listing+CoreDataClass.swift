@@ -16,6 +16,12 @@ public class Listing: NSManagedObject {
             return ListingPostHint(rawValue: self.postHint ?? "")!
         }
     }
+    
+    var type: ListingMediaType {
+        get {
+            return ListingMediaType(rawValue: self.mediaType)!
+        }
+    }
 }
 
 extension Listing: Manageable {
@@ -49,9 +55,9 @@ extension Listing: Manageable {
 
             if let postHint = listing.postHint, let hint = ListingPostHint(rawValue: postHint)  {
                 let listingMediaType = determineMediaType(url: listing.url, postHint: hint)
-                listing.mediaType = MediaType(fromMapped: listingMediaType)
+                listing.mediaType = listingMediaType.rawValue
             } else {
-                listing.mediaType = MediaType(fromMapped: .none)
+                listing.mediaType = ListingMediaType.none.rawValue
             }
 
             if save {

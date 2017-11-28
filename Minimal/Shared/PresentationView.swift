@@ -17,18 +17,17 @@ class PresentationView: XibView {
     @IBOutlet weak var playerView: PlayerView!
     
     func setView(forListing listing: Listing) {
-        guard let listingUrlString = listing.url, let url = URL(string: listingUrlString) else {
-            return
-        }
-        self.backgroundColor = ThemeManager.default.primaryTheme
+        guard let listingUrlString = listing.url, let url = URL(string: listingUrlString) else { return }
+        guard let components = URLComponents(string: listingUrlString) else { return }
+
+        backgroundColor = ThemeManager.default.primaryTheme
         webView.navigationDelegate = self
         
-        switch listing.mediaType.listingMediaType {
+        switch listing.type {
         case .image:
             imageView.isHidden = false
             imageView.sd_setImage(with: url, placeholderImage: nil)
         case .animatedImage:
-            guard let components = URLComponents(string: listingUrlString) else { return }
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
                 imageView.isHidden = false
                 imageView.sd_setImage(with: url, placeholderImage: nil)
@@ -38,9 +37,16 @@ class PresentationView: XibView {
                 playerView.playAndLoop()
             }
         case .video:
-            webView.isHidden = false
-            attachActivityIndicator(title: "Loading", blurEffect: .light, indicatorStyle: .white)
-            webView.load( URLRequest(url: url) )
+            if let host = components.host, host.contains("vimeo") {
+                if let thumbnail = listing.thumbnailUrl, let thumbnailUrl = URL(string: thumbnail) {
+                    imageView.isHidden = false
+                    imageView.sd_setImage(with: thumbnailUrl, placeholderImage: nil)
+                }
+            } else {
+                webView.isHidden = false
+                attachActivityIndicator(title: "Loading", blurEffect: .light, indicatorStyle: .white)
+                webView.load( URLRequest(url: url) )
+            }
         default:
             return
         }

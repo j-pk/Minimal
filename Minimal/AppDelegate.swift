@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(urls[urls.count-1] as URL)
         
         configureTheme()
-        ValueTransformer.setValueTransformer(ListingMediaTypeTransformer(), forName: .listingMediaTypeName)
         
         CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
             if let error = error {

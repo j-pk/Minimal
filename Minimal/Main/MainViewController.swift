@@ -25,7 +25,7 @@ class MainViewController: UIViewController {
     //Still need to figure this out and when to clear out old listings
     fileprivate var listingResultsController: NSFetchedResultsController<Listing> = {
         let fetchRequest = NSFetchRequest<Listing>(entityName: Listing.entityName)
-        fetchRequest.predicate = NSPredicate(format: "mediaType != %@", MediaType(mediaType: .none) as CVarArg)
+        fetchRequest.predicate = NSPredicate(format: "mediaType != %@", ListingMediaType.none.rawValue as CVarArg)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "populatedDate", ascending: true)]
         let fetchedResultsController = NSFetchedResultsController<Listing>(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.default.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         return fetchedResultsController
