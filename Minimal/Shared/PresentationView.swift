@@ -11,70 +11,6 @@ import SDWebImage
 import WebKit
 import AVFoundation
 
-protocol AttachedActivityIndicatorViewDelegate {
-    func startAnimating()
-    func stopAnimating()
-}
-
-func attachActivityIndicator(toView view: UIView, title: String, blurEffect: UIBlurEffectStyle, indicatorStyle: UIActivityIndicatorViewStyle) {
-    let overlayView = UIView()
-    overlayView.backgroundColor = .black
-    overlayView.alpha = 0.7
-    overlayView.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(overlayView)
-    view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[overlayView]-0-|",
-                                                       options: NSLayoutFormatOptions.alignAllCenterX,
-                                                       metrics: nil,
-                                                       views: ["overlayView":overlayView]))
-    view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[overlayView]-0-|",
-                                                       options: NSLayoutFormatOptions.alignAllCenterY,
-                                                       metrics: nil,
-                                                       views: ["overlayView":overlayView]))
-    
-    let effectView = UIVisualEffectView(effect: UIBlurEffect(style: blurEffect))
-    effectView.layer.cornerRadius = 6
-    effectView.layer.masksToBounds = true
-    effectView.translatesAutoresizingMaskIntoConstraints = false
-    overlayView.addSubview(effectView)
-    
-    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: indicatorStyle)
-    activityIndicator.startAnimating()
-    activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-    effectView.contentView.addSubview(activityIndicator)
-    
-    let titleLabel = UILabel()
-    titleLabel.text = title
-    titleLabel.font = ThemeManager.font(fontType: .primary)
-    titleLabel.textColor = ThemeManager.default.primaryTextColor
-    titleLabel.translatesAutoresizingMaskIntoConstraints = false
-    
-    effectView.contentView.addSubview(titleLabel)
-    
-    effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[activityIndicator]-|",
-                                                             options: NSLayoutFormatOptions.alignAllCenterX,
-                                                             metrics: nil,
-                                                             views: ["activityIndicator":activityIndicator]))
-    effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[titleLabel]-|",
-                                                             options: NSLayoutFormatOptions.alignAllCenterX,
-                                                             metrics: nil,
-                                                             views: ["titleLabel":titleLabel]))
-    effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[activityIndicator]-[titleLabel]-|",
-                                                             options: NSLayoutFormatOptions.alignAllCenterY,
-                                                             metrics: nil,
-                                                             views: ["activityIndicator":activityIndicator, "titleLabel":titleLabel]))
-    
-    
-    overlayView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[overlayView]-(<=1)-[effectView]",
-                                                              options: NSLayoutFormatOptions.alignAllCenterX,
-                                                              metrics: nil,
-                                                              views: ["overlayView":overlayView, "effectView":effectView]))
-    overlayView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[overlayView]-(<=1)-[effectView]",
-                                                              options: NSLayoutFormatOptions.alignAllCenterY,
-                                                              metrics: nil,
-                                                              views: ["overlayView":overlayView, "effectView":effectView]))
-}
-}
-
 class PresentationView: XibView {
     @IBOutlet weak var imageView: FLAnimatedImageView!
     @IBOutlet weak var webView: WKWebView!
@@ -103,6 +39,7 @@ class PresentationView: XibView {
             }
         case .video:
             webView.isHidden = false
+            attachActivityIndicator(title: "Loading", blurEffect: .light, indicatorStyle: .white)
             webView.load( URLRequest(url: url) )
         default:
             return
@@ -112,10 +49,10 @@ class PresentationView: XibView {
 
 extension PresentationView: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        
+        removeActivityIndicatorView()
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        
+        removeActivityIndicatorView()
     }
 }

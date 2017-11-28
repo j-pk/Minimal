@@ -43,3 +43,72 @@ class XibView: UIView {
         return view
     }
 }
+
+extension UIView {
+    func attachActivityIndicator(title: String, blurEffect: UIBlurEffectStyle, indicatorStyle: UIActivityIndicatorViewStyle) {
+        let overlayView = UIView()
+        overlayView.backgroundColor = .black
+        overlayView.alpha = 0.7
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        overlayView.tag = 1
+        self.addSubview(overlayView)
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[overlayView]-0-|",
+                                                           options: NSLayoutFormatOptions.alignAllCenterX,
+                                                           metrics: nil,
+                                                           views: ["overlayView":overlayView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[overlayView]-0-|",
+                                                           options: NSLayoutFormatOptions.alignAllCenterY,
+                                                           metrics: nil,
+                                                           views: ["overlayView":overlayView]))
+        
+        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: blurEffect))
+        effectView.layer.cornerRadius = 6
+        effectView.layer.masksToBounds = true
+        effectView.translatesAutoresizingMaskIntoConstraints = false
+        overlayView.addSubview(effectView)
+        
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: indicatorStyle)
+        activityIndicator.startAnimating()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        effectView.contentView.addSubview(activityIndicator)
+        
+        let titleLabel = UILabel()
+        titleLabel.text = title
+        titleLabel.font = ThemeManager.font(fontType: .primary)
+        titleLabel.textColor = ThemeManager.default.primaryTextColor
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        effectView.contentView.addSubview(titleLabel)
+        
+        effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[activityIndicator]-|",
+                                                                 options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                 metrics: nil,
+                                                                 views: ["activityIndicator":activityIndicator]))
+        effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[titleLabel]-|",
+                                                                 options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                 metrics: nil,
+                                                                 views: ["titleLabel":titleLabel]))
+        effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[activityIndicator]-[titleLabel]-|",
+                                                                 options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                 metrics: nil,
+                                                                 views: ["activityIndicator":activityIndicator, "titleLabel":titleLabel]))
+        
+        
+        overlayView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[overlayView]-(<=1)-[effectView]",
+                                                                  options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                  metrics: nil,
+                                                                  views: ["overlayView":overlayView, "effectView":effectView]))
+        overlayView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[overlayView]-(<=1)-[effectView]",
+                                                                  options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                  metrics: nil,
+                                                                  views: ["overlayView":overlayView, "effectView":effectView]))
+    }
+    
+    func removeActivityIndicatorView() {
+        for view in self.subviews {
+            if view.tag == 1 {
+                view.removeFromSuperview()
+            }
+        }
+    }
+}
