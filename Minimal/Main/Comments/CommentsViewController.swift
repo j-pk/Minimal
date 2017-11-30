@@ -50,6 +50,7 @@ extension CommentsViewController: UITableViewDelegate {
             if let listing = listing {
                 cell.configureCell(forListing: listing)
                 cell.subscriptLabelView.delegate = self
+                cell.presentationView.delegate = self
             }
             return cell.contentView
         default:
@@ -58,9 +59,12 @@ extension CommentsViewController: UITableViewDelegate {
     }
 }
 
-extension CommentsViewController: SubscriptLabelViewDelegate {
-    func didTapDetailLabel(subredditNamePrefixed: String) {
-        print(subredditNamePrefixed)
-        //KVO
+extension CommentsViewController: UIViewTappableDelegate {
+    func didTapView(sender: UITapGestureRecognizer) {
+        if let view = sender.view, view is UILabel {
+            print("\(view)")
+        } else {
+            print("Bitiitch")
+        }
     }
 }

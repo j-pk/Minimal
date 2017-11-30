@@ -8,16 +8,12 @@
 
 import UIKit
 
-protocol SubscriptLabelViewDelegate: class {
-    func didTapDetailLabel(subredditNamePrefixed: String)
-}
-
 class SubscriptLabelView: XibView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
-    weak var delegate: SubscriptLabelViewDelegate?
+    weak var delegate: UIViewTappableDelegate?
     
     func setLabels(forListing listing: Listing) {
         let boldAttributes = [
@@ -66,15 +62,13 @@ class SubscriptLabelView: XibView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapDetailLabel))
-        detailLabel.addGestureRecognizer(tapGestureRecognizer)
         detailLabel.isUserInteractionEnabled = true
+        detailLabel.addGestureRecognizer(tapGestureRecognizer)
     }
-    
-    @objc func didTapDetailLabel(sender: UITapGestureRecognizer) {
-        guard let subredditNamePrefixed = (sender.view as? UILabel)?.text else { return }
-        if let delegate = delegate {
-            delegate.didTapDetailLabel(subredditNamePrefixed: subredditNamePrefixed)
-        }
+}
+
+extension SubscriptLabelView: Tappable, Recognizer {
+    func didTapView(_ sender: UITapGestureRecognizer) {
+        delegate?.didTapView(sender: sender)
     }
 }

@@ -44,6 +44,23 @@ class XibView: UIView {
     }
 }
 
+protocol UIViewTappableDelegate: class {
+    func didTapView(sender: UITapGestureRecognizer)
+}
+
+@objc protocol Tappable: class {
+    @objc func didTapView(_ sender: UITapGestureRecognizer)
+}
+protocol Recognizer: Tappable {
+    var tapGestureRecognizer: UITapGestureRecognizer { get }
+}
+extension Recognizer where Self: UIView {
+     var tapGestureRecognizer: UITapGestureRecognizer {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        return tap
+    }
+}
+
 extension UIView {
     func attachActivityIndicator(title: String, blurEffect: UIBlurEffectStyle, indicatorStyle: UIActivityIndicatorViewStyle) {
         let overlayView = UIView()
@@ -110,5 +127,36 @@ extension UIView {
                 view.removeFromSuperview()
             }
         }
+    }
+    
+    func attachPlayIndicator(image: UIImage? = UIImage(imageLiteralResourceName: "playIcon"), blurEffect: UIBlurEffectStyle) {
+        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: blurEffect))
+        effectView.layer.masksToBounds = true
+        effectView.layer.opacity = 0.6
+        effectView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(effectView)
+        
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[effectView]-0-|",
+                                                           options: NSLayoutFormatOptions.alignAllCenterX,
+                                                           metrics: nil,
+                                                           views: ["effectView":effectView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[effectView]-0-|",
+                                                           options: NSLayoutFormatOptions.alignAllCenterY,
+                                                           metrics: nil,
+                                                           views: ["effectView":effectView]))
+        
+        let imageView = UIImageView()
+        imageView.image = image
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        effectView.contentView.addSubview(imageView)
+        
+        effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[effectView]-(<=1)-[imageView(45)]",
+                                                                  options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                  metrics: nil,
+                                                                  views: ["effectView":effectView, "imageView":imageView]))
+        effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[effectView]-(<=1)-[imageView(45)]",
+                                                                  options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                  metrics: nil,
+                                                                  views: ["effectView":effectView, "imageView":imageView]))
     }
 }

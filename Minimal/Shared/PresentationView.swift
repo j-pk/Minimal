@@ -16,6 +16,8 @@ class PresentationView: XibView {
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var playerView: PlayerView!
     
+    weak var delegate: UIViewTappableDelegate?
+    
     func setView(forListing listing: Listing) {
         guard let listingUrlString = listing.url, let url = URL(string: listingUrlString) else { return }
         guard let components = URLComponents(string: listingUrlString) else { return }
@@ -37,10 +39,12 @@ class PresentationView: XibView {
                 playerView.playAndLoop()
             }
         case .video:
-            if let host = components.host, host.contains("vimeo") {
+            if let host = components.host, host.contains("vimeo") || host.contains("streamable") {
                 if let thumbnail = listing.thumbnailUrl, let thumbnailUrl = URL(string: thumbnail) {
                     imageView.isHidden = false
                     imageView.sd_setImage(with: thumbnailUrl, placeholderImage: nil)
+                    addGestureRecognizer(tapGestureRecognizer)
+                    attachPlayIndicator(blurEffect: .regular)
                 }
             } else {
                 webView.isHidden = false
@@ -60,5 +64,11 @@ extension PresentationView: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         removeActivityIndicatorView()
+    }
+}
+
+extension PresentationView: Tappable, Recognizer {
+    func didTapView(_ sender: UITapGestureRecognizer) {
+        delegate?.didTapView(sender: sender)
     }
 }

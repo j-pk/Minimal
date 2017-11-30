@@ -92,9 +92,8 @@ class DetailViewController: UIViewController {
     }
 }
 
-extension DetailViewController: SubscriptLabelViewDelegate {
-    func didTapDetailLabel(subredditNamePrefixed: String) {
-        print(subredditNamePrefixed)
-        //KVO
+extension DetailViewController: UIViewTappableDelegate {
+    func didTapView(sender: UITapGestureRecognizer) {
+        print(sender)
     }
 }
