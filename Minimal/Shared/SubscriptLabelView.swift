@@ -14,6 +14,7 @@ class SubscriptLabelView: XibView {
     @IBOutlet weak var descriptionLabel: UILabel!
     
     weak var delegate: UIViewTappableDelegate?
+    private var data: [String:Any?] = [:]
     
     func setLabels(forListing listing: Listing) {
         let boldAttributes = [
@@ -44,6 +45,7 @@ class SubscriptLabelView: XibView {
         
         detailLabel.text = listing.subredditNamePrefixed
         detailLabel.textColor = ThemeManager.default.linkTextColor
+        data = ["subreddit":listing.subredditNamePrefixed]
         
         let descriptionAttributedString = NSMutableAttributedString()
         let scoreAttributedString = NSAttributedString(string: "\(listing.score)", attributes: scoreAttributes) 
@@ -69,6 +71,6 @@ class SubscriptLabelView: XibView {
 
 extension SubscriptLabelView: Tappable, Recognizer {
     func didTapView(_ sender: UITapGestureRecognizer) {
-        delegate?.didTapView(sender: sender)
+        delegate?.didTapView(sender: sender, data: data)
     }
 }

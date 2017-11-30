@@ -39,7 +39,6 @@ extension Manageable where Self: NSManagedObject {
     }
     
     private static func insert<T: NSManagedObject>(context: NSManagedObjectContext) throws -> T? where T: Manageable {
-        
         guard let object = NSEntityDescription.insertNewObject(forEntityName: T.entityName, into: context) as? T else {
             throw CoreDataError.failedToInsertObject("\(T.entityName)")
         }

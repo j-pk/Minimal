@@ -45,8 +45,12 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerForPreviewing(with: self, sourceView: collectionView)
-
+        if traitCollection.forceTouchCapability == .available {
+            registerForPreviewing(with: self, sourceView: collectionView)
+        } else {
+            print("3D Touch Not Available")
+        }
+        
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = collectionViewLayout
@@ -228,6 +232,20 @@ extension MainViewController: UIViewControllerPreviewingDelegate {
     }
 }
 
+extension MainViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        guard let categoryPopOverViewController = popoverPresentationController.presentedViewController as? CategoryPopoverViewController else { return }
+        categoryButton.setTitle(categoryPopOverViewController.category.titleValue, for: .normal)
+        categoryButton.sizeToFit()
+        print(categoryPopOverViewController.category)
+        print(categoryPopOverViewController.timeFrame)
+    }
+}
+
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
@@ -251,23 +269,9 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             guard let lastViewedListing = self.listingResultsController.fetchedObjects?.last else { return }
-            SyncManager.default.syncListingsPage(prefix: "r/videos", category: nil, timeframe: nil, after: lastViewedListing.after ?? "", completionHandler: { (error) in
+            SyncManager.default.syncListingsPage(prefix: "", category: nil, timeframe: nil, after: lastViewedListing.after ?? "", completionHandler: { (error) in
                 print(error?.localizedDescription)
             })
         }
-    }
-}
-
-extension MainViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-    
-    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        guard let categoryPopOverViewController = popoverPresentationController.presentedViewController as? CategoryPopoverViewController else { return }
-        categoryButton.setTitle(categoryPopOverViewController.category.titleValue, for: .normal)
-        categoryButton.sizeToFit()
-        print(categoryPopOverViewController.category)
-        print(categoryPopOverViewController.timeFrame)
     }
 }

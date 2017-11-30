@@ -36,7 +36,7 @@ class DetailViewController: UIViewController {
         animator = UIDynamicAnimator(referenceView: presentationView)
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanPresentationView))
-        presentationView.addGestureRecognizer(panGestureRecognizer)
+        self.view.addGestureRecognizer(panGestureRecognizer)
     }
     
     @objc func isPopped() {
@@ -93,7 +93,7 @@ class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: UIViewTappableDelegate {
-    func didTapView(sender: UITapGestureRecognizer) {
+    func didTapView(sender: UITapGestureRecognizer, data: [String:Any?]) {
         print(sender)
     }
 }

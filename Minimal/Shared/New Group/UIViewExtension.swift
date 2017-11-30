@@ -45,7 +45,7 @@ class XibView: UIView {
 }
 
 protocol UIViewTappableDelegate: class {
-    func didTapView(sender: UITapGestureRecognizer)
+    func didTapView(sender: UITapGestureRecognizer, data: [String:Any?])
 }
 
 @objc protocol Tappable: class {

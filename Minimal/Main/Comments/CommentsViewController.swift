@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class CommentsViewController: UIViewController {
     @IBOutlet weak var bottomMenuBar: UIView!
@@ -24,6 +25,15 @@ class CommentsViewController: UIViewController {
         view.backgroundColor = ThemeManager.default.primaryTheme
         bottomMenuBar.backgroundColor = ThemeManager.default.primaryTheme
         tableView.backgroundColor = ThemeManager.default.primaryTheme
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "imageViewControllerSegue" {
+            if let destination = segue.destination as? ImageViewController {
+                guard let urlString = listing?.url, let url = URL(string: urlString) else { return }
+                destination.url = url
+            }
+        }
     }
 }
 
@@ -60,11 +70,23 @@ extension CommentsViewController: UITableViewDelegate {
 }
 
 extension CommentsViewController: UIViewTappableDelegate {
-    func didTapView(sender: UITapGestureRecognizer) {
+    func didTapView(sender: UITapGestureRecognizer, data: [String:Any?]) {
         if let view = sender.view, view is UILabel {
             print("\(view)")
-        } else {
-            print("Bitiitch")
+        } else if !data.filter({ $0.key == "image" }).isEmpty {
+            performSegue(withIdentifier: "imageViewControllerSegue", sender: self)
+        } else if let url = data["url"] as? URL {
+            let safariViewController = SFSafariViewController(url: url)
+            safariViewController.preferredBarTintColor = ThemeManager.default.primaryTheme
+            safariViewController.preferredControlTintColor = ThemeManager.default.secondaryTheme
+            safariViewController.delegate = self
+            present(safariViewController, animated: true)
         }
+    }
+}
+
+extension CommentsViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        dismiss(animated: true)
     }
 }

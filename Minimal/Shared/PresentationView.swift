@@ -17,6 +17,7 @@ class PresentationView: XibView {
     @IBOutlet weak var playerView: PlayerView!
     
     weak var delegate: UIViewTappableDelegate?
+    private var data: [String:Any?] = [:]
     
     func setView(forListing listing: Listing) {
         guard let listingUrlString = listing.url, let url = URL(string: listingUrlString) else { return }
@@ -25,6 +26,8 @@ class PresentationView: XibView {
         backgroundColor = ThemeManager.default.primaryTheme
         webView.navigationDelegate = self
         
+        data = ["image":url]
+        addGestureRecognizer(tapGestureRecognizer)
         switch listing.type {
         case .image:
             imageView.isHidden = false
@@ -43,11 +46,12 @@ class PresentationView: XibView {
                 if let thumbnail = listing.thumbnailUrl, let thumbnailUrl = URL(string: thumbnail) {
                     imageView.isHidden = false
                     imageView.sd_setImage(with: thumbnailUrl, placeholderImage: nil)
-                    addGestureRecognizer(tapGestureRecognizer)
+                    data = ["url":thumbnailUrl]
                     attachPlayIndicator(blurEffect: .regular)
                 }
             } else {
                 webView.isHidden = false
+                data = ["url":url]
                 attachActivityIndicator(title: "Loading", blurEffect: .light, indicatorStyle: .white)
                 webView.load( URLRequest(url: url) )
             }
@@ -69,6 +73,6 @@ extension PresentationView: WKNavigationDelegate {
 
 extension PresentationView: Tappable, Recognizer {
     func didTapView(_ sender: UITapGestureRecognizer) {
-        delegate?.didTapView(sender: sender)
+        delegate?.didTapView(sender: sender, data: data)
     }
 }

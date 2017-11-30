@@ -20,13 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         print(urls[urls.count-1] as URL)
         
-        configureTheme()
+        //configureTheme()
         
         CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
             if let error = error {
                 print(error)
             } else {
-                SyncManager.default.syncListings(prefix: "r/videos", category: nil, timeframe: nil) { (error) in
+                SyncManager.default.syncListings(prefix: "", category: nil, timeframe: nil) { (error) in
                     if let error = error {
                         print(error)
                     }
