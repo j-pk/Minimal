@@ -80,6 +80,9 @@ extension Listing: Manageable {
         case .image:
             return .image
         case .hostedVideo, .richVideo:
+            if let host = components.host?.contains("gfycat"), host {
+                return .animatedImage
+            }
             return .video
         case .link:
             if ListingMediaType.animatedImage.format.contains(where:{ components.path.hasSuffix($0.rawValue)  }) {
@@ -110,11 +113,18 @@ extension Listing: Manageable {
                 modifiedUrlComponents.path = components.path.replacingOccurrences(of: "/watch", with: "/embed/\(id)")
                 modifiedUrlComponents.queryItems = nil
             } else {
-                var path = components.path
-                path.insert(contentsOf: "/embed", at: path.startIndex)
+                var pathCopy = components.path
+                pathCopy.insert(contentsOf: "/embed", at: pathCopy.startIndex)
                 modifiedUrlComponents.host = "youtube.com"
-                modifiedUrlComponents.path = path
+                modifiedUrlComponents.path = pathCopy
             }
+        } else if let host = components.host, host.contains("gfycat") {
+            var hostCopy = host
+            hostCopy.insert(contentsOf: "thumbs.", at: hostCopy.startIndex)
+            modifiedUrlComponents.host = hostCopy
+            var pathCopy = components.path
+            pathCopy.insert(contentsOf: "-size_restricted.gif", at: pathCopy.endIndex)
+            modifiedUrlComponents.path = pathCopy
         } else {
             modifiedUrlComponents.path = components.path
         }
