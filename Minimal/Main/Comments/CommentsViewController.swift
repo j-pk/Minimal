@@ -21,7 +21,7 @@ class CommentsViewController: UIViewController {
         //calculations on sectionHeaderHeight
         tableView.sectionHeaderHeight = 400
         tableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
-        
+
         view.backgroundColor = ThemeManager.default.primaryTheme
         bottomMenuBar.backgroundColor = ThemeManager.default.primaryTheme
         tableView.backgroundColor = ThemeManager.default.primaryTheme
@@ -30,7 +30,7 @@ class CommentsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "imageViewControllerSegue" {
             if let destination = segue.destination as? ImageViewController {
-                guard let urlString = listing?.url, let url = URL(string: urlString) else { return }
+                guard let urlString = listing?.urlString, let url = URL(string: urlString) else { return }
                 destination.url = url
             }
         }

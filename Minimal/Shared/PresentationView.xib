@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PresentationVIew">
             <connections>
+                <outlet property="animatedImageView" destination="jGA-3r-KoL" id="Fli-ZB-8cK"/>
                 <outlet property="imageView" destination="9Bw-Hs-xDd" id="4rw-Sq-K2h"/>
                 <outlet property="playerView" destination="evY-h1-3R3" id="55A-so-dQi"/>
                 <outlet property="webView" destination="2wf-NA-THk" id="Wzh-D2-RXF"/>
@@ -21,10 +22,14 @@
             <rect key="frame" x="0.0" y="0.0" width="533" height="502"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Bw-Hs-xDd" customClass="FLAnimatedImageView">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Bw-Hs-xDd">
                     <rect key="frame" x="0.0" y="0.0" width="533" height="502"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </imageView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jGA-3r-KoL" customClass="AnimatedImageView" customModule="NukeGifuPlugin">
+                    <rect key="frame" x="0.0" y="0.0" width="533" height="502"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <wkWebView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2wf-NA-THk">
                     <rect key="frame" x="0.0" y="0.0" width="533" height="502"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -39,6 +44,8 @@
                 </view>
             </subviews>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="jGA-3r-KoL" secondAttribute="bottom" id="2oc-s9-JVZ"/>
+                <constraint firstAttribute="trailing" secondItem="jGA-3r-KoL" secondAttribute="trailing" id="GNM-yX-pb1"/>
                 <constraint firstItem="evY-h1-3R3" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Hoz-Ob-Tgx"/>
                 <constraint firstItem="evY-h1-3R3" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="Jfn-Rv-Qn4"/>
                 <constraint firstItem="9Bw-Hs-xDd" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="OA1-Nj-JCj"/>
@@ -46,6 +53,8 @@
                 <constraint firstItem="2wf-NA-THk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="WpT-w0-VMr"/>
                 <constraint firstItem="evY-h1-3R3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Zol-rL-kc5"/>
                 <constraint firstItem="9Bw-Hs-xDd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="bJn-FL-8OL"/>
+                <constraint firstItem="jGA-3r-KoL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cRQ-xh-Bv4"/>
+                <constraint firstItem="jGA-3r-KoL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lGe-oN-WPg"/>
                 <constraint firstItem="9Bw-Hs-xDd" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="mc3-hM-oYM"/>
                 <constraint firstItem="2wf-NA-THk" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="mca-5M-I4r"/>
                 <constraint firstItem="2wf-NA-THk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="nbb-6b-8RX"/>

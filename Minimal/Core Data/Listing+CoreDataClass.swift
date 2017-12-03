@@ -9,6 +9,7 @@
 
 import Foundation
 import CoreData
+import Nuke
 
 public class Listing: NSManagedObject {
     var hint: ListingPostHint {
@@ -20,6 +21,18 @@ public class Listing: NSManagedObject {
     var type: ListingMediaType {
         get {
             return ListingMediaType(rawValue: self.mediaType)!
+        }
+    }
+    
+    var url: URL {
+        get {
+            return URL(string: thumbnailUrlString ?? urlString)!
+        }
+    }
+    
+    var request: Request {
+        get {
+            return Request(url: url)
         }
     }
 }
@@ -50,11 +63,13 @@ extension Listing: Manageable {
             listing.after = json.after
             listing.postHint = json.postHint
             listing.populatedDate = Date()
-            listing.url = modifyUrl(url: json.mediaUrl ?? json.url)
-            listing.thumbnailUrl = json.thumbnailUrl
+            listing.urlString = modifyUrl(url: json.mediaUrl ?? json.url)
+            listing.thumbnailUrlString = json.thumbnailUrl
+            listing.thumbnailWidth = json.thumbnailWidth as NSNumber?
+            listing.thumbnailHeight = json.thumbnailHeight as NSNumber?
 
             if let postHint = listing.postHint, let hint = ListingPostHint(rawValue: postHint)  {
-                let listingMediaType = determineMediaType(url: listing.url, postHint: hint)
+                let listingMediaType = determineMediaType(url: listing.urlString, postHint: hint)
                 listing.mediaType = listingMediaType.rawValue
             } else {
                 listing.mediaType = ListingMediaType.none.rawValue
@@ -78,9 +93,14 @@ extension Listing: Manageable {
         
         switch postHint {
         case .image:
+            if ListingMediaType.animatedImage.format.contains(where:{ components.path.hasSuffix($0.rawValue)  }) {
+                return .animatedImage
+            }
             return .image
         case .hostedVideo, .richVideo:
             if let host = components.host?.contains("gfycat"), host {
+                return .animatedImage
+            } else if ListingMediaType.video.format.contains(where:{ components.path.hasSuffix($0.rawValue) }) {
                 return .animatedImage
             }
             return .video
@@ -96,9 +116,9 @@ extension Listing: Manageable {
         return .none
     }
     
-    static private func modifyUrl(url: String?) -> String? {
-        guard let url = url else { return nil }
-        guard let components = URLComponents(string: url) else { return nil }
+    static private func modifyUrl(url: String?) -> String {
+        guard let url = url else { return "" }
+        guard let components = URLComponents(string: url) else { return "" }
         var modifiedUrlComponents = URLComponents()
         modifiedUrlComponents.scheme = components.scheme
         modifiedUrlComponents.host = components.host
@@ -129,6 +149,6 @@ extension Listing: Manageable {
             modifiedUrlComponents.path = components.path
         }
 
-        return modifiedUrlComponents.url?.absoluteString
+        return modifiedUrlComponents.url?.absoluteString ?? ""
     }
 }

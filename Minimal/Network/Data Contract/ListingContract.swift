@@ -60,6 +60,8 @@ struct ListingData: Decodable {
     let domain: String
     let mediaUrl: String?
     let thumbnailUrl: String?
+    let thumbnailWidth: Int?
+    let thumbnailHeight: Int?
     
     enum KindCodingKeys: String, CodingKey {
         case kind
@@ -84,6 +86,8 @@ struct ListingData: Decodable {
         case numberOfComments = "num_comments"
         case domain
         case media
+        case thumbnailWidth = "thumbnail_width"
+        case thumbnailHeight = "thumbnail_height"
     }
     
     enum MediaCodingKeys: String, CodingKey {
@@ -120,6 +124,8 @@ struct ListingData: Decodable {
         subredditNamePrefixed = try data.decode(String.self, forKey: .subredditNamePrefixed)
         numberOfComments = try data.decode(Int32.self, forKey: .numberOfComments)
         domain = try data.decode(String.self, forKey: .domain)
+        thumbnailWidth = try data.decodeIfPresent(Int.self, forKey: .thumbnailWidth)
+        thumbnailHeight = try data.decodeIfPresent(Int.self, forKey: .thumbnailHeight)
         
         if try data.decodeNil(forKey: .media) == false {
             let media = try data.nestedContainer(keyedBy: MediaCodingKeys.self, forKey: .media)
@@ -164,6 +170,8 @@ struct ListingMapped: Mappable {
     let domain: String
     let mediaUrl: String?
     let thumbnailUrl: String?
+    let thumbnailWidth: Int?
+    let thumbnailHeight: Int?
 
     init(root: ListingRoot, data: ListingData) {
         before = root.before
@@ -187,6 +195,8 @@ struct ListingMapped: Mappable {
         domain = data.domain
         mediaUrl = data.mediaUrl
         thumbnailUrl = data.thumbnailUrl
+        thumbnailWidth = data.thumbnailWidth
+        thumbnailHeight = data.thumbnailHeight
     }
 }
 

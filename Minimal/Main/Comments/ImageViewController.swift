@@ -7,10 +7,10 @@
 //
 
 import UIKit
-import SDWebImage
+import Nuke
 
 class ImageViewController: UIViewController {
-    @IBOutlet weak var imageView: FLAnimatedImageView!
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     var url: URL?
     
@@ -22,7 +22,7 @@ class ImageViewController: UIViewController {
         }
         view.backgroundColor = ThemeManager.default.primaryTheme
         imageView.backgroundColor = ThemeManager.default.primaryTheme
-        imageView.sd_setImage(with: url, completed: nil)
+        Manager.shared.loadImage(with: url, into: imageView)
     }
     
 }

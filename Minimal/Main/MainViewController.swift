@@ -8,8 +8,7 @@
 
 import UIKit
 import CoreData
-import SDWebImage
-import ChameleonFramework
+import Nuke
 
 class MainViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
@@ -38,7 +37,7 @@ class MainViewController: UIViewController {
         layout.columnCount = 2
         layout.headerHeight = 10
         layout.footerHeight = 10
-        layout.sectionInset = UIEdgeInsets(top: 44, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 54, left: 10, bottom: 0, right: 10)
         return layout
     }()
     var isPaginating: Bool = false
@@ -65,9 +64,19 @@ class MainViewController: UIViewController {
         reloadCollectionView(forListing: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        playerStateForViewControllerTransition(isReturning: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        playerStateForViewControllerTransition(isReturning: false)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        SDImageCache.shared().clearMemory()
+        print("Memory Warning")
     }
     
     deinit {
@@ -95,6 +104,30 @@ class MainViewController: UIViewController {
     
     @IBAction func didPressTitleButton(_ sender: UIButton) {
         
+    }
+    
+    func playerStateForViewControllerTransition(isReturning: Bool) {
+        collectionView.visibleCells.flatMap({ $0 as? MainCell }).forEach { (cell) in
+            if cell.playerView.player != nil {
+                isReturning ? cell.playerView.play() : cell.playerView.pause()
+            }
+        }
+    }
+    
+    func calculateSizeForItem(atIndexPath indexPath: IndexPath) -> CGSize {
+        let itemWidth = collectionViewLayout.itemWidthInSectionAtIndex(indexPath.section)
+        
+        let listing = self.listingResultsController.object(at: indexPath)
+        if let image = Cache.shared[listing.request] {
+            return image.size
+        } else if let imageWidth = listing.thumbnailWidth as? CGFloat, let imageHeight = listing.thumbnailHeight as? CGFloat {
+            let scale = imageWidth / itemWidth
+            let adjustedHeight = scale * imageHeight
+            let adjustedWidth = scale * imageWidth
+            return CGSize(width: adjustedWidth, height: adjustedHeight)
+        } else {
+            return CGSize(width: 200, height: 400)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -128,26 +161,27 @@ extension MainViewController: UICollectionViewDataSource {
         
         let listing = self.listingResultsController.object(at: indexPath)
         cell.configureCell(forListing: listing)
+
         return cell
     }
 }
 
 extension MainViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        let urls = indexPaths.map({ self.listingResultsController.object(at: $0).url.flatMap { URL(string: $0) }!  })
-        SDWebImagePrefetcher.shared().prefetchURLs(urls)
+        let urls = indexPaths.map({ self.listingResultsController.object(at: $0).request })
+        let preheater = Preheater(manager: Manager.shared)
+        preheater.startPreheating(with: urls)
     }
     
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        SDWebImagePrefetcher.shared().cancelPrefetching()
+        let preheater = Preheater(manager: Manager.shared)
+        preheater.stopPreheating()
     }
 }
 
 extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        let listing = self.listingResultsController.object(at: indexPath as IndexPath)
-        guard let image = SDImageCache.shared().imageFromCache(forKey: listing.thumbnailUrl ?? listing.url) else { return CGSize.zero }
-        return image.size
+        return calculateSizeForItem(atIndexPath: indexPath)
     }
 }
 
@@ -269,9 +303,12 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             guard let lastViewedListing = self.listingResultsController.fetchedObjects?.last else { return }
-            SyncManager.default.syncListingsPage(prefix: "", category: nil, timeframe: nil, after: lastViewedListing.after ?? "", completionHandler: { (error) in
-                print(error?.localizedDescription)
-            })
+            let blockOperation = BlockOperation {
+                SyncManager.default.syncListingsPage(prefix: "", category: nil, timeframe: nil, after: lastViewedListing.after ?? "", completionHandler: { (error) in
+                })
+            }
+            let queue = OperationQueue()
+            queue.addOperation(blockOperation)
         }
     }
 }

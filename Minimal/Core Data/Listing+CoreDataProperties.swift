@@ -28,8 +28,10 @@ extension Listing {
     @NSManaged public var hidden: Bool
     @NSManaged public var created: Date?
     @NSManaged public var populatedDate: Date
-    @NSManaged public var url: String?
-    @NSManaged public var thumbnailUrl: String?
+    @NSManaged public var urlString: String
+    @NSManaged public var thumbnailUrlString: String?
+    @NSManaged public var thumbnailWidth: NSNumber?
+    @NSManaged public var thumbnailHeight: NSNumber?
     @NSManaged public var author: String?
     @NSManaged public var subredditNamePrefixed: String?
     @NSManaged public var numberOfComments: Int32

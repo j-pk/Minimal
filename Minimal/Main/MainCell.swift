@@ -8,18 +8,23 @@
 
 import UIKit
 import AVFoundation
-import SDWebImage
+import Nuke
+import NukeGifuPlugin
+import Gifu
 
 class MainCell: UICollectionViewCell {
-    @IBOutlet var imageView: FLAnimatedImageView!
+    @IBOutlet var imageView: UIImageView!
     @IBOutlet var playerView: PlayerView!
+    @IBOutlet weak var animatedImageView: AnimatedImageView!
     
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
         playerView.player = nil
+        animatedImageView.prepareForReuse()
         imageView.isHidden = true
-        playerView.isHidden = true 
+        playerView.isHidden = true
+        animatedImageView.isHidden = true
     }
     
     override func awakeFromNib() {
@@ -29,28 +34,30 @@ class MainCell: UICollectionViewCell {
     }
     
     func configureCell(forListing listing: Listing) {
-        guard let listingUrlString = listing.url, let url = URL(string: listingUrlString) else {
-            return
-        }
-        
         switch listing.type {
         case .image:
             imageView.isHidden = false
-            imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "placeholder"))
+            Manager.shared.loadImage(with: listing.url, into: imageView)
         case .animatedImage:
-            guard let components = URLComponents(string: listingUrlString) else { return }
+            guard let components = URLComponents(string: listing.thumbnailUrlString ?? listing.urlString) else { return }
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
-                imageView.isHidden = false
-                imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "placeholder"))
+                animatedImageView.isHidden = false
+                animatedImageView.imageView.contentMode = .scaleAspectFit
+                AnimatedImage.manager.loadImage(with: listing.url, into: animatedImageView)
             } else {
                 playerView.isHidden = false
-                playerView.player = AVPlayer(url: url)
-                playerView.playAndLoop()
+                playerView.player = AVPlayer(url: listing.url)
+                playerView.play()
             }
         case .video:
-            guard let thumbnailString = listing.thumbnailUrl, let thumbnailUrl = URL(string: thumbnailString) else { return }
             imageView.isHidden = false
-            imageView.sd_setImage(with: thumbnailUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"))
+            Manager.shared.loadImage(with: listing.url, into: imageView) { [weak self] response, _ in
+                if let image = response.value {
+                    self?.imageView?.image = image
+                } else {
+                    self?.attachPlayIndicator(blurEffect: .dark)
+                }
+            }
         default:
             return
         }

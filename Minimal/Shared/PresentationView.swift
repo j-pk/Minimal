@@ -7,21 +7,36 @@
 //
 
 import UIKit
-import SDWebImage
+import Nuke
+import NukeGifuPlugin
 import WebKit
 import AVFoundation
 
 class PresentationView: XibView {
-    @IBOutlet weak var imageView: FLAnimatedImageView!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var animatedImageView: AnimatedImageView!
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var playerView: PlayerView!
     
     weak var delegate: UIViewTappableDelegate?
     private var data: [String:Any?] = [:]
     
+    func prepareForeReuse() {
+        imageView.image = nil
+        playerView.pause()
+        playerView.player = nil
+        removeIndicatorView()
+        animatedImageView.prepareForReuse()
+
+        imageView.isHidden = true
+        animatedImageView.isHidden = true
+        webView.isHidden = true
+        playerView.isHidden = true
+    }
+    
     func setView(forListing listing: Listing) {
-        guard let listingUrlString = listing.url, let url = URL(string: listingUrlString) else { return }
-        guard let components = URLComponents(string: listingUrlString) else { return }
+        guard let url = URL(string: listing.urlString) else { return }
+        guard let components = URLComponents(string: listing.urlString) else { return }
 
         backgroundColor = ThemeManager.default.primaryTheme
         webView.navigationDelegate = self
@@ -31,21 +46,22 @@ class PresentationView: XibView {
         switch listing.type {
         case .image:
             imageView.isHidden = false
-            imageView.sd_setImage(with: url, placeholderImage: nil)
+            Manager.shared.loadImage(with: url, into: imageView)
         case .animatedImage:
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
-                imageView.isHidden = false
-                imageView.sd_setImage(with: url, placeholderImage: nil)
+                animatedImageView.isHidden = false
+                animatedImageView.imageView.contentMode = .scaleAspectFit
+                AnimatedImage.manager.loadImage(with: listing.url, into: animatedImageView)
             } else {
                 playerView.isHidden = false
                 playerView.player = AVPlayer(url: url)
-                playerView.playAndLoop()
+                playerView.play()
             }
         case .video:
             if let host = components.host, host.contains("vimeo") || host.contains("streamable") {
-                if let thumbnail = listing.thumbnailUrl, let thumbnailUrl = URL(string: thumbnail) {
+                if let thumbnail = listing.thumbnailUrlString, let thumbnailUrl = URL(string: thumbnail) {
                     imageView.isHidden = false
-                    imageView.sd_setImage(with: thumbnailUrl, placeholderImage: nil)
+                    Manager.shared.loadImage(with: url, into: imageView)
                     data = ["url":thumbnailUrl]
                     attachPlayIndicator(blurEffect: .regular)
                 }
@@ -63,11 +79,11 @@ class PresentationView: XibView {
 
 extension PresentationView: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        removeActivityIndicatorView()
+        removeIndicatorView()
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        removeActivityIndicatorView()
+        removeIndicatorView()
     }
 }
 

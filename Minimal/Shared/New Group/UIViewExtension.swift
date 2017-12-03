@@ -121,7 +121,7 @@ extension UIView {
                                                                   views: ["overlayView":overlayView, "effectView":effectView]))
     }
     
-    func removeActivityIndicatorView() {
+    func removeIndicatorView() {
         for view in self.subviews {
             if view.tag == 1 {
                 view.removeFromSuperview()
@@ -134,6 +134,7 @@ extension UIView {
         effectView.layer.masksToBounds = true
         effectView.layer.opacity = 0.6
         effectView.translatesAutoresizingMaskIntoConstraints = false
+        effectView.tag = 1
         self.addSubview(effectView)
         
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[effectView]-0-|",

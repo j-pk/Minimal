@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 class DetailViewController: UIViewController {
     @IBOutlet weak var presentationView: PresentationView!

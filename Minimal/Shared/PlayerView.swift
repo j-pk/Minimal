@@ -12,23 +12,44 @@ import AVFoundation
 class PlayerView: UIView {
     var player: AVPlayer? {
         get {
+            playerLayer.videoGravity = .resizeAspect
             return playerLayer.player
         }
         set {
             playerLayer.player = newValue
+            if newValue == nil {
+                NotificationCenter.default.removeObserver(self)
+            }
         }
     }
     
-    func playAndLoop() {
-        self.player?.play()
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
-            self.player?.seek(to: kCMTimeZero)
-            self.player?.play()
+    func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(playAndLoop), name: .AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem)
+        NotificationCenter.default.addObserver(self, selector: #selector(stalled), name: .AVPlayerItemPlaybackStalled, object: self.player?.currentItem)
+    }
+    
+    @objc func playAndLoop() {
+        player?.seek(to: kCMTimeZero)
+        player?.play()
+    }
+    
+    //TODO: Handle stalls with Retry attempts
+    @objc private func stalled() {
+        if let player = self.player {
+            if player.currentTime() > kCMTimeZero && player.currentTime() != player.currentItem?.duration {
+                player.pause()
+            }
         }
+    }
+    
+    func play() {
+        addObservers()
+        player?.play()
+        player?.isMuted = true
     }
     
     func pause() {
-        self.player?.pause()
+        player?.pause()
     }
     
     var playerLayer: AVPlayerLayer {

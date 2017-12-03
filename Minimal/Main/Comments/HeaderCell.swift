@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 class HeaderCell: UITableViewCell {
     @IBOutlet weak var subscriptLabelView: SubscriptLabelView!
