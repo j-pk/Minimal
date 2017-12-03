@@ -66,12 +66,12 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        playerStateForViewControllerTransition(isReturning: true)
+        setPlayerStateForViewControllerTransition(isReturning: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        playerStateForViewControllerTransition(isReturning: false)
+        setPlayerStateForViewControllerTransition(isReturning: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -106,7 +106,7 @@ class MainViewController: UIViewController {
         
     }
     
-    func playerStateForViewControllerTransition(isReturning: Bool) {
+    func setPlayerStateForViewControllerTransition(isReturning: Bool) {
         collectionView.visibleCells.flatMap({ $0 as? MainCell }).forEach { (cell) in
             if cell.playerView.player != nil {
                 isReturning ? cell.playerView.play() : cell.playerView.pause()
@@ -114,18 +114,15 @@ class MainViewController: UIViewController {
         }
     }
     
-    func calculateSizeForItem(atIndexPath indexPath: IndexPath) -> CGSize {
-        let itemWidth = collectionViewLayout.itemWidthInSectionAtIndex(indexPath.section)
-        
+    func calculateSizeForItem(atIndexPath indexPath: IndexPath) -> CGSize {        
         let listing = self.listingResultsController.object(at: indexPath)
         if let image = Cache.shared[listing.request] {
+            print("Cache Image Size: \(image.size)")
             return image.size
-        } else if let imageWidth = listing.thumbnailWidth as? CGFloat, let imageHeight = listing.thumbnailHeight as? CGFloat {
-            let scale = imageWidth / itemWidth
-            let adjustedHeight = scale * imageHeight
-            let adjustedWidth = scale * imageWidth
-            return CGSize(width: adjustedWidth, height: adjustedHeight)
+        } else if let imageWidth = listing.width as? CGFloat, let imageHeight = listing.height as? CGFloat {
+            return CGSize(width: imageWidth, height: imageHeight)
         } else {
+            print("Default CGSize")
             return CGSize(width: 200, height: 400)
         }
     }

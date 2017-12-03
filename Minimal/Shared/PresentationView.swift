@@ -41,10 +41,10 @@ class PresentationView: XibView {
         backgroundColor = ThemeManager.default.primaryTheme
         webView.navigationDelegate = self
         
-        data = ["image":url]
         addGestureRecognizer(tapGestureRecognizer)
         switch listing.type {
         case .image:
+            data = ["image":url]
             imageView.isHidden = false
             Manager.shared.loadImage(with: url, into: imageView)
         case .animatedImage:

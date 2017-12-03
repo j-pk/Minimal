@@ -62,6 +62,7 @@ struct ListingData: Decodable {
     let thumbnailUrl: String?
     let thumbnailWidth: Int?
     let thumbnailHeight: Int?
+    let images: [Images]?
     
     enum KindCodingKeys: String, CodingKey {
         case kind
@@ -86,6 +87,8 @@ struct ListingData: Decodable {
         case numberOfComments = "num_comments"
         case domain
         case media
+        case preview
+        case images
         case thumbnailWidth = "thumbnail_width"
         case thumbnailHeight = "thumbnail_height"
     }
@@ -127,6 +130,13 @@ struct ListingData: Decodable {
         thumbnailWidth = try data.decodeIfPresent(Int.self, forKey: .thumbnailWidth)
         thumbnailHeight = try data.decodeIfPresent(Int.self, forKey: .thumbnailHeight)
         
+        if data.contains(.preview) {
+            let preview = try data.nestedContainer(keyedBy: DataCodingKeys.self, forKey: .preview)
+            images = try preview.decodeIfPresent([Images].self, forKey: .images)
+        } else {
+            images = nil
+        }
+
         if try data.decodeNil(forKey: .media) == false {
             let media = try data.nestedContainer(keyedBy: MediaCodingKeys.self, forKey: .media)
             if media.contains(.oembed) {
@@ -146,6 +156,37 @@ struct ListingData: Decodable {
             thumbnailUrl = nil
         }
     }
+    
+    struct Images: Decodable {
+        let resolutions: [Resolution]?
+        
+        enum ImagesCodingKeys: String, CodingKey {
+            case resolutions
+        }
+        
+        init(from decoder: Decoder) throws {
+            let data = try decoder.container(keyedBy: ImagesCodingKeys.self)
+            resolutions = try data.decodeIfPresent([Resolution].self, forKey: .resolutions)
+        }
+        
+        struct Resolution: Decodable {
+            let width: Int?
+            let height: Int?
+            
+            enum ResolutionsCodingKeys: String, CodingKey {
+                case width
+                case height
+            }
+            
+            init(from decoder: Decoder) throws {
+                let resolutions = try decoder.container(keyedBy: ResolutionsCodingKeys.self)
+                width = try resolutions.decodeIfPresent(Int.self, forKey: .width)
+                height = try resolutions.decodeIfPresent(Int.self, forKey: .height)
+            }
+        }
+    }
+    
+    
 }
 
 struct ListingMapped: Mappable {
@@ -172,6 +213,8 @@ struct ListingMapped: Mappable {
     let thumbnailUrl: String?
     let thumbnailWidth: Int?
     let thumbnailHeight: Int?
+    let widths: [Int]?
+    let heights: [Int]?
 
     init(root: ListingRoot, data: ListingData) {
         before = root.before
@@ -197,6 +240,8 @@ struct ListingMapped: Mappable {
         thumbnailUrl = data.thumbnailUrl
         thumbnailWidth = data.thumbnailWidth
         thumbnailHeight = data.thumbnailHeight
+        widths = data.images?.first?.resolutions?.flatMap({ $0.width })
+        heights = data.images?.first?.resolutions?.flatMap({ $0.height })
     }
 }
 

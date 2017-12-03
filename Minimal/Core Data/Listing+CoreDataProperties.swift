@@ -30,8 +30,8 @@ extension Listing {
     @NSManaged public var populatedDate: Date
     @NSManaged public var urlString: String
     @NSManaged public var thumbnailUrlString: String?
-    @NSManaged public var thumbnailWidth: NSNumber?
-    @NSManaged public var thumbnailHeight: NSNumber?
+    @NSManaged public var width: NSNumber?
+    @NSManaged public var height: NSNumber?
     @NSManaged public var author: String?
     @NSManaged public var subredditNamePrefixed: String?
     @NSManaged public var numberOfComments: Int32

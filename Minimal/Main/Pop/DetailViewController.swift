@@ -93,6 +93,5 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: UIViewTappableDelegate {
     func didTapView(sender: UITapGestureRecognizer, data: [String:Any?]) {
-        print(sender)
     }
 }

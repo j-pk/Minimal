@@ -65,9 +65,11 @@ extension Listing: Manageable {
             listing.populatedDate = Date()
             listing.urlString = modifyUrl(url: json.mediaUrl ?? json.url)
             listing.thumbnailUrlString = json.thumbnailUrl
-            listing.thumbnailWidth = json.thumbnailWidth as NSNumber?
-            listing.thumbnailHeight = json.thumbnailHeight as NSNumber?
-
+            let imageSize = determineImageSize(fromJSON: json)
+            listing.width = imageSize.0 as NSNumber?
+            listing.height = imageSize.1 as NSNumber?
+            
+            
             if let postHint = listing.postHint, let hint = ListingPostHint(rawValue: postHint)  {
                 let listingMediaType = determineMediaType(url: listing.urlString, postHint: hint)
                 listing.mediaType = listingMediaType.rawValue
@@ -84,6 +86,22 @@ extension Listing: Manageable {
         } catch let error {
             completionHandler(error)
         }
+    }
+    
+    static private func determineImageSize(fromJSON json: ListingMapped) -> (Int?, Int?) {
+        var width = json.thumbnailWidth
+        var height = json.thumbnailHeight
+        if let widths = json.widths, let heights = json.heights {
+            if widths.count >= 3 && heights.count >= 3 {
+                width = widths[2]
+                height = heights[2]
+            } else {
+                width = widths.endIndex
+                height = heights.endIndex
+            }
+        }
+        
+        return (width, height)
     }
     
     static private func determineMediaType(url: String?, postHint: ListingPostHint) -> ListingMediaType {

@@ -81,7 +81,7 @@ extension APIManager {
             } else {
                 if let root = decoded {
                     let listings = root.listings.map({ listingData in ListingMapped(root: root, data: listingData) })
-                    print(listings.map({ [$0.thumbnailWidth,$0.thumbnailHeight] }))
+                    print(listings)
                     completion(nil, listings)
                 } else {
                     //error
