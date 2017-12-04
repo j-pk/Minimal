@@ -30,6 +30,7 @@ public class Listing: NSManagedObject {
         }
     }
     
+    //Nuke type for image loading and cache
     var request: Request {
         get {
             return Request(url: url)
@@ -66,8 +67,8 @@ extension Listing: Manageable {
             listing.urlString = modifyUrl(url: json.mediaUrl ?? json.url)
             listing.thumbnailUrlString = json.thumbnailUrl
             let imageSize = determineImageSize(fromJSON: json)
-            listing.width = imageSize.0 as NSNumber?
-            listing.height = imageSize.1 as NSNumber?
+            listing.width = imageSize.width as NSNumber?
+            listing.height = imageSize.height as NSNumber?
             
             
             if let postHint = listing.postHint, let hint = ListingPostHint(rawValue: postHint)  {
@@ -88,7 +89,13 @@ extension Listing: Manageable {
         }
     }
     
-    static private func determineImageSize(fromJSON json: ListingMapped) -> (Int?, Int?) {
+    /// Determine Image Size
+    /// A listing will usually have an array of widths and and heights at various resolutions
+    /// This method tries to pick out the ideal size
+    ///
+    /// - Parameter json: Mapped Listing from JSON
+    /// - Returns: Tuple containing Int value for width & height
+    static private func determineImageSize(fromJSON json: ListingMapped) -> (width: Int?, height: Int?) {
         var width = json.thumbnailWidth
         var height = json.thumbnailHeight
         if let widths = json.widths, let heights = json.heights {
@@ -101,9 +108,15 @@ extension Listing: Manageable {
             }
         }
         
-        return (width, height)
+        return (width: width, height: height)
     }
     
+    /// Determine Media Type using posthint and url
+    ///
+    /// - Parameters:
+    ///   - url: String?
+    ///   - postHint: ListingPostHint type
+    /// - Returns: ListingMediaType
     static private func determineMediaType(url: String?, postHint: ListingPostHint) -> ListingMediaType {
         guard let url = url else { return .none }
         guard let components = URLComponents(string: url) else { return .none }
@@ -134,6 +147,11 @@ extension Listing: Manageable {
         return .none
     }
     
+    
+    /// Modify url so they work in AVPlayer, AnimatedImageView, or WebView
+    ///
+    /// - Parameter url: String?
+    /// - Returns: String
     static private func modifyUrl(url: String?) -> String {
         guard let url = url else { return "" }
         guard let components = URLComponents(string: url) else { return "" }

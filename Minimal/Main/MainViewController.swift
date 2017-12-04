@@ -273,7 +273,7 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
         categoryButton.setTitle(categoryPopOverViewController.category.titleValue, for: .normal)
         categoryButton.sizeToFit()
         print(categoryPopOverViewController.category)
-        print(categoryPopOverViewController.timeFrame)
+        //print(categoryPopOverViewController.timeFrame)
     }
 }
 

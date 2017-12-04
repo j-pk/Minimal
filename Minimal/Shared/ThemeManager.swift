@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ThemeManager {
+struct ThemeManager {
     
     static let `default` = ThemeManager()
     

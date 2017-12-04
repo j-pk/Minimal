@@ -73,7 +73,7 @@ enum ListingPostHint: String {
     case image
     case none = ""
     case subreddit = "self"
-    case richVideo = "rich:video" //YouTube
+    case richVideo = "rich:video" //YouTube gfycat 
     case hostedVideo = "hosted:video" 
 }
 
