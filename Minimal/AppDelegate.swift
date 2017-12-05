@@ -6,14 +6,6 @@
 //  Copyright © 2017 Parker Kirby. All rights reserved.
 //
 
-//redirect uri minimalApp://minimalApp.com
-//client id t6Z4BZyV3a06eA
-
-//authorization url
-//https://www.reddit.com/api/v1//api/v1/authorize.compact?client_id=CLIENT_ID&response_type=code&state=RANDOM_STRING&redirect_uri=minimalApp://minimalApp.com&duration=permanent&scope=identity,vote,read,subscribe,mysubreddits
-
-//state user defaults random string to compare on uri redirect
-
 import UIKit
 import CoreData
 

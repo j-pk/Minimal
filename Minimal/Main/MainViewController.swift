@@ -117,7 +117,6 @@ class MainViewController: UIViewController {
     func calculateSizeForItem(atIndexPath indexPath: IndexPath) -> CGSize {        
         let listing = self.listingResultsController.object(at: indexPath)
         if let image = Cache.shared[listing.request] {
-            print("Cache Image Size: \(image.size)")
             return image.size
         } else if let imageWidth = listing.width as? CGFloat, let imageHeight = listing.height as? CGFloat {
             return CGSize(width: imageWidth, height: imageHeight)

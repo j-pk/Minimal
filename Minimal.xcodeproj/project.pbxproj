@@ -23,6 +23,7 @@
 		C08D56F91FBAA10E0053FEA5 /* CategoryPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D56F81FBAA10E0053FEA5 /* CategoryPopoverViewController.swift */; };
 		C08D623F1FD4DC5D00794B2A /* LabelBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D623E1FD4DC5D00794B2A /* LabelBaseCell.swift */; };
 		C08D62411FD4E39200794B2A /* AuthenticateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D62401FD4E39200794B2A /* AuthenticateCell.swift */; };
+		C08D62431FD617DD00794B2A /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D62421FD617DD00794B2A /* UITableViewCellExtensions.swift */; };
 		C0A385761F9E54AF005064DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385751F9E54AF005064DF /* AppDelegate.swift */; };
 		C0A385781F9E54B0005064DF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385771F9E54B0005064DF /* SettingsViewController.swift */; };
 		C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0A3857C1F9E54B0005064DF /* Minimal.xcdatamodeld */; };
@@ -70,6 +71,7 @@
 		C08D56F81FBAA10E0053FEA5 /* CategoryPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPopoverViewController.swift; sourceTree = "<group>"; };
 		C08D623E1FD4DC5D00794B2A /* LabelBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LabelBaseCell.swift; path = Minimal/Shared/LabelBaseCell.swift; sourceTree = SOURCE_ROOT; };
 		C08D62401FD4E39200794B2A /* AuthenticateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateCell.swift; sourceTree = "<group>"; };
+		C08D62421FD617DD00794B2A /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
 		C0A385721F9E54AF005064DF /* Minimal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minimal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A385751F9E54AF005064DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0A385771F9E54B0005064DF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				C0110E151FB5671400410478 /* NotificationExtensions.swift */,
 				C0D584581FB75297002BCFA9 /* UIViewControllerExtensions.swift */,
 				C0EC9BA41FC25A760073FF7A /* UIViewExtension.swift */,
+				C08D62421FD617DD00794B2A /* UITableViewCellExtensions.swift */,
 			);
 			name = Extensions;
 			path = "New Group";
@@ -494,6 +497,7 @@
 				C03EC9EC1FC8CCEC00ACA0F5 /* ThemeManager.swift in Sources */,
 				C03F92251FA049BE009EEEF3 /* CoreDataManager.swift in Sources */,
 				C0DA84D91FA00D10006BE949 /* Listing+CoreDataProperties.swift in Sources */,
+				C08D62431FD617DD00794B2A /* UITableViewCellExtensions.swift in Sources */,
 				C01B23051FD09DBE001F60B8 /* ImageViewController.swift in Sources */,
 				C08D56F91FBAA10E0053FEA5 /* CategoryPopoverViewController.swift in Sources */,
 				C0DA84D81FA00D10006BE949 /* Listing+CoreDataClass.swift in Sources */,

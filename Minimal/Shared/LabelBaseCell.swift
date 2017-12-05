@@ -67,7 +67,7 @@ class LabelBaseCell: UITableViewCell {
                                                            options: NSLayoutFormatOptions.alignAllLeading,
                                                            metrics: nil,
                                                            views: ["mainStackView": mainStackView]))
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[mainStackView]-[arrow]-|",
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-12-[mainStackView]-[arrow]-|",
                                                            options: NSLayoutFormatOptions.alignAllCenterY,
                                                            metrics: nil,
                                                            views: ["mainStackView": mainStackView, "arrow": arrow]))

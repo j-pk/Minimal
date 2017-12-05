@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SafariServices
 
 enum NetworkError: Error {
     case failedToParse(Error)
@@ -79,6 +80,37 @@ class APIManager {
         }
         task?.resume()
     }
-
+    
+    //redirect uri minimalApp://minimalApp.com
+    //client id t6Z4BZyV3a06eA
+    
+    //authorization url
+    //https://www.reddit.com/api/v1//api/v1/authorize.compact?client_id=t6Z4BZyV3a06eA&response_type=code&state=RANDOM_STRING&redirect_uri=minimalApp://minimalApp.com&duration=permanent&scope=identity,vote,read,subscribe,mysubreddits
+    
+    //state user defaults random string to compare on uri redirect
+    func authenticate(completionHandler: @escaping (URL?, Error?) -> Swift.Void) -> SFAuthenticationSession? {
+        var authSession: SFAuthenticationSession?
+        let randomString = NSUUID().uuidString.replacingOccurrences(of: "-", with: "")
+        let callbackUrl = "minimalApp://"
+        let authorizationUrl = URL(string: "https://www.reddit.com/api/v1/authorize.compact?client_id=t6Z4BZyV3a06eA&response_type=code&state=\(randomString)&redirect_uri=minimalApp://minimalApp.com&duration=permanent&scope=identity,vote,read,subscribe,mysubreddits")!
+        //Initialize auth session
+        authSession = SFAuthenticationSession(url: authorizationUrl, callbackURLScheme: callbackUrl, completionHandler: completionHandler)
+        return authSession
+    }
 }
 
+extension APIManager: AuthenticationDelegate {
+    func authenticated(results: (url: URL?, error: Error?)) {
+        if let error = results.error {
+            print(error)
+            return
+        } else if let successURL = results.url {
+            let queryItems = URLComponents(string: successURL.absoluteString)?.queryItems
+            print(queryItems)
+        }
+    }
+}
+
+protocol AuthenticationDelegate: class {
+    func authenticated(results: (url: URL?, error: Error?))
+}
