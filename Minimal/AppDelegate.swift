@@ -21,16 +21,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(urls[urls.count-1] as URL)
         
         //configureTheme()
-        
         CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
             if let error = error {
                 print(error)
             } else {
-                SyncManager.default.syncListings(prefix: "", category: nil, timeframe: nil) { (error) in
+                let request = ListingRequest(subreddit: "",
+                                             category: nil)
+                SyncManager.default.syncListings(withRequest: request, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     }
-                }
+                })
             }
         })
         return true

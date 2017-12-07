@@ -149,7 +149,7 @@ extension SettingsViewController: UITableViewDelegate {
         switch SettingsTableViewSections(indexPath: indexPath) {
         case .authenticate?:
             self.delegate = APIManager.default
-            authSession = APIManager.default.authenticate(completionHandler: { (url, error) in
+            authSession = APIManager.default.requestAuthentication(completionHandler: { (url, error) in
                 self.delegate?.authenticated(results: (url, error))
             })
             print("Starting SFAuthenticationSession...")

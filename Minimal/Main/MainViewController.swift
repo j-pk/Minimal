@@ -18,11 +18,11 @@ class MainViewController: UIViewController {
     @IBOutlet weak var titleButton: UIButton!
     @IBOutlet weak var categoryButton: UIButton!
     
-    fileprivate var blockOperations: [BlockOperation] = []
+    private var blockOperations: [BlockOperation] = []
     
     //NOTE: Sync happens when data is older than an hour, perhaps this can be configurable
     //Still need to figure this out and when to clear out old listings
-    fileprivate var listingResultsController: NSFetchedResultsController<Listing> = {
+    private var listingResultsController: NSFetchedResultsController<Listing> = {
         let fetchRequest = NSFetchRequest<Listing>(entityName: Listing.entityName)
         fetchRequest.predicate = NSPredicate(format: "mediaType != %@", ListingMediaType.none.rawValue as CVarArg)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "populatedDate", ascending: true)]
@@ -30,7 +30,7 @@ class MainViewController: UIViewController {
         return fetchedResultsController
     }()
     
-    let collectionViewLayout: CHTCollectionViewWaterfallLayout = {
+    private let collectionViewLayout: CHTCollectionViewWaterfallLayout = {
         let layout = CHTCollectionViewWaterfallLayout()
         layout.minimumColumnSpacing = 10.0
         layout.minimumInteritemSpacing = 10.0
@@ -40,7 +40,8 @@ class MainViewController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 54, left: 10, bottom: 0, right: 10)
         return layout
     }()
-    var isPaginating: Bool = false
+    
+    private var isPaginating: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -300,7 +301,17 @@ extension MainViewController: UIScrollViewDelegate {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             guard let lastViewedListing = self.listingResultsController.fetchedObjects?.last else { return }
             let blockOperation = BlockOperation {
-                SyncManager.default.syncListingsPage(prefix: "", category: nil, timeframe: nil, after: lastViewedListing.after ?? "", completionHandler: { (error) in
+                let request = ListingRequest(subreddit: "",
+                                             category: nil,
+                                             timeframe: nil,
+                                             after: lastViewedListing.after ?? "",
+                                             limit: 25,
+                                             requestType: .paginate)
+                
+                SyncManager.default.syncListings(withRequest: request, completionHandler: { (error) in
+                    if let error = error {
+                        print(error)
+                    }
                 })
             }
             let queue = OperationQueue()

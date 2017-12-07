@@ -52,6 +52,8 @@
 		C0EC9BA51FC25A760073FF7A /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9BA41FC25A760073FF7A /* UIViewExtension.swift */; };
 		C0ED1F9C1FB2AC1900580C1E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */; };
 		C0ED1F9E1FB3F0DB00580C1E /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED1F9D1FB3F0DB00580C1E /* DateExtensions.swift */; };
+		C0EDC88E1FD78219009C0D39 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDC88C1FD78219009C0D39 /* User+CoreDataClass.swift */; };
+		C0EDC88F1FD78219009C0D39 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDC88D1FD78219009C0D39 /* User+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +104,8 @@
 		C0EC9BA41FC25A760073FF7A /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C0ED1F9D1FB3F0DB00580C1E /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		C0EDC88C1FD78219009C0D39 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C0EDC88D1FD78219009C0D39 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E24D1E61FEBD271FBA772ED4 /* Pods-Minimal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minimal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minimal/Pods-Minimal.debug.xcconfig"; sourceTree = "<group>"; };
 		F61CBBD01DF4E0DDD853B07D /* Pods_Minimal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Minimal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -261,6 +265,8 @@
 			children = (
 				C03F92231FA049AE009EEEF3 /* Manager */,
 				C0A3857C1F9E54B0005064DF /* Minimal.xcdatamodeld */,
+				C0EDC88C1FD78219009C0D39 /* User+CoreDataClass.swift */,
+				C0EDC88D1FD78219009C0D39 /* User+CoreDataProperties.swift */,
 				C0DA84D61FA00D10006BE949 /* Listing+CoreDataClass.swift */,
 				C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */,
 			);
@@ -487,12 +493,14 @@
 				C08D623F1FD4DC5D00794B2A /* LabelBaseCell.swift in Sources */,
 				C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */,
 				C03167C01FB175A900E420D0 /* MainCollectionViewFlowLayout.swift in Sources */,
+				C0EDC88E1FD78219009C0D39 /* User+CoreDataClass.swift in Sources */,
 				C0ED1F9C1FB2AC1900580C1E /* DetailViewController.swift in Sources */,
 				C003B9011FC6139800A2B089 /* ListingRouter.swift in Sources */,
 				C0A385781F9E54B0005064DF /* SettingsViewController.swift in Sources */,
 				C0EC9B9D1FC112B90073FF7A /* HeaderCell.swift in Sources */,
 				C0A3859E1F9E98AC005064DF /* MainCell.swift in Sources */,
 				C0EC9B9B1FC0ED9A0073FF7A /* SubscriptLabelView.swift in Sources */,
+				C0EDC88F1FD78219009C0D39 /* User+CoreDataProperties.swift in Sources */,
 				C03F92221FA022B9009EEEF3 /* SyncManager.swift in Sources */,
 				C03EC9EC1FC8CCEC00ACA0F5 /* ThemeManager.swift in Sources */,
 				C03F92251FA049BE009EEEF3 /* CoreDataManager.swift in Sources */,

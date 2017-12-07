@@ -19,6 +19,10 @@ protocol Routable {
     func setURLRequest() throws -> URLRequest
 }
 
+protocol Requestable {
+    var router: Routable { get }
+}
+
 extension Routable {
     public var urlRequest: URLRequest? { return try? setURLRequest() }
     
@@ -55,7 +59,7 @@ class APIManager {
     private let defaultSession = URLSession(configuration: .default)
     private var task: URLSessionDataTask?
     
-    func fetch<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping ((NetworkError?, T?)->())) where T: Decodable  {
+    func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping ((NetworkError?, T?)->())) where T: Decodable  {
         guard let request = route.urlRequest else { return }
         task = defaultSession.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
@@ -88,7 +92,7 @@ class APIManager {
     //https://www.reddit.com/api/v1//api/v1/authorize.compact?client_id=t6Z4BZyV3a06eA&response_type=code&state=RANDOM_STRING&redirect_uri=minimalApp://minimalApp.com&duration=permanent&scope=identity,vote,read,subscribe,mysubreddits
     
     //state user defaults random string to compare on uri redirect
-    func authenticate(completionHandler: @escaping (URL?, Error?) -> Swift.Void) -> SFAuthenticationSession? {
+    func requestAuthentication(completionHandler: @escaping (URL?, Error?) -> Swift.Void) -> SFAuthenticationSession? {
         var authSession: SFAuthenticationSession?
         let randomString = NSUUID().uuidString.replacingOccurrences(of: "-", with: "")
         let callbackUrl = "minimalApp://"
@@ -99,6 +103,10 @@ class APIManager {
     }
 }
 
+protocol AuthenticationDelegate: class {
+    func authenticated(results: (url: URL?, error: Error?))
+}
+
 extension APIManager: AuthenticationDelegate {
     func authenticated(results: (url: URL?, error: Error?)) {
         if let error = results.error {
@@ -106,11 +114,8 @@ extension APIManager: AuthenticationDelegate {
             return
         } else if let successURL = results.url {
             let queryItems = URLComponents(string: successURL.absoluteString)?.queryItems
-            print(queryItems)
+            print(queryItems as Any)
         }
     }
 }
 
-protocol AuthenticationDelegate: class {
-    func authenticated(results: (url: URL?, error: Error?))
-}

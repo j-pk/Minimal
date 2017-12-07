@@ -10,7 +10,7 @@ import Foundation
 
 enum ListingRouter: Routable {
     case subreddit(prefix: String, category: String?, timeframe: String?)
-    case paginate(prefix: String, category: String?, timeframe: String?, limit: Int, after: String)
+    case paginate(prefix: String, category: String?, timeframe: String?, limit: Int, after: String?)
     
     //https://www.reddit.com/r/funny/top/.json?sort=top&t=24hours
     //https://www.reddit.com/r/funny/top/?sort=top&t=24hours&count=25&after=t3_7eaiko
@@ -48,7 +48,9 @@ enum ListingRouter: Routable {
                 paginateQuery.append(URLQueryItem(name: "t", value: timeframe))
             }
             paginateQuery.append(URLQueryItem(name: "limit", value: "\(limit)"))
-            paginateQuery.append(URLQueryItem(name: "after", value: after))
+            if let after = after {
+                paginateQuery.append(URLQueryItem(name: "after", value: after))
+            }
             return paginateQuery
         }
     }
@@ -71,33 +73,51 @@ enum ListingRouter: Routable {
     }
 }
 
-extension APIManager {
-    func requestListings(prefix: String, category: String?, timeframe: String?, completion: @escaping ((NetworkError?, [ListingMapped]?)->())) {
-        let router = ListingRouter.subreddit(prefix: prefix, category: category, timeframe: timeframe)
-        fetch(forRoute: router, withDecodable: ListingRoot.self) { (error, decoded) in
-            if let error = error {
-                print(error)
-                completion(error, nil)
-            } else {
-                if let root = decoded {
-                    let listings = root.listings.map({ listingData in ListingMapped(root: root, data: listingData) })
-                    completion(nil, listings)
-                } else {
-                    //error
-                }
+struct ListingRequest: Requestable {
+    
+    enum RequestType {
+        case subreddit
+        case paginate
+    }
+    
+    let subreddit: String
+    let category: String?
+    let timeframe: String?
+    let after: String?
+    let limit: Int
+    let requestType: RequestType
+    
+    init(subreddit: String, category: String?, timeframe: String? = nil, after: String? = nil, limit: Int = 25, requestType: RequestType = .subreddit) {
+        self.subreddit = subreddit
+        self.category = category
+        self.timeframe = timeframe
+        self.after = after
+        self.limit = limit
+        self.requestType = requestType
+    }
+    
+    var router: Routable {
+        get {
+            switch requestType {
+            case .subreddit:
+                return ListingRouter.subreddit(prefix: subreddit, category: category, timeframe: timeframe)
+            case .paginate:
+                return ListingRouter.paginate(prefix: subreddit, category: category, timeframe: timeframe, limit: limit, after: after)
             }
         }
     }
-    
-    func requestListingsPage(prefix: String, category: String?, timeframe: String?, limit: Int = 25, after: String, completion: @escaping ((NetworkError?, [ListingMapped]?)->())) {
-        let router = ListingRouter.paginate(prefix: prefix, category: category, timeframe: timeframe, limit: limit, after: after)
-        fetch(forRoute: router, withDecodable: ListingRoot.self) { (error, decoded) in
+}
+
+extension APIManager {
+    typealias MappedCompletionHandler = (NetworkError?, [ListingMapped]?) -> Void
+    func requestMappedListings(forRequest request: Requestable, completion: @escaping MappedCompletionHandler) {
+        session(forRoute: request.router, withDecodable: ListingStore.self) { (error, decoded) in
             if let error = error {
                 print(error)
                 completion(error, nil)
             } else {
-                if let root = decoded {
-                    let listings = root.listings.map({ listingData in ListingMapped(root: root, data: listingData) })
+                if let decoded = decoded {
+                    let listings = decoded.listings.map({ listingData in ListingMapped(store: decoded, data: listingData) })
                     completion(nil, listings)
                 } else {
                     print("error")

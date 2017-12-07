@@ -41,7 +41,7 @@ public class Listing: NSManagedObject {
 extension Listing: Manageable {
     static func populateObject<T>(fromJSON json: T, save: Bool, moc: NSManagedObjectContext, completionHandler: @escaping ((Error?) -> ())) where T : Decodable {
         
-        guard let json = json as? ListingMapped else { fatalError("Failed to cast decodable as ListingData.") }
+        guard let json = json as? ListingMapped else { fatalError("Failed to cast decodable as ListingObject.") }
         
         do {
             let listing: Listing = try Listing.fetchObject(predicate: NSPredicate(format: "id == %@", json.id), moc: moc) ?? Listing.insertObject(context: moc)
