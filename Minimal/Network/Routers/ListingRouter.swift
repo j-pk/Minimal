@@ -87,7 +87,13 @@ struct ListingRequest: Requestable {
     let limit: Int
     let requestType: RequestType
     
-    init(subreddit: String, category: String?, timeframe: String? = nil, after: String? = nil, limit: Int = 25, requestType: RequestType = .subreddit) {
+    init(subreddit: String,
+         category: String?,
+         timeframe: String? = nil,
+         after: String? = nil,
+         limit: Int = 25,
+         requestType: RequestType = .subreddit) {
+        
         self.subreddit = subreddit
         self.category = category
         self.timeframe = timeframe
@@ -113,14 +119,13 @@ extension APIManager {
     func requestMappedListings(forRequest request: Requestable, completion: @escaping MappedCompletionHandler) {
         session(forRoute: request.router, withDecodable: ListingStore.self) { (error, decoded) in
             if let error = error {
-                print(error)
                 completion(error, nil)
             } else {
                 if let decoded = decoded {
                     let listings = decoded.listings.map({ listingData in ListingMapped(store: decoded, data: listingData) })
                     completion(nil, listings)
                 } else {
-                    print("error")
+                    completion(NetworkError.serverError(description: "No data for \(String(describing: request.router.urlRequest))"), nil)
                 }
             }
         }

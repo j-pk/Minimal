@@ -10,6 +10,7 @@ import Foundation
 
 class SyncManager {
     typealias OptionalErrorHandler = (Error?) -> Void
+    
     static let `default` = SyncManager()
     private var isSyncing = false
     
