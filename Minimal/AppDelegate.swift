@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 let request = ListingRequest(subreddit: "",
                                              category: nil)
-                SyncManager.default.syncListings(withRequest: request, completionHandler: { (error) in
+                let _ = ListingManager(request: request, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     }

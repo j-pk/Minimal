@@ -10,9 +10,7 @@ import UIKit
 
 // Example JSON https://www.reddit.com/hot/.json
 
-protocol Mappable: Decodable {
-
-}
+protocol Mappable: Decodable { }
 
 struct ListingStore: Decodable {
     let before: String?

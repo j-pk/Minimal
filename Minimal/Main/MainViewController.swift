@@ -308,7 +308,7 @@ extension MainViewController: UIScrollViewDelegate {
                                              limit: 25,
                                              requestType: .paginate)
                 
-                SyncManager.default.syncListings(withRequest: request, completionHandler: { (error) in
+                let _ = ListingManager(request: request, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     }

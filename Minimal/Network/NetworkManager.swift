@@ -1,5 +1,5 @@
 //
-//  APIManager.swift
+//  NetworkManager.swift
 //  Minimal
 //
 //  Created by Jameson Kirby on 10/23/17.
@@ -9,10 +9,20 @@
 import Foundation
 import SafariServices
 
-enum NetworkError: Error {
-    case failedToParse(Error)
-    case responseError(response: URLResponse?)
-    case serverError(description: String)
+typealias OptionalErrorHandler = (Error?) -> Void
+typealias MappedCompletionHandler = (NetworkError?, [ListingMapped]?) -> Void
+typealias NetworkCompletionHandler<T> = (NetworkError?, T?) -> Void
+
+public enum HTTPMethod: String {
+    case options = "OPTIONS"
+    case get     = "GET"
+    case head    = "HEAD"
+    case post    = "POST"
+    case put     = "PUT"
+    case patch   = "PATCH"
+    case delete  = "DELETE"
+    case trace   = "TRACE"
+    case connect = "CONNECT"
 }
 
 protocol Routable {
@@ -40,26 +50,29 @@ extension Routable {
     }
 }
 
-public enum HTTPMethod: String {
-    case options = "OPTIONS"
-    case get     = "GET"
-    case head    = "HEAD"
-    case post    = "POST"
-    case put     = "PUT"
-    case patch   = "PATCH"
-    case delete  = "DELETE"
-    case trace   = "TRACE"
-    case connect = "CONNECT"
+public enum NetworkError: Error {
+    case failedToParse(Error)
+    case responseError(response: URLResponse?)
+    case serverError(description: String)
 }
 
-class APIManager {
-    
-    static let `default` = APIManager()
-    
+protocol AuthenticationDelegate: class {
+    func authenticated(results: (url: URL?, error: Error?))
+}
+
+protocol Modelable {
+    var networkEngine: NetworkEngine { get }
+}
+
+protocol NetworkEngine {
+    func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping NetworkCompletionHandler<T>) where T: Decodable
+}
+
+class NetworkManager: NetworkEngine {
     private let defaultSession = URLSession(configuration: .default)
     private var task: URLSessionDataTask?
     
-    func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping ((NetworkError?, T?)->())) where T: Decodable  {
+    func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping NetworkCompletionHandler<T>) where T: Decodable  {
         guard let request = route.urlRequest else { return }
         task = defaultSession.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
@@ -103,11 +116,7 @@ class APIManager {
     }
 }
 
-protocol AuthenticationDelegate: class {
-    func authenticated(results: (url: URL?, error: Error?))
-}
-
-extension APIManager: AuthenticationDelegate {
+extension NetworkManager: AuthenticationDelegate {
     func authenticated(results: (url: URL?, error: Error?)) {
         if let error = results.error {
             print(error)

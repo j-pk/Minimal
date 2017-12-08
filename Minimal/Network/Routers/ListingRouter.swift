@@ -114,21 +114,4 @@ struct ListingRequest: Requestable {
     }
 }
 
-extension APIManager {
-    typealias MappedCompletionHandler = (NetworkError?, [ListingMapped]?) -> Void
-    func requestMappedListings(forRequest request: Requestable, completion: @escaping MappedCompletionHandler) {
-        session(forRoute: request.router, withDecodable: ListingStore.self) { (error, decoded) in
-            if let error = error {
-                completion(error, nil)
-            } else {
-                if let decoded = decoded {
-                    let listings = decoded.listings.map({ listingData in ListingMapped(store: decoded, data: listingData) })
-                    completion(nil, listings)
-                } else {
-                    completion(NetworkError.serverError(description: "No data for \(String(describing: request.router.urlRequest))"), nil)
-                }
-            }
-        }
-    }
-}
 
