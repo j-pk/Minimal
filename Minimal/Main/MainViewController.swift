@@ -132,7 +132,7 @@ class MainViewController: UIViewController {
         if segue.identifier == "popOverControllerSegue" {
             segue.destination.popoverPresentationController?.delegate = self
             segue.destination.preferredContentSize = CGSize(width: self.view.frame.width, height: 60)
-            segue.destination.popoverPresentationController?.sourceRect = CGRect(x: 5, y: categoryButton.frame.maxY, width:0, height: 0)
+            segue.destination.popoverPresentationController?.sourceRect = CGRect(x: (categoryButton.frame.width / 2), y: categoryButton.frame.maxY, width:0, height: 0)
             segue.destination.popoverPresentationController?.backgroundColor = themeManager.theme.secondaryColor
         } else if segue.identifier == "commentsControllerSegue" {
             if let commentsViewController = segue.destination as? CommentsViewController {

@@ -37,6 +37,8 @@ struct ThemeManager {
         
         UIButton.appearance().setTitleColor(theme.titleTextColor, for: .normal)
         UIButton.appearance().setTitleColor(theme.subtitleTextColor, for: .selected)
+        
+        UIApplication.shared.statusBarStyle = theme.statusBarStyle
     }
     
     // MARK: - Font
@@ -118,6 +120,15 @@ extension Theme {
             return .default
         case .darkTheme:
             return .black
+        }
+    }
+    
+    var statusBarStyle: UIStatusBarStyle {
+        switch self {
+        case .minimalTheme, .darkTheme:
+            return .lightContent
+        case .lightTheme:
+            return .default
         }
     }
 }
