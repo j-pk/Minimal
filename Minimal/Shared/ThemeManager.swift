@@ -34,6 +34,9 @@ struct ThemeManager {
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.titleTextColor], for:  .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.subtitleTextColor], for:  .selected)
+        
+        UIButton.appearance().setTitleColor(theme.titleTextColor, for: .normal)
+        UIButton.appearance().setTitleColor(theme.subtitleTextColor, for: .selected)
     }
     
     // MARK: - Font
@@ -74,6 +77,18 @@ extension Theme {
             return #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
         }
     }
+    
+    var backgroundColor: UIColor {
+        switch self {
+        case .minimalTheme:
+            return #colorLiteral(red: 0.2117647059, green: 0.3098039216, blue: 0.3215686275, alpha: 1)
+        case .darkTheme:
+            return #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        case .lightTheme:
+            return #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
+        }
+    }
+    
     
     var titleTextColor: UIColor {
         switch self {

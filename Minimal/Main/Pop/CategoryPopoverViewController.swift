@@ -26,6 +26,7 @@ class CategoryPopoverViewController: UIViewController {
     
     var category: ListingCategoryType = .hot
     var timeFrame: CategoryTimeFrame?
+    var themeManager = ThemeManager()
     
     @IBAction func didPressCategoryButton(_ sender: UIButton) {
         guard let selectedCategory = ListingCategoryType.allValues.filter({ $0.titleValue == sender.titleLabel?.text }).first else { return }
@@ -64,13 +65,13 @@ class CategoryPopoverViewController: UIViewController {
     }
     
     func select(button: UIButton) {
-        button.backgroundColor = .gray
+        button.backgroundColor = themeManager.theme.backgroundColor
         button.layer.cornerRadius = 4.0
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(themeManager.theme.subtitleTextColor, for: .normal)
     }
     
     func deselect(button: UIButton) {
         button.backgroundColor = UIColor.clear
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(themeManager.theme.titleTextColor, for: .normal)
     }
 }
