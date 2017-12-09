@@ -13,6 +13,7 @@ class HeaderCell: UITableViewCell {
     @IBOutlet weak var presentationView: PresentationView!
     
     var url: URL?
+    var themeManager = ThemeManager()
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -23,7 +24,7 @@ class HeaderCell: UITableViewCell {
     }
     
     func configureCell(forListing listing: Listing) {
-        self.contentView.backgroundColor = ThemeManager.default.primaryTheme
+        self.contentView.backgroundColor = themeManager.theme.primaryColor
         subscriptLabelView.setLabels(forListing: listing)
         presentationView.setView(forListing: listing)
         self.layoutIfNeeded()

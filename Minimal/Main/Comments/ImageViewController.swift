@@ -13,6 +13,7 @@ class ImageViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     var url: URL?
+    fileprivate var themeManager = ThemeManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +21,8 @@ class ImageViewController: UIViewController {
             dismiss(animated: true, completion: nil)
             return
         }
-        view.backgroundColor = ThemeManager.default.primaryTheme
-        imageView.backgroundColor = ThemeManager.default.primaryTheme
+        view.backgroundColor = themeManager.theme.primaryColor
+        imageView.backgroundColor = themeManager.theme.primaryColor
         Manager.shared.loadImage(with: url, into: imageView)
     }
     

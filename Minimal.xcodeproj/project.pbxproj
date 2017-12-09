@@ -293,18 +293,18 @@
 			children = (
 				C02E49921FDA59B40030347D /* Managers */,
 				C003B8FF1FC6137700A2B089 /* Routers */,
-				C0A385A21F9F8834005064DF /* Data Contract */,
+				C0A385A21F9F8834005064DF /* Data Contracts */,
 				C0EDC8901FDA4352009C0D39 /* NetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
 		};
-		C0A385A21F9F8834005064DF /* Data Contract */ = {
+		C0A385A21F9F8834005064DF /* Data Contracts */ = {
 			isa = PBXGroup;
 			children = (
 				C0A385A31F9F885E005064DF /* ListingContract.swift */,
 			);
-			path = "Data Contract";
+			path = "Data Contracts";
 			sourceTree = "<group>";
 		};
 		C0DA84DA1FA01030006BE949 /* Shared */ = {

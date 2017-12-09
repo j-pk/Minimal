@@ -20,6 +20,7 @@ class PresentationView: XibView {
     
     weak var delegate: UIViewTappableDelegate?
     private var data: [String:Any?] = [:]
+    fileprivate let themeManager = ThemeManager()
     
     func prepareForeReuse() {
         imageView.image = nil
@@ -38,7 +39,7 @@ class PresentationView: XibView {
         guard let url = URL(string: listing.urlString) else { return }
         guard let components = URLComponents(string: listing.urlString) else { return }
 
-        backgroundColor = ThemeManager.default.primaryTheme
+        backgroundColor = themeManager.theme.primaryColor
         webView.navigationDelegate = self
         
         addGestureRecognizer(tapGestureRecognizer)

@@ -15,21 +15,22 @@ class SubscriptLabelView: XibView {
     
     weak var delegate: UIViewTappableDelegate?
     private var data: [String:Any?] = [:]
+    fileprivate let themeManager = ThemeManager()
     
     func setLabels(forListing listing: Listing) {
         let boldAttributes = [
-            NSAttributedStringKey.font: ThemeManager.font(fontType: .primaryBold),
-            NSAttributedStringKey.foregroundColor: ThemeManager.default.primaryTextColor
+            NSAttributedStringKey.font: themeManager.font(fontType: .primaryBold),
+            NSAttributedStringKey.foregroundColor: themeManager.theme.titleTextColor
         ]
         
         let regularAttributes = [
-            NSAttributedStringKey.font: ThemeManager.font(fontType: .secondary),
-            NSAttributedStringKey.foregroundColor: ThemeManager.default.secondaryTextColor
+            NSAttributedStringKey.font: themeManager.font(fontType: .secondary),
+            NSAttributedStringKey.foregroundColor: themeManager.theme.subtitleTextColor
         ]
         
         let scoreAttributes = [
-            NSAttributedStringKey.font: ThemeManager.font(fontType: .secondary),
-            NSAttributedStringKey.foregroundColor: ThemeManager.default.redditOrange
+            NSAttributedStringKey.font: themeManager.font(fontType: .secondary),
+            NSAttributedStringKey.foregroundColor: themeManager.redditOrange
         ]
         
         let mutableAttributedTitleString = NSMutableAttributedString()
@@ -44,7 +45,7 @@ class SubscriptLabelView: XibView {
         titleLabel.attributedText = mutableAttributedTitleString
         
         detailLabel.text = listing.subredditNamePrefixed
-        detailLabel.textColor = ThemeManager.default.linkTextColor
+        detailLabel.textColor = themeManager.linkTextColor
         data = ["subreddit":listing.subredditNamePrefixed]
         
         let descriptionAttributedString = NSMutableAttributedString()

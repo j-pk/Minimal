@@ -42,6 +42,7 @@ class MainViewController: UIViewController {
     }()
     
     private var isPaginating: Bool = false
+    fileprivate var themeManager = ThemeManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +57,8 @@ class MainViewController: UIViewController {
         collectionView.collectionViewLayout = collectionViewLayout
         collectionView.prefetchDataSource = self
         
-        self.headerView.backgroundColor = ThemeManager.default.primaryTheme
-        self.headerViewStatusCover.backgroundColor = ThemeManager.default.primaryTheme
+        self.headerView.backgroundColor = themeManager.theme.primaryColor
+        self.headerViewStatusCover.backgroundColor = themeManager.theme.primaryColor
         
         listingResultsController.delegate = self
         performFetch()

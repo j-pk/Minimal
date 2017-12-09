@@ -18,6 +18,7 @@ class DetailViewController: UIViewController {
     
     var animator: UIDynamicAnimator!
     var listing: Listing?
+    var themeManager = ThemeManager()
 
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -30,7 +31,7 @@ class DetailViewController: UIViewController {
         
         subscriptLabelView.delegate = self
         
-        self.view.backgroundColor = ThemeManager.default.primaryTheme
+        self.view.backgroundColor = themeManager.theme.primaryColor
         
         animator = UIDynamicAnimator(referenceView: presentationView)
         

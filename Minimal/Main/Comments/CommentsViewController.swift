@@ -14,7 +14,8 @@ class CommentsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var listing: Listing?
-    	
+    var themeManager = ThemeManager ()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //in addition to passing the listing, perhaps just pass the image to instead of setting it to do
@@ -22,9 +23,9 @@ class CommentsViewController: UIViewController {
         tableView.sectionHeaderHeight = 400
         tableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
 
-        view.backgroundColor = ThemeManager.default.primaryTheme
-        bottomMenuBar.backgroundColor = ThemeManager.default.primaryTheme
-        tableView.backgroundColor = ThemeManager.default.primaryTheme
+        view.backgroundColor = themeManager.theme.primaryColor
+        bottomMenuBar.backgroundColor = themeManager.theme.primaryColor
+        tableView.backgroundColor = themeManager.theme.primaryColor
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -77,8 +78,8 @@ extension CommentsViewController: UIViewTappableDelegate {
             performSegue(withIdentifier: "imageViewControllerSegue", sender: self)
         } else if let url = data["url"] as? URL {
             let safariViewController = SFSafariViewController(url: url)
-            safariViewController.preferredBarTintColor = ThemeManager.default.primaryTheme
-            safariViewController.preferredControlTintColor = ThemeManager.default.secondaryTheme
+            safariViewController.preferredBarTintColor = themeManager.theme.primaryColor
+            safariViewController.preferredControlTintColor = themeManager.theme.secondaryColor
             safariViewController.delegate = self
             present(safariViewController, animated: true)
         }

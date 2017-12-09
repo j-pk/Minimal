@@ -12,7 +12,7 @@ import SafariServices
 class SettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var authSession: SFAuthenticationSession?
-    weak var delegate: AuthenticationDelegate?
+    var themeManager = ThemeManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,14 +20,14 @@ class SettingsViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60
         tableView.tableFooterView = UIView(frame: .zero)
-        tableView.separatorColor = ThemeManager.default.primaryTheme
+        tableView.separatorColor = themeManager.theme.primaryColor
     }
     
     //MARK: TableView Helper Methods
     func configureHeader(InSection section: Int) -> UIView {
         let headerView = UIView()
         let bottomLineView = UIView()
-        bottomLineView.backgroundColor = ThemeManager.default.primaryTheme
+        bottomLineView.backgroundColor = themeManager.theme.primaryColor
         bottomLineView.translatesAutoresizingMaskIntoConstraints = false
         headerView.addSubview(bottomLineView)
         
@@ -70,9 +70,11 @@ class SettingsViewController: UIViewController {
     
     func configure(cell: AuthenticateCell, forRowAt indexPath: IndexPath) {
         cell.setSeparatorInset(forInsetValue: .zero)
-        //if no access token, or expired session
-        cell.authenticateLabel.text = "Login to Reddit"
-        //else "Logout 
+        if UserDefaults.standard.object(forKey: "AuthorizationKey") != nil {
+            cell.authenticateLabel.text = "Disconnect from Reddit"
+        } else {
+            cell.authenticateLabel.text = "Connect to Reddit"
+        }
     }
 }
 
@@ -148,13 +150,18 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch SettingsTableViewSections(indexPath: indexPath) {
         case .authenticate?:
-            let networkManager = NetworkManager()
-            self.delegate = networkManager
-            authSession = networkManager.requestAuthentication(completionHandler: { (url, error) in
-                self.delegate?.authenticated(results: (url, error))
-            })
-            print("Starting SFAuthenticationSession...")
-            authSession?.start()
+            if UserDefaults.standard.object(forKey: UserSettingsDefaultKey.authorizationKey) != nil {
+                UserDefaults.standard.setValue(nil, forKey: UserSettingsDefaultKey.authorizationKey)
+                self.tableView.reloadData()
+            } else {
+                let networkManager = NetworkManager()
+                authSession = networkManager.requestAuthentication(completionHandler: { [weak self] (url, error) in
+                    networkManager.results = (url, error)
+                    self?.tableView.reloadData()
+                })
+                print("Starting SFAuthenticationSession...")
+                authSession?.start()
+            }
         default:
             break
         }

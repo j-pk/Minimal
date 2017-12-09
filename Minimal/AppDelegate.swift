@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         print(urls[urls.count-1] as URL)
         
-        //configureTheme()
+        configureTheme()
         CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
             if let error = error {
                 print(error)
@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     func configureTheme() {
-        ThemeManager.setGlobalTheme()
+        ThemeManager().setGlobalTheme(theme: .minimalTheme)
     }
 }
 

@@ -56,10 +56,6 @@ public enum NetworkError: Error {
     case serverError(description: String)
 }
 
-protocol AuthenticationDelegate: class {
-    func authenticated(results: (url: URL?, error: Error?))
-}
-
 protocol Modelable {
     var networkEngine: NetworkEngine { get }
 }
@@ -71,6 +67,11 @@ protocol NetworkEngine {
 class NetworkManager: NetworkEngine {
     private let defaultSession = URLSession(configuration: .default)
     private var task: URLSessionDataTask?
+    var results: (url: URL?, error: Error?) {
+        didSet {
+            self.authenticated(results: results)
+        }
+    }
     
     func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping NetworkCompletionHandler<T>) where T: Decodable  {
         guard let request = route.urlRequest else { return }
@@ -98,33 +99,33 @@ class NetworkManager: NetworkEngine {
         task?.resume()
     }
     
-    //redirect uri minimalApp://minimalApp.com
-    //client id t6Z4BZyV3a06eA
-    
-    //authorization url
-    //https://www.reddit.com/api/v1//api/v1/authorize.compact?client_id=t6Z4BZyV3a06eA&response_type=code&state=RANDOM_STRING&redirect_uri=minimalApp://minimalApp.com&duration=permanent&scope=identity,vote,read,subscribe,mysubreddits
-    
-    //state user defaults random string to compare on uri redirect
+    /// OAuth with Reddit using SFAuthenticationSession
+    ///
+    /// - Parameter completionHandler: CompletionHandler to process authentication results
+    /// - Returns: SFAuthentication is configured in Network Manager but needs to launch `start()` from SettingsViewController
     func requestAuthentication(completionHandler: @escaping (URL?, Error?) -> Swift.Void) -> SFAuthenticationSession? {
         var authSession: SFAuthenticationSession?
         let randomString = NSUUID().uuidString.replacingOccurrences(of: "-", with: "")
         let callbackUrl = "minimalApp://"
         let authorizationUrl = URL(string: "https://www.reddit.com/api/v1/authorize.compact?client_id=t6Z4BZyV3a06eA&response_type=code&state=\(randomString)&redirect_uri=minimalApp://minimalApp.com&duration=permanent&scope=identity,vote,read,subscribe,mysubreddits")!
-        //Initialize auth session
         authSession = SFAuthenticationSession(url: authorizationUrl, callbackURLScheme: callbackUrl, completionHandler: completionHandler)
         return authSession
     }
-}
-
-extension NetworkManager: AuthenticationDelegate {
+    
     func authenticated(results: (url: URL?, error: Error?)) {
         if let error = results.error {
             print(error)
             return
         } else if let successURL = results.url {
             let queryItems = URLComponents(string: successURL.absoluteString)?.queryItems
+            let authorizationKey = queryItems?.filter({ $0.name == "code" }).first
+            UserDefaults.standard.setValue(authorizationKey?.value, forKey: UserSettingsDefaultKey.authorizationKey)
             print(queryItems as Any)
         }
     }
 }
 
+struct UserSettingsDefaultKey {
+    static let authorizationKey = "AuthorizationKey"
+    static let theme = "ThemeKey"
+}

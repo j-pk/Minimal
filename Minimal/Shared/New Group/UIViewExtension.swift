@@ -63,6 +63,7 @@ extension Recognizer where Self: UIView {
 
 extension UIView {
     func attachActivityIndicator(title: String, blurEffect: UIBlurEffectStyle, indicatorStyle: UIActivityIndicatorViewStyle) {
+        let themeManager = ThemeManager()
         let overlayView = UIView()
         overlayView.backgroundColor = .black
         overlayView.alpha = 0.7
@@ -91,8 +92,8 @@ extension UIView {
         
         let titleLabel = UILabel()
         titleLabel.text = title
-        titleLabel.font = ThemeManager.font(fontType: .primary)
-        titleLabel.textColor = ThemeManager.default.primaryTextColor
+        titleLabel.font = themeManager.font(fontType: .primary)
+        titleLabel.textColor = themeManager.theme.titleTextColor
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         effectView.contentView.addSubview(titleLabel)
