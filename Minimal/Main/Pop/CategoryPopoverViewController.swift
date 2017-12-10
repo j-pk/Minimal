@@ -65,7 +65,7 @@ class CategoryPopoverViewController: UIViewController {
     }
     
     func select(button: UIButton) {
-        button.backgroundColor = themeManager.theme.backgroundColor
+        button.backgroundColor = themeManager.theme.selectionColor
         button.layer.cornerRadius = 4.0
         button.setTitleColor(themeManager.theme.subtitleTextColor, for: .normal)
     }
