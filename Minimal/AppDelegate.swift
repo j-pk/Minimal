@@ -21,19 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(urls[urls.count-1] as URL)
         
         configureTheme()
-        CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
-            if let error = error {
-                print(error)
-            } else {
-                let request = ListingRequest(subreddit: "",
-                                             category: nil)
-                let _ = ListingManager(request: request, completionHandler: { (error) in
-                    if let error = error {
-                        print(error)
-                    }
-                })
-            }
-        })
+        configureUser()
+        requestListings()
+        
         return true
     }
 
@@ -58,20 +48,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-//        do {
-//            try CoreDataManager.default.saveContext()
-//        } catch {
-//            print(error)
-//        }
+        do {
+            try CoreDataManager.default.viewContext.save()
+        } catch let error {
+            print(error)
+        }
     }
 }
 
 // Override point for customization after application launch.
-
 extension AppDelegate {
     
     func configureTheme() {
         ThemeManager().setGlobalTheme(theme: .minimalTheme)
+    }
+    
+    private func isFirstLaunch() -> Bool {
+        let isFirstLaunch = !UserDefaults.standard.bool(forKey: UserSettingsDefaultKey.firstLaunch)
+        if isFirstLaunch {
+            UserDefaults.standard.set(true, forKey: UserSettingsDefaultKey.firstLaunch)
+        }
+        return isFirstLaunch
+    }
+    
+    
+    /// Create user on first launch or check for one, should only ever have 1 user
+    func configureUser() {
+        CoreDataManager.default.performBackgroundTask({ [weak self] (moc) in
+            guard let this = self else { return }
+            if this.isFirstLaunch() {
+                User.create(context: moc, completionHandler: { (error) in
+                    print(error as Any)
+                })
+            } else {
+                do {
+                    guard try User.fetchFirst(inContext: moc) != nil else { return } //TODO: Hmm
+                } catch let error {
+                    print(error as Any)
+                }
+            }
+        })
+    }
+    
+    /// Kick off listing request to have collectionView populated on load
+    func requestListings() {
+        CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
+            if let error = error {
+                print(error)
+            } else {
+                let request = ListingRequest(subreddit: "",
+                                             category: nil)
+                let _ = ListingManager(request: request, completionHandler: { (error) in
+                    if let error = error {
+                        print(error)
+                    }
+                })
+            }
+        })
     }
 }
 

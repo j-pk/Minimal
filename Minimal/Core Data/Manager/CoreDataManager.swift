@@ -62,20 +62,7 @@ class CoreDataManager {
     func performBackgroundTask(_ context: @escaping (NSManagedObjectContext) -> Void) {
         self.persistentContainer.performBackgroundTask(context)
     }
-    
-    func fetch(_ entity: String, predicate: NSPredicate? = nil, fetchLimit: Int = 0, sort: [NSSortDescriptor]? = nil, moc: NSManagedObjectContext) throws -> [AnyObject]? {
-        let fetch = NSFetchRequest<NSManagedObject>(entityName: entity)
-        fetch.predicate = predicate
-        fetch.sortDescriptors = sort
-        fetch.fetchLimit = fetchLimit
-        do {
-            let result = try moc.fetch(fetch)
-            return result
-        } catch let error {
-            throw CoreDataError.failedToFetchObject("\(entity): \(error)")
-        }
-    }
-    
+        
     // MARK: - Core Data Purge support
     func clearCoreData(_ completionHandler: @escaping ((Error?) -> ())) {
         self.persistentContainer.performBackgroundTask({ moc in

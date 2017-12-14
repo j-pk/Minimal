@@ -39,12 +39,12 @@ public class Listing: NSManagedObject {
 }
 
 extension Listing: Manageable {
-    static func populateObject<T>(fromJSON json: T, save: Bool, moc: NSManagedObjectContext, completionHandler: @escaping ((Error?) -> ())) where T : Decodable {
+    static func populateObject<T>(fromJSON json: T, save: Bool, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler) where T : Decodable {
         
         guard let json = json as? ListingMapped else { fatalError("Failed to cast decodable as ListingObject.") }
-        
+
         do {
-            let listing: Listing = try Listing.fetchObject(predicate: NSPredicate(format: "id == %@", json.id), moc: moc) ?? Listing.insertObject(context: moc)
+            let listing: Listing = try Listing.fetchFirst(inContext: context, predicate: NSPredicate(format: "id == %@", json.id)) ?? Listing.insertObject(inContext: context)
             
             listing.domain = json.domain
             listing.author = json.author
@@ -79,7 +79,7 @@ extension Listing: Manageable {
             }
 
             if save {
-                try moc.save()
+                try context.save()
             }
             
             completionHandler(nil)

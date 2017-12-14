@@ -17,12 +17,9 @@ extension User {
         return NSFetchRequest<User>(entityName: "User")
     }
 
-    @NSManaged public var accessToken: String?
     @NSManaged public var labelNsfw: Bool
     @NSManaged public var lastAuthenticated: NSDate?
     @NSManaged public var lastViewedSubreddit: String?
     @NSManaged public var over18: Bool
     @NSManaged public var searchIncludeOver18: Bool
-    @NSManaged public var subscribed: NSObject?
-
 }

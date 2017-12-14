@@ -10,7 +10,7 @@ import CoreData
 
 protocol Manageable: class, NSFetchRequestResult {
     static var entityName: String { get }
-    static func populateObject<T: Decodable>(fromJSON json: T, save: Bool, moc: NSManagedObjectContext, completionHandler: @escaping ((Error?)->()))
+    static func populateObject<T: Decodable>(fromJSON json: T, save: Bool, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler)
 }
 
 extension Manageable where Self: NSManagedObject {
@@ -18,18 +18,31 @@ extension Manageable where Self: NSManagedObject {
         return String(describing: self)
     }
     
-    static func fetchObject(predicate: NSPredicate, moc: NSManagedObjectContext) throws -> Self? {
-        do {
-            guard let object = try CoreDataManager.default.fetch(Self.entityName, predicate: predicate, fetchLimit: 1, moc: moc) as? [Self] else { return nil }
-            return object.first
-        } catch let error {
-            throw CoreDataError.failedToFetchObject("\(error)")
-        }
+    static func fetchRequestForEntity(inContext context: NSManagedObjectContext) -> NSFetchRequest<Self> {
+        let fetchRequest = NSFetchRequest<Self>()
+        fetchRequest.entity = NSEntityDescription.entity(forEntityName: entityName, in: context)
+        return fetchRequest
     }
     
-    static func insertObject(context: NSManagedObjectContext) throws -> Self {
+    static func fetchFirst(inContext context: NSManagedObjectContext, predicate: NSPredicate? = nil) throws -> Self? {
+        let fetchRequest = fetchRequestForEntity(inContext: context)
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchLimit = 1
+        fetchRequest.returnsObjectsAsFaults = false
+        fetchRequest.fetchBatchSize = 1
+        return try context.fetch(fetchRequest).first
+    }
+    
+    static func fetchObjects(inContext context: NSManagedObjectContext, predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) throws -> [Self] {
+        let fetchRequest = fetchRequestForEntity(inContext: context)
+        fetchRequest.sortDescriptors = sortDescriptors
+        fetchRequest.predicate = predicate
+        return try context.fetch(fetchRequest)
+    }
+    
+    static func insertObject(inContext context: NSManagedObjectContext) throws -> Self {
         do {
-            guard let object: Self = try insert(context: context) else {
+            guard let object: Self = try insert(inContext: context) else {
                 throw CoreDataError.failedToInsertObject("\(Self.entityName)")
             }
             return object
@@ -38,18 +51,18 @@ extension Manageable where Self: NSManagedObject {
         }
     }
     
-    private static func insert<T: NSManagedObject>(context: NSManagedObjectContext) throws -> T? where T: Manageable {
+    private static func insert<T: NSManagedObject>(inContext context: NSManagedObjectContext) throws -> T? where T: Manageable {
         guard let object = NSEntityDescription.insertNewObject(forEntityName: T.entityName, into: context) as? T else {
             throw CoreDataError.failedToInsertObject("\(T.entityName)")
         }
         return object
     }
     
-    static func populateObjects<T: Mappable>(fromJSON json: [T], completionHandler: @escaping ((Error?)->())) throws {
+    static func populateObjects<T: Mappable>(fromJSON json: [T], completionHandler: @escaping OptionalErrorHandler) throws {
         CoreDataManager.default.performBackgroundTask { (moc) in
             do {
                 json.forEach { (object) in
-                    self.populateObject(fromJSON: object, save: false, moc: moc, completionHandler: { error in
+                    self.populateObject(fromJSON: object, save: false, context: moc, completionHandler: { error in
                         if error != nil {
                             completionHandler(error)
                         }

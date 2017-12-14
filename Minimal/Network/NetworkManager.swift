@@ -128,4 +128,5 @@ class NetworkManager: NetworkEngine {
 struct UserSettingsDefaultKey {
     static let authorizationKey = "AuthorizationKey"
     static let theme = "ThemeKey"
+    static let firstLaunch = "FirstLaunch"
 }
