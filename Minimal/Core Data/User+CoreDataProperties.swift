@@ -22,4 +22,6 @@ extension User {
     @NSManaged public var lastViewedSubreddit: String?
     @NSManaged public var over18: Bool
     @NSManaged public var searchIncludeOver18: Bool
+    @NSManaged public var timeframeString: String?
+    @NSManaged public var categoryString: String
 }

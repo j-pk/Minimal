@@ -85,14 +85,21 @@ class CoreDataManager {
         })
     }
     
-    func purgeRecords(predicate: NSPredicate? = nil, entity: String, completionHandler: @escaping ((Error?) -> ())) {
+    func purgeRecords(predicate: NSPredicate? = nil, entity: String, completionHandler: @escaping OptionalErrorHandler) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         fetchRequest.predicate = predicate
         self.persistentContainer.performBackgroundTask({ moc in
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            
+            deleteRequest.resultType = .resultTypeObjectIDs
+            let mainContext = CoreDataManager.default.viewContext
             do {
-                try moc.execute(deleteRequest)
+                let result = try moc.execute(deleteRequest) as? NSBatchDeleteResult
+                guard let objectIdArray = result?.result as? [NSManagedObjectID] else {
+                    completionHandler(CoreDataError.failedToPurgeObjects("NSBatchDelete results are nil"))
+                    return
+                }
+                let changes = [NSDeletedObjectsKey : objectIdArray]
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [moc, mainContext])
             } catch let error {
                 completionHandler(CoreDataError.failedToPurgeObjects("\(error)"))
             }

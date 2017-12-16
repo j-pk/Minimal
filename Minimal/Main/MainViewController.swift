@@ -19,6 +19,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var categoryButton: UIButton!
     
     private var blockOperations: [BlockOperation] = []
+    private var themeManager = ThemeManager()
     
     //NOTE: Sync happens when data is older than an hour, perhaps this can be configurable
     //Still need to figure this out and when to clear out old listings
@@ -41,9 +42,6 @@ class MainViewController: UIViewController {
         return layout
     }()
     
-    private var isPaginating: Bool = false
-    fileprivate var themeManager = ThemeManager()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if traitCollection.forceTouchCapability == .available {
@@ -63,7 +61,6 @@ class MainViewController: UIViewController {
         listingResultsController.delegate = self
         performFetch()
         guard let isEmpty = listingResultsController.fetchedObjects?.isEmpty, isEmpty else { return }
-        reloadCollectionView(forListing: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,12 +93,26 @@ class MainViewController: UIViewController {
         }
     }
     
-    func reloadCollectionView(forListing listing: Listing?) {
-        if let _ = listing {
-            
-        } else {
-    
-        }
+    func requestListings() {
+        CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
+            if let error = error {
+                print(error)
+            } else {
+                guard let user = User.current() else { return }
+                let request = ListingRequest(subreddit: user.lastViewedSubreddit ?? "",
+                                             category: user.categoryString,
+                                             timeframe: user.timeframeString)
+                let _ = ListingManager(request: request, completionHandler: { (error) in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                })
+            }
+        })
     }
     
     @IBAction func didPressTitleButton(_ sender: UIButton) {
@@ -130,10 +141,16 @@ class MainViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popOverControllerSegue" {
+            guard let user = User.current() else { return }
             segue.destination.popoverPresentationController?.delegate = self
-            segue.destination.preferredContentSize = CGSize(width: self.view.frame.width, height: 60)
+            let height: CGFloat = user.timeframeString != nil ? 100 : 60
+            segue.destination.preferredContentSize = CGSize(width: self.view.frame.width, height: height)
             segue.destination.popoverPresentationController?.sourceRect = CGRect(x: (categoryButton.frame.width / 2), y: categoryButton.frame.maxY, width:0, height: 0)
             segue.destination.popoverPresentationController?.backgroundColor = themeManager.theme.secondaryColor
+            if let popOverController = segue.destination as? CategoryPopoverViewController {
+                popOverController.category = user.category
+                popOverController.timeframe = user.timeframe
+            }
         } else if segue.identifier == "commentsControllerSegue" {
             if let commentsViewController = segue.destination as? CommentsViewController {
                 guard let cell = sender as? MainCell else { return }
@@ -274,8 +291,21 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
         guard let categoryPopOverViewController = popoverPresentationController.presentedViewController as? CategoryPopoverViewController else { return }
         categoryButton.setTitle(categoryPopOverViewController.category.titleValue, for: .normal)
         categoryButton.sizeToFit()
-        print(categoryPopOverViewController.category)
-        //print(categoryPopOverViewController.timeFrame)
+        //NOTE: HMM
+        CoreDataManager.default.performBackgroundTask { (moc) in
+            do {
+                guard let user = User.current() else { return }
+                user.categoryString = categoryPopOverViewController.category.rawValue
+                user.timeframeString = categoryPopOverViewController.timeframe?.rawValue
+                
+                if moc.hasChanges {
+                    try moc.save()
+                }
+            } catch let error {
+                print("Failed to save category: \(error)")
+            }
+        }
+        requestListings()
     }
 }
 
@@ -304,10 +334,11 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             guard let lastViewedListing = self.listingResultsController.fetchedObjects?.last else { return }
+            guard let user = User.current() else { return }
             let blockOperation = BlockOperation {
-                let request = ListingRequest(subreddit: "",
-                                             category: nil,
-                                             timeframe: nil,
+                let request = ListingRequest(subreddit: user.lastViewedSubreddit ?? "",
+                                             category: user.categoryString,
+                                             timeframe: user.timeframeString,
                                              after: lastViewedListing.after ?? "",
                                              limit: 25,
                                              requestType: .paginate)

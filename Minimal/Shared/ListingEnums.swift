@@ -8,23 +8,13 @@
 
 import Foundation
 
-enum ListingCategoryType {
-    case hot
-    case new
-    case rising
-    case controversial
-    case top
-    
-    var stringValue: String {
-        switch self {
-        case .hot: return ""
-        case .new: return "new"
-        case .rising: return "rising"
-        case .controversial: return "controversial"
-        case .top: return "top"
-        }
-    }
-    
+enum ListingCategoryType: String  {
+    case hot = ""
+    case new = "new"
+    case rising = "rising"
+    case controversial = "controversial"
+    case top = "top"
+
     var titleValue: String {
         switch self {
         case .hot: return "hot"
@@ -46,13 +36,13 @@ enum ListingCategoryType {
     static let allValues = [hot, new, rising, controversial, top]
 }
 
-enum CategoryTimeFrame {
-    case hour
-    case twentyFourHours
-    case week
-    case month
-    case year
-    case allTime
+enum CategoryTimeFrame: String {
+    case hour = "hour"
+    case twentyFourHours = "day"
+    case week = "week"
+    case month = "month"
+    case year = "year"
+    case allTime = "all"
     
     var titleValue: String {
         switch self {

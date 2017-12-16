@@ -25,19 +25,31 @@ class CategoryPopoverViewController: UIViewController {
     @IBOutlet weak var allTime: UIButton!
     
     var category: ListingCategoryType = .hot
-    var timeFrame: CategoryTimeFrame?
+    var timeframe: CategoryTimeFrame?
     var themeManager = ThemeManager()
+    
+    override func viewDidLoad() {
+        let categorySet: [UIButton] = [hotButton, newButton, risingButton, controversialButton, topButton]
+        guard let selectedCategoryButton = categorySet.filter({ $0.titleLabel?.text == category.titleValue }).first else { return }
+        select(button: selectedCategoryButton)
+        if let timeframe = timeframe?.titleValue {
+            let timeframeSet: [UIButton] = [oneHour, twentyFourHours, week, month, year, allTime]
+            guard let selectedTimeframeButton = timeframeSet.filter({ $0.titleLabel?.text == timeframe }).first else { return }
+            select(button: selectedTimeframeButton)
+        }
+    }
     
     @IBAction func didPressCategoryButton(_ sender: UIButton) {
         guard let selectedCategory = ListingCategoryType.allValues.filter({ $0.titleValue == sender.titleLabel?.text }).first else { return }
         category = selectedCategory
-
+        
         if selectedCategory.isSetByTimeFrame {
             self.preferredContentSize = CGSize(width: self.view.frame.width, height: 100)
             timeFrameScrollView.isHidden = false
         } else {
             timeFrameScrollView.isHidden = true
             self.preferredContentSize = CGSize(width: self.view.frame.width, height: 60)
+            timeframe = nil
         }
         
         let buttonSet: [UIButton] = [hotButton, newButton, risingButton, controversialButton, topButton]
@@ -52,7 +64,7 @@ class CategoryPopoverViewController: UIViewController {
     
     @IBAction func didPressTimeFrameButton(_ sender: UIButton) {
         guard let selectedTimeFrame = CategoryTimeFrame.allValues.filter({ $0.titleValue == sender.titleLabel?.text }).first else { return }
-        timeFrame = selectedTimeFrame
+        timeframe = selectedTimeFrame
         
         let buttonSet: [UIButton] = [oneHour, twentyFourHours, week, month, year, allTime]
         buttonSet.forEach { (button) in

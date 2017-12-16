@@ -174,7 +174,7 @@ extension Listing: Manageable {
                 modifiedUrlComponents.host = "youtube.com"
                 modifiedUrlComponents.path = pathCopy
             }
-        } else if let host = components.host, host.contains("gfycat") {
+        } else if let host = components.host, host.contains("gfycat") && !host.contains("thumbs") {
             var hostCopy = host
             hostCopy.insert(contentsOf: "thumbs.", at: hostCopy.startIndex)
             modifiedUrlComponents.host = hostCopy
