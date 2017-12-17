@@ -21,27 +21,10 @@ class SettingsViewController: UIViewController {
         tableView.estimatedRowHeight = 60
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.separatorColor = themeManager.theme.primaryColor
+        UIApplication.shared.statusBarStyle = themeManager.theme.statusBarHiddenStyle
     }
     
     //MARK: TableView Helper Methods
-    func configureHeader(InSection section: Int) -> UIView {
-        let headerView = UIView()
-        let bottomLineView = UIView()
-        bottomLineView.backgroundColor = themeManager.theme.primaryColor
-        bottomLineView.translatesAutoresizingMaskIntoConstraints = false
-        headerView.addSubview(bottomLineView)
-        
-        headerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[bottomLineView(0.5)]-0-|",
-                                                                  options: NSLayoutFormatOptions.alignAllLeading,
-                                                                  metrics: nil,
-                                                                  views: ["bottomLineView": bottomLineView]))
-        headerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[bottomLineView]-0-|",
-                                                                  options: NSLayoutFormatOptions.alignAllCenterY,
-                                                                  metrics: nil,
-                                                                  views: ["bottomLineView": bottomLineView]))
-        return headerView
-    }
-    
     func configure(cell: LabelBaseCell, forRowAt indexPath: IndexPath) {
         cell.setSeparatorInset(forInsetValue: .none)
         switch SettingsTableViewSections(indexPath: indexPath) {
@@ -69,7 +52,7 @@ class SettingsViewController: UIViewController {
     }
     
     func configure(cell: AuthenticateCell, forRowAt indexPath: IndexPath) {
-        cell.setSeparatorInset(forInsetValue: .zero)
+        cell.setSeparatorInset(forInsetValue: .none)
         if UserDefaults.standard.object(forKey: "AuthorizationKey") != nil {
             cell.authenticateLabel.text = "Disconnect from Reddit"
         } else {
@@ -114,13 +97,9 @@ extension SettingsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return SettingsTableViewSections.allValues.count
     }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return SettingsTableViewSections.authenticate.rawValue == section ? configureHeader(InSection: section) : nil
-    }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
+        return 25
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

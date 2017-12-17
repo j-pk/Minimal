@@ -135,7 +135,7 @@ class MainViewController: UIViewController {
             return CGSize(width: imageWidth, height: imageHeight)
         } else {
             print("Default CGSize")
-            return CGSize(width: 200, height: 400)
+            return CGSize(width: 320, height: 240)
         }
     }
     
@@ -163,6 +163,7 @@ class MainViewController: UIViewController {
     }
 }
 
+// MARK: UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -182,6 +183,7 @@ extension MainViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: UICollectionViewDataSourcePrefetching
 extension MainViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         let urls = indexPaths.map({ self.listingResultsController.object(at: $0).request })
@@ -195,12 +197,14 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
     }
 }
 
+// MARK: CHTCollectionViewDelegateWaterfallLayout
 extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         return calculateSizeForItem(atIndexPath: indexPath)
     }
 }
 
+// MARK: NSFetchedResultsControllerDelegate
 extension MainViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.collectionView.numberOfItems(inSection: 0)
@@ -258,6 +262,8 @@ extension MainViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
+// MARK: UIViewControllerPreviewingDelegate
+// Peek & Pop
 extension MainViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         if let indexPath = collectionView.indexPathForItem(at: location), let attributes = collectionView.layoutAttributesForItem(at: indexPath) {
@@ -282,6 +288,8 @@ extension MainViewController: UIViewControllerPreviewingDelegate {
     }
 }
 
+// MARK: UIPopoverPresentationControllerDelegate
+// Category & Timeframe
 extension MainViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
@@ -309,7 +317,9 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
     }
 }
 
+// MARK: UIScrollViewDelegate
 extension MainViewController: UIScrollViewDelegate {
+    // Header View
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
         if velocity < 0 {
@@ -331,6 +341,7 @@ extension MainViewController: UIScrollViewDelegate {
         }
     }
     
+    // Pagination
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             guard let lastViewedListing = self.listingResultsController.fetchedObjects?.last else { return }
