@@ -61,6 +61,19 @@ enum Theme: String {
     case minimalTheme
     case darkTheme
     case lightTheme
+    
+    var titleValue: String {
+        switch self {
+        case .minimalTheme:
+            return "Minimal Theme"
+        case .darkTheme:
+            return "Dark Theme"
+        case .lightTheme:
+            return "Light Theme"
+        }
+    }
+    
+    static let allValues = [minimalTheme, darkTheme, lightTheme]
 }
 
 extension Theme {
@@ -153,9 +166,9 @@ extension Theme {
     
     var statusBarStyle: UIStatusBarStyle {
         switch self {
-        case .minimalTheme, .darkTheme:
+        case .darkTheme:
             return .lightContent
-        case .lightTheme:
+        case .minimalTheme, .lightTheme:
             return .default
         }
     }

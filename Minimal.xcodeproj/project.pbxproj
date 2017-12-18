@@ -37,12 +37,14 @@
 		C0A3859C1F9E9796005064DF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A3859B1F9E9796005064DF /* MainViewController.swift */; };
 		C0A3859E1F9E98AC005064DF /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A3859D1F9E98AC005064DF /* MainCell.swift */; };
 		C0A385A41F9F885E005064DF /* ListingContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385A31F9F885E005064DF /* ListingContract.swift */; };
+		C0A41B151FE6306F005A3F58 /* ThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A41B141FE6306F005A3F58 /* ThemeViewController.swift */; };
+		C0A41B171FE741B5005A3F58 /* ThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A41B161FE741B5005A3F58 /* ThemeCell.swift */; };
 		C0D584591FB75297002BCFA9 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D584581FB75297002BCFA9 /* UIViewControllerExtensions.swift */; };
 		C0DA84D81FA00D10006BE949 /* Listing+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84D61FA00D10006BE949 /* Listing+CoreDataClass.swift */; };
 		C0DA84D91FA00D10006BE949 /* Listing+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */; };
 		C0DA84DC1FA01769006BE949 /* ListingEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84DB1FA01769006BE949 /* ListingEnums.swift */; };
 		C0EC9B951FBFE3980073FF7A /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */; };
-		C0EC9B971FC0A1750073FF7A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B961FC0A1750073FF7A /* NavigationController.swift */; };
+		C0EC9B971FC0A1750073FF7A /* HiddenNavBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */; };
 		C0EC9B991FC0EC780073FF7A /* SubscriptLabelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EC9B981FC0EC780073FF7A /* SubscriptLabelView.xib */; };
 		C0EC9B9B1FC0ED9A0073FF7A /* SubscriptLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B9A1FC0ED9A0073FF7A /* SubscriptLabelView.swift */; };
 		C0EC9B9D1FC112B90073FF7A /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B9C1FC112B90073FF7A /* HeaderCell.swift */; };
@@ -89,12 +91,14 @@
 		C0A3859B1F9E9796005064DF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C0A3859D1F9E98AC005064DF /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
 		C0A385A31F9F885E005064DF /* ListingContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingContract.swift; sourceTree = "<group>"; };
+		C0A41B141FE6306F005A3F58 /* ThemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewController.swift; sourceTree = "<group>"; };
+		C0A41B161FE741B5005A3F58 /* ThemeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCell.swift; sourceTree = "<group>"; };
 		C0D584581FB75297002BCFA9 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		C0DA84D61FA00D10006BE949 /* Listing+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Listing+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Listing+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C0DA84DB1FA01769006BE949 /* ListingEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingEnums.swift; sourceTree = "<group>"; };
 		C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
-		C0EC9B961FC0A1750073FF7A /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenNavBarNavigationController.swift; sourceTree = "<group>"; };
 		C0EC9B981FC0EC780073FF7A /* SubscriptLabelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubscriptLabelView.xib; sourceTree = "<group>"; };
 		C0EC9B9A1FC0ED9A0073FF7A /* SubscriptLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptLabelView.swift; sourceTree = "<group>"; };
 		C0EC9B9C1FC112B90073FF7A /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
@@ -254,6 +258,8 @@
 				C0A385961F9E9130005064DF /* Settings.storyboard */,
 				C0A385771F9E54B0005064DF /* SettingsViewController.swift */,
 				C08D62401FD4E39200794B2A /* AuthenticateCell.swift */,
+				C0A41B141FE6306F005A3F58 /* ThemeViewController.swift */,
+				C0A41B161FE741B5005A3F58 /* ThemeCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -313,7 +319,7 @@
 				C08D623D1FD4DADC00794B2A /* Views */,
 				C097F1A81FBBF8F200706F89 /* Extensions */,
 				C0110E131FB4DF5700410478 /* TypeName.swift */,
-				C0EC9B961FC0A1750073FF7A /* NavigationController.swift */,
+				C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */,
 				C0DA84DB1FA01769006BE949 /* ListingEnums.swift */,
 				C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */,
 			);
@@ -495,8 +501,9 @@
 				C0DA84DC1FA01769006BE949 /* ListingEnums.swift in Sources */,
 				C0EDC8911FDA4352009C0D39 /* NetworkManager.swift in Sources */,
 				C0110E161FB5671400410478 /* NotificationExtensions.swift in Sources */,
+				C0A41B171FE741B5005A3F58 /* ThemeCell.swift in Sources */,
 				C08D62411FD4E39200794B2A /* AuthenticateCell.swift in Sources */,
-				C0EC9B971FC0A1750073FF7A /* NavigationController.swift in Sources */,
+				C0EC9B971FC0A1750073FF7A /* HiddenNavBarNavigationController.swift in Sources */,
 				C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */,
 				C08D623F1FD4DC5D00794B2A /* LabelBaseCell.swift in Sources */,
 				C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */,
@@ -519,6 +526,7 @@
 				C0A385A41F9F885E005064DF /* ListingContract.swift in Sources */,
 				C02E49941FDA59C40030347D /* ListingManager.swift in Sources */,
 				C0D584591FB75297002BCFA9 /* UIViewControllerExtensions.swift in Sources */,
+				C0A41B151FE6306F005A3F58 /* ThemeViewController.swift in Sources */,
 				C0EC9BA51FC25A760073FF7A /* UIViewExtension.swift in Sources */,
 				C0EC9B951FBFE3980073FF7A /* CommentsViewController.swift in Sources */,
 				C0A385761F9E54AF005064DF /* AppDelegate.swift in Sources */,

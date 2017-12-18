@@ -281,7 +281,7 @@ extension MainViewController: UIViewControllerPreviewingDelegate {
     }
     
     private func prepareCommitViewController(listing: Listing?) -> UIViewController {
-        let detailViewController: DetailViewController = UIViewController.make()
+        let detailViewController: DetailViewController = UIViewController.make(storyboard: .main)
         detailViewController.preferredContentSize = CGSize(width: 0, height: 460)
         detailViewController.listing = listing
         return detailViewController

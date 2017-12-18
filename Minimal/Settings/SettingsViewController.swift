@@ -141,6 +141,9 @@ extension SettingsViewController: UITableViewDelegate {
                 print("Starting SFAuthenticationSession...")
                 authSession?.start()
             }
+        case .theme?:
+            let themeViewController: ThemeViewController = UIViewController.make(storyboard: .settings)
+            navigationController?.pushViewController(themeViewController, animated: true)
         default:
             break
         }
