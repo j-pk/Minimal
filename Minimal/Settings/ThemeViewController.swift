@@ -19,6 +19,7 @@ class ThemeViewController: UIViewController {
     
     func configure(cell: ThemeCell, forRowAt indexPath: IndexPath) {
         let theme = Theme.allValues[indexPath.section]
+        cell.checkmark.isHidden = themeManager.theme != theme
         cell.themeColorPrimary.backgroundColor = theme.primaryColor
         cell.themeColorSecondary.backgroundColor = theme.secondaryColor
         cell.themeColorBackground.backgroundColor = theme.backgroundColor
@@ -60,8 +61,13 @@ extension ThemeViewController: UITableViewDataSource {
 
 extension ThemeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let theme = Theme.allValues[indexPath.section]
-        themeManager.setGlobalTheme(theme: theme)
-        reloadViewsOnDidSelectTheme()
+        if let cell = self.tableView.cellForRow(at: indexPath) as? ThemeCell {
+            cell.checkmark.isHidden = false
+            let theme = Theme.allValues[indexPath.section]
+            themeManager.setGlobalTheme(theme: theme)
+            reloadViewsOnDidSelectTheme()
+            let deselectedCells = tableView.visibleCells.flatMap({ $0 as? ThemeCell }).filter({ $0 != cell })
+            deselectedCells.forEach({ $0.checkmark.isHidden = true })
+        }
     }
 }

@@ -14,11 +14,13 @@ class ThemeCell: UITableViewCell {
     @IBOutlet weak var themeColorBackground: UIView!
     @IBOutlet weak var themeColorSelection: UIView!
     @IBOutlet weak var themeColorTint: UIView!
+    @IBOutlet weak var checkmark: UIImageView!
     let themeManager = ThemeManager()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        checkmark.tintColor = themeManager.theme.selectionColor
         
         let topLineView = UIView()
         topLineView.backgroundColor = themeManager.theme.selectionColor

@@ -27,7 +27,6 @@
 		C0A385761F9E54AF005064DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385751F9E54AF005064DF /* AppDelegate.swift */; };
 		C0A385781F9E54B0005064DF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385771F9E54B0005064DF /* SettingsViewController.swift */; };
 		C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0A3857C1F9E54B0005064DF /* Minimal.xcdatamodeld */; };
-		C0A385801F9E54B0005064DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0A3857F1F9E54B0005064DF /* Assets.xcassets */; };
 		C0A385831F9E54B0005064DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A385811F9E54B0005064DF /* LaunchScreen.storyboard */; };
 		C0A3858F1F9E5718005064DF /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A3858E1F9E5718005064DF /* Root.storyboard */; };
 		C0A385911F9E58DA005064DF /* Subscribed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A385901F9E58DA005064DF /* Subscribed.storyboard */; };
@@ -43,6 +42,7 @@
 		C0DA84D81FA00D10006BE949 /* Listing+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84D61FA00D10006BE949 /* Listing+CoreDataClass.swift */; };
 		C0DA84D91FA00D10006BE949 /* Listing+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */; };
 		C0DA84DC1FA01769006BE949 /* ListingEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84DB1FA01769006BE949 /* ListingEnums.swift */; };
+		C0E3C0F41FE9FF0100B9DE37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0A3857F1F9E54B0005064DF /* Assets.xcassets */; };
 		C0EC9B951FBFE3980073FF7A /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */; };
 		C0EC9B971FC0A1750073FF7A /* HiddenNavBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */; };
 		C0EC9B991FC0EC780073FF7A /* SubscriptLabelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EC9B981FC0EC780073FF7A /* SubscriptLabelView.xib */; };
@@ -418,12 +418,12 @@
 			files = (
 				C0A385831F9E54B0005064DF /* LaunchScreen.storyboard in Resources */,
 				C0A385911F9E58DA005064DF /* Subscribed.storyboard in Resources */,
-				C0A385801F9E54B0005064DF /* Assets.xcassets in Resources */,
 				C0A385951F9E90DF005064DF /* Main.storyboard in Resources */,
 				C0A3858F1F9E5718005064DF /* Root.storyboard in Resources */,
 				C0A385931F9E9089005064DF /* Search.storyboard in Resources */,
 				C0EC9B991FC0EC780073FF7A /* SubscriptLabelView.xib in Resources */,
 				C0A385971F9E9130005064DF /* Settings.storyboard in Resources */,
+				C0E3C0F41FE9FF0100B9DE37 /* Assets.xcassets in Resources */,
 				C0EC9BA11FC237AA0073FF7A /* PresentationView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
