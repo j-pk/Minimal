@@ -20,7 +20,6 @@ class ThemeCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-        checkmark.tintColor = themeManager.theme.selectionColor
         
         let topLineView = UIView()
         topLineView.backgroundColor = themeManager.theme.selectionColor

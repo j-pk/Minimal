@@ -28,9 +28,11 @@ struct ThemeManager {
 
         UINavigationBar.appearance().barStyle = theme.barStyle
         UINavigationBar.appearance().tintColor = theme.primaryColor
-        
+        UINavigationBar.appearance().barTintColor = theme.primaryColor
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : theme.titleTextColor]
+
         UITabBar.appearance().barStyle = theme.barStyle
-        UITabBar.appearance().tintColor = theme.primaryColor
+        UITabBar.appearance().tintColor = theme.secondaryColor
         UITabBar.appearance().barTintColor = theme.tintColor
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.titleTextColor], for:  .normal)
@@ -42,9 +44,11 @@ struct ThemeManager {
         
         UIApplication.shared.statusBarStyle = theme.statusBarStyle
         
-        UITableView.appearance().backgroundColor = theme.backgroundColor
-        UITableViewHeaderFooterView.appearance().tintColor = theme.backgroundColor
-        UICollectionView.appearance().backgroundColor = theme.backgroundColor
+        UITableView.appearance().backgroundColor = theme.secondaryColor
+        UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
+
+        UICollectionView.appearance().backgroundColor = theme.secondaryColor
+        UITableViewCell.appearance().backgroundColor = theme.primaryColor
     }
     
     // MARK: - Font
@@ -82,7 +86,7 @@ extension Theme {
         case .minimalTheme:
             return #colorLiteral(red: 0.2352941176, green: 0.2352941176, blue: 0.2352941176, alpha: 1)
         case .darkTheme:
-            return #colorLiteral(red: 0.1490027606, green: 0.1490303874, blue: 0.1489966214, alpha: 1)
+            return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         case .lightTheme:
             return #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
         }
@@ -93,7 +97,7 @@ extension Theme {
         case .minimalTheme:
             return #colorLiteral(red: 0.4274509804, green: 0.4470588235, blue: 0.4588235294, alpha: 1)
         case .darkTheme:
-            return #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            return #colorLiteral(red: 0.01176470588, green: 0.06274509804, blue: 0.09803921569, alpha: 1)
         case .lightTheme:
             return #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
         }
@@ -104,7 +108,7 @@ extension Theme {
         case .minimalTheme:
             return #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
         case .darkTheme:
-            return #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            return #colorLiteral(red: 0.1647058824, green: 0.2745098039, blue: 0.3607843137, alpha: 1)
         case .lightTheme:
             return #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
         }
@@ -115,7 +119,7 @@ extension Theme {
         case .minimalTheme:
             return #colorLiteral(red: 0.2117647059, green: 0.3098039216, blue: 0.3215686275, alpha: 1)
         case .darkTheme:
-            return #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            return #colorLiteral(red: 0.1921568627, green: 0.4274509804, blue: 0.5725490196, alpha: 1)
         case .lightTheme:
             return #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
         }
@@ -126,7 +130,7 @@ extension Theme {
         case .minimalTheme:
             return #colorLiteral(red: 0.5215686275, green: 0.6588235294, blue: 0.5529411765, alpha: 1)
         case .darkTheme:
-            return #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            return #colorLiteral(red: 0.1647058824, green: 0.2745098039, blue: 0.3607843137, alpha: 1)
         case .lightTheme:
             return #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         }
@@ -138,7 +142,7 @@ extension Theme {
         case .minimalTheme:
             return #colorLiteral(red: 0.7921568627, green: 0.8235294118, blue: 0.7764705882, alpha: 1)
         case .darkTheme:
-            return #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
+            return #colorLiteral(red: 0.1921568627, green: 0.4274509804, blue: 0.5725490196, alpha: 1)
         case .lightTheme:
             return #colorLiteral(red: 0.1490027606, green: 0.1490303874, blue: 0.1489966214, alpha: 1)
         }
@@ -149,7 +153,7 @@ extension Theme {
         case .minimalTheme:
             return #colorLiteral(red: 0.5215686275, green: 0.6588235294, blue: 0.5529411765, alpha: 1)
         case .darkTheme:
-            return #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            return #colorLiteral(red: 0.5529411765, green: 0.6196078431, blue: 0.6470588235, alpha: 1)
         case .lightTheme:
             return #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         }

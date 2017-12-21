@@ -10,7 +10,8 @@ import UIKit
 
 class AuthenticateCell: UITableViewCell {
     @IBOutlet weak var authenticateLabel: UILabel!
+    let themeManager = ThemeManager()
     override func awakeFromNib() {
-        
+        authenticateLabel.textColor = themeManager.theme.titleTextColor
     }
 }

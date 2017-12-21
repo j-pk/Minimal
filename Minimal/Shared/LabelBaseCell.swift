@@ -41,7 +41,7 @@ class LabelBaseCell: UITableViewCell {
         labelStackView.alignment = .leading
         labelStackView.spacing = 0
         
-        titleLabel.textColor = themeManager.theme.secondaryColor
+        titleLabel.textColor = themeManager.theme.titleTextColor
         detailLabel.textColor = themeManager.theme.secondaryColor
         descriptionLabel.textColor = themeManager.theme.secondaryColor
         
