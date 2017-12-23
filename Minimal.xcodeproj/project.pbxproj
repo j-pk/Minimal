@@ -209,7 +209,6 @@
 				C0A385751F9E54AF005064DF /* AppDelegate.swift */,
 				C0A3858E1F9E5718005064DF /* Root.storyboard */,
 				C0A385991F9E919B005064DF /* Core Data */,
-				C0A3859A1F9E9521005064DF /* Login */,
 				C0A3858C1F9E56A2005064DF /* Main */,
 				C0A3859F1F9EA1B9005064DF /* Network */,
 				C0A385981F9E913F005064DF /* Resources */,
@@ -285,13 +284,6 @@
 				C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */,
 			);
 			path = "Core Data";
-			sourceTree = "<group>";
-		};
-		C0A3859A1F9E9521005064DF /* Login */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 		C0A3859F1F9EA1B9005064DF /* Network */ = {
