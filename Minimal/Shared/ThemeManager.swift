@@ -36,7 +36,7 @@ struct ThemeManager {
         UITabBar.appearance().barTintColor = theme.tintColor
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.titleTextColor], for:  .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.selectionColor], for:  .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.subtitleTextColor], for:  .selected)
         
         UIButton.appearance().setTitleColor(theme.titleTextColor, for: .normal)
         UIButton.appearance().setTitleColor(theme.subtitleTextColor, for: .selected)
@@ -46,6 +46,7 @@ struct ThemeManager {
         
         UITableView.appearance().backgroundColor = theme.secondaryColor
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
+        UILabel.appearance(whenContainedInInstancesOf: [LabelBaseCell.self]).textColor = theme.titleTextColor
 
         UICollectionView.appearance().backgroundColor = theme.secondaryColor
         UITableViewCell.appearance().backgroundColor = theme.primaryColor
@@ -88,7 +89,7 @@ extension Theme {
         case .darkTheme:
             return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         case .lightTheme:
-            return #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
+            return #colorLiteral(red: 0.968627451, green: 0.968627451, blue: 0.968627451, alpha: 1)
         }
     }
     
@@ -99,18 +100,18 @@ extension Theme {
         case .darkTheme:
             return #colorLiteral(red: 0.01176470588, green: 0.06274509804, blue: 0.09803921569, alpha: 1)
         case .lightTheme:
-            return #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
+            return #colorLiteral(red: 0.9176470588, green: 0.9176470588, blue: 0.9176470588, alpha: 1)
         }
     }
     
     var backgroundColor: UIColor {
         switch self {
         case .minimalTheme:
-            return #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
+            return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         case .darkTheme:
             return #colorLiteral(red: 0.1647058824, green: 0.2745098039, blue: 0.3607843137, alpha: 1)
         case .lightTheme:
-            return #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
+            return #colorLiteral(red: 0.8666666667, green: 0.8666666667, blue: 0.8666666667, alpha: 1)
         }
     }
     
@@ -121,7 +122,7 @@ extension Theme {
         case .darkTheme:
             return #colorLiteral(red: 0.1921568627, green: 0.4274509804, blue: 0.5725490196, alpha: 1)
         case .lightTheme:
-            return #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
+            return #colorLiteral(red: 0.4666666667, green: 0.4666666667, blue: 0.4666666667, alpha: 1)
         }
     }
     
@@ -132,7 +133,7 @@ extension Theme {
         case .darkTheme:
             return #colorLiteral(red: 0.1647058824, green: 0.2745098039, blue: 0.3607843137, alpha: 1)
         case .lightTheme:
-            return #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
     
@@ -155,7 +156,7 @@ extension Theme {
         case .darkTheme:
             return #colorLiteral(red: 0.5529411765, green: 0.6196078431, blue: 0.6470588235, alpha: 1)
         case .lightTheme:
-            return #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            return #colorLiteral(red: 0.4666666667, green: 0.4666666667, blue: 0.4666666667, alpha: 1)
         }
     }
     

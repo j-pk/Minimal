@@ -22,12 +22,12 @@ class ThemeCell: UITableViewCell {
         selectionStyle = .none
         
         let topLineView = UIView()
-        topLineView.backgroundColor = themeManager.theme.selectionColor
+        topLineView.backgroundColor = .black
         topLineView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(topLineView)
         
         let bottomLineView = UIView()
-        bottomLineView.backgroundColor = themeManager.theme.selectionColor
+        bottomLineView.backgroundColor = .black
         bottomLineView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bottomLineView)
         
