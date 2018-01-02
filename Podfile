@@ -5,5 +5,5 @@ use_frameworks!
 target 'Minimal' do
 	pod 'Nuke', '~> 5.2'
 	pod "Nuke-Gifu-Plugin"
-	pod 'Gifu'
+	pod 'Gifu', :git => 'https://github.com/kaishin/Gifu.git', :branch => 'swift4'
 end
