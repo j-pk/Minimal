@@ -18,13 +18,8 @@ class LabelBaseCell: UITableViewCell {
     
     var themeManager = ThemeManager()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override func awakeFromNib() {
         setupBaseView()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
     
     fileprivate func setupBaseView() {
@@ -40,10 +35,6 @@ class LabelBaseCell: UITableViewCell {
         labelStackView.distribution = .fillProportionally
         labelStackView.alignment = .leading
         labelStackView.spacing = 0
-        
-        titleLabel.textColor = themeManager.theme.titleTextColor
-        detailLabel.textColor = themeManager.theme.secondaryColor
-        descriptionLabel.textColor = themeManager.theme.secondaryColor
         
         labelStackView.addArrangedSubview(titleLabel)
         labelStackView.addArrangedSubview(detailLabel)

@@ -16,7 +16,6 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(LabelBaseCell.self, forCellReuseIdentifier: "LabelBaseCell")
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60
         tableView.tableFooterView = UIView(frame: .zero)
