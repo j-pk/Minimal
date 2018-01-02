@@ -12,8 +12,8 @@ import Nuke
 
 class MainViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var headerViewStatusCover: UIView!
+    @IBOutlet weak var headerView: HeaderView!
+    @IBOutlet weak var headerViewStatusCover: HeaderView!
     @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleButton: UIButton!
     @IBOutlet weak var categoryButton: UIButton!
@@ -54,10 +54,7 @@ class MainViewController: UIViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = collectionViewLayout
         collectionView.prefetchDataSource = self
-        
-        self.headerView.backgroundColor = themeManager.theme.primaryColor
-        self.headerViewStatusCover.backgroundColor = themeManager.theme.primaryColor
-        
+
         listingResultsController.delegate = self
         performFetch()
         guard let isEmpty = listingResultsController.fetchedObjects?.isEmpty, isEmpty else { return }
@@ -323,7 +320,7 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
         if velocity < 0 {
-            self.headerViewTopConstraint.priority = UILayoutPriority(999)
+            headerViewTopConstraint.priority = UILayoutPriority(999)
             UIView.animate(withDuration: 0.3, animations: {
                 self.headerView.alpha = 0.0
                 self.headerViewStatusCover.alpha = 0.0
@@ -331,7 +328,7 @@ extension MainViewController: UIScrollViewDelegate {
                 self.view.layoutIfNeeded()
             })
         } else if velocity > 0 {
-            self.headerViewTopConstraint.priority = UILayoutPriority(997)
+            headerViewTopConstraint.priority = UILayoutPriority(997)
             UIView.animate(withDuration: 0.3, animations: {
                 self.headerView.alpha = 1.0
                 self.headerViewStatusCover.alpha = 1.0
@@ -344,7 +341,7 @@ extension MainViewController: UIScrollViewDelegate {
     // Pagination
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
-            guard let lastViewedListing = self.listingResultsController.fetchedObjects?.last else { return }
+            guard let lastViewedListing = listingResultsController.fetchedObjects?.last else { return }
             guard let user = User.current() else { return }
             let blockOperation = BlockOperation {
                 let request = ListingRequest(subreddit: user.lastViewedSubreddit ?? "",

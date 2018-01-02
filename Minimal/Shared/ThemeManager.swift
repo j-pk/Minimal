@@ -49,6 +49,7 @@ struct ThemeManager {
         UILabel.appearance(whenContainedInInstancesOf: [AuthenticateCell.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [LabelBaseCell.self]).textColor = theme.titleTextColor
 
+        HeaderView.appearance().backgroundColor = theme.primaryColor
         UICollectionView.appearance().backgroundColor = theme.secondaryColor
         UITableViewCell.appearance().backgroundColor = theme.primaryColor
     }

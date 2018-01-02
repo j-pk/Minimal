@@ -174,12 +174,12 @@
             </objects>
             <point key="canvasLocation" x="1776.8" y="757.87106446776613"/>
         </scene>
-        <!--Settings-->
+        <!--Hidden Nav Bar Navigation Controller-->
         <scene sceneID="QDy-rU-Cxm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Up8-Rj-Y3M" customClass="HiddenNavBarNavigationController" customModule="Minimal" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <tabBarItem key="tabBarItem" title="Settings" id="TxX-dV-Usm"/>
+                    <tabBarItem key="tabBarItem" title="" id="TxX-dV-Usm"/>
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="a5K-Od-Inp">
