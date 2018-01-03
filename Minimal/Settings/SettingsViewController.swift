@@ -19,8 +19,6 @@ class SettingsViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60
         tableView.tableFooterView = UIView(frame: .zero)
-        tableView.separatorColor = themeManager.theme.primaryColor
-        UIApplication.shared.statusBarStyle = themeManager.theme.statusBarHiddenStyle
     }
     
     //MARK: TableView Helper Methods

@@ -9,19 +9,19 @@
 import UIKit
 
 struct ThemeManager {
-    var theme: Theme
+    
+    var theme: Theme {
+        get {
+            if let themeRawValue = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.theme) as? String {
+                return Theme(rawValue: themeRawValue) ?? .minimalTheme
+            }
+            return .minimalTheme
+        }
+    }
     
     let linkTextColor = #colorLiteral(red: 0.2389388382, green: 0.5892125368, blue: 0.8818323016, alpha: 1)
     let redditOrange = #colorLiteral(red: 0.987544477, green: 0.6673021317, blue: 0, alpha: 1)
     let redditBlue = #colorLiteral(red: 0.6029270887, green: 0.6671635509, blue: 0.8504692912, alpha: 1)
-    
-    init() {
-        if let themeRawValue = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.theme) as? String {
-            self.theme = Theme(rawValue: themeRawValue) ?? .minimalTheme
-        } else {
-            self.theme = .minimalTheme
-        }
-    }
     
     func setGlobalTheme(theme: Theme) {
         UserDefaults.standard.setValue(theme.rawValue, forKey: UserSettingsDefaultKey.theme)
@@ -44,7 +44,6 @@ struct ThemeManager {
         
         UIApplication.shared.statusBarStyle = theme.statusBarStyle
         
-        UITableView.appearance().backgroundColor = theme.secondaryColor
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [AuthenticateCell.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [LabelBaseCell.self]).textColor = theme.titleTextColor
@@ -52,6 +51,8 @@ struct ThemeManager {
         HeaderView.appearance().backgroundColor = theme.primaryColor
         UICollectionView.appearance().backgroundColor = theme.secondaryColor
         UITableViewCell.appearance().backgroundColor = theme.primaryColor
+        UITableView.appearance().separatorColor = theme.selectionColor
+        UITableView.appearance().backgroundColor = theme.secondaryColor
     }
     
     // MARK: - Font
@@ -124,7 +125,7 @@ extension Theme {
         case .darkTheme:
             return #colorLiteral(red: 0.1921568627, green: 0.4274509804, blue: 0.5725490196, alpha: 1)
         case .lightTheme:
-            return #colorLiteral(red: 0.8666666667, green: 0.8666666667, blue: 0.8666666667, alpha: 1)
+            return #colorLiteral(red: 0.4666666667, green: 0.4666666667, blue: 0.4666666667, alpha: 1)
         }
     }
     
@@ -135,7 +136,7 @@ extension Theme {
         case .darkTheme:
             return #colorLiteral(red: 0.1647058824, green: 0.2745098039, blue: 0.3607843137, alpha: 1)
         case .lightTheme:
-            return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            return #colorLiteral(red: 0.8666666667, green: 0.8666666667, blue: 0.8666666667, alpha: 1)
         }
     }
     
@@ -173,19 +174,10 @@ extension Theme {
     
     var statusBarStyle: UIStatusBarStyle {
         switch self {
-        case .darkTheme:
-            return .lightContent
-        case .minimalTheme, .lightTheme:
-            return .default
-        }
-    }
-    
-    var statusBarHiddenStyle: UIStatusBarStyle {
-        switch self {
         case .minimalTheme, .darkTheme:
-            return .default
-        case .lightTheme:
             return .lightContent
+        case .lightTheme:
+            return .default
         }
     }
 }

@@ -324,7 +324,7 @@ extension MainViewController: UIScrollViewDelegate {
             UIView.animate(withDuration: 0.3, animations: {
                 self.headerView.alpha = 0.0
                 self.headerViewStatusCover.alpha = 0.0
-                UIApplication.shared.statusBarStyle = self.themeManager.theme.statusBarHiddenStyle
+                UIApplication.shared.statusBarStyle = .default
                 self.view.layoutIfNeeded()
             })
         } else if velocity > 0 {
