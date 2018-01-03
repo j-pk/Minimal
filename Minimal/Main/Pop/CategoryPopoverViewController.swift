@@ -24,17 +24,20 @@ class CategoryPopoverViewController: UIViewController {
     @IBOutlet weak var year: UIButton!
     @IBOutlet weak var allTime: UIButton!
     
+    var categoryButtonSet: [UIButton] = []
+    var timeframeButtonSet: [UIButton] = []
     var category: ListingCategoryType = .hot
     var timeframe: CategoryTimeFrame?
     var themeManager = ThemeManager()
     
     override func viewDidLoad() {
-        let categorySet: [UIButton] = [hotButton, newButton, risingButton, controversialButton, topButton]
-        guard let selectedCategoryButton = categorySet.filter({ $0.titleLabel?.text == category.titleValue }).first else { return }
+        categoryButtonSet = [hotButton, newButton, risingButton, controversialButton, topButton]
+        timeframeButtonSet = [oneHour, twentyFourHours, week, month, year, allTime]
+        
+        guard let selectedCategoryButton = categoryButtonSet.filter({ $0.titleLabel?.text == category.titleValue }).first else { return }
         select(button: selectedCategoryButton)
         if let timeframe = timeframe?.titleValue {
-            let timeframeSet: [UIButton] = [oneHour, twentyFourHours, week, month, year, allTime]
-            guard let selectedTimeframeButton = timeframeSet.filter({ $0.titleLabel?.text == timeframe }).first else { return }
+            guard let selectedTimeframeButton = timeframeButtonSet.filter({ $0.titleLabel?.text == timeframe }).first else { return }
             select(button: selectedTimeframeButton)
         }
     }
@@ -52,8 +55,7 @@ class CategoryPopoverViewController: UIViewController {
             timeframe = nil
         }
         
-        let buttonSet: [UIButton] = [hotButton, newButton, risingButton, controversialButton, topButton]
-        buttonSet.forEach { (button) in
+        categoryButtonSet.forEach { (button) in
             if button.titleLabel?.text == sender.titleLabel?.text {
                 self.select(button: button)
             } else {
@@ -66,8 +68,7 @@ class CategoryPopoverViewController: UIViewController {
         guard let selectedTimeFrame = CategoryTimeFrame.allValues.filter({ $0.titleValue == sender.titleLabel?.text }).first else { return }
         timeframe = selectedTimeFrame
         
-        let buttonSet: [UIButton] = [oneHour, twentyFourHours, week, month, year, allTime]
-        buttonSet.forEach { (button) in
+        timeframeButtonSet.forEach { (button) in
             if button.titleLabel?.text == sender.titleLabel?.text {
                 self.select(button: button)
             } else {

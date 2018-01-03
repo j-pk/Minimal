@@ -18,6 +18,7 @@
 		C03F92251FA049BE009EEEF3 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92241FA049BE009EEEF3 /* CoreDataManager.swift */; };
 		C03F92271FA11DE7009EEEF3 /* NSManagedObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */; };
 		C05BB9EC1FFC31A40028D525 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05BB9EB1FFC31A40028D525 /* HeaderView.swift */; };
+		C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */; };
 		C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA31FAAC75900801E08 /* SearchViewController.swift */; };
 		C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA51FAAC89700801E08 /* SearchCell.swift */; };
 		C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA71FABB4FB00801E08 /* PlayerView.swift */; };
@@ -71,6 +72,7 @@
 		C03F92241FA049BE009EEEF3 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectExtensions.swift; sourceTree = "<group>"; };
 		C05BB9EB1FFC31A40028D525 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarExtensions.swift; sourceTree = "<group>"; };
 		C0897DA31FAAC75900801E08 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C0897DA51FAAC89700801E08 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		C0897DA71FABB4FB00801E08 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				C0D584581FB75297002BCFA9 /* UIViewControllerExtensions.swift */,
 				C0EC9BA41FC25A760073FF7A /* UIViewExtension.swift */,
 				C08D62421FD617DD00794B2A /* UITableViewCellExtensions.swift */,
+				C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */,
 			);
 			name = Extensions;
 			path = "New Group";
@@ -499,6 +502,7 @@
 				C0A41B171FE741B5005A3F58 /* ThemeCell.swift in Sources */,
 				C08D62411FD4E39200794B2A /* AuthenticateCell.swift in Sources */,
 				C0EC9B971FC0A1750073FF7A /* HiddenNavBarNavigationController.swift in Sources */,
+				C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */,
 				C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */,
 				C08D623F1FD4DC5D00794B2A /* LabelBaseCell.swift in Sources */,
 				C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */,
