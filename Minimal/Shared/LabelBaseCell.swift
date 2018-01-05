@@ -9,10 +9,32 @@
 import UIKit
 
 class LabelBaseCell: UITableViewCell {
+    enum SelectionImage {
+        case checkmark
+        case arrow
+        case none
+        
+        var image: UIImage? {
+            switch self {
+            case .checkmark:
+                return #imageLiteral(resourceName: "checkmark")
+            case .arrow:
+                return #imageLiteral(resourceName: "rightArrow")
+            case .none:
+                return nil
+            }
+        }
+    }
+    
     var titleLabel = UILabel()
     var detailLabel = UILabel()
     var descriptionLabel = UILabel()
-    
+    var selectionImage: SelectionImage = .none {
+        willSet {
+            configure(selectionImage: newValue)
+        }
+    }
+    let selectionImageButton = UIButton()
     var mainStackView = UIStackView()
     var labelStackView = UIStackView()
     
@@ -40,35 +62,40 @@ class LabelBaseCell: UITableViewCell {
         labelStackView.addArrangedSubview(detailLabel)
         labelStackView.addArrangedSubview(descriptionLabel)
 
-        let arrow = UIButton()
-        arrow.setImage(UIImage(named: "rightArrow"), for: UIControlState())
-        arrow.imageView?.contentMode = .scaleAspectFit
-        
         mainStackView.addArrangedSubview(labelStackView)
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        arrow.translatesAutoresizingMaskIntoConstraints = false
+        selectionImageButton.translatesAutoresizingMaskIntoConstraints = false
         
-        contentView.addSubview(arrow)
+        contentView.addSubview(selectionImageButton)
         contentView.addSubview(mainStackView)
         
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[arrow(14)]",
-                                                           options: NSLayoutFormatOptions.alignAllLeading,
-                                                           metrics: nil,
-                                                           views: ["arrow": arrow]))
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[arrow(14)]",
-                                                           options: NSLayoutFormatOptions.alignAllLeading,
-                                                           metrics: nil,
-                                                           views: ["arrow": arrow]))
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[selectionImageButton(20)]",
+                                                                  options: NSLayoutFormatOptions.alignAllLeading,
+                                                                  metrics: nil,
+                                                                  views: ["selectionImageButton": selectionImageButton]))
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[selectionImageButton(20)]",
+                                                                  options: NSLayoutFormatOptions.alignAllLeading,
+                                                                  metrics: nil,
+                                                                  views: ["selectionImageButton": selectionImageButton]))
         
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-12-[mainStackView]-12-|",
-                                                           options: NSLayoutFormatOptions.alignAllLeading,
-                                                           metrics: nil,
-                                                           views: ["mainStackView": mainStackView]))
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-12-[mainStackView]-[arrow]-|",
-                                                           options: NSLayoutFormatOptions.alignAllCenterY,
-                                                           metrics: nil,
-                                                           views: ["mainStackView": mainStackView, "arrow": arrow]))
+                                                                  options: NSLayoutFormatOptions.alignAllLeading,
+                                                                  metrics: nil,
+                                                                  views: ["mainStackView": mainStackView]))
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-12-[mainStackView]-[selectionImageButton]-|",
+                                                                  options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                  metrics: nil,
+                                                                  views: ["mainStackView": mainStackView, "selectionImageButton": selectionImageButton]))
         
+    }
+    
+    private func configure(selectionImage: SelectionImage) {
+        if let image = selectionImage.image {
+            selectionImageButton.setImage(image, for: UIControlState())
+            selectionImageButton.imageView?.contentMode = .scaleAspectFit
+        } else {
+            selectionImageButton.isHidden = true
+        }
     }
 }
 

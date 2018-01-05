@@ -19,6 +19,7 @@
 		C03F92271FA11DE7009EEEF3 /* NSManagedObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */; };
 		C05BB9EC1FFC31A40028D525 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05BB9EB1FFC31A40028D525 /* HeaderView.swift */; };
 		C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */; };
+		C06E18651FFD381800AB4F3A /* FontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18641FFD381800AB4F3A /* FontViewController.swift */; };
 		C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA31FAAC75900801E08 /* SearchViewController.swift */; };
 		C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA51FAAC89700801E08 /* SearchCell.swift */; };
 		C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA71FABB4FB00801E08 /* PlayerView.swift */; };
@@ -73,6 +74,7 @@
 		C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectExtensions.swift; sourceTree = "<group>"; };
 		C05BB9EB1FFC31A40028D525 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarExtensions.swift; sourceTree = "<group>"; };
+		C06E18641FFD381800AB4F3A /* FontViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontViewController.swift; sourceTree = "<group>"; };
 		C0897DA31FAAC75900801E08 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C0897DA51FAAC89700801E08 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		C0897DA71FABB4FB00801E08 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				C08D62401FD4E39200794B2A /* AuthenticateCell.swift */,
 				C0A41B141FE6306F005A3F58 /* ThemeViewController.swift */,
 				C0A41B161FE741B5005A3F58 /* ThemeCell.swift */,
+				C06E18641FFD381800AB4F3A /* FontViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */,
+				C06E18651FFD381800AB4F3A /* FontViewController.swift in Sources */,
 				C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */,
 				C0110E141FB4DF5700410478 /* TypeName.swift in Sources */,
 				C0ED1F9E1FB3F0DB00580C1E /* DateExtensions.swift in Sources */,

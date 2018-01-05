@@ -1,30 +1,19 @@
 PODS:
-  - Gifu (2.0.0)
-  - Nuke (5.2)
-  - Nuke-Gifu-Plugin (1.0):
-    - Gifu (~> 2.0)
-    - Nuke (~> 5.0)
+  - Gifu (3.0.0)
+  - Nuke (6.0)
+  - Nuke-Gifu-Plugin (2.0):
+    - Gifu (~> 3.0)
+    - Nuke (~> 6.0)
 
 DEPENDENCIES:
-  - Gifu (from `https://github.com/kaishin/Gifu.git`, branch `swift4`)
-  - Nuke (~> 5.2)
+  - Nuke (~> 6.0)
   - Nuke-Gifu-Plugin
 
-EXTERNAL SOURCES:
-  Gifu:
-    :branch: swift4
-    :git: https://github.com/kaishin/Gifu.git
-
-CHECKOUT OPTIONS:
-  Gifu:
-    :commit: 50a9851d556240fe7341755c3b8ea207b142a803
-    :git: https://github.com/kaishin/Gifu.git
-
 SPEC CHECKSUMS:
-  Gifu: 6c9726dcbb30ad85efe1aa85603392b5ec592e33
-  Nuke: 5f420c4637415f979c83afb35e73176dd03232d9
-  Nuke-Gifu-Plugin: 212968cf0c170a504a8ddf69806cf6c6aa2f40b4
+  Gifu: 6543ca2056a3d697097c09fe543ef49348ccc892
+  Nuke: d83812262734dad51e3c498cb1c4f7923f2b78c6
+  Nuke-Gifu-Plugin: 835a3f2ed9aada5e05c479e1e81fba6ce01f4120
 
-PODFILE CHECKSUM: 057b867eb431c21c95efa36cb4ed0f47227563a9
+PODFILE CHECKSUM: d69d7a6a54d83f6d9b6898e19cbf4957ae79d8ce
 
 COCOAPODS: 1.3.1

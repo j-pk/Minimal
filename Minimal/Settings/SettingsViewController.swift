@@ -24,6 +24,7 @@ class SettingsViewController: UIViewController {
     //MARK: TableView Helper Methods
     func configure(cell: LabelBaseCell, forRowAt indexPath: IndexPath) {
         cell.setSeparatorInset(forInsetValue: .none)
+        cell.selectionImage = .arrow
         switch SettingsTableViewSections(indexPath: indexPath) {
         case .theme?:
             switch SettingsTableViewSections.ThemeSection(indexPath: indexPath) {
@@ -88,7 +89,7 @@ extension SettingsViewController: UITableViewDataSource {
             }
         }
         
-        static let allValues: [SettingsTableViewSections] = [theme, app, authenticate]
+        static let allValues = [theme, app, authenticate]
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -139,8 +140,16 @@ extension SettingsViewController: UITableViewDelegate {
                 authSession?.start()
             }
         case .theme?:
-            let themeViewController: ThemeViewController = UIViewController.make(storyboard: .settings)
-            navigationController?.pushViewController(themeViewController, animated: true)
+            switch SettingsTableViewSections.ThemeSection(indexPath: indexPath) {
+            case .userInterface?:
+                let themeViewController: ThemeViewController = UIViewController.make(storyboard: .settings)
+                navigationController?.pushViewController(themeViewController, animated: true)
+            case .fontStyle?:
+                let fontViewController: FontViewController = UIViewController.make(storyboard: .settings)
+                navigationController?.pushViewController(fontViewController, animated: true)
+            default:
+                break
+            }
         default:
             break
         }

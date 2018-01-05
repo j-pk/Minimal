@@ -46,7 +46,7 @@ extension ThemeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return  Theme.allValues[section].titleValue
+        return Theme.allValues[section].titleValue
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

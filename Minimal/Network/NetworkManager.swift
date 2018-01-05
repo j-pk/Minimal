@@ -129,4 +129,6 @@ struct UserSettingsDefaultKey {
     static let authorizationKey = "AuthorizationKey"
     static let theme = "ThemeKey"
     static let firstLaunch = "FirstLaunch"
+    static let font = "FontKey"
+    static let fontSize = "FontSizeKey"
 }

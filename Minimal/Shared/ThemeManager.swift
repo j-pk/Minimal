@@ -47,6 +47,7 @@ struct ThemeManager {
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [AuthenticateCell.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [LabelBaseCell.self]).textColor = theme.titleTextColor
+        UILabel.appearance().font = UIFont(name: "AvenirNext", size: 12)
 
         HeaderView.appearance().backgroundColor = theme.primaryColor
         UICollectionView.appearance().backgroundColor = theme.secondaryColor
@@ -69,7 +70,11 @@ enum Theme: String {
     case minimalTheme
     case darkTheme
     case lightTheme
-    
+
+    static let allValues = [minimalTheme, darkTheme, lightTheme]
+}
+
+extension Theme {
     var titleValue: String {
         switch self {
         case .minimalTheme:
@@ -81,10 +86,6 @@ enum Theme: String {
         }
     }
     
-    static let allValues = [minimalTheme, darkTheme, lightTheme]
-}
-
-extension Theme {
     var primaryColor: UIColor {
         switch self {
         case .minimalTheme:
