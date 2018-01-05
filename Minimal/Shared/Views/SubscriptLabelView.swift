@@ -19,17 +19,17 @@ class SubscriptLabelView: XibView {
     
     func setLabels(forListing listing: Listing) {
         let boldAttributes = [
-            NSAttributedStringKey.font: themeManager.font(fontType: .primaryBold),
+            NSAttributedStringKey.font: themeManager.font(fontStyle: .primaryBold),
             NSAttributedStringKey.foregroundColor: themeManager.theme.titleTextColor
         ]
         
         let regularAttributes = [
-            NSAttributedStringKey.font: themeManager.font(fontType: .secondary),
+            NSAttributedStringKey.font: themeManager.font(fontStyle: .secondary),
             NSAttributedStringKey.foregroundColor: themeManager.theme.subtitleTextColor
         ]
         
         let scoreAttributes = [
-            NSAttributedStringKey.font: themeManager.font(fontType: .secondary),
+            NSAttributedStringKey.font: themeManager.font(fontStyle: .secondary),
             NSAttributedStringKey.foregroundColor: themeManager.redditOrange
         ]
         

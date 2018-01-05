@@ -60,7 +60,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     func configureTheme() {
-        ThemeManager().setGlobalTheme(theme: .lightTheme)
+        ThemeManager().setGlobalTheme()
+        ThemeManager().setGlobalFontType()
     }
     
     private func isFirstLaunch() -> Bool {

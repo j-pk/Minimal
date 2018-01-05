@@ -11,6 +11,10 @@ import UIKit
 struct ThemeManager {
     
     var theme: Theme {
+        set(newValue) {
+            UserDefaults.standard.setValue(newValue.rawValue, forKey: UserSettingsDefaultKey.theme)
+            setGlobalTheme()
+        }
         get {
             if let themeRawValue = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.theme) as? String {
                 return Theme(rawValue: themeRawValue) ?? .minimalTheme
@@ -19,13 +23,37 @@ struct ThemeManager {
         }
     }
     
+    var font: FontType {
+        set(newValue) {
+            UserDefaults.standard.setValue(newValue, forKey: UserSettingsDefaultKey.font)
+            setGlobalTheme()
+        }
+        get {
+            if let fontType = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.font) as? FontType {
+                return fontType
+            }
+            return .helveticaNeue
+        }
+    }
+    
+    var fontSize: FontSize {
+        set(newValue) {
+            UserDefaults.standard.setValue(newValue, forKey: UserSettingsDefaultKey.fontSize)
+            setGlobalTheme()
+        }
+        get {
+            if let fontSize = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.fontSize) as? FontSize {
+                return fontSize
+            }
+            return .normal
+        }
+    }
+    
     let linkTextColor = #colorLiteral(red: 0.2389388382, green: 0.5892125368, blue: 0.8818323016, alpha: 1)
     let redditOrange = #colorLiteral(red: 0.987544477, green: 0.6673021317, blue: 0, alpha: 1)
     let redditBlue = #colorLiteral(red: 0.6029270887, green: 0.6671635509, blue: 0.8504692912, alpha: 1)
     
-    func setGlobalTheme(theme: Theme) {
-        UserDefaults.standard.setValue(theme.rawValue, forKey: UserSettingsDefaultKey.theme)
-
+    func setGlobalTheme() {
         UINavigationBar.appearance().barStyle = theme.barStyle
         UINavigationBar.appearance().tintColor = theme.primaryColor
         UINavigationBar.appearance().barTintColor = theme.primaryColor
@@ -47,7 +75,6 @@ struct ThemeManager {
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [AuthenticateCell.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [LabelBaseCell.self]).textColor = theme.titleTextColor
-        UILabel.appearance().font = UIFont(name: "AvenirNext", size: 12)
 
         HeaderView.appearance().backgroundColor = theme.primaryColor
         UICollectionView.appearance().backgroundColor = theme.secondaryColor
@@ -56,13 +83,36 @@ struct ThemeManager {
         UITableView.appearance().backgroundColor = theme.secondaryColor
     }
     
-    // MARK: - Font
-    func fontName() -> String {
-        return UIFont(name: FontType.primary.helveticaNeue, size: FontType.primary.fontSize)!.fontName
+    func setGlobalFontType() {
+        UILabel.appearance().defaultFont = font(fontStyle: .primary)
+        UILabel.appearance().defaultFontBold = font(fontStyle: .primaryBold)
     }
     
-    func font(fontType: FontType) -> UIFont {
-        return fontType.font
+    func font(fontStyle: FontStyle) -> UIFont {
+        switch fontStyle {
+        case .primary:
+            return UIFont(name: font.regular, size: fontSize.rawValue)!
+        case .primaryBold:
+            return UIFont(name: font.bold, size: fontSize.rawValue)!
+        case .secondary:
+            return UIFont(name: font.regular, size: fontSize.rawValue - 2)!
+        }
+    }
+}
+
+extension UILabel {
+    @objc dynamic var defaultFont: UIFont? {
+        get { return self.font }
+        set {
+            self.font = UIFont(name: newValue?.fontName ?? FontType.helveticaNeue.regular, size: self.font.pointSize)
+        }
+    }
+    
+    @objc dynamic var defaultFontBold: UIFont? {
+        get { return self.font }
+        set {
+            self.font = UIFont(name: newValue?.fontName ?? FontType.helveticaNeue.bold, size: self.font.pointSize)
+        }
     }
 }
 
@@ -184,40 +234,51 @@ extension Theme {
 }
 
 //MARK: - FontType
-
-enum FontType {
+//TODO: Change FontType
+enum FontStyle {
     case primary
     case primaryBold
     case secondary
 }
 
+enum FontType {
+    case avenir
+    case sanFrancisco
+    case georgia
+    case helveticaNeue
+}
+
+enum FontSize: CGFloat {
+    case small = 12
+    case normal = 14
+    case large = 18
+    case huge = 22
+}
+
 extension FontType {
-    var helveticaNeue: String {
+    var regular: String {
         switch self {
-        case .primary, .secondary:
+        case .avenir:
+            return "Avenir-Light"
+        case .georgia:
+            return "Georgia"
+        case .helveticaNeue:
             return "HelveticaNeue"
-        case .primaryBold:
+        default:
+            return UIFont.systemFont(ofSize: 12).fontName
+        }
+    }
+    
+    var bold: String {
+        switch self {
+        case .avenir:
+            return "Avenir-Heavy"
+        case .georgia:
+            return "Georgia-Bold"
+        case .helveticaNeue:
             return "HelveticaNeue-Bold"
-        }
-    }
-    
-    var fontSize: CGFloat {
-        switch self {
-        case .primary, .primaryBold:
-            return 14
-        case .secondary:
-            return 12
-        }
-    }
-    
-    var font: UIFont {
-        switch self {
-        case .primary:
-            return UIFont(name: FontType.primary.helveticaNeue, size: FontType.primary.fontSize)!
-        case .primaryBold:
-            return UIFont(name: FontType.primaryBold.helveticaNeue, size: FontType.primaryBold.fontSize)!
-        case .secondary:
-            return UIFont(name: FontType.secondary.helveticaNeue, size: FontType.secondary.fontSize)!
+        default:
+            return UIFont.boldSystemFont(ofSize: 12).fontName
         }
     }
 }

@@ -92,7 +92,7 @@ extension UIView {
         
         let titleLabel = UILabel()
         titleLabel.text = title
-        titleLabel.font = themeManager.font(fontType: .primary)
+        titleLabel.font = themeManager.font(fontStyle: .primary)
         titleLabel.textColor = themeManager.theme.titleTextColor
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         

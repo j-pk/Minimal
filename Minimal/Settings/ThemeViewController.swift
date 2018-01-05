@@ -10,7 +10,7 @@ import UIKit
 
 class ThemeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    let themeManager = ThemeManager()
+    var themeManager = ThemeManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +64,7 @@ extension ThemeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = self.tableView.cellForRow(at: indexPath) as? ThemeCell {
             let theme = Theme.allValues[indexPath.section]
-            themeManager.setGlobalTheme(theme: theme)
+            themeManager.theme = theme
             reloadViewsOnDidSelectTheme()
             cell.checkmark.isHidden = false
             let deselectedCells = tableView.visibleCells.flatMap({ $0 as? ThemeCell }).filter({ $0 != cell })
