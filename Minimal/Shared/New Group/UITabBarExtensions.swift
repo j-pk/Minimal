@@ -19,3 +19,25 @@ extension UITabBar {
         return sizeThatFits
     }
 }
+
+class TranslucentTabBar: UITabBar {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        adjustTabBarBlurEffect()
+    }
+    
+    func adjustTabBarBlurEffect() {
+        let themeManager = ThemeManager()
+        
+        if let visualEffectView = self.subviews.filter({ $0 is UIVisualEffectView == true }).first {
+            visualEffectView.removeFromSuperview()
+        }
+        
+        let blurEffect = UIBlurEffect(style: themeManager.theme.blurEffect)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.backgroundImage = UIImage()
+        self.addSubview(blurEffectView)
+    }
+}

@@ -9,7 +9,8 @@
 import UIKit
 
 class SubscriptLabelView: XibView {
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: TitleLabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
@@ -33,16 +34,14 @@ class SubscriptLabelView: XibView {
             NSAttributedStringKey.foregroundColor: themeManager.redditOrange
         ]
         
-        let mutableAttributedTitleString = NSMutableAttributedString()
         if let title = listing.title {
             let titleAttributedString = NSAttributedString(string: title, attributes: boldAttributes)
-            mutableAttributedTitleString.append(titleAttributedString)
+            titleLabel.attributedText = titleAttributedString
         }
         if let domain = listing.domain {
             let domainAttributedString = NSAttributedString(string: " (\(domain))", attributes: regularAttributes)
-            mutableAttributedTitleString.append(domainAttributedString)
+            subtitleLabel.attributedText = domainAttributedString
         }
-        titleLabel.attributedText = mutableAttributedTitleString
         
         detailLabel.text = listing.subredditNamePrefixed
         detailLabel.textColor = themeManager.linkTextColor

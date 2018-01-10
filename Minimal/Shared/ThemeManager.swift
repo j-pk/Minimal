@@ -62,6 +62,7 @@ struct ThemeManager {
         UITabBar.appearance().barStyle = theme.barStyle
         UITabBar.appearance().tintColor = theme.secondaryColor
         UITabBar.appearance().barTintColor = theme.tintColor
+        //TranslucentTabBar.adjustTabBarBlurEffect()
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.titleTextColor], for:  .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.subtitleTextColor], for:  .selected)
@@ -85,7 +86,7 @@ struct ThemeManager {
     
     func setGlobalFontType() {
         UILabel.appearance().defaultFont = font(fontStyle: .primary)
-        UILabel.appearance().defaultFontBold = font(fontStyle: .primaryBold)
+        TitleLabel.appearance().defaultFontBold = font(fontStyle: .primaryBold)
     }
     
     func font(fontStyle: FontStyle) -> UIFont {
@@ -96,22 +97,6 @@ struct ThemeManager {
             return UIFont(name: font.bold, size: fontSize.rawValue)!
         case .secondary:
             return UIFont(name: font.regular, size: fontSize.rawValue - 2)!
-        }
-    }
-}
-
-extension UILabel {
-    @objc dynamic var defaultFont: UIFont? {
-        get { return self.font }
-        set {
-            self.font = UIFont(name: newValue?.fontName ?? FontType.helveticaNeue.regular, size: self.font.pointSize)
-        }
-    }
-    
-    @objc dynamic var defaultFontBold: UIFont? {
-        get { return self.font }
-        set {
-            self.font = UIFont(name: newValue?.fontName ?? FontType.helveticaNeue.bold, size: self.font.pointSize)
         }
     }
 }
@@ -229,6 +214,15 @@ extension Theme {
             return .lightContent
         case .lightTheme:
             return .default
+        }
+    }
+    
+    var blurEffect: UIBlurEffectStyle {
+        switch self {
+        case .minimalTheme, .darkTheme:
+            return .dark
+        case .lightTheme:
+            return .light
         }
     }
 }
