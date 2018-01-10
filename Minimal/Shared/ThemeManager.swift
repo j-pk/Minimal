@@ -62,7 +62,7 @@ struct ThemeManager {
         UITabBar.appearance().barStyle = theme.barStyle
         UITabBar.appearance().tintColor = theme.secondaryColor
         UITabBar.appearance().barTintColor = theme.tintColor
-        //TranslucentTabBar.adjustTabBarBlurEffect()
+        UIVisualEffectView.appearance().effect = UIBlurEffect(style: theme.blurEffect)
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.titleTextColor], for:  .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.subtitleTextColor], for:  .selected)
