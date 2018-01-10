@@ -12,8 +12,8 @@ import Nuke
 
 class MainViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet weak var headerView: HeaderView!
-    @IBOutlet weak var headerViewStatusCover: HeaderView!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerEffectView: UIVisualEffectView!
     @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleButton: UIButton!
     @IBOutlet weak var categoryButton: UIButton!
@@ -323,14 +323,14 @@ extension MainViewController: UIScrollViewDelegate {
             headerViewTopConstraint.priority = UILayoutPriority(999)
             UIView.animate(withDuration: 0.3, animations: {
                 self.headerView.alpha = 0.0
-                self.headerViewStatusCover.alpha = 0.0
+                self.headerEffectView.alpha = 1.0
                 self.view.layoutIfNeeded()
             })
         } else if velocity > 0 {
             headerViewTopConstraint.priority = UILayoutPriority(997)
             UIView.animate(withDuration: 0.3, animations: {
                 self.headerView.alpha = 1.0
-                self.headerViewStatusCover.alpha = 1.0
+                self.headerEffectView.alpha = 0.0
                 self.view.layoutIfNeeded()
             })
         }

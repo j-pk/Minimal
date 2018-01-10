@@ -80,9 +80,17 @@
                                     <outlet property="prefetchDataSource" destination="Q3z-Mk-ywe" id="EqK-gf-5tn"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9MB-lI-zjR" customClass="HeaderView" customModule="Minimal" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9MB-lI-zjR">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
                                 <subviews>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HTo-WP-wrt">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="eC6-EM-Egj">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                        <blurEffect style="light"/>
+                                    </visualEffectView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cuU-0f-Wlj">
                                         <rect key="frame" x="8" y="32" width="398" height="32"/>
                                         <subviews>
@@ -115,54 +123,37 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="cuU-0f-Wlj" firstAttribute="leading" secondItem="9MB-lI-zjR" secondAttribute="leading" constant="8" id="4GF-dl-T7S"/>
                                     <constraint firstAttribute="trailing" secondItem="cuU-0f-Wlj" secondAttribute="trailing" constant="8" id="4lH-fY-A3E"/>
+                                    <constraint firstItem="HTo-WP-wrt" firstAttribute="leading" secondItem="9MB-lI-zjR" secondAttribute="leading" id="Iku-Bc-E8k"/>
+                                    <constraint firstAttribute="bottom" secondItem="HTo-WP-wrt" secondAttribute="bottom" id="OLP-K7-Egf"/>
+                                    <constraint firstAttribute="trailing" secondItem="HTo-WP-wrt" secondAttribute="trailing" id="UXg-UX-t14"/>
+                                    <constraint firstItem="HTo-WP-wrt" firstAttribute="top" secondItem="9MB-lI-zjR" secondAttribute="top" id="V43-Ve-GgE"/>
                                     <constraint firstAttribute="bottom" secondItem="cuU-0f-Wlj" secondAttribute="bottom" constant="8" id="X7t-pB-owT"/>
                                 </constraints>
                             </view>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sNy-Gu-NBz">
+                            <visualEffectView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sNy-Gu-NBz">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OGu-Lb-TPn">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sjy-si-ONh">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="GVP-1R-bN1">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </view>
-                                            <vibrancyEffect>
-                                                <blurEffect style="light"/>
-                                            </vibrancyEffect>
-                                        </visualEffectView>
-                                    </subviews>
                                 </view>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="light"/>
                             </visualEffectView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEU-FA-OFv" customClass="HeaderView" customModule="Minimal" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="qVT-tl-oW4" firstAttribute="top" secondItem="PEU-FA-OFv" secondAttribute="bottom" id="0P5-bU-PWr"/>
                             <constraint firstAttribute="trailing" secondItem="sNy-Gu-NBz" secondAttribute="trailing" id="2aF-mm-JiP"/>
                             <constraint firstItem="8TP-rw-FxA" firstAttribute="top" secondItem="XLZ-eG-URw" secondAttribute="top" id="7nr-vd-HTm"/>
-                            <constraint firstItem="PEU-FA-OFv" firstAttribute="leading" secondItem="XLZ-eG-URw" secondAttribute="leading" id="9hd-m6-3hN"/>
                             <constraint firstItem="9MB-lI-zjR" firstAttribute="bottom" secondItem="qVT-tl-oW4" secondAttribute="top" priority="997" id="BUM-4j-7mz"/>
                             <constraint firstItem="8TP-rw-FxA" firstAttribute="leading" secondItem="qVT-tl-oW4" secondAttribute="leading" id="Hyx-Mv-wGk"/>
                             <constraint firstItem="9MB-lI-zjR" firstAttribute="leading" secondItem="qVT-tl-oW4" secondAttribute="leading" id="NrO-gr-Sej"/>
                             <constraint firstItem="9MB-lI-zjR" firstAttribute="bottom" secondItem="qVT-tl-oW4" secondAttribute="top" priority="998" constant="52" id="Oha-H6-ydO"/>
                             <constraint firstItem="qVT-tl-oW4" firstAttribute="top" secondItem="sNy-Gu-NBz" secondAttribute="bottom" id="VK9-HH-JbR"/>
-                            <constraint firstAttribute="trailing" secondItem="PEU-FA-OFv" secondAttribute="trailing" id="Wg2-Ue-JIK"/>
                             <constraint firstItem="8TP-rw-FxA" firstAttribute="trailing" secondItem="qVT-tl-oW4" secondAttribute="trailing" id="XxP-RA-Lwq"/>
                             <constraint firstItem="9MB-lI-zjR" firstAttribute="top" secondItem="XLZ-eG-URw" secondAttribute="top" id="b1q-O0-W1n"/>
-                            <constraint firstItem="PEU-FA-OFv" firstAttribute="top" secondItem="XLZ-eG-URw" secondAttribute="top" id="mFT-Ny-fRN"/>
                             <constraint firstItem="sNy-Gu-NBz" firstAttribute="leading" secondItem="XLZ-eG-URw" secondAttribute="leading" id="ptn-ym-vqD"/>
                             <constraint firstItem="9MB-lI-zjR" firstAttribute="trailing" secondItem="qVT-tl-oW4" secondAttribute="trailing" id="thu-Sv-iiY"/>
                             <constraint firstItem="8TP-rw-FxA" firstAttribute="bottom" secondItem="XLZ-eG-URw" secondAttribute="bottom" id="tlK-nv-a5K"/>
@@ -175,8 +166,8 @@
                     <connections>
                         <outlet property="categoryButton" destination="jVe-85-wUx" id="QLy-UW-vmG"/>
                         <outlet property="collectionView" destination="8TP-rw-FxA" id="07D-cB-Fdo"/>
+                        <outlet property="headerEffectView" destination="sNy-Gu-NBz" id="4U2-qc-0ZY"/>
                         <outlet property="headerView" destination="9MB-lI-zjR" id="M8c-9R-zDk"/>
-                        <outlet property="headerViewStatusCover" destination="PEU-FA-OFv" id="o6G-xa-SBm"/>
                         <outlet property="headerViewTopConstraint" destination="BUM-4j-7mz" id="IgA-PO-VmX"/>
                         <outlet property="titleButton" destination="CHV-dd-qIH" id="ZpI-tY-Qg5"/>
                     </connections>
