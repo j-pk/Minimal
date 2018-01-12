@@ -9,8 +9,9 @@
 import Foundation
 
 struct ListingManager {
-    init(request: Requestable, completionHandler: @escaping OptionalErrorHandler) {
-        let _ = ListingModel(request: request) { (error, listingObjects) in
+    private let listingModel: ListingModel
+    @discardableResult init(request: Requestable, completionHandler: @escaping OptionalErrorHandler) {
+        listingModel = ListingModel(request: request) { (error, listingObjects) in
             if let error = error {
                 completionHandler(error)
             }

@@ -134,30 +134,18 @@
                                     <constraint firstAttribute="bottom" secondItem="cuU-0f-Wlj" secondAttribute="bottom" constant="8" id="X7t-pB-owT"/>
                                 </constraints>
                             </view>
-                            <visualEffectView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sNy-Gu-NBz">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OGu-Lb-TPn">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="sNy-Gu-NBz" secondAttribute="trailing" id="2aF-mm-JiP"/>
                             <constraint firstItem="8TP-rw-FxA" firstAttribute="top" secondItem="XLZ-eG-URw" secondAttribute="top" id="7nr-vd-HTm"/>
                             <constraint firstItem="9MB-lI-zjR" firstAttribute="bottom" secondItem="qVT-tl-oW4" secondAttribute="top" priority="997" id="BUM-4j-7mz"/>
                             <constraint firstItem="8TP-rw-FxA" firstAttribute="leading" secondItem="qVT-tl-oW4" secondAttribute="leading" id="Hyx-Mv-wGk"/>
                             <constraint firstItem="9MB-lI-zjR" firstAttribute="leading" secondItem="qVT-tl-oW4" secondAttribute="leading" id="NrO-gr-Sej"/>
                             <constraint firstItem="9MB-lI-zjR" firstAttribute="bottom" secondItem="qVT-tl-oW4" secondAttribute="top" priority="998" constant="52" id="Oha-H6-ydO"/>
-                            <constraint firstItem="qVT-tl-oW4" firstAttribute="top" secondItem="sNy-Gu-NBz" secondAttribute="bottom" id="VK9-HH-JbR"/>
                             <constraint firstItem="8TP-rw-FxA" firstAttribute="trailing" secondItem="qVT-tl-oW4" secondAttribute="trailing" id="XxP-RA-Lwq"/>
                             <constraint firstItem="9MB-lI-zjR" firstAttribute="top" secondItem="XLZ-eG-URw" secondAttribute="top" id="b1q-O0-W1n"/>
-                            <constraint firstItem="sNy-Gu-NBz" firstAttribute="leading" secondItem="XLZ-eG-URw" secondAttribute="leading" id="ptn-ym-vqD"/>
                             <constraint firstItem="9MB-lI-zjR" firstAttribute="trailing" secondItem="qVT-tl-oW4" secondAttribute="trailing" id="thu-Sv-iiY"/>
                             <constraint firstItem="8TP-rw-FxA" firstAttribute="bottom" secondItem="XLZ-eG-URw" secondAttribute="bottom" id="tlK-nv-a5K"/>
-                            <constraint firstItem="sNy-Gu-NBz" firstAttribute="top" secondItem="XLZ-eG-URw" secondAttribute="top" id="yy0-tm-atL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qVT-tl-oW4"/>
                     </view>
@@ -166,8 +154,7 @@
                     <connections>
                         <outlet property="categoryButton" destination="jVe-85-wUx" id="QLy-UW-vmG"/>
                         <outlet property="collectionView" destination="8TP-rw-FxA" id="07D-cB-Fdo"/>
-                        <outlet property="headerEffectView" destination="sNy-Gu-NBz" id="4U2-qc-0ZY"/>
-                        <outlet property="headerView" destination="9MB-lI-zjR" id="M8c-9R-zDk"/>
+                        <outlet property="headerStackView" destination="cuU-0f-Wlj" id="18q-aT-1vA"/>
                         <outlet property="headerViewTopConstraint" destination="BUM-4j-7mz" id="IgA-PO-VmX"/>
                         <outlet property="titleButton" destination="CHV-dd-qIH" id="ZpI-tY-Qg5"/>
                     </connections>
