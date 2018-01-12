@@ -27,16 +27,6 @@ class ThemeViewController: UIViewController {
         cell.themeColorTint.backgroundColor = theme.tintColor
         cell.checkmark.tintColor = theme.selectionColor
     }
-    
-    func reloadViewsOnDidSelectTheme() {
-        let windows = UIApplication.shared.windows
-        for window in windows {
-            for view in window.subviews {
-                view.removeFromSuperview()
-                window.addSubview(view)
-            }
-        }
-    }
 }
 
 extension ThemeViewController: UITableViewDataSource {
@@ -65,7 +55,7 @@ extension ThemeViewController: UITableViewDelegate {
         if let cell = self.tableView.cellForRow(at: indexPath) as? ThemeCell {
             let theme = Theme.allValues[indexPath.section]
             themeManager.theme = theme
-            reloadViewsOnDidSelectTheme()
+            reloadViews()
             cell.checkmark.isHidden = false
             let deselectedCells = tableView.visibleCells.flatMap({ $0 as? ThemeCell }).filter({ $0 != cell })
             deselectedCells.forEach({ $0.checkmark.isHidden = true })

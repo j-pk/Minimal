@@ -25,12 +25,12 @@ struct ThemeManager {
     
     var font: FontType {
         set(newValue) {
-            UserDefaults.standard.setValue(newValue, forKey: UserSettingsDefaultKey.font)
-            setGlobalTheme()
+            UserDefaults.standard.setValue(newValue.rawValue, forKey: UserSettingsDefaultKey.font)
+            setGlobalFontType()
         }
         get {
-            if let fontType = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.font) as? FontType {
-                return fontType
+            if let fontTypeRawValue = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.font) as? Int {
+                return FontType(rawValue: fontTypeRawValue) ?? .sanFrancisco
             }
             return .helveticaNeue
         }
@@ -234,11 +234,17 @@ enum FontStyle {
     case secondary
 }
 
-enum FontType {
+enum FontType: Int {
     case avenir
     case sanFrancisco
     case georgia
     case helveticaNeue
+    
+    static let allValues = [avenir, sanFrancisco, georgia, helveticaNeue]
+    
+    var font: UIFont {
+        return UIFont(name: self.regular, size: FontSize.normal.rawValue)!
+    }
 }
 
 enum FontSize: CGFloat {

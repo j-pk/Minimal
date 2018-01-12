@@ -11,6 +11,8 @@ import UIKit
 class FontViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
+    var themeManager = ThemeManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView(frame: .zero)
@@ -29,7 +31,7 @@ extension FontViewController: UITableViewDataSource {
         enum FontSection: Int {
             case avenir
             case sanFrancisco
-            case openSans
+            case georgia
             case helveticaNeue
             
             init?(indexPath: IndexPath) {
@@ -42,14 +44,14 @@ extension FontViewController: UITableViewDataSource {
                     return "Avenir"
                 case .sanFrancisco:
                     return "San Francisco"
-                case .openSans:
-                    return "Open Sans"
+                case .georgia:
+                    return "Georgia"
                 case .helveticaNeue:
                     return "Helvetica Neue"
                 }
             }
             
-            static let allValues = [avenir, sanFrancisco, openSans, helveticaNeue]
+            static let allValues = [avenir, sanFrancisco, georgia, helveticaNeue]
         }
         
         enum SizeSection: Int {
@@ -111,7 +113,10 @@ extension FontViewController: UITableViewDataSource {
         cell.selectionImage = .checkmark
         switch FontTableViewSections(indexPath: indexPath) {
         case .font?:
+            let fontForRow = FontTableViewSections.FontSection.allValues[indexPath.row]
+            cell.selectionImageButton.isHidden = fontForRow.rawValue != themeManager.font.rawValue
             cell.titleLabel.text = FontTableViewSections.FontSection.allValues[indexPath.row].titleValue
+            cell.titleLabel.defaultFont = FontType(rawValue: fontForRow.rawValue)?.font
         case .size?:
             cell.titleLabel.text = FontTableViewSections.SizeSection.allValues[indexPath.row].titleValue
         default:
@@ -123,6 +128,15 @@ extension FontViewController: UITableViewDataSource {
 
 extension FontViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if let cell = self.tableView.cellForRow(at: indexPath) as? LabelBaseCell {
+            let fontType = FontType.allValues[indexPath.row]
+            themeManager.font = fontType
+            reloadViews()
+            view.layoutIfNeeded()
+            cell.selectionImageButton.isHidden = false
+            let deselectedCells = tableView.visibleCells.flatMap({ $0 as? LabelBaseCell }).filter({ $0 != cell })
+            deselectedCells.forEach({ $0.selectionImageButton.isHidden = true })
+            self.tableView.reloadSections([0, 1], with: .none)
+        }
     }
 }

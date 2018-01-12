@@ -12,6 +12,16 @@ extension UIViewController {
     static func make<T: UIViewController>(storyboard: UIStoryboard.Storyboard) -> T {
         return UIStoryboard.storyboard(storyboard).instantiateViewController(withIdentifier: T.typeName) as! T
     }
+    
+    func reloadViews() {
+        let windows = UIApplication.shared.windows
+        for window in windows {
+            for view in window.subviews {
+                view.removeFromSuperview()
+                window.addSubview(view)
+            }
+        }
+    }
 }
 
 extension UIStoryboard {

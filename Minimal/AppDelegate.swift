@@ -97,9 +97,8 @@ extension AppDelegate {
             if let error = error {
                 print(error)
             } else {
-                let request = ListingRequest(subreddit: "",
-                                             category: nil)
-                let _ = ListingManager(request: request, completionHandler: { (error) in
+                let request = ListingRequest(subreddit: "", category: nil)
+                ListingManager(request: request, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     }
