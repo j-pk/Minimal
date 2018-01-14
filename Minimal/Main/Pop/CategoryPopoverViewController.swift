@@ -47,19 +47,19 @@ class CategoryPopoverViewController: UIViewController {
         category = selectedCategory
         
         if selectedCategory.isSetByTimeFrame {
-            self.preferredContentSize = CGSize(width: self.view.frame.width, height: 100)
+            preferredContentSize = CGSize(width: view.frame.width, height: 100)
             timeFrameScrollView.isHidden = false
         } else {
+            preferredContentSize = CGSize(width: view.frame.width, height: 60)
             timeFrameScrollView.isHidden = true
-            self.preferredContentSize = CGSize(width: self.view.frame.width, height: 60)
             timeframe = nil
         }
         
         categoryButtonSet.forEach { (button) in
             if button.titleLabel?.text == sender.titleLabel?.text {
-                self.select(button: button)
+                select(button: button)
             } else {
-                self.deselect(button: button)
+                deselect(button: button)
             }
         }
     }
@@ -70,9 +70,9 @@ class CategoryPopoverViewController: UIViewController {
         
         timeframeButtonSet.forEach { (button) in
             if button.titleLabel?.text == sender.titleLabel?.text {
-                self.select(button: button)
+                select(button: button)
             } else {
-                self.deselect(button: button)
+                deselect(button: button)
             }
         }
     }
