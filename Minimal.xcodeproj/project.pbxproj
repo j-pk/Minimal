@@ -181,13 +181,13 @@
 			isa = PBXGroup;
 			children = (
 				C0ED1F9D1FB3F0DB00580C1E /* DateExtensions.swift */,
-				C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */,
 				C0110E151FB5671400410478 /* NotificationExtensions.swift */,
+				C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */,
+				C050C34B200173CB00863B52 /* UILabelExtensions.swift */,
+				C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */,
+				C08D62421FD617DD00794B2A /* UITableViewCellExtensions.swift */,
 				C0D584581FB75297002BCFA9 /* UIViewControllerExtensions.swift */,
 				C0EC9BA41FC25A760073FF7A /* UIViewExtension.swift */,
-				C08D62421FD617DD00794B2A /* UITableViewCellExtensions.swift */,
-				C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */,
-				C050C34B200173CB00863B52 /* UILabelExtensions.swift */,
 			);
 			name = Extensions;
 			path = "New Group";

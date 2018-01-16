@@ -57,11 +57,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 // Override point for customization after application launch.
-extension AppDelegate {
+private extension AppDelegate {
     
     func configureTheme() {
         ThemeManager().setGlobalTheme()
-        ThemeManager().setGlobalFontType()
+        ThemeManager().setGlobalFont()
     }
     
     private func isFirstLaunch() -> Bool {

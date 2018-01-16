@@ -26,7 +26,7 @@ struct ThemeManager {
     var font: FontType {
         set(newValue) {
             UserDefaults.standard.setValue(newValue.rawValue, forKey: UserSettingsDefaultKey.font)
-            setGlobalFontType()
+            setGlobalFont()
         }
         get {
             if let fontTypeRawValue = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.font) as? Int {
@@ -38,12 +38,12 @@ struct ThemeManager {
     
     var fontSize: FontSize {
         set(newValue) {
-            UserDefaults.standard.setValue(newValue, forKey: UserSettingsDefaultKey.fontSize)
-            setGlobalTheme()
+            UserDefaults.standard.setValue(newValue.rawValue, forKey: UserSettingsDefaultKey.fontSize)
+            setGlobalFont()
         }
         get {
-            if let fontSize = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.fontSize) as? FontSize {
-                return fontSize
+            if let fontSizeRawValue = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.fontSize) as? CGFloat {
+                return FontSize(rawValue: fontSizeRawValue) ?? .normal
             }
             return .normal
         }
@@ -83,7 +83,7 @@ struct ThemeManager {
         UITableView.appearance().backgroundColor = theme.secondaryColor
     }
     
-    func setGlobalFontType() {
+    func setGlobalFont() {
         UILabel.appearance().defaultFont = font(fontStyle: .primary)
         TitleLabel.appearance().defaultFontBold = font(fontStyle: .primaryBold)
     }

@@ -16,14 +16,19 @@ extension UILabel {
     @objc dynamic var defaultFont: UIFont? {
         get { return self.font }
         set {
-            self.font = UIFont(name: newValue?.fontName ?? FontType.helveticaNeue.regular, size: self.font.pointSize)
+            self.font = UIFont(name: newValue?.fontName ?? FontType.helveticaNeue.regular, size: newValue?.pointSize ?? 14.0)
         }
+    }
+    
+    func setFontSize(_ sizeFont: CGFloat) {
+        self.font =  UIFont(name: self.font.fontName, size: sizeFont)!
+        self.sizeToFit()
     }
     
     @objc dynamic var defaultFontBold: UIFont? {
         get { return self.font }
         set {
-            self.font = UIFont(name: newValue?.fontName ?? FontType.helveticaNeue.bold, size: self.font.pointSize)
+            self.font = UIFont(name: newValue?.fontName ?? FontType.helveticaNeue.bold, size: newValue?.pointSize ?? 14.0)
         }
     }
 }

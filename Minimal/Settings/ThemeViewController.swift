@@ -14,6 +14,8 @@ class ThemeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationItem.title = "Theme"
         tableView.tableFooterView = UIView(frame: .zero)
     }
     
