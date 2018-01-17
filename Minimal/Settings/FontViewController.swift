@@ -51,6 +51,10 @@ extension FontViewController: UITableViewDataSource {
         return SizeSection.allValues.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 45
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LabelBaseCell", for: indexPath) as! LabelBaseCell
         cell.setSeparatorInset(forInsetValue: .none)
@@ -147,6 +151,7 @@ private enum SizeSection: Int {
     case normal
     case large
     case huge
+    case gigantic
     
     init?(indexPath: IndexPath) {
         self.init(rawValue: indexPath.row)
@@ -162,17 +167,20 @@ private enum SizeSection: Int {
             return "Large"
         case .huge:
             return "Huge"
+        case .gigantic:
+            return "Gigantic"
         }
     }
     
     var size: CGFloat {
         switch self {
-        case .small: return 12
-        case .normal: return 14
-        case .large: return 18
-        case .huge: return 22
+        case .small: return FontSize.small.rawValue
+        case .normal: return FontSize.normal.rawValue
+        case .large: return FontSize.large.rawValue
+        case .huge: return FontSize.huge.rawValue
+        case .gigantic: return FontSize.gigantic.rawValue
         }
     }
     
-    static let allValues = [small, normal, large, huge]
+    static let allValues = [small, normal, large, huge, gigantic]
 }

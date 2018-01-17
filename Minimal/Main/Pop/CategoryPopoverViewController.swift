@@ -16,7 +16,8 @@ class CategoryPopoverViewController: UIViewController {
     @IBOutlet weak var controversialButton: UIButton!
     @IBOutlet weak var topButton: UIButton!
     @IBOutlet weak var timeFrameScrollView: UIScrollView!
-    
+    @IBOutlet weak var categoryScrollView: UIScrollView!
+
     @IBOutlet weak var oneHour: UIButton!
     @IBOutlet weak var twentyFourHours: UIButton!
     @IBOutlet weak var week: UIButton!
@@ -34,13 +35,28 @@ class CategoryPopoverViewController: UIViewController {
         categoryButtonSet = [hotButton, newButton, risingButton, controversialButton, topButton]
         timeframeButtonSet = [oneHour, twentyFourHours, week, month, year, allTime]
         
+        (categoryButtonSet + timeframeButtonSet).forEach { (button) in
+            button.contentEdgeInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
+        }
+    
         guard let selectedCategoryButton = categoryButtonSet.filter({ $0.titleLabel?.text == category.titleValue }).first else { return }
         select(button: selectedCategoryButton)
+        categoryScrollView.setContentOffset(CGPoint(x: categoryScrollView.contentSize.width - selectedCategoryButton.frame.origin.x, y: 0), animated: true)
+        
         if let timeframe = timeframe?.titleValue {
             guard let selectedTimeframeButton = timeframeButtonSet.filter({ $0.titleLabel?.text == timeframe }).first else { return }
             select(button: selectedTimeframeButton)
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        guard let selectedCategoryButton = categoryButtonSet.filter({ $0.titleLabel?.text == category.titleValue }).first else { return }
+        guard let selectedTimeframeButton = timeframeButtonSet.filter({ $0.titleLabel?.text == timeframe?.titleValue }).first else { return }
+
+        categoryScrollView.scrollRectToVisible(selectedCategoryButton.frame, animated: true)
+        timeFrameScrollView.scrollRectToVisible(selectedTimeframeButton.frame, animated: true)
+    }
+    
     
     @IBAction func didPressCategoryButton(_ sender: UIButton) {
         guard let selectedCategory = ListingCategoryType.allValues.filter({ $0.titleValue == sender.titleLabel?.text }).first else { return }
@@ -62,6 +78,7 @@ class CategoryPopoverViewController: UIViewController {
                 deselect(button: button)
             }
         }
+        categoryScrollView.scrollRectToVisible(sender.frame, animated: true)
     }
     
     @IBAction func didPressTimeFrameButton(_ sender: UIButton) {
@@ -75,6 +92,7 @@ class CategoryPopoverViewController: UIViewController {
                 deselect(button: button)
             }
         }
+        timeFrameScrollView.scrollRectToVisible(sender.frame, animated: true)
     }
     
     func select(button: UIButton) {

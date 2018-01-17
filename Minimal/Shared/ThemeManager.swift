@@ -248,10 +248,11 @@ enum FontType: Int {
 }
 
 enum FontSize: CGFloat {
-    case small = 12
-    case normal = 14
-    case large = 18
+    case small = 14
+    case normal = 16
+    case large = 20
     case huge = 22
+    case gigantic = 24
 }
 
 extension FontType {

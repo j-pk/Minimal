@@ -78,7 +78,7 @@ class LabelBaseCell: UITableViewCell {
                                                                   metrics: nil,
                                                                   views: ["selectionImageButton": selectionImageButton]))
         
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-12-[mainStackView]-12-|",
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[mainStackView]-8-|",
                                                                   options: NSLayoutFormatOptions.alignAllLeading,
                                                                   metrics: nil,
                                                                   views: ["mainStackView": mainStackView]))

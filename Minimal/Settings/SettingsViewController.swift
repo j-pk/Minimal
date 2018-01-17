@@ -17,8 +17,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Settings"
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 60
+
         tableView.tableFooterView = UIView(frame: .zero)
     }
     
@@ -37,6 +36,7 @@ class SettingsViewController: UIViewController {
                 cell.titleLabel.text = "Display"
             }
         case .app?:
+            cell.selectionImage = .none
             switch SettingsTableViewSections.App(indexPath: indexPath) {
             case .rate?:
                 cell.titleLabel.text = "Rate Minimal"
@@ -99,6 +99,10 @@ extension SettingsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 25
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 45
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
