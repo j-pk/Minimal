@@ -81,11 +81,14 @@ struct ThemeManager {
         UITableViewCell.appearance().backgroundColor = theme.primaryColor
         UITableView.appearance().separatorColor = theme.selectionColor
         UITableView.appearance().backgroundColor = theme.secondaryColor
+        
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = theme.secondaryColor
     }
     
     func setGlobalFont() {
         UILabel.appearance().defaultFont = font(fontStyle: .primary)
         TitleLabel.appearance().defaultFontBold = font(fontStyle: .primaryBold)
+        SubtitleLabel.appearance().defaultFont = font(fontStyle: .secondary)
     }
     
     func font(fontStyle: FontStyle) -> UIFont {
@@ -190,7 +193,7 @@ extension Theme {
     var subtitleTextColor: UIColor {
         switch self {
         case .minimalTheme:
-            return  #colorLiteral(red: 0.7921568627, green: 0.8235294118, blue: 0.7764705882, alpha: 1)
+            return  #colorLiteral(red: 0.5215686275, green: 0.6588235294, blue: 0.5529411765, alpha: 1)
         case .darkTheme:
             return #colorLiteral(red: 0.5529411765, green: 0.6196078431, blue: 0.6470588235, alpha: 1)
         case .lightTheme:

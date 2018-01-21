@@ -20,6 +20,7 @@ class MainViewController: UIViewController {
     private var blockOperations: [BlockOperation] = []
     private var themeManager = ThemeManager()
     
+    
     //NOTE: Sync happens when data is older than an hour, perhaps this can be configurable
     //Still need to figure this out and when to clear out old listings
     private var listingResultsController: NSFetchedResultsController<Listing> = {
@@ -57,7 +58,6 @@ class MainViewController: UIViewController {
 
         listingResultsController.delegate = self
         performFetch()
-        guard let isEmpty = listingResultsController.fetchedObjects?.isEmpty, isEmpty else { return }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,7 +99,7 @@ class MainViewController: UIViewController {
                 let request = ListingRequest(subreddit: user.lastViewedSubreddit ?? "",
                                              category: user.categoryString,
                                              timeframe: user.timeframeString)
-                let _ = ListingManager(request: request, completionHandler: { (error) in
+                ListingManager(request: request, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     } else {

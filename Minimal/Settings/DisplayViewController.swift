@@ -9,5 +9,6 @@
 import UIKit
 
 class DisplayViewController: UIViewController {
-    
+    // Need to think on how to make choosing cell style
 }
+

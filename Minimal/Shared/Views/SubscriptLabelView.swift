@@ -10,9 +10,9 @@ import UIKit
 
 class SubscriptLabelView: XibView {
     @IBOutlet weak var titleLabel: TitleLabel!
-    @IBOutlet weak var subtitleLabel: UILabel!
-    @IBOutlet weak var detailLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: SubtitleLabel!
+    @IBOutlet weak var detailLabel: SubtitleLabel!
+    @IBOutlet weak var descriptionLabel: SubtitleLabel!
     
     weak var delegate: UIViewTappableDelegate?
     private var data: [String:Any?] = [:]
@@ -39,7 +39,7 @@ class SubscriptLabelView: XibView {
             titleLabel.attributedText = titleAttributedString
         }
         if let domain = listing.domain {
-            let domainAttributedString = NSAttributedString(string: " (\(domain))", attributes: regularAttributes)
+            let domainAttributedString = NSAttributedString(string: "(\(domain))", attributes: regularAttributes)
             subtitleLabel.attributedText = domainAttributedString
         }
         
