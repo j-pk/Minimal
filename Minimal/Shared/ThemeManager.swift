@@ -82,7 +82,7 @@ struct ThemeManager {
         UITableView.appearance().separatorColor = theme.selectionColor
         UITableView.appearance().backgroundColor = theme.secondaryColor
         
-        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = theme.secondaryColor
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = theme.tintColor
     }
     
     func setGlobalFont() {

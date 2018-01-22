@@ -20,32 +20,25 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         configure(searchBar: searchController.searchBar)
         searchBarContainerView.addSubview(searchController.searchBar)
         definesPresentationContext = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        configure(searchBar: searchController.searchBar)
+    }
+    
     func configure(searchBar: UISearchBar) {
         searchBar.placeholder = "Search Subreddits"
-        searchBar.barStyle = themeManager.theme.barStyle
+        searchBar.setTextColor(color: themeManager.theme.titleTextColor)
+        searchBar.setTextFieldColor(color: .clear)
+        searchBar.setPlaceholderTextColor(color: themeManager.theme.subtitleTextColor)
+        searchBar.setSearchImageColor(color: themeManager.theme.tintColor)
+        searchBar.setTextFieldClearButtonColor(color: themeManager.theme.tintColor)
         searchBar.searchBarStyle = .minimal
-        
-        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
-            textField.textColor = themeManager.theme.titleTextColor
-            
-            if let label = textField.value(forKey: "placeholderLabel") as? UILabel {
-                label.textColor = themeManager.theme.subtitleTextColor
-                
-                if let clearButton = textField.value(forKey: "clearButton") as? UIButton {
-                    clearButton.setImage(clearButton.imageView?.image?.withRenderingMode(.alwaysTemplate), for: .normal)
-                    clearButton.tintColor = themeManager.theme.subtitleTextColor
-                }
-            }
-            
-            let glassIconView = textField.leftView as? UIImageView
-            glassIconView?.image = glassIconView?.image?.withRenderingMode(.alwaysTemplate)
-            glassIconView?.tintColor = themeManager.theme.subtitleTextColor
-        }
     }
 }
     
