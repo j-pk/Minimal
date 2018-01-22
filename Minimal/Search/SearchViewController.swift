@@ -14,11 +14,12 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBarView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
+    @IBOutlet weak var segmentController: UISegmentedControl!
     
     let searchController = UISearchController(searchResultsController: nil)
     let themeManager = ThemeManager()
     
-    override func viewDidLoad() {
+    override func viewDidLoad() {        
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
