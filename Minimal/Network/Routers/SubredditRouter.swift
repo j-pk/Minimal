@@ -9,7 +9,7 @@
 import Foundation
 
 enum SubredditRouter: Routable {
-    case paginate(limit: Int, after: String?)
+    case paginate(count: Int?, after: String?)
     
     var path: String {
         switch self {
@@ -22,9 +22,11 @@ enum SubredditRouter: Routable {
     
     var queryItems: [URLQueryItem] {
         switch self {
-        case .paginate(let limit, let after):
+        case .paginate(let count, let after):
             var paginateQuery: [URLQueryItem] = []
-            paginateQuery.append(URLQueryItem(name: "limit", value: "\(limit)"))
+            if let count = count {
+                paginateQuery.append(URLQueryItem(name: "count", value: "\(count)"))
+            }
             if let after = after {
                 paginateQuery.append(URLQueryItem(name: "after", value: after))
             }
@@ -52,16 +54,16 @@ enum SubredditRouter: Routable {
 
 struct SubredditRequest: Requestable {
     let after: String?
-    let limit: Int
+    let count: Int?
     
-    init(limit: Int, after: String?) {
-        self.limit = limit
+    init(count: Int?, after: String?) {
+        self.count = count
         self.after = after
     }
 
     var router: Routable {
         get {
-            return SubredditRouter.paginate(limit: limit, after: after)
+            return SubredditRouter.paginate(count: count, after: after)
         }
     }
 }

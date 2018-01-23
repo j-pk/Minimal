@@ -8,23 +8,30 @@
 
 import Foundation
 
-struct SubredditManager {
+class SearchSubredditManager {
+    var requestCount = 0
+    var request: Requestable?
+    
     @discardableResult init() {
-        var requestLimit = 25
-        var subredditRequest = SubredditRequest(limit: requestLimit, after: nil)
-        SubredditModel(request: subredditRequest) { (error, subredditStore) in
+        requestSubreddits()
+    }
+    
+    private func requestSubreddits() {
+        let defaultRequest = request ?? SubredditRequest(count: nil, after: nil)
+        SubredditModel(request: defaultRequest) { (error, subredditStore) in
             if let error = error {
                 print(error)
             }
-            if requestLimit <= 500 {
+            if self.requestCount <= 75 {
                 if let store = subredditStore {
-                    requestLimit += store.subreddits.count
-                    subredditRequest = SubredditRequest(limit: requestLimit, after: store.after)
-                    SubredditManager()
+                    self.requestCount += store.subreddits.count
+                    self.request = SubredditRequest(count: self.requestCount, after: store.after)
+                    self.requestSubreddits()
                     print(store.subreddits)
-                } else {
-                    print("COMPLETED")
                 }
+            } else {
+                print("COMPLETED")
+                return
             }
         }
     }

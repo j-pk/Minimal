@@ -41,7 +41,7 @@ extension Routable {
         components.scheme = "https"
         components.host = "www.reddit.com"
         components.path = path
-        components.queryItems = queryItems
+        components.queryItems = queryItems.count > 0 ? queryItems : nil
         
         let urlRequest = NSMutableURLRequest(url: components.url!)
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
