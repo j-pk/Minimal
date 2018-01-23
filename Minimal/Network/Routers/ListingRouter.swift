@@ -87,12 +87,7 @@ struct ListingRequest: Requestable {
     let limit: Int
     let requestType: RequestType
     
-    init(subreddit: String,
-         category: String?,
-         timeframe: String? = nil,
-         after: String? = nil,
-         limit: Int = 25,
-         requestType: RequestType = .subreddit) {
+    init(subreddit: String, category: String?, timeframe: String? = nil, after: String? = nil, limit: Int = 25, requestType: RequestType = .subreddit) {
         
         self.subreddit = subreddit
         self.category = category

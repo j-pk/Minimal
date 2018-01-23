@@ -103,6 +103,8 @@ private extension AppDelegate {
                         print(error)
                     }
                 })
+                
+                SubredditManager()
             }
         })
     }
