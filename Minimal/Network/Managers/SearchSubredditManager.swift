@@ -28,19 +28,17 @@ class SearchSubredditManager {
                         try Subreddit.populateObjects(fromJSON: store.subreddits, completionHandler: { (error) in
                             if let error = error {
                                 print(error)
-                                print("FAILED")
                             }
                         })
                     } catch let error {
                         print(error)
-                        print("FAILED")
                     }
                     self.requestCount += store.subreddits.count
                     self.request = SubredditRequest(count: self.requestCount, after: store.after)
                     self.requestSubreddits()
                 }
             } else {
-                print("COMPLETED")
+                print("▂▃▅▇█▓▒░ Completed: \(self.requestCount) Subreddits Found ░▒▓█▇▅▃▂")
                 return
             }
         }
