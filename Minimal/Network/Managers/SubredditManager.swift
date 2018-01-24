@@ -27,7 +27,6 @@ class SearchSubredditManager {
                     self.requestCount += store.subreddits.count
                     self.request = SubredditRequest(count: self.requestCount, after: store.after)
                     self.requestSubreddits()
-                    print(store.subreddits)
                 }
             } else {
                 print("COMPLETED")
