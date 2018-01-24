@@ -1,5 +1,5 @@
 //
-//  SubredditManager.swift
+//  SearchSubredditManager.swift
 //  Minimal
 //
 //  Created by Jameson Kirby on 1/22/18.
@@ -24,6 +24,17 @@ class SearchSubredditManager {
             }
             if self.requestCount <= 75 {
                 if let store = subredditStore {
+                    do {
+                        try Subreddit.populateObjects(fromJSON: store.subreddits, completionHandler: { (error) in
+                            if let error = error {
+                                print(error)
+                                print("FAILED")
+                            }
+                        })
+                    } catch let error {
+                        print(error)
+                        print("FAILED")
+                    }
                     self.requestCount += store.subreddits.count
                     self.request = SubredditRequest(count: self.requestCount, after: store.after)
                     self.requestSubreddits()

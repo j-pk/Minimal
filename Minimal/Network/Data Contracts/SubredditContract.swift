@@ -126,7 +126,7 @@ struct SubredditStore: Decodable {
 }
 
 struct SubredditObject: Mappable {
-    let id: String?
+    let id: String
     let displayNamePrefixed: String?
     let displayName: String?
     let over18: Bool
@@ -154,7 +154,7 @@ struct SubredditObject: Mappable {
     init(from decoder: Decoder) throws {
         let root = try decoder.container(keyedBy: CodingKeys.self)
         let data = try root.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-        id = try data.decodeIfPresent(String.self, forKey: .id)
+        id = try data.decode(String.self, forKey: .id)
         displayNamePrefixed = try data.decodeIfPresent(String.self, forKey: .displayNamePrefixed)
         displayName = try data.decodeIfPresent(String.self, forKey: .displayName)
         over18 = try data.decode(Bool.self, forKey: .over18)
