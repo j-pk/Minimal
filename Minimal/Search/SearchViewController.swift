@@ -19,17 +19,42 @@ class SearchViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     let themeManager = ThemeManager()
     
-    override func viewDidLoad() {        
+    private var searchResultsController: NSFetchedResultsController<Subreddit> = {
+        let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "displayName", ascending: true)]
+        let fetchedResultsController = NSFetchedResultsController<Subreddit>(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.default.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        return fetchedResultsController
+    }()
+    
+    override func viewDidLoad() {
+        searchResultsController.delegate = self
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
         configure(searchBar: searchController.searchBar)
         searchBarContainerView.addSubview(searchController.searchBar)
         definesPresentationContext = true
+        
+        performFetch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         configure(searchBar: searchController.searchBar)
+    }
+    
+    func performFetch(withPredicate predicate: NSPredicate? = nil) {
+        // TODO: Determine user preference for over18
+        let over18: Bool = false
+        let defaultSearchPredicate = NSPredicate(format: "allowImages == true OR allowVideoGifs == true")
+        let over18Predicate = NSPredicate(format: "over18 == %@", over18 as CVarArg)
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [defaultSearchPredicate, over18Predicate])
+        searchResultsController.fetchRequest.predicate = predicate ?? compoundPredicate
+        
+        do {
+            try searchResultsController.performFetch()
+        } catch let error {
+            print("Error: \(error.localizedDescription)")
+        }
     }
     
     func configure(searchBar: UISearchBar) {
@@ -49,11 +74,13 @@ extension SearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return searchResultsController.fetchedObjects?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
+        let subreddit = searchResultsController.object(at: indexPath)
+        cell.setView(forSubreddit: subreddit)
         return cell
     }
 }
@@ -119,6 +146,14 @@ extension SearchViewController: NSFetchedResultsControllerDelegate {
 
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        //
+        guard let searchString = searchController.searchBar.text else { return }
+        
+        if searchString.isEmpty {
+            performFetch()
+            tableView.reloadData()
+        } else {
+            performFetch(withPredicate: NSPredicate(format: "displayName CONTAINS[cd] %@", searchString))
+            tableView.reloadData()
+        }
     }
 }

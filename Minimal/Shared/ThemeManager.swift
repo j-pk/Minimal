@@ -74,9 +74,10 @@ struct ThemeManager {
         UIApplication.shared.statusBarStyle = theme.statusBarStyle
         
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
-        UILabel.appearance(whenContainedInInstancesOf: [AuthenticateCell.self]).textColor = theme.titleTextColor
-        UILabel.appearance(whenContainedInInstancesOf: [LabelBaseCell.self]).textColor = theme.titleTextColor
-
+        UILabel.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.titleTextColor
+        TitleLabel.appearance(whenContainedInInstancesOf: [SearchCell.self]).textColor = theme.titleTextColor
+        SubtitleLabel.appearance(whenContainedInInstancesOf: [SearchCell.self]).textColor = theme.subtitleTextColor
+        
         UICollectionView.appearance().backgroundColor = theme.secondaryColor
         UITableViewCell.appearance().backgroundColor = theme.primaryColor
         UITableView.appearance().separatorColor = theme.selectionColor

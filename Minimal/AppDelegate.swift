@@ -104,7 +104,7 @@ private extension AppDelegate {
                     }
                 })
                 
-                SearchSubredditManager()
+                //SearchSubredditManager()
             }
         })
     }

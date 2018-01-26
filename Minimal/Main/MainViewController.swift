@@ -174,7 +174,7 @@ extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: indexPath) as! MainCell
         
-        let listing = self.listingResultsController.object(at: indexPath)
+        let listing = listingResultsController.object(at: indexPath)
         cell.configureCell(forListing: listing)
 
         return cell
