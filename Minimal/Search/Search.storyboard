@@ -107,6 +107,9 @@
                                             <segment title="Subscribed"/>
                                             <segment title="Recent"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="didSelectSegment:" destination="8SD-xH-Rh5" eventType="valueChanged" id="qOT-fq-czK"/>
+                                        </connections>
                                     </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

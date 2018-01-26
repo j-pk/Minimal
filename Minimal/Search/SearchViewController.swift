@@ -16,6 +16,18 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var segmentController: UISegmentedControl!
     
+    enum SearchSegment: Int {
+        case subreddits
+        case subscribed
+        case recent
+    }
+    
+    var searchSegment: SearchSegment {
+        get {
+            guard let segment = SearchSegment(rawValue: segmentController.selectedSegmentIndex) else { return .subreddits }
+            return segment
+        }
+    }
     let searchController = UISearchController(searchResultsController: nil)
     let themeManager = ThemeManager()
     
@@ -35,20 +47,19 @@ class SearchViewController: UIViewController {
         searchBarContainerView.addSubview(searchController.searchBar)
         definesPresentationContext = true
         
-        performFetch()
+        performFetch(withPredicate: searchSegment.predicate)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         configure(searchBar: searchController.searchBar)
     }
     
-    func performFetch(withPredicate predicate: NSPredicate? = nil) {
+    func performFetch(withPredicate predicate: NSPredicate) {
         // TODO: Determine user preference for over18
         let over18: Bool = false
-        let defaultSearchPredicate = NSPredicate(format: "allowImages == true OR allowVideoGifs == true")
         let over18Predicate = NSPredicate(format: "over18 == %@", over18 as CVarArg)
-        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [defaultSearchPredicate, over18Predicate])
-        searchResultsController.fetchRequest.predicate = predicate ?? compoundPredicate
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, over18Predicate])
+        searchResultsController.fetchRequest.predicate = compoundPredicate
         
         do {
             try searchResultsController.performFetch()
@@ -65,6 +76,11 @@ class SearchViewController: UIViewController {
         searchBar.setSearchImageColor(color: themeManager.theme.tintColor)
         searchBar.setTextFieldClearButtonColor(color: themeManager.theme.tintColor)
         searchBar.searchBarStyle = .minimal
+    }
+    
+    @IBAction func didSelectSegment(_ sender: UISegmentedControl) {
+        performFetch(withPredicate: searchSegment.predicate)
+        tableView.reloadData()
     }
 }
     
@@ -149,11 +165,24 @@ extension SearchViewController: UISearchResultsUpdating {
         guard let searchString = searchController.searchBar.text else { return }
         
         if searchString.isEmpty {
-            performFetch()
+            performFetch(withPredicate: searchSegment.predicate)
             tableView.reloadData()
         } else {
             performFetch(withPredicate: NSPredicate(format: "displayName CONTAINS[cd] %@", searchString))
             tableView.reloadData()
+        }
+    }
+}
+
+private extension SearchViewController.SearchSegment {
+    var predicate: NSPredicate {
+        switch self {
+        case .subreddits:
+            return NSPredicate(format: "allowImages == true OR allowVideoGifs == true")
+        case .subscribed:
+            return NSPredicate(format: "isSubscribed == true")
+        case .recent:
+            return NSPredicate(format: "lastViewed < %@", Date() as NSDate)
         }
     }
 }
