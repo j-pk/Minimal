@@ -39,16 +39,15 @@ public class Listing: NSManagedObject {
 }
 
 extension Listing: Manageable {
-    static func populateObject<T>(fromJSON json: T, save: Bool, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler) where T : Decodable {
-        
-        guard let json = json as? ListingMapped else { fatalError("Failed to cast decodable as ListingObject.") }
+    static func populateObject(fromJSON json: Decodable, save: Bool, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler) {
+        guard let json = json as? ListingObject else { fatalError("Failed to cast decodable as ListingObject.") }
 
         do {
             let listing: Listing = try Listing.fetchFirst(inContext: context, predicate: NSPredicate(format: "id == %@", json.id)) ?? Listing.insertObject(inContext: context)
             
             listing.domain = json.domain
             listing.author = json.author
-            listing.created = json.created
+            listing.created = Date()
             listing.downs = json.downs
             listing.hidden = json.hidden
             listing.id = json.id
@@ -64,8 +63,8 @@ extension Listing: Manageable {
             listing.after = json.after
             listing.postHint = json.postHint
             listing.populatedDate = Date()
-            listing.urlString = modifyUrl(url: json.mediaUrl ?? json.url)
-            listing.thumbnailUrlString = json.thumbnailUrl
+            listing.urlString = modifyUrl(url: json.media?.mediaUrl ?? json.url)
+            listing.thumbnailUrlString = json.media?.thumbnailUrl
             let imageSize = determineImageSize(fromJSON: json)
             listing.width = imageSize.width as NSNumber?
             listing.height = imageSize.height as NSNumber?
@@ -95,10 +94,13 @@ extension Listing: Manageable {
     ///
     /// - Parameter json: Mapped Listing from JSON
     /// - Returns: Tuple containing Int value for width & height
-    static private func determineImageSize(fromJSON json: ListingMapped) -> (width: Int?, height: Int?) {
+    static private func determineImageSize(fromJSON json: ListingObject) -> (width: Int?, height: Int?) {
         var width = json.thumbnailWidth
         var height = json.thumbnailHeight
-        if let widths = json.widths, let heights = json.heights {
+        let widths = json.images?.first?.resolutions?.flatMap({ $0.width })
+        let heights = json.images?.first?.resolutions?.flatMap({ $0.height })
+        
+        if let widths = widths, let heights = heights {
             if widths.count >= 3 && heights.count >= 3 {
                 width = widths[2]
                 height = heights[2]

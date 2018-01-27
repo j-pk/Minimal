@@ -37,14 +37,15 @@ struct ListingManager {
 struct ListingModel: Modelable {
     var networkEngine: NetworkEngine = NetworkManager()
     
-    init(request: Requestable, completionHandler: @escaping MappedCompletionHandler) {
+    init(request: Requestable, completionHandler: @escaping DecodableCompletionHandler) {
         self.networkEngine.session(forRoute: request.router, withDecodable: ListingStore.self) { (error, decoded) in
             if let error = error {
                 completionHandler(error, nil)
             } else {
                 if let decoded = decoded {
-                    let listings = decoded.listings.map({ listingData in ListingMapped(store: decoded, data: listingData) })
-                    completionHandler(nil, listings)
+                    var objects = decoded.listings
+                    objects.indices.forEach({ objects[$0].after = decoded.after })
+                    completionHandler(nil, objects)
                 } else {
                     completionHandler(NetworkError.serverError(description: "No data for \(String(describing: request.router.urlRequest))"), nil)
                 }

@@ -48,6 +48,7 @@ class SearchViewController: UIViewController {
         definesPresentationContext = true
         
         performFetch(withPredicate: searchSegment.predicate)
+        tableView.tableFooterView = UIView(frame: .zero)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -28,8 +28,7 @@ public class User: NSManagedObject {
 }
 
 extension User: Manageable {
-    static func populateObject<T>(fromJSON json: T, save: Bool, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler) where T : Decodable {
-    }
+    static func populateObject(fromJSON json: Decodable, save: Bool, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler) { }
     
     static func create(context: NSManagedObjectContext, completionHandler: OptionalErrorHandler) {
         do {

@@ -37,7 +37,6 @@
 		C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0A3857C1F9E54B0005064DF /* Minimal.xcdatamodeld */; };
 		C0A385831F9E54B0005064DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A385811F9E54B0005064DF /* LaunchScreen.storyboard */; };
 		C0A3858F1F9E5718005064DF /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A3858E1F9E5718005064DF /* Root.storyboard */; };
-		C0A385911F9E58DA005064DF /* Subscribed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A385901F9E58DA005064DF /* Subscribed.storyboard */; };
 		C0A385931F9E9089005064DF /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A385921F9E9089005064DF /* Search.storyboard */; };
 		C0A385951F9E90DF005064DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A385941F9E90DF005064DF /* Main.storyboard */; };
 		C0A385971F9E9130005064DF /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A385961F9E9130005064DF /* Settings.storyboard */; };
@@ -102,7 +101,6 @@
 		C0A385821F9E54B0005064DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0A385841F9E54B0005064DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0A3858E1F9E5718005064DF /* Root.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
-		C0A385901F9E58DA005064DF /* Subscribed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Subscribed.storyboard; sourceTree = "<group>"; };
 		C0A385921F9E9089005064DF /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		C0A385941F9E90DF005064DF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C0A385961F9E9130005064DF /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -240,17 +238,8 @@
 				C0A3858B1F9E5691005064DF /* Search */,
 				C0A3858D1F9E56B0005064DF /* Settings */,
 				C0DA84DA1FA01030006BE949 /* Shared */,
-				C0A3858A1F9E5625005064DF /* Subscribed */,
 			);
 			path = Minimal;
-			sourceTree = "<group>";
-		};
-		C0A3858A1F9E5625005064DF /* Subscribed */ = {
-			isa = PBXGroup;
-			children = (
-				C0A385901F9E58DA005064DF /* Subscribed.storyboard */,
-			);
-			path = Subscribed;
 			sourceTree = "<group>";
 		};
 		C0A3858B1F9E5691005064DF /* Search */ = {
@@ -439,7 +428,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0A385831F9E54B0005064DF /* LaunchScreen.storyboard in Resources */,
-				C0A385911F9E58DA005064DF /* Subscribed.storyboard in Resources */,
 				C0A385951F9E90DF005064DF /* Main.storyboard in Resources */,
 				C0A3858F1F9E5718005064DF /* Root.storyboard in Resources */,
 				C0A385931F9E9089005064DF /* Search.storyboard in Resources */,

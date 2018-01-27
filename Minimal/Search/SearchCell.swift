@@ -17,6 +17,7 @@ class SearchCell: UITableViewCell {
     let themeManager = ThemeManager()
     
     func setView(forSubreddit subreddit: Subreddit) {
+        setSeparatorInset(forInsetValue: .zero)
         displayNamePrefixedLabel.text = subreddit.displayNamePrefixed
         publicDescriptionLabel.text = subreddit.publicDescription
         

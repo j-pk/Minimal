@@ -10,7 +10,7 @@ import Foundation
 import SafariServices
 
 typealias OptionalErrorHandler = (Error?) -> Void
-typealias MappedCompletionHandler = (NetworkError?, [ListingMapped]?) -> Void
+typealias DecodableCompletionHandler = (NetworkError?, [Decodable]?) -> Void
 typealias NetworkCompletionHandler<T> = (NetworkError?, T?) -> Void
 
 public enum HTTPMethod: String {

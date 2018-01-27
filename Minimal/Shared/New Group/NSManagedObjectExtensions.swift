@@ -10,7 +10,7 @@ import CoreData
 
 protocol Manageable: class, NSFetchRequestResult {
     static var entityName: String { get }
-    static func populateObject<T: Decodable>(fromJSON json: T, save: Bool, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler)
+    static func populateObject(fromJSON json: Decodable, save: Bool, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler)
 }
 
 extension Manageable where Self: NSManagedObject {
@@ -58,7 +58,7 @@ extension Manageable where Self: NSManagedObject {
         return object
     }
     
-    static func populateObjects<T: Mappable>(fromJSON json: [T], completionHandler: @escaping OptionalErrorHandler) throws {
+    static func populateObjects(fromJSON json: [Decodable], completionHandler: @escaping OptionalErrorHandler) throws {
         CoreDataManager.default.performBackgroundTask { (moc) in
             do {
                 json.forEach { (object) in

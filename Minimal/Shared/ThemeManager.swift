@@ -80,7 +80,7 @@ struct ThemeManager {
         
         UICollectionView.appearance().backgroundColor = theme.secondaryColor
         UITableViewCell.appearance().backgroundColor = theme.primaryColor
-        UITableView.appearance().separatorColor = theme.selectionColor
+        UITableView.appearance().separatorColor = theme.backgroundColor
         UITableView.appearance().backgroundColor = theme.primaryColor
         
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = theme.tintColor
