@@ -8,6 +8,41 @@
 
 import Foundation
 
+struct ListingRequest: Requestable {
+    
+    enum RequestType {
+        case subreddit
+        case paginate
+    }
+    
+    let subreddit: String
+    let category: String?
+    let timeframe: String?
+    let after: String?
+    let limit: Int
+    let requestType: RequestType
+    
+    init(subreddit: String, category: String?, timeframe: String? = nil, after: String? = nil, limit: Int = 25, requestType: RequestType = .subreddit) {
+        self.subreddit = subreddit
+        self.category = category
+        self.timeframe = timeframe
+        self.after = after
+        self.limit = limit
+        self.requestType = requestType
+    }
+    
+    var router: Routable {
+        get {
+            switch requestType {
+            case .subreddit:
+                return ListingRouter.subreddit(prefix: subreddit, category: category, timeframe: timeframe)
+            case .paginate:
+                return ListingRouter.paginate(prefix: subreddit, category: category, timeframe: timeframe, limit: limit, after: after)
+            }
+        }
+    }
+}
+
 enum ListingRouter: Routable {
     case subreddit(prefix: String, category: String?, timeframe: String?)
     case paginate(prefix: String, category: String?, timeframe: String?, limit: Int, after: String?)
@@ -72,41 +107,4 @@ enum ListingRouter: Routable {
         }
     }
 }
-
-struct ListingRequest: Requestable {
-    
-    enum RequestType {
-        case subreddit
-        case paginate
-    }
-    
-    let subreddit: String
-    let category: String?
-    let timeframe: String?
-    let after: String?
-    let limit: Int
-    let requestType: RequestType
-    
-    init(subreddit: String, category: String?, timeframe: String? = nil, after: String? = nil, limit: Int = 25, requestType: RequestType = .subreddit) {
-        
-        self.subreddit = subreddit
-        self.category = category
-        self.timeframe = timeframe
-        self.after = after
-        self.limit = limit
-        self.requestType = requestType
-    }
-    
-    var router: Routable {
-        get {
-            switch requestType {
-            case .subreddit:
-                return ListingRouter.subreddit(prefix: subreddit, category: category, timeframe: timeframe)
-            case .paginate:
-                return ListingRouter.paginate(prefix: subreddit, category: category, timeframe: timeframe, limit: limit, after: after)
-            }
-        }
-    }
-}
-
 

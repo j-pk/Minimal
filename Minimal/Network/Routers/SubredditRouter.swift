@@ -8,6 +8,22 @@
 
 import Foundation
 
+struct SubredditRequest: Requestable {
+    let after: String?
+    let count: Int?
+    
+    init(count: Int?, after: String?) {
+        self.count = count
+        self.after = after
+    }
+    
+    var router: Routable {
+        get {
+            return SubredditRouter.paginate(count: count, after: after)
+        }
+    }
+}
+
 enum SubredditRouter: Routable {
     case paginate(count: Int?, after: String?)
     
@@ -52,18 +68,3 @@ enum SubredditRouter: Routable {
     }
 }
 
-struct SubredditRequest: Requestable {
-    let after: String?
-    let count: Int?
-    
-    init(count: Int?, after: String?) {
-        self.count = count
-        self.after = after
-    }
-
-    var router: Routable {
-        get {
-            return SubredditRouter.paginate(count: count, after: after)
-        }
-    }
-}

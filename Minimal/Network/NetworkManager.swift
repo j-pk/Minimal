@@ -25,31 +25,6 @@ public enum HTTPMethod: String {
     case connect = "CONNECT"
 }
 
-protocol Routable {
-    func setURLRequest() throws -> URLRequest
-}
-
-protocol Requestable {
-    var router: Routable { get }
-}
-
-extension Routable {
-    public var urlRequest: URLRequest? { return try? setURLRequest() }
-    
-    func generateBaseURL(forPath path: String, queryItems: [URLQueryItem], method: HTTPMethod) -> URLRequest {
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "www.reddit.com"
-        components.path = path
-        components.queryItems = queryItems.count > 0 ? queryItems : nil
-        
-        let urlRequest = NSMutableURLRequest(url: components.url!)
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.httpMethod = method.rawValue
-        return urlRequest as URLRequest
-    }
-}
-
 public enum NetworkError: Error {
     case failedToParse(Error)
     case responseError(response: URLResponse?)
@@ -125,10 +100,3 @@ class NetworkManager: NetworkEngine {
     }
 }
 
-struct UserSettingsDefaultKey {
-    static let authorizationKey = "AuthorizationKey"
-    static let theme = "ThemeKey"
-    static let firstLaunch = "FirstLaunch"
-    static let font = "FontKey"
-    static let fontSize = "FontSizeKey"
-}

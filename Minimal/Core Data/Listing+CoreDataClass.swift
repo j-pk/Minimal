@@ -39,7 +39,7 @@ public class Listing: NSManagedObject {
 }
 
 extension Listing: Manageable {
-    static func populateObject(fromJSON json: Decodable, save: Bool, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler) {
+    static func populateObject(fromDecodable json: Decodable, save: Bool, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler) {
         guard let json = json as? ListingObject else { fatalError("Failed to cast decodable as ListingObject.") }
 
         do {
