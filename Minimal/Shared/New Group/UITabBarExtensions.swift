@@ -8,6 +8,42 @@
 
 import UIKit
 
+extension UITabBarController {
+    func tab<T>(toViewController viewController: T.Type) where T : UIViewController {
+        self.viewControllers?.forEach({ (viewController) in
+            if viewController is UINavigationController {
+                if let navigationController = viewController as? UINavigationController {
+                    if navigationController.viewControllers.filter({ $0 is T }).first != nil {
+                        self.selectedViewController = navigationController
+                    }
+                }
+            } else {
+                if viewController is T {
+                    self.selectedViewController = viewController
+                }
+            }
+        })
+    }
+    
+    func fetch<T>(viewController: T.Type) -> T? where T : UIViewController {
+        var destination: T?
+        self.viewControllers?.forEach({ (viewController) in
+            if viewController is UINavigationController {
+                if let navigationController = viewController as? UINavigationController {
+                    if let filterViewController = navigationController.viewControllers.filter({ $0 is T }).first as? T {
+                        destination = filterViewController
+                    }
+                }
+            } else {
+                if viewController is T {
+                    destination = viewController as? T
+                }
+            }
+        })
+        return destination
+    }
+}
+
 extension UITabBar {
     override open func sizeThatFits(_ size: CGSize) -> CGSize {
         super.sizeThatFits(size)

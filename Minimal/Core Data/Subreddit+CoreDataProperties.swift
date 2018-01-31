@@ -17,7 +17,7 @@ extension Subreddit {
         return NSFetchRequest<Subreddit>(entityName: "Subreddit")
     }
 
-    @NSManaged public var lastViewed: NSDate?
+    @NSManaged public var lastViewed: Date?
     @NSManaged public var id: String
     @NSManaged public var displayNamePrefixed: String?
     @NSManaged public var displayName: String?

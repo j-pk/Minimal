@@ -29,7 +29,6 @@ extension UIStoryboard {
         case main
         case search
         case settings
-        case subscribed
         
         var filename: String {
             return rawValue.capitalized

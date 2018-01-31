@@ -58,6 +58,10 @@ class MainViewController: UIViewController {
 
         listingResultsController.delegate = self
         performFetch()
+        
+        if let searchViewController = tabBarController?.fetch(viewController: SearchViewController.self) {
+            searchViewController.delegate = self
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -178,6 +182,12 @@ extension MainViewController: UICollectionViewDataSource {
         cell.configureCell(forListing: listing)
 
         return cell
+    }
+}
+
+extension MainViewController: UISearchActionDelegate {
+    func didSelect(subreddit: Subreddit) {
+        print(subreddit)
     }
 }
 

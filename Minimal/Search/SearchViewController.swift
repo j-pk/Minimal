@@ -9,12 +9,20 @@
 import UIKit
 import CoreData
 
+/// UISearchActionDelegate
+///
+/// Action from a search result returns the selected subreddit
+protocol UISearchActionDelegate: class {
+    func didSelect(subreddit: Subreddit)
+}
 
 class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBarView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var segmentController: UISegmentedControl!
+    
+    weak var delegate: UISearchActionDelegate?
     
     enum SearchSegment: Int {
         case subreddits
@@ -55,13 +63,13 @@ class SearchViewController: UIViewController {
         configure(searchBar: searchController.searchBar)
     }
     
-    func performFetch(withPredicate predicate: NSPredicate) {
+    func performFetch(withPredicate predicate: NSPredicate, sortDescriptors descriptors: [NSSortDescriptor]? = nil) {
         // TODO: Determine user preference for over18
         let over18: Bool = false
         let over18Predicate = NSPredicate(format: "over18 == %@", over18 as CVarArg)
         let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, over18Predicate])
         searchResultsController.fetchRequest.predicate = compoundPredicate
-        
+        searchResultsController.fetchRequest.sortDescriptors = descriptors ?? [NSSortDescriptor(key: "displayName", ascending: true)]
         do {
             try searchResultsController.performFetch()
         } catch let error {
@@ -80,7 +88,8 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func didSelectSegment(_ sender: UISegmentedControl) {
-        performFetch(withPredicate: searchSegment.predicate)
+        let descriptors = searchSegment == .recent ? [NSSortDescriptor(key: "lastViewed", ascending: false)] : nil
+        performFetch(withPredicate: searchSegment.predicate, sortDescriptors: descriptors)
         tableView.reloadData()
     }
 }
@@ -103,7 +112,18 @@ extension SearchViewController: UITableViewDataSource {
 }
 
 extension SearchViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let subreddit = searchResultsController.object(at: indexPath)
+        let moc = searchResultsController.managedObjectContext
+        do {
+            subreddit.lastViewed = Date()
+            try moc.save()
+        } catch let error {
+            print(error)
+        }
+        delegate?.didSelect(subreddit: subreddit)
+        tabBarController?.tab(toViewController: MainViewController.self)
+    }
 }
 
 
@@ -147,7 +167,7 @@ extension SearchViewController: NSFetchedResultsControllerDelegate {
         case .insert:
             if let insertPath = newIndexPath {
                 tableView.beginUpdates()
-                self.tableView.insertRows(at: [insertPath], with: UITableViewRowAnimation.fade)
+                self.tableView.insertRows(at: [insertPath], with: .fade)
                 tableView.endUpdates()
             }
             break

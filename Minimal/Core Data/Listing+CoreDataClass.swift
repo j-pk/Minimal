@@ -65,7 +65,7 @@ extension Listing: Manageable {
             listing.populatedDate = Date()
             listing.urlString = modifyUrl(url: json.media?.mediaUrl ?? json.url)
             listing.thumbnailUrlString = json.media?.thumbnailUrl
-            let imageSize = determineImageSize(fromJSON: json)
+            let imageSize = determineImageSize(fromDecodable: json)
             listing.width = imageSize.width as NSNumber?
             listing.height = imageSize.height as NSNumber?
             
@@ -94,7 +94,7 @@ extension Listing: Manageable {
     ///
     /// - Parameter json: Mapped Listing from JSON
     /// - Returns: Tuple containing Int value for width & height
-    static private func determineImageSize(fromJSON json: ListingObject) -> (width: Int?, height: Int?) {
+    static private func determineImageSize(fromDecodable json: ListingObject) -> (width: Int?, height: Int?) {
         var width = json.thumbnailWidth
         var height = json.thumbnailHeight
         let widths = json.images?.first?.resolutions?.flatMap({ $0.width })
