@@ -114,13 +114,6 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let subreddit = searchResultsController.object(at: indexPath)
-        let moc = searchResultsController.managedObjectContext
-        do {
-            subreddit.lastViewed = Date()
-            try moc.save()
-        } catch let error {
-            print(error)
-        }
         delegate?.didSelect(subreddit: subreddit)
         tabBarController?.tab(toViewController: MainViewController.self)
     }

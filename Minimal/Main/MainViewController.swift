@@ -20,7 +20,6 @@ class MainViewController: UIViewController {
     private var blockOperations: [BlockOperation] = []
     private var themeManager = ThemeManager()
     
-    
     //NOTE: Sync happens when data is older than an hour, perhaps this can be configurable
     //Still need to figure this out and when to clear out old listings
     private var listingResultsController: NSFetchedResultsController<Listing> = {
@@ -94,26 +93,43 @@ class MainViewController: UIViewController {
         }
     }
     
-    func requestListings() {
+    func requestListings(forSubreddit subreddit: Subreddit? = nil) {
+        let user = updateUser(subreddit: subreddit)
         CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
             if let error = error {
                 print(error)
             } else {
-                guard let user = User.current() else { return }
-                let request = ListingRequest(subreddit: user.lastViewedSubreddit ?? "",
-                                             category: user.categoryString,
-                                             timeframe: user.timeframeString)
+                let request = ListingRequest(subreddit: user?.lastViewedSubreddit ?? "",
+                                             category: user?.categoryString,
+                                             timeframe: user?.timeframeString)
                 ListingManager(request: request, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     } else {
                         DispatchQueue.main.async {
+                            self.titleButton.setTitle(user?.lastViewedSubreddit ?? self.titleButton.titleLabel?.text, for: UIControlState())
                             self.collectionView.reloadData()
                         }
                     }
                 })
             }
         })
+    }
+    
+    func updateUser(subreddit: Subreddit?) -> User? {
+        guard let user = User.current() else { return nil }
+        if let subreddit = subreddit {
+            CoreDataManager.default.performForegroundTask { (moc) in
+                do {
+                    subreddit.lastViewed = Date()
+                    user.lastViewedSubreddit = subreddit.displayNamePrefixed
+                    try moc.save()
+                } catch let error {
+                    print(error)
+                }
+            }
+        }
+        return user
     }
     
     @IBAction func didPressTitleButton(_ sender: UIButton) {
@@ -187,7 +203,7 @@ extension MainViewController: UICollectionViewDataSource {
 
 extension MainViewController: UISearchActionDelegate {
     func didSelect(subreddit: Subreddit) {
-        print(subreddit)
+        requestListings(forSubreddit: subreddit)
     }
 }
 

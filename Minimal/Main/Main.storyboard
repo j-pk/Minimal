@@ -103,9 +103,9 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHV-dd-qIH">
-                                                <rect key="frame" x="140.66666666666666" y="1" width="117.99999999999997" height="30"/>
+                                                <rect key="frame" x="162" y="1" width="75" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="/r/somesubreddit"/>
+                                                <state key="normal" title="Front Page"/>
                                                 <connections>
                                                     <action selector="didPressTitleButton:" destination="Q3z-Mk-ywe" eventType="touchUpInside" id="ccW-KG-l37"/>
                                                 </connections>
@@ -408,11 +408,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="399.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M2C-DC-EMD" customClass="SubscriptLabelView" customModule="Minimal" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2C-DC-EMD" customClass="SubscriptLabelView" customModule="Minimal" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="312" width="374" height="76"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5s4-rs-Pud" customClass="PresentationView" customModule="Minimal" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5s4-rs-Pud" customClass="PresentationView" customModule="Minimal" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
