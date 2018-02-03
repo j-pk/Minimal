@@ -36,7 +36,7 @@ extension User: Manageable {
             
             user.labelNsfw = true
             user.lastAuthenticated = nil
-            user.lastViewedSubreddit = ""
+            user.lastViewedSubreddit = nil
             user.categoryString = ListingCategoryType.hot.rawValue
             user.timeframeString = nil
             user.over18 = false

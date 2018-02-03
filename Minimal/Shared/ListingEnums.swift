@@ -9,22 +9,12 @@
 import Foundation
 
 enum ListingCategoryType: String  {
-    case hot = ""
+    case hot = "hot"
     case new = "new"
     case rising = "rising"
     case controversial = "controversial"
     case top = "top"
 
-    var titleValue: String {
-        switch self {
-        case .hot: return "hot"
-        case .new: return "new"
-        case .rising: return "rising"
-        case .controversial: return "controversial"
-        case .top: return "top"
-        }
-    }
-    
     var isSetByTimeFrame: Bool {
         switch self {
         case .controversial, .top: return true

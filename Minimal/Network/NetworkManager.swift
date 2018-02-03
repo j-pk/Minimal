@@ -51,6 +51,8 @@ class NetworkManager: NetworkEngine {
     func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping NetworkCompletionHandler<T>) where T: Decodable  {
         guard let request = route.urlRequest else { return }
         task = defaultSession.dataTask(with: request) { (data, urlResponse, error) in
+            print("▂▃▅▇█▓▒░ Network Request: \(request.description) ░▒▓█▇▅▃▂")
+
             if let error = error {
                 completionHandler(NetworkError.serverError(description: error.localizedDescription), nil)
             }
@@ -59,6 +61,8 @@ class NetworkManager: NetworkEngine {
                 completionHandler(NetworkError.responseError(response: urlResponse), nil)
                 return
             }
+            
+            print("▂▃▅▇█▓▒░ Network Response: \(response.statusCode) ░▒▓█▇▅▃▂")
             
             if response.mimeType == "application/json", let data = data {
                 let decoder = JSONDecoder()

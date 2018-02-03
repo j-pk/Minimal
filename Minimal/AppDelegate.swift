@@ -81,6 +81,7 @@ private extension AppDelegate {
                 User.create(context: moc, completionHandler: { (error) in
                     print(error as Any)
                 })
+                SearchSubredditManager()
             } else {
                 do {
                     guard try User.fetchFirst(inContext: moc) != nil else { return } //TODO: Hmm
@@ -103,8 +104,6 @@ private extension AppDelegate {
                         print(error)
                     }
                 })
-                
-                //SearchSubredditManager()
             }
         })
     }

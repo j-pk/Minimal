@@ -99,9 +99,7 @@ class MainViewController: UIViewController {
             if let error = error {
                 print(error)
             } else {
-                let request = ListingRequest(subreddit: user?.lastViewedSubreddit ?? "",
-                                             category: user?.categoryString,
-                                             timeframe: user?.timeframeString)
+                let request = ListingRequest(subreddit: user?.lastViewedSubreddit ?? "", category: user?.categoryString, timeframe: user?.timeframeString)
                 ListingManager(request: request, completionHandler: { (error) in
                     if let error = error {
                         print(error)
@@ -201,6 +199,7 @@ extension MainViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: UISearchActionDelegate
 extension MainViewController: UISearchActionDelegate {
     func didSelect(subreddit: Subreddit) {
         requestListings(forSubreddit: subreddit)
@@ -321,7 +320,7 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
     
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
         guard let categoryPopOverViewController = popoverPresentationController.presentedViewController as? CategoryPopoverViewController else { return }
-        categoryButton.setTitle(categoryPopOverViewController.category.titleValue, for: .normal)
+        categoryButton.setTitle(categoryPopOverViewController.category.rawValue, for: .normal)
         categoryButton.sizeToFit()
         //NOTE: HMM
         CoreDataManager.default.performBackgroundTask { (moc) in

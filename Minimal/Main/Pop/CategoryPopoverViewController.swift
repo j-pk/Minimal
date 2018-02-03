@@ -39,7 +39,7 @@ class CategoryPopoverViewController: UIViewController {
             button.contentEdgeInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
         }
     
-        guard let selectedCategoryButton = categoryButtonSet.filter({ $0.titleLabel?.text == category.titleValue }).first else { return }
+        guard let selectedCategoryButton = categoryButtonSet.filter({ $0.titleLabel?.text == category.rawValue }).first else { return }
         select(button: selectedCategoryButton)
         categoryScrollView.setContentOffset(CGPoint(x: categoryScrollView.contentSize.width - selectedCategoryButton.frame.origin.x, y: 0), animated: true)
         
@@ -50,7 +50,7 @@ class CategoryPopoverViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        guard let selectedCategoryButton = categoryButtonSet.filter({ $0.titleLabel?.text == category.titleValue }).first else { return }
+        guard let selectedCategoryButton = categoryButtonSet.filter({ $0.titleLabel?.text == category.rawValue }).first else { return }
         guard let selectedTimeframeButton = timeframeButtonSet.filter({ $0.titleLabel?.text == timeframe?.titleValue }).first else { return }
 
         categoryScrollView.scrollRectToVisible(selectedCategoryButton.frame, animated: true)
@@ -59,7 +59,7 @@ class CategoryPopoverViewController: UIViewController {
     
     
     @IBAction func didPressCategoryButton(_ sender: UIButton) {
-        guard let selectedCategory = ListingCategoryType.allValues.filter({ $0.titleValue == sender.titleLabel?.text }).first else { return }
+        guard let selectedCategory = ListingCategoryType.allValues.filter({ $0.rawValue == sender.titleLabel?.text }).first else { return }
         category = selectedCategory
         
         if selectedCategory.isSetByTimeFrame {

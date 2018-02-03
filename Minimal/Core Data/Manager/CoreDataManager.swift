@@ -105,6 +105,7 @@ class CoreDataManager {
             }
             
             DispatchQueue.main.async {
+                print("▂▃▅▇█▓▒░ Purged \(entity) ░▒▓█▇▅▃▂")
                 completionHandler(nil)
             }
         })
