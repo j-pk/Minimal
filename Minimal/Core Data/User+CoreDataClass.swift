@@ -11,19 +11,24 @@ import Foundation
 import CoreData
 
 public class User: NSManagedObject {
-    var category: ListingCategoryType {
+    var category: CategorySortType {
         get {
-            return ListingCategoryType(rawValue: self.categoryString)!
+            return CategorySortType(rawValue: self.categoryString)!
         }
     }
     
-    var timeframe: CategoryTimeFrame? {
+    var timeFrame: CategoryTimeFrame? {
         get {
-            if let timeframe = timeframeString {
-                return CategoryTimeFrame(rawValue: timeframe)!
+            if let timeFrame = timeFrameString {
+                return CategoryTimeFrame(rawValue: timeFrame)!
             }
             return nil
         }
+    }
+    
+    var lastViewedSubreddit: String {
+        let subreddit = self.subreddits?.flatMap({ $0 }).sorted(by: { $0.lastViewed > $1.lastViewed }).first
+        return subreddit?.displayNamePrefixed ?? ""
     }
 }
 
@@ -36,9 +41,8 @@ extension User: Manageable {
             
             user.labelNsfw = true
             user.lastAuthenticated = nil
-            user.lastViewedSubreddit = nil
-            user.categoryString = ListingCategoryType.hot.rawValue
-            user.timeframeString = nil
+            user.categoryString = CategorySortType.hot.rawValue
+            user.timeFrameString = nil
             user.over18 = false
             user.searchIncludeOver18 = false
             

@@ -30,7 +30,8 @@ class SearchCell: UITableViewCell {
             NSAttributedStringKey.foregroundColor: themeManager.theme.subtitleTextColor
         ]
         let attributedString = NSMutableAttributedString()
-        attributedString.append(NSAttributedString(string: "\(subreddit.subscribers)", attributes: subscribersAttributes))
+        let subscribers = NumberFormatter.localizedString(from: NSNumber(value: subreddit.subscribers), number: .decimal)
+        attributedString.append(NSAttributedString(string: subscribers, attributes: subscribersAttributes))
         attributedString.append(NSAttributedString(string: " subscribers", attributes: regularAttributes))
         subscribersLabel.text = nil
         subscribersLabel.textColor = nil

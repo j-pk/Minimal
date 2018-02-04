@@ -17,15 +17,15 @@ struct ListingRequest: Requestable {
     
     let subreddit: String
     let category: String?
-    let timeframe: String?
+    let timeFrame: String?
     let after: String?
     let limit: Int
     let requestType: RequestType
     
-    init(subreddit: String, category: String?, timeframe: String? = nil, after: String? = nil, limit: Int = 25, requestType: RequestType = .subreddit) {
+    init(subreddit: String, category: String?, timeFrame: String? = nil, after: String? = nil, limit: Int = 25, requestType: RequestType = .subreddit) {
         self.subreddit = subreddit
         self.category = category
-        self.timeframe = timeframe
+        self.timeFrame = timeFrame
         self.after = after
         self.limit = limit
         self.requestType = requestType
@@ -35,17 +35,17 @@ struct ListingRequest: Requestable {
         get {
             switch requestType {
             case .subreddit:
-                return ListingRouter.subreddit(prefix: subreddit, category: category, timeframe: timeframe)
+                return ListingRouter.subreddit(prefix: subreddit, category: category, timeFrame: timeFrame)
             case .paginate:
-                return ListingRouter.paginate(prefix: subreddit, category: category, timeframe: timeframe, limit: limit, after: after)
+                return ListingRouter.paginate(prefix: subreddit, category: category, timeFrame: timeFrame, limit: limit, after: after)
             }
         }
     }
 }
 
 enum ListingRouter: Routable {
-    case subreddit(prefix: String, category: String?, timeframe: String?)
-    case paginate(prefix: String, category: String?, timeframe: String?, limit: Int, after: String?)
+    case subreddit(prefix: String, category: String?, timeFrame: String?)
+    case paginate(prefix: String, category: String?, timeFrame: String?, limit: Int, after: String?)
     
     //https://www.reddit.com/r/funny/top/.json?sort=top&t=24hours
     //https://www.reddit.com/r/funny/top/?sort=top&t=24hours&count=25&after=t3_7eaiko
@@ -65,22 +65,22 @@ enum ListingRouter: Routable {
     
     var queryItems: [URLQueryItem] {
         switch self {
-        case .subreddit(_, let category, let timeframe):
+        case .subreddit(_, let category, let timeFrame):
             var subredditQuery: [URLQueryItem] = []
             if let category = category {
                subredditQuery.append(URLQueryItem(name: "sort", value: category))
             }
-            if let timeframe = timeframe {
-                subredditQuery.append(URLQueryItem(name: "t", value: timeframe))
+            if let timeFrame = timeFrame {
+                subredditQuery.append(URLQueryItem(name: "t", value: timeFrame))
             }
             return subredditQuery
-        case .paginate(_, let category, let timeframe, let limit, let after):
+        case .paginate(_, let category, let timeFrame, let limit, let after):
             var paginateQuery: [URLQueryItem] = []
             if let category = category {
                 paginateQuery.append(URLQueryItem(name: "sort", value: category))
             }
-            if let timeframe = timeframe {
-                paginateQuery.append(URLQueryItem(name: "t", value: timeframe))
+            if let timeFrame = timeFrame {
+                paginateQuery.append(URLQueryItem(name: "t", value: timeFrame))
             }
             paginateQuery.append(URLQueryItem(name: "limit", value: "\(limit)"))
             if let after = after {

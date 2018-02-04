@@ -61,6 +61,11 @@ class MainViewController: UIViewController {
         if let searchViewController = tabBarController?.fetch(viewController: SearchViewController.self) {
             searchViewController.delegate = self
         }
+        
+        guard let user = User.current() else { return }
+        let title = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Front Page"
+        titleButton.setTitle(title, for: UIControlState())
+        categoryButton.setTitle(user.category.rawValue, for: UIControlState())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,41 +98,49 @@ class MainViewController: UIViewController {
         }
     }
     
-    func requestListings(forSubreddit subreddit: Subreddit? = nil) {
-        let user = updateUser(subreddit: subreddit)
+    func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil) {
+        guard let user = User.current() else { return }
+        CoreDataManager.default.performForegroundTask { (moc) in
+            do {
+                if let subreddit = subreddit {
+                    subreddit.lastViewed = Date()
+                    user.addToSubreddits(subreddit)
+                }
+                if let category = category {
+                    user.categoryString = category.rawValue
+                }
+                if let timeFrame = timeFrame {
+                    user.timeFrameString = timeFrame.rawValue
+                }
+                
+                try moc.save()
+                
+            } catch let error {
+                print(error)
+            }
+        }
+        requestListings()
+    }
+    
+    func requestListings() {
+        guard let user = User.current() else { return }
         CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
             if let error = error {
                 print(error)
             } else {
-                let request = ListingRequest(subreddit: user?.lastViewedSubreddit ?? "", category: user?.categoryString, timeframe: user?.timeframeString)
+                let request = ListingRequest(subreddit: user.lastViewedSubreddit, category: user.categoryString, timeFrame: user.timeFrameString)
                 ListingManager(request: request, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     } else {
                         DispatchQueue.main.async {
-                            self.titleButton.setTitle(user?.lastViewedSubreddit ?? self.titleButton.titleLabel?.text, for: UIControlState())
+                            self.titleButton.setTitle(user.lastViewedSubreddit, for: UIControlState())
                             self.collectionView.reloadData()
                         }
                     }
                 })
             }
         })
-    }
-    
-    func updateUser(subreddit: Subreddit?) -> User? {
-        guard let user = User.current() else { return nil }
-        if let subreddit = subreddit {
-            CoreDataManager.default.performForegroundTask { (moc) in
-                do {
-                    subreddit.lastViewed = Date()
-                    user.lastViewedSubreddit = subreddit.displayNamePrefixed
-                    try moc.save()
-                } catch let error {
-                    print(error)
-                }
-            }
-        }
-        return user
     }
     
     @IBAction func didPressTitleButton(_ sender: UIButton) {
@@ -158,14 +171,14 @@ class MainViewController: UIViewController {
         if segue.identifier == "popOverControllerSegue" {
             guard let user = User.current() else { return }
             segue.destination.popoverPresentationController?.delegate = self
-            let height: CGFloat = user.timeframeString != nil ? 100 : 60
+            let height: CGFloat = user.timeFrameString != nil ? 100 : 60
             segue.destination.preferredContentSize = CGSize(width: self.view.frame.width, height: height)
             segue.destination.popoverPresentationController?.sourceRect = CGRect(x: (categoryButton.frame.width / 2), y: categoryButton.frame.maxY * 2, width: 0, height: 0)
             segue.destination.popoverPresentationController?.backgroundColor = themeManager.theme.secondaryColor
             segue.destination.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.init(rawValue: 0)
             if let popOverController = segue.destination as? CategoryPopoverViewController {
                 popOverController.category = user.category
-                popOverController.timeframe = user.timeframe
+                popOverController.timeFrame = user.timeFrame
             }
         } else if segue.identifier == "commentsControllerSegue" {
             if let commentsViewController = segue.destination as? CommentsViewController {
@@ -202,7 +215,7 @@ extension MainViewController: UICollectionViewDataSource {
 // MARK: UISearchActionDelegate
 extension MainViewController: UISearchActionDelegate {
     func didSelect(subreddit: Subreddit) {
-        requestListings(forSubreddit: subreddit)
+        updateUserAndListings(forSubreddit: subreddit)
     }
 }
 
@@ -226,6 +239,93 @@ extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
         return calculateSizeForItem(atIndexPath: indexPath)
     }
 }
+
+// MARK: UIViewControllerPreviewingDelegate
+// Peek & Pop
+extension MainViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = collectionView.indexPathForItem(at: location), let attributes = collectionView.layoutAttributesForItem(at: indexPath) {
+            previewingContext.sourceRect = attributes.frame
+            let listing = self.listingResultsController.object(at: indexPath)
+            let viewController = prepareCommitViewController(listing: listing)
+            return viewController
+        }
+        return nil
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        NotificationCenter.default.post(name: .isPopped, object: nil)
+        present(viewControllerToCommit, animated: true, completion: nil)
+    }
+    
+    private func prepareCommitViewController(listing: Listing?) -> UIViewController {
+        let detailViewController: DetailViewController = UIViewController.make(storyboard: .main)
+        detailViewController.preferredContentSize = CGSize(width: 0, height: 460)
+        detailViewController.listing = listing
+        return detailViewController
+    }
+}
+
+// MARK: UIPopoverPresentationControllerDelegate
+// Category & Timeframe
+extension MainViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        guard let categoryPopOverViewController = popoverPresentationController.presentedViewController as? CategoryPopoverViewController else { return }
+        categoryButton.setTitle(categoryPopOverViewController.category.rawValue, for: .normal)
+        categoryButton.sizeToFit()
+        updateUserAndListings(category: categoryPopOverViewController.category, timeFrame: categoryPopOverViewController.timeFrame)
+    }
+}
+
+// MARK: UIScrollViewDelegate
+extension MainViewController: UIScrollViewDelegate {
+    // Header View
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
+        if velocity < 0 {
+            headerViewTopConstraint.priority = UILayoutPriority(999)
+            UIView.animate(withDuration: 0.3, animations: {
+                self.headerStackView.alpha = 0.0
+                self.view.layoutIfNeeded()
+            })
+        } else if velocity > 0 {
+            headerViewTopConstraint.priority = UILayoutPriority(997)
+            UIView.animate(withDuration: 0.3, animations: {
+                self.headerStackView.alpha = 1.0
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    // Pagination
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
+            guard let lastViewedListing = listingResultsController.fetchedObjects?.last else { return }
+            guard let user = User.current() else { return }
+            let blockOperation = BlockOperation {
+                let request = ListingRequest(subreddit: user.lastViewedSubreddit,
+                                             category: user.categoryString,
+                                             timeFrame: user.timeFrameString,
+                                             after: lastViewedListing.after ?? "",
+                                             limit: 25,
+                                             requestType: .paginate)
+                
+                ListingManager(request: request, completionHandler: { (error) in
+                    if let error = error {
+                        print(error)
+                    }
+                })
+            }
+            let queue = OperationQueue()
+            queue.addOperation(blockOperation)
+        }
+    }
+}
+
 
 // MARK: NSFetchedResultsControllerDelegate
 extension MainViewController: NSFetchedResultsControllerDelegate {
@@ -285,102 +385,3 @@ extension MainViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-// MARK: UIViewControllerPreviewingDelegate
-// Peek & Pop
-extension MainViewController: UIViewControllerPreviewingDelegate {
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        if let indexPath = collectionView.indexPathForItem(at: location), let attributes = collectionView.layoutAttributesForItem(at: indexPath) {
-            previewingContext.sourceRect = attributes.frame
-            let listing = self.listingResultsController.object(at: indexPath)
-            let viewController = prepareCommitViewController(listing: listing)
-            return viewController
-        }
-        return nil
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        NotificationCenter.default.post(name: .isPopped, object: nil)
-        present(viewControllerToCommit, animated: true, completion: nil)
-    }
-    
-    private func prepareCommitViewController(listing: Listing?) -> UIViewController {
-        let detailViewController: DetailViewController = UIViewController.make(storyboard: .main)
-        detailViewController.preferredContentSize = CGSize(width: 0, height: 460)
-        detailViewController.listing = listing
-        return detailViewController
-    }
-}
-
-// MARK: UIPopoverPresentationControllerDelegate
-// Category & Timeframe
-extension MainViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-    
-    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        guard let categoryPopOverViewController = popoverPresentationController.presentedViewController as? CategoryPopoverViewController else { return }
-        categoryButton.setTitle(categoryPopOverViewController.category.rawValue, for: .normal)
-        categoryButton.sizeToFit()
-        //NOTE: HMM
-        CoreDataManager.default.performBackgroundTask { (moc) in
-            do {
-                guard let user = User.current() else { return }
-                user.categoryString = categoryPopOverViewController.category.rawValue
-                user.timeframeString = categoryPopOverViewController.timeframe?.rawValue
-                
-                if moc.hasChanges {
-                    try moc.save()
-                }
-            } catch let error {
-                print("Failed to save category: \(error)")
-            }
-        }
-        requestListings()
-    }
-}
-
-// MARK: UIScrollViewDelegate
-extension MainViewController: UIScrollViewDelegate {
-    // Header View
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
-        if velocity < 0 {
-            headerViewTopConstraint.priority = UILayoutPriority(999)
-            UIView.animate(withDuration: 0.3, animations: {
-                self.headerStackView.alpha = 0.0
-                self.view.layoutIfNeeded()
-            })
-        } else if velocity > 0 {
-            headerViewTopConstraint.priority = UILayoutPriority(997)
-            UIView.animate(withDuration: 0.3, animations: {
-                self.headerStackView.alpha = 1.0
-                self.view.layoutIfNeeded()
-            })
-        }
-    }
-    
-    // Pagination
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
-            guard let lastViewedListing = listingResultsController.fetchedObjects?.last else { return }
-            guard let user = User.current() else { return }
-            let blockOperation = BlockOperation {
-                let request = ListingRequest(subreddit: user.lastViewedSubreddit ?? "",
-                                             category: user.categoryString,
-                                             timeframe: user.timeframeString,
-                                             after: lastViewedListing.after ?? "",
-                                             limit: 25,
-                                             requestType: .paginate)
-                
-                ListingManager(request: request, completionHandler: { (error) in
-                    if let error = error {
-                        print(error)
-                    }
-                })
-            }
-            let queue = OperationQueue()
-            queue.addOperation(blockOperation)
-        }
-    }
-}

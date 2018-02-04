@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         configureTheme()
         configureUser()
-        requestListings()
         
         return true
     }
@@ -82,6 +81,7 @@ private extension AppDelegate {
                     print(error as Any)
                 })
                 SearchSubredditManager()
+                this.requestListings()
             } else {
                 do {
                     guard try User.fetchFirst(inContext: moc) != nil else { return } //TODO: Hmm

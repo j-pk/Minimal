@@ -8,14 +8,14 @@
 
 import Foundation
 
-enum ListingCategoryType: String  {
+enum CategorySortType: String  {
     case hot = "hot"
     case new = "new"
     case rising = "rising"
     case controversial = "controversial"
     case top = "top"
 
-    var isSetByTimeFrame: Bool {
+    var isSetByTimeframe: Bool {
         switch self {
         case .controversial, .top: return true
         default:

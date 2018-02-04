@@ -26,16 +26,16 @@ class CategoryPopoverViewController: UIViewController {
     @IBOutlet weak var allTime: UIButton!
     
     var categoryButtonSet: [UIButton] = []
-    var timeframeButtonSet: [UIButton] = []
-    var category: ListingCategoryType = .hot
-    var timeframe: CategoryTimeFrame?
+    var timeFrameButtonSet: [UIButton] = []
+    var category: CategorySortType = .hot
+    var timeFrame: CategoryTimeFrame?
     var themeManager = ThemeManager()
     
     override func viewDidLoad() {
         categoryButtonSet = [hotButton, newButton, risingButton, controversialButton, topButton]
-        timeframeButtonSet = [oneHour, twentyFourHours, week, month, year, allTime]
+        timeFrameButtonSet = [oneHour, twentyFourHours, week, month, year, allTime]
         
-        (categoryButtonSet + timeframeButtonSet).forEach { (button) in
+        (categoryButtonSet + timeFrameButtonSet).forEach { (button) in
             button.contentEdgeInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
         }
     
@@ -43,15 +43,15 @@ class CategoryPopoverViewController: UIViewController {
         select(button: selectedCategoryButton)
         categoryScrollView.setContentOffset(CGPoint(x: categoryScrollView.contentSize.width - selectedCategoryButton.frame.origin.x, y: 0), animated: true)
         
-        if let timeframe = timeframe?.titleValue {
-            guard let selectedTimeframeButton = timeframeButtonSet.filter({ $0.titleLabel?.text == timeframe }).first else { return }
+        if let timeFrame = timeFrame?.titleValue {
+            guard let selectedTimeframeButton = timeFrameButtonSet.filter({ $0.titleLabel?.text == timeFrame }).first else { return }
             select(button: selectedTimeframeButton)
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         guard let selectedCategoryButton = categoryButtonSet.filter({ $0.titleLabel?.text == category.rawValue }).first else { return }
-        guard let selectedTimeframeButton = timeframeButtonSet.filter({ $0.titleLabel?.text == timeframe?.titleValue }).first else { return }
+        guard let selectedTimeframeButton = timeFrameButtonSet.filter({ $0.titleLabel?.text == timeFrame?.titleValue }).first else { return }
 
         categoryScrollView.scrollRectToVisible(selectedCategoryButton.frame, animated: true)
         timeFrameScrollView.scrollRectToVisible(selectedTimeframeButton.frame, animated: true)
@@ -59,16 +59,16 @@ class CategoryPopoverViewController: UIViewController {
     
     
     @IBAction func didPressCategoryButton(_ sender: UIButton) {
-        guard let selectedCategory = ListingCategoryType.allValues.filter({ $0.rawValue == sender.titleLabel?.text }).first else { return }
+        guard let selectedCategory = CategorySortType.allValues.filter({ $0.rawValue == sender.titleLabel?.text }).first else { return }
         category = selectedCategory
         
-        if selectedCategory.isSetByTimeFrame {
+        if selectedCategory.isSetByTimeframe {
             preferredContentSize = CGSize(width: view.frame.width, height: 100)
             timeFrameScrollView.isHidden = false
         } else {
             preferredContentSize = CGSize(width: view.frame.width, height: 60)
             timeFrameScrollView.isHidden = true
-            timeframe = nil
+            timeFrame = nil
         }
         
         categoryButtonSet.forEach { (button) in
@@ -82,10 +82,10 @@ class CategoryPopoverViewController: UIViewController {
     }
     
     @IBAction func didPressTimeFrameButton(_ sender: UIButton) {
-        guard let selectedTimeFrame = CategoryTimeFrame.allValues.filter({ $0.titleValue == sender.titleLabel?.text }).first else { return }
-        timeframe = selectedTimeFrame
+        guard let selectedTimeframe = CategoryTimeFrame.allValues.filter({ $0.titleValue == sender.titleLabel?.text }).first else { return }
+        timeFrame = selectedTimeframe
         
-        timeframeButtonSet.forEach { (button) in
+        timeFrameButtonSet.forEach { (button) in
             if button.titleLabel?.text == sender.titleLabel?.text {
                 select(button: button)
             } else {

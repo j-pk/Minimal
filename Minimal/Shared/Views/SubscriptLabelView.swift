@@ -48,7 +48,8 @@ class SubscriptLabelView: XibView {
         data = ["subreddit":listing.subredditNamePrefixed]
         
         let descriptionAttributedString = NSMutableAttributedString()
-        let scoreAttributedString = NSAttributedString(string: "\(listing.score)", attributes: scoreAttributes) 
+        let score = NumberFormatter.localizedString(from: NSNumber(value: listing.score), number: .decimal)
+        let scoreAttributedString = NSAttributedString(string: score, attributes: scoreAttributes)
         descriptionAttributedString.append(scoreAttributedString)
         
         if let author = listing.author {
@@ -72,5 +73,11 @@ class SubscriptLabelView: XibView {
 extension SubscriptLabelView: Tappable, Recognizer {
     func didTapView(_ sender: UITapGestureRecognizer) {
         delegate?.didTapView(sender: sender, data: data)
+    }
+}
+
+extension IntegerLiteralType {
+    func string() {
+        
     }
 }
