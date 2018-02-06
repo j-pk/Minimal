@@ -18,9 +18,11 @@ protocol UISearchActionDelegate: class {
 
 class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var secondaryTableView: UITableView!
     @IBOutlet weak var searchBarView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var segmentController: UISegmentedControl!
+    @IBOutlet weak var secondaryTableViewHeightConstraint: NSLayoutConstraint!
     
     weak var delegate: UISearchActionDelegate?
     
@@ -89,6 +91,7 @@ class SearchViewController: UIViewController {
     
     @IBAction func didSelectSegment(_ sender: UISegmentedControl) {
         let descriptors = searchSegment == .recent ? [NSSortDescriptor(key: "lastViewed", ascending: false)] : nil
+        secondaryTableViewHeightConstraint.priority = UILayoutPriority(rawValue: searchSegment == .subscribed ? 997 : 999)
         performFetch(withPredicate: searchSegment.predicate, sortDescriptors: descriptors)
         tableView.reloadData()
     }
@@ -113,9 +116,13 @@ extension SearchViewController: UITableViewDataSource {
 
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let subreddit = searchResultsController.object(at: indexPath)
-        delegate?.didSelect(subreddit: subreddit)
-        tabBarController?.tab(toViewController: MainViewController.self)
+        if tableView == self.tableView {
+            let subreddit = searchResultsController.object(at: indexPath)
+            delegate?.didSelect(subreddit: subreddit)
+            tabBarController?.tab(toViewController: MainViewController.self)
+        } else {
+            print("test")
+        }
     }
 }
 
