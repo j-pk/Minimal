@@ -100,7 +100,7 @@ class MainViewController: UIViewController {
     
     func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil) {
         guard let user = User.current() else { return }
-        CoreDataManager.default.performForegroundTask { (moc) in
+        CoreDataManager.default.performForegroundTask { [weak self] (moc) in
             do {
                 if let subreddit = subreddit {
                     subreddit.lastViewed = Date()
@@ -108,9 +108,13 @@ class MainViewController: UIViewController {
                 }
                 if let category = category {
                     user.categoryString = category.rawValue
+                    self?.categoryButton.setTitle(category.rawValue, for: UIControlState())
+                    self?.categoryButton.sizeToFit()
                 }
                 if let timeFrame = timeFrame {
                     user.timeFrameString = timeFrame.rawValue
+                } else {
+                    user.timeFrameString = nil
                 }
                 
                 try moc.save()
@@ -124,7 +128,7 @@ class MainViewController: UIViewController {
     
     func requestListings() {
         guard let user = User.current() else { return }
-        CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
+        CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { [weak self] (error) in
             if let error = error {
                 print(error)
             } else {
@@ -134,8 +138,8 @@ class MainViewController: UIViewController {
                         print(error)
                     } else {
                         DispatchQueue.main.async {
-                            self.titleButton.setTitle(user.lastViewedSubreddit, for: UIControlState())
-                            self.collectionView.reloadData()
+                            self?.titleButton.setTitle(user.lastViewedSubreddit, for: UIControlState())
+                            self?.collectionView.reloadData()
                         }
                     }
                 })
@@ -199,7 +203,7 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.listingResultsController.fetchedObjects?.count ?? 0
+        return listingResultsController.fetchedObjects?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -215,14 +219,14 @@ extension MainViewController: UICollectionViewDataSource {
 // MARK: UISearchActionDelegate
 extension MainViewController: UISearchActionDelegate {
     func didSelect(subreddit: Subreddit) {
-        updateUserAndListings(forSubreddit: subreddit)
+        updateUserAndListings(forSubreddit: subreddit, category: .hot)
     }
 }
 
 // MARK: UICollectionViewDataSourcePrefetching
 extension MainViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        let urls = indexPaths.map({ self.listingResultsController.object(at: $0).request })
+        let urls = indexPaths.map({ listingResultsController.object(at: $0).request })
         let preheater = Preheater(manager: Manager.shared)
         preheater.startPreheating(with: urls)
     }
@@ -246,7 +250,7 @@ extension MainViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         if let indexPath = collectionView.indexPathForItem(at: location), let attributes = collectionView.layoutAttributesForItem(at: indexPath) {
             previewingContext.sourceRect = attributes.frame
-            let listing = self.listingResultsController.object(at: indexPath)
+            let listing = listingResultsController.object(at: indexPath)
             let viewController = prepareCommitViewController(listing: listing)
             return viewController
         }
@@ -275,8 +279,6 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
     
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
         guard let categoryPopOverViewController = popoverPresentationController.presentedViewController as? CategoryPopoverViewController else { return }
-        categoryButton.setTitle(categoryPopOverViewController.category.rawValue, for: .normal)
-        categoryButton.sizeToFit()
         updateUserAndListings(category: categoryPopOverViewController.category, timeFrame: categoryPopOverViewController.timeFrame)
     }
 }

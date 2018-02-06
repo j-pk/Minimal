@@ -37,11 +37,9 @@ class SearchCell: UITableViewCell {
         subscribersLabel.textColor = nil
         subscribersLabel.attributedText = attributedString
         
-        guard let urlString = subreddit.iconImage, let url = URL(string: urlString) else {
-            iconImageView.isHidden = true
-            return
+        if let urlString = subreddit.iconImage, let url = URL(string: urlString) {
+            Manager.shared.loadImage(with: url, into: iconImageView)
         }
-        Manager.shared.loadImage(with: url, into: iconImageView)
     }
 }
 

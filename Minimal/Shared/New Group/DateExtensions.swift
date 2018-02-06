@@ -114,6 +114,11 @@ extension Date {
         return date
     }
     
+    func subtract(days: Int) -> Date {
+        guard let date = Calendar.current.date(byAdding: .day, value: -days, to: self) else { return self }
+        return date
+    }
+    
     func timeAgoSinceNow(useNumericDates: Bool = false) -> String {
         
         let calendar = Calendar.current

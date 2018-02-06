@@ -84,14 +84,15 @@ struct ThemeManager {
         UITableView.appearance().backgroundColor = theme.primaryColor
         
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = theme.tintColor
-        UISegmentedControl.appearance().tintColor = theme.tintColor
+        SegmentedController.appearance().tintColor = theme.tintColor
+        UILabel.appearance(whenContainedInInstancesOf: [SegmentedController.self]).defaultFont = font(fontStyle: .secondary)
     }
     
     func setGlobalFont() {
         UILabel.appearance().defaultFont = font(fontStyle: .primary)
         TitleLabel.appearance().defaultFontBold = font(fontStyle: .primaryBold)
         SubtitleLabel.appearance().defaultFont = font(fontStyle: .secondary)
-        UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).defaultFont = font(fontStyle: .secondary)
+        UILabel.appearance(whenContainedInInstancesOf: [SegmentedController.self]).defaultFont = font(fontStyle: .secondary)
     }
     
     func font(fontStyle: FontStyle) -> UIFont {

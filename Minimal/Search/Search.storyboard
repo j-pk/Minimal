@@ -100,7 +100,7 @@
                                             <constraint firstAttribute="height" constant="36" id="lr0-lZ-u4z"/>
                                         </constraints>
                                     </view>
-                                    <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Nnn-4I-ouI">
+                                    <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Nnn-4I-ouI" customClass="SegmentedController" customModule="Minimal" customModuleProvider="target">
                                         <rect key="frame" x="8" y="78" width="359" height="29"/>
                                         <segments>
                                             <segment title="Subreddits"/>

@@ -196,7 +196,7 @@ private extension SearchViewController.SearchSegment {
         case .subscribed:
             return NSPredicate(format: "isSubscribed == true")
         case .recent:
-            return NSPredicate(format: "lastViewed < %@", Date() as NSDate)
+            return NSPredicate(format: "lastViewed < %@ AND lastViewed > %@", Date() as NSDate, Date().subtract(days: 14) as NSDate)
         }
     }
 }
