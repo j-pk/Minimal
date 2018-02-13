@@ -180,8 +180,6 @@ extension SearchViewController: UITableViewDelegate {
     }
 }
 
-
-
 extension SearchViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -271,14 +269,13 @@ private extension SearchViewController {
         
         var subtitle: String {
             switch self {
-            case .home: return "Home"
-            case .popular: return "Popular"
-            case .all: return "All"
-            case .random: return "Random"
+            case .home: return "The front page of the internet"
+            case .popular: return "Join the band wagon"
+            case .all: return "Unfiltered"
+            case .random: return "Mystery subreddit"
             }
         }
     }
-    
 }
 
 private extension SearchViewController.SearchSegment {
