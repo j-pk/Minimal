@@ -53,6 +53,7 @@ class SearchViewController: UIViewController {
         
         performFetch(withPredicate: searchSegment.predicate)
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.keyboardDismissMode = .onDrag
         subscribedTableView.tableFooterView = UIView(frame: .zero)
     }
     
@@ -110,42 +111,32 @@ extension SearchViewController: UITableViewDataSource {
             let sections = searchResultsController.sections
             return sections?[section].numberOfObjects ?? 0
         } else {
-            return section == 0 ? 4 : searchResultsController.fetchedObjects?.count ?? 0
+            return section == 0 ? DefaultLinkSegment.allValues.count : searchResultsController.fetchedObjects?.count ?? 0
         }
     }
     
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        if tableView == self.tableView && searchSegment == .subreddits {
-            let currentCollation = UILocalizedIndexedCollation.current()
-            return currentCollation.section(forSectionIndexTitle: index)
-        } else {
-            return 0
-        }
+        guard tableView == self.tableView && searchSegment == .subreddits else { return 0 }
+        let currentCollation = UILocalizedIndexedCollation.current()
+        return currentCollation.section(forSectionIndexTitle: index)
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        if tableView == self.tableView && searchSegment == .subreddits {
-            let currentCollation = UILocalizedIndexedCollation.current()
-            return currentCollation.sectionIndexTitles
-        } else {
-            return nil
-        }
+        guard tableView == self.tableView && searchSegment == .subreddits else { return nil }
+        let currentCollation = UILocalizedIndexedCollation.current()
+        return currentCollation.sectionIndexTitles
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if tableView == self.subscribedTableView {
-            return 50.0
-        }
-        return 0.0
+        guard tableView == self.subscribedTableView else { return 0.0 }
+        return 50.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if tableView == self.subscribedTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SubscribedHeaderCell") as! SubscribedHeaderCell
-            cell.headerLabel.text = section == 0 ? "Minimal" : "Subscribed"
-            return cell.contentView
-        }
-        return nil
+        guard tableView == self.subscribedTableView else { return nil }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SubscribedHeaderCell") as! SubscribedHeaderCell
+        cell.headerLabel.text = section == 0 ? "Minimal" : "Subscribed"
+        return cell.contentView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -217,7 +208,7 @@ extension SearchViewController: UISearchBarDelegate {
             self.view.layoutIfNeeded()
         }, completion: nil)
         
-        // Animate segment controller fade in
+        // Animates segment controller fade in
         segmentController.alpha = 0.0
         segmentController.isHidden = false
         UIView.animate(withDuration: 0.5) {
@@ -275,6 +266,8 @@ private extension SearchViewController {
             case .random: return "Mystery subreddit"
             }
         }
+        
+        static let allValues = [home, popular, all, random]
     }
 }
 
