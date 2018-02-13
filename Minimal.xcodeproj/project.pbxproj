@@ -12,13 +12,14 @@
 		C008B1C2200F02A7005FC651 /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008B1C1200F02A7005FC651 /* DisplayViewController.swift */; };
 		C008B1C620156574005FC651 /* UISearchBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008B1C520156574005FC651 /* UISearchBarExtensions.swift */; };
 		C00B140B2029509B0064D1AF /* SegmentedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00B140A2029509B0064D1AF /* SegmentedController.swift */; };
+		C00B140D202FA3010064D1AF /* SubscribedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00B140C202FA3010064D1AF /* SubscribedCell.swift */; };
+		C00B140F202FE8980064D1AF /* SubscribedHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00B140E202FE8980064D1AF /* SubscribedHeaderCell.swift */; };
 		C0110E141FB4DF5700410478 /* TypeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0110E131FB4DF5700410478 /* TypeName.swift */; };
 		C0110E161FB5671400410478 /* NotificationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0110E151FB5671400410478 /* NotificationExtensions.swift */; };
 		C01B23051FD09DBE001F60B8 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01B23041FD09DBE001F60B8 /* ImageViewController.swift */; };
 		C020F9842016DA3700A3E43A /* SubredditContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020F9832016DA3700A3E43A /* SubredditContract.swift */; };
 		C020F9862016E0DD00A3E43A /* SearchSubredditManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020F9852016E0DD00A3E43A /* SearchSubredditManager.swift */; };
 		C020F9882016E43000A3E43A /* SubredditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020F9872016E43000A3E43A /* SubredditRouter.swift */; };
-		C026C279202A63230094235A /* SecondaryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C026C278202A63230094235A /* SecondaryTableViewController.swift */; };
 		C02E49941FDA59C40030347D /* ListingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02E49931FDA59C40030347D /* ListingManager.swift */; };
 		C03167C01FB175A900E420D0 /* MainCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */; };
 		C03EC9EC1FC8CCEC00ACA0F5 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */; };
@@ -77,13 +78,14 @@
 		C008B1C1200F02A7005FC651 /* DisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayViewController.swift; sourceTree = "<group>"; };
 		C008B1C520156574005FC651 /* UISearchBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISearchBarExtensions.swift; sourceTree = "<group>"; };
 		C00B140A2029509B0064D1AF /* SegmentedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedController.swift; sourceTree = "<group>"; };
+		C00B140C202FA3010064D1AF /* SubscribedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribedCell.swift; sourceTree = "<group>"; };
+		C00B140E202FE8980064D1AF /* SubscribedHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribedHeaderCell.swift; sourceTree = "<group>"; };
 		C0110E131FB4DF5700410478 /* TypeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeName.swift; sourceTree = "<group>"; };
 		C0110E151FB5671400410478 /* NotificationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtensions.swift; sourceTree = "<group>"; };
 		C01B23041FD09DBE001F60B8 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		C020F9832016DA3700A3E43A /* SubredditContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditContract.swift; sourceTree = "<group>"; };
 		C020F9852016E0DD00A3E43A /* SearchSubredditManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSubredditManager.swift; sourceTree = "<group>"; };
 		C020F9872016E43000A3E43A /* SubredditRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditRouter.swift; sourceTree = "<group>"; };
-		C026C278202A63230094235A /* SecondaryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondaryTableViewController.swift; sourceTree = "<group>"; };
 		C02E49931FDA59C40030347D /* ListingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingManager.swift; sourceTree = "<group>"; };
 		C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
@@ -257,7 +259,8 @@
 				C0A385921F9E9089005064DF /* Search.storyboard */,
 				C0897DA31FAAC75900801E08 /* SearchViewController.swift */,
 				C0897DA51FAAC89700801E08 /* SearchCell.swift */,
-				C026C278202A63230094235A /* SecondaryTableViewController.swift */,
+				C00B140C202FA3010064D1AF /* SubscribedCell.swift */,
+				C00B140E202FE8980064D1AF /* SubscribedHeaderCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				C0ED1F9E1FB3F0DB00580C1E /* DateExtensions.swift in Sources */,
 				C0EC9BA31FC237BE0073FF7A /* PresentationView.swift in Sources */,
 				C0DA84DC1FA01769006BE949 /* ListingEnums.swift in Sources */,
+				C00B140D202FA3010064D1AF /* SubscribedCell.swift in Sources */,
 				C0EDC8911FDA4352009C0D39 /* NetworkManager.swift in Sources */,
 				C0110E161FB5671400410478 /* NotificationExtensions.swift in Sources */,
 				C0A41B171FE741B5005A3F58 /* ThemeCell.swift in Sources */,
@@ -534,9 +538,9 @@
 				C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */,
 				C020F9842016DA3700A3E43A /* SubredditContract.swift in Sources */,
 				C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */,
+				C00B140F202FE8980064D1AF /* SubscribedHeaderCell.swift in Sources */,
 				C08D623F1FD4DC5D00794B2A /* LabelBaseCell.swift in Sources */,
 				C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */,
-				C026C279202A63230094235A /* SecondaryTableViewController.swift in Sources */,
 				C03167C01FB175A900E420D0 /* MainCollectionViewFlowLayout.swift in Sources */,
 				C0EDC88E1FD78219009C0D39 /* User+CoreDataClass.swift in Sources */,
 				C0ED1F9C1FB2AC1900580C1E /* DetailViewController.swift in Sources */,

@@ -18,21 +18,15 @@ protocol UISearchActionDelegate: class {
 
 class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var secondaryTableView: UITableView!
+    @IBOutlet weak var searchBarContainerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var subscribedTableView: UITableView!
     @IBOutlet weak var searchBarView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var segmentController: UISegmentedControl!
-    @IBOutlet weak var secondaryTableViewHeightConstraint: NSLayoutConstraint!
     
     weak var delegate: UISearchActionDelegate?
-    
-    enum SearchSegment: Int {
-        case subreddits
-        case subscribed
-        case recent
-    }
-    
-    var searchSegment: SearchSegment {
+
+    fileprivate var searchSegment: SearchSegment {
         get {
             guard let segment = SearchSegment(rawValue: segmentController.selectedSegmentIndex) else { return .subreddits }
             return segment
@@ -44,7 +38,7 @@ class SearchViewController: UIViewController {
     private var searchResultsController: NSFetchedResultsController<Subreddit> = {
         let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "displayName", ascending: true)]
-        let fetchedResultsController = NSFetchedResultsController<Subreddit>(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.default.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController<Subreddit>(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.default.viewContext, sectionNameKeyPath: "displayName", cacheName: nil)
         return fetchedResultsController
     }()
     
@@ -59,6 +53,7 @@ class SearchViewController: UIViewController {
         
         performFetch(withPredicate: searchSegment.predicate)
         tableView.tableFooterView = UIView(frame: .zero)
+        subscribedTableView.tableFooterView = UIView(frame: .zero)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,8 +64,10 @@ class SearchViewController: UIViewController {
         // TODO: Determine user preference for over18
         let over18: Bool = false
         let over18Predicate = NSPredicate(format: "over18 == %@", over18 as CVarArg)
+        let isSubscribedPredicate = NSPredicate(format: "isSubscribed == true")
         let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, over18Predicate])
-        searchResultsController.fetchRequest.predicate = compoundPredicate
+        searchResultsController.fetchRequest.predicate = !tableView.isHidden ? compoundPredicate : isSubscribedPredicate
+
         searchResultsController.fetchRequest.sortDescriptors = descriptors ?? [NSSortDescriptor(key: "displayName", ascending: true)]
         do {
             try searchResultsController.performFetch()
@@ -80,18 +77,19 @@ class SearchViewController: UIViewController {
     }
     
     func configure(searchBar: UISearchBar) {
-        searchBar.placeholder = "Search Subreddits"
+        searchBar.placeholder = searchSegment.placeholder
         searchBar.setTextColor(color: themeManager.theme.titleTextColor)
         searchBar.setTextFieldColor(color: .clear)
         searchBar.setPlaceholderTextColor(color: themeManager.theme.subtitleTextColor)
         searchBar.setSearchImageColor(color: themeManager.theme.tintColor)
         searchBar.setTextFieldClearButtonColor(color: themeManager.theme.tintColor)
         searchBar.searchBarStyle = .minimal
+        searchBar.delegate = self
     }
     
     @IBAction func didSelectSegment(_ sender: UISegmentedControl) {
         let descriptors = searchSegment == .recent ? [NSSortDescriptor(key: "lastViewed", ascending: false)] : nil
-        secondaryTableViewHeightConstraint.priority = UILayoutPriority(rawValue: searchSegment == .subscribed ? 997 : 999)
+        searchController.searchBar.placeholder = searchSegment.placeholder
         performFetch(withPredicate: searchSegment.predicate, sortDescriptors: descriptors)
         tableView.reloadData()
     }
@@ -99,18 +97,74 @@ class SearchViewController: UIViewController {
     
 extension SearchViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if tableView == self.tableView {
+            return searchResultsController.sections?.count ?? 1
+        } else {
+            guard let objects = searchResultsController.fetchedObjects, objects.count > 0 else { return 1 }
+            return 2
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResultsController.fetchedObjects?.count ?? 0
+        if tableView == self.tableView {
+            let sections = searchResultsController.sections
+            return sections?[section].numberOfObjects ?? 0
+        } else {
+            return section == 0 ? 4 : searchResultsController.fetchedObjects?.count ?? 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        if tableView == self.tableView && searchSegment == .subreddits {
+            let currentCollation = UILocalizedIndexedCollation.current()
+            return currentCollation.section(forSectionIndexTitle: index)
+        } else {
+            return 0
+        }
+    }
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        if tableView == self.tableView && searchSegment == .subreddits {
+            let currentCollation = UILocalizedIndexedCollation.current()
+            return currentCollation.sectionIndexTitles
+        } else {
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if tableView == self.subscribedTableView {
+            return 50.0
+        }
+        return 0.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if tableView == self.subscribedTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SubscribedHeaderCell") as! SubscribedHeaderCell
+            cell.headerLabel.text = section == 0 ? "Minimal" : "Subscribed"
+            return cell.contentView
+        }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
-        let subreddit = searchResultsController.object(at: indexPath)
-        cell.setView(forSubreddit: subreddit)
-        return cell
+        if tableView == self.tableView && !self.tableView.isHidden {
+            let cell = self.tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
+            let subreddit = searchResultsController.object(at: indexPath)
+            cell.setView(forSubreddit: subreddit)
+            return cell
+        } else {
+            if tableView == self.subscribedTableView && indexPath.section == 0 {
+                let cell = self.subscribedTableView.dequeueReusableCell(withIdentifier: "SubscribedCell", for: indexPath) as! SubscribedCell
+                cell.titleLabel.text = DefaultLinkSegment(rawValue: indexPath.row)?.title
+                cell.subtitleLabel.text = DefaultLinkSegment(rawValue: indexPath.row)?.subtitle
+                return cell
+            } else {
+                let cell = self.tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
+                return cell
+            }
+        }
     }
 }
 
@@ -127,6 +181,7 @@ extension SearchViewController: UITableViewDelegate {
 }
 
 
+
 extension SearchViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -137,54 +192,12 @@ extension SearchViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
-    
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        let indexSet = IndexSet(integer: sectionIndex)
-        switch type {
-        case .insert:
-            tableView.insertSections(indexSet, with: .fade)
-        case .delete:
-            tableView.deleteSections(indexSet, with: .fade)
-        default:
-            break
-        }
-    }
-    
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .delete:
-            if let deleteIndexPath = indexPath {
-                tableView.deleteRows(at: [deleteIndexPath], with: .fade)
-            }
-            break
-        case .update:
-            if let indexPath = indexPath {
-                tableView.reloadRows(at: [indexPath], with: .fade)
-            }
-            break
-        case .insert:
-            if let insertPath = newIndexPath {
-                tableView.beginUpdates()
-                self.tableView.insertRows(at: [insertPath], with: .fade)
-                tableView.endUpdates()
-            }
-            break
-        case .move:
-            if let indexPath = indexPath, let newIndexPath = newIndexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                tableView.insertRows(at: [newIndexPath], with: .fade)
-            }
-            break
-        }
-    }
 }
 
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchString = searchController.searchBar.text else { return }
-        
+
         if searchString.isEmpty {
             performFetch(withPredicate: searchSegment.predicate)
             tableView.reloadData()
@@ -195,13 +208,84 @@ extension SearchViewController: UISearchResultsUpdating {
     }
 }
 
+extension SearchViewController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        // Animates tableView to the foreground with a drop down spring
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseIn, animations: {
+            self.tableView.isHidden = false
+            self.subscribedTableView.isHidden = true
+            self.searchBarContainerViewHeightConstraint.priority = UILayoutPriority(rawValue: 997)
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
+        // Animate segment controller fade in
+        segmentController.alpha = 0.0
+        segmentController.isHidden = false
+        UIView.animate(withDuration: 0.5) {
+            self.segmentController.alpha = 1.0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // Animates subscribe tableView and hides tableView
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseOut, animations: {
+            self.tableView.isHidden = true
+            self.subscribedTableView.isHidden = false
+            self.segmentController.isHidden = true
+            self.searchBarContainerViewHeightConstraint.priority = UILayoutPriority(rawValue: 999)
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+}
+
+private extension SearchViewController {
+    enum SearchSegment: Int {
+        case subreddits
+        case recent
+        
+        var placeholder: String {
+            switch self {
+            case .subreddits: return "Search Subreddits"
+            case .recent: return "Search Recent"
+            }
+        }
+    }
+    
+    enum DefaultLinkSegment: Int {
+        case home
+        case popular
+        case all
+        case random
+        
+        var title: String {
+            switch self {
+            case .home: return "Home"
+            case .popular: return "Popular"
+            case .all: return "All"
+            case .random: return "Random"
+            }
+        }
+        
+        var subtitle: String {
+            switch self {
+            case .home: return "Home"
+            case .popular: return "Popular"
+            case .all: return "All"
+            case .random: return "Random"
+            }
+        }
+    }
+    
+}
+
 private extension SearchViewController.SearchSegment {
     var predicate: NSPredicate {
         switch self {
         case .subreddits:
             return NSPredicate(format: "allowImages == true OR allowVideoGifs == true")
-        case .subscribed:
-            return NSPredicate(format: "isSubscribed == true")
         case .recent:
             return NSPredicate(format: "lastViewed < %@ AND lastViewed > %@", Date() as NSDate, Date().subtract(days: 14) as NSDate)
         }

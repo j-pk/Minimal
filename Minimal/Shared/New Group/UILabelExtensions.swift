@@ -16,6 +16,10 @@ class SubtitleLabel: UILabel {
     
 }
 
+class HeaderLabel: UILabel {
+    
+}
+
 extension UILabel {
     @objc dynamic var defaultFont: UIFont? {
         get { return self.font }

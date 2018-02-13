@@ -75,6 +75,7 @@ struct ThemeManager {
         
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.titleTextColor
+        HeaderLabel.appearance().textColor = redditOrange
         TitleLabel.appearance(whenContainedInInstancesOf: [SearchCell.self]).textColor = theme.titleTextColor
         SubtitleLabel.appearance(whenContainedInInstancesOf: [SearchCell.self]).textColor = theme.subtitleTextColor
         
@@ -92,6 +93,7 @@ struct ThemeManager {
         UILabel.appearance().defaultFont = font(fontStyle: .primary)
         TitleLabel.appearance().defaultFontBold = font(fontStyle: .primaryBold)
         SubtitleLabel.appearance().defaultFont = font(fontStyle: .secondary)
+        HeaderLabel.appearance().defaultFont = font(fontStyle: .primary)
         UILabel.appearance(whenContainedInInstancesOf: [SegmentedController.self]).defaultFont = font(fontStyle: .secondary)
     }
     
