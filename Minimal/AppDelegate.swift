@@ -80,6 +80,7 @@ private extension AppDelegate {
                 User.create(context: moc, completionHandler: { (error) in
                     print(error as Any)
                 })
+                Subreddit.insertDefaultSubreddits()
                 SearchSubredditManager()
                 this.requestListings()
             } else {

@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 
 public class Subreddit: NSManagedObject {
-
+    
 }
 
 extension Subreddit: Manageable {
@@ -42,4 +42,78 @@ extension Subreddit: Manageable {
             completionHandler(error)
         }
     }
+    
+    static func insertDefaultSubreddits() {
+        CoreDataManager.default.performBackgroundTask { (context) in
+            do {
+                try DefaultSubreddit.allValues.filter({ $0 != .random }).forEach({ (defaultSubreddit) in
+                    let subreddit: Subreddit = try Subreddit.insertObject(inContext: context)
+                    subreddit.id = "\(defaultSubreddit.rawValue)"
+                    subreddit.isDefault = true
+                    subreddit.displayName = defaultSubreddit.displayName
+                    subreddit.displayNamePrefixed = defaultSubreddit.displayNamePrefixed
+                    subreddit.allowImages = true
+                    subreddit.allowVideoGifs = true
+                    subreddit.over18 = defaultSubreddit != .all ? true : false
+                    subreddit.publicDescription = defaultSubreddit.publicDescription
+                })
+                
+                if context.hasChanges {
+                    try context.save()
+                }
+                
+            } catch let error {
+                print(error)
+            }
+        }
+    }
+}
+
+enum DefaultSubreddit: Int {
+    case home
+    case popular
+    case all
+    case random
+    
+    var displayName: String {
+        switch self {
+        case .home: return "Home"
+        case .popular: return "Popular"
+        case .all: return "All"
+        case .random: return "Random"
+        }
+    }
+    
+    var publicDescription: String {
+        switch self {
+        case .home: return "The front page of the internet"
+        case .popular: return "Join the band wagon"
+        case .all: return "Unfiltered"
+        case .random: return "Mystery subreddit"
+        }
+    }
+    
+    var displayNamePrefixed: String {
+        switch self {
+        case .home: return ""
+        case .popular: return "r/popular"
+        case .all: return "r/all"
+        case .random: return ""
+        }
+    }
+    
+    var subreddit: Subreddit? {
+        let context = CoreDataManager.default.viewContext
+        let fetchRequest = Subreddit.fetchRequestForEntity(inContext: context)
+        
+        switch self {
+        case .home, .all, .popular:
+            fetchRequest.predicate = NSPredicate(format: "isDefault == true && displayName == %@", displayName)
+            let fetchedSubreddit = try? context.fetch(fetchRequest)
+            return fetchedSubreddit?.first
+        case .random: return nil
+        }
+    }
+    
+    static let allValues = [home, popular, all, random]
 }

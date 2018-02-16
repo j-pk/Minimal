@@ -14,6 +14,7 @@ import CoreData
 /// Action from a search result returns the selected subreddit
 protocol UISearchActionDelegate: class {
     func didSelect(subreddit: Subreddit)
+    func didSelect(defaultSubreddit: DefaultSubreddit)
 }
 
 class SearchViewController: UIViewController {
@@ -47,8 +48,10 @@ class SearchViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
+        
         configure(searchBar: searchController.searchBar)
         searchBarContainerView.addSubview(searchController.searchBar)
+        searchBarView.addShadow()
         definesPresentationContext = true
         
         performFetch(withPredicate: searchSegment.predicate)
@@ -66,10 +69,12 @@ class SearchViewController: UIViewController {
         let over18: Bool = false
         let over18Predicate = NSPredicate(format: "over18 == %@", over18 as CVarArg)
         let isSubscribedPredicate = NSPredicate(format: "isSubscribed == true")
-        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, over18Predicate])
+        let isDefault = NSPredicate(format: "isDefault == false")
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, over18Predicate, isDefault])
+        
         searchResultsController.fetchRequest.predicate = !tableView.isHidden ? compoundPredicate : isSubscribedPredicate
-
         searchResultsController.fetchRequest.sortDescriptors = descriptors ?? [NSSortDescriptor(key: "displayName", ascending: true)]
+        
         do {
             try searchResultsController.performFetch()
         } catch let error {
@@ -111,7 +116,7 @@ extension SearchViewController: UITableViewDataSource {
             let sections = searchResultsController.sections
             return sections?[section].numberOfObjects ?? 0
         } else {
-            return section == 0 ? DefaultLinkSegment.allValues.count : searchResultsController.fetchedObjects?.count ?? 0
+            return section == 0 ? DefaultSubreddit.allValues.count : searchResultsController.fetchedObjects?.count ?? 0
         }
     }
     
@@ -148,8 +153,8 @@ extension SearchViewController: UITableViewDataSource {
         } else {
             if tableView == self.subscribedTableView && indexPath.section == 0 {
                 let cell = self.subscribedTableView.dequeueReusableCell(withIdentifier: "SubscribedCell", for: indexPath) as! SubscribedCell
-                cell.titleLabel.text = DefaultLinkSegment(rawValue: indexPath.row)?.title
-                cell.subtitleLabel.text = DefaultLinkSegment(rawValue: indexPath.row)?.subtitle
+                cell.titleLabel.text = DefaultSubreddit(rawValue: indexPath.row)?.displayName
+                cell.subtitleLabel.text = DefaultSubreddit(rawValue: indexPath.row)?.publicDescription
                 return cell
             } else {
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
@@ -165,8 +170,10 @@ extension SearchViewController: UITableViewDelegate {
             let subreddit = searchResultsController.object(at: indexPath)
             delegate?.didSelect(subreddit: subreddit)
             tabBarController?.tab(toViewController: MainViewController.self)
-        } else {
-            print("test")
+        } else if tableView == self.subscribedTableView && indexPath.section == 0 {
+            guard let selectedLink = DefaultSubreddit(rawValue: indexPath.row) else { return }
+            delegate?.didSelect(defaultSubreddit: selectedLink)
+            tabBarController?.tab(toViewController: MainViewController.self)
         }
     }
 }
@@ -241,33 +248,6 @@ private extension SearchViewController {
             case .recent: return "Search Recent"
             }
         }
-    }
-    
-    enum DefaultLinkSegment: Int {
-        case home
-        case popular
-        case all
-        case random
-        
-        var title: String {
-            switch self {
-            case .home: return "Home"
-            case .popular: return "Popular"
-            case .all: return "All"
-            case .random: return "Random"
-            }
-        }
-        
-        var subtitle: String {
-            switch self {
-            case .home: return "The front page of the internet"
-            case .popular: return "Join the band wagon"
-            case .all: return "Unfiltered"
-            case .random: return "Mystery subreddit"
-            }
-        }
-        
-        static let allValues = [home, popular, all, random]
     }
 }
 

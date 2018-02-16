@@ -23,6 +23,7 @@ extension Subreddit {
     @NSManaged public var displayNamePrefixed: String?
     @NSManaged public var iconImage: String?
     @NSManaged public var id: String
+    @NSManaged public var isDefault: Bool
     @NSManaged public var isSubscribed: Bool
     @NSManaged public var lastViewed: Date
     @NSManaged public var over18: Bool

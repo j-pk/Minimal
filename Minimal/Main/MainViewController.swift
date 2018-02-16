@@ -13,12 +13,14 @@ import Nuke
 class MainViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerStackView: UIStackView!
     @IBOutlet weak var titleButton: UIButton!
     @IBOutlet weak var categoryButton: UIButton!
     
     private var blockOperations: [BlockOperation] = []
     private var themeManager = ThemeManager()
+    private var subredditString: String?
     
     //NOTE: Sync happens when data is older than an hour, perhaps this can be configurable
     //Still need to figure this out and when to clear out old listings
@@ -62,6 +64,7 @@ class MainViewController: UIViewController {
             searchViewController.delegate = self
         }
         
+        headerView.addShadow()
         guard let user = User.current() else { return }
         let title = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Front Page"
         titleButton.setTitle(title, for: UIControlState())
@@ -101,6 +104,7 @@ class MainViewController: UIViewController {
     func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil) {
         guard let user = User.current() else { return }
         CoreDataManager.default.performForegroundTask { [weak self] (moc) in
+            guard let this = self else { return }
             do {
                 if let subreddit = subreddit {
                     subreddit.lastViewed = Date()
@@ -108,17 +112,13 @@ class MainViewController: UIViewController {
                 }
                 if let category = category {
                     user.categoryString = category.rawValue
-                    self?.categoryButton.setTitle(category.rawValue, for: UIControlState())
-                    self?.categoryButton.sizeToFit()
                 }
                 if let timeFrame = timeFrame {
                     user.timeFrameString = timeFrame.rawValue
                 } else {
                     user.timeFrameString = nil
                 }
-                
                 try moc.save()
-                
             } catch let error {
                 print(error)
             }
@@ -129,17 +129,23 @@ class MainViewController: UIViewController {
     func requestListings() {
         guard let user = User.current() else { return }
         CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { [weak self] (error) in
+            guard let this = self else { return }
             if let error = error {
                 print(error)
             } else {
-                let request = ListingRequest(subreddit: user.lastViewedSubreddit, category: user.categoryString, timeFrame: user.timeFrameString)
+                let request = ListingRequest(subreddit: user.lastViewedSubreddit,
+                                             category: user.categoryString,
+                                             timeFrame: user.timeFrameString)
                 ListingManager(request: request, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     } else {
                         DispatchQueue.main.async {
-                            self?.titleButton.setTitle(user.lastViewedSubreddit, for: UIControlState())
-                            self?.collectionView.reloadData()
+                            let subreddit = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Home"
+                            this.titleButton.setTitle(subreddit, for: UIControlState())
+                            this.categoryButton.setTitle(user.categoryString, for: UIControlState())
+                            this.categoryButton.sizeToFit()
+                            this.collectionView.reloadData()
                         }
                     }
                 })
@@ -220,6 +226,10 @@ extension MainViewController: UICollectionViewDataSource {
 extension MainViewController: UISearchActionDelegate {
     func didSelect(subreddit: Subreddit) {
         updateUserAndListings(forSubreddit: subreddit, category: .hot)
+    }
+    
+    func didSelect(defaultSubreddit: DefaultSubreddit) {
+        updateUserAndListings(forSubreddit: defaultSubreddit.subreddit, category: .hot)
     }
 }
 

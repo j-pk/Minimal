@@ -71,9 +71,9 @@ class TranslucentTabBar: UITabBar {
         
         let blurEffect = UIBlurEffect(style: themeManager.theme.blurEffect)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = self.bounds
+        blurEffectView.frame = bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.backgroundImage = UIImage()
-        self.addSubview(blurEffectView)
+        backgroundImage = UIImage()
+        addSubview(blurEffectView)
     }
 }

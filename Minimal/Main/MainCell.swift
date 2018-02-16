@@ -39,7 +39,7 @@ class MainCell: UICollectionViewCell {
             imageView.isHidden = false
             Manager.shared.loadImage(with: listing.url, into: imageView)
         case .animatedImage:
-            guard let components = URLComponents(string: listing.thumbnailUrlString ?? listing.urlString) else { return }
+            guard let components = URLComponents(string: listing.url.absoluteString) else { return }
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
                 animatedImageView.isHidden = false
                 animatedImageView.imageView.contentMode = .scaleAspectFit

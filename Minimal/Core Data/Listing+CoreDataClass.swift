@@ -26,7 +26,7 @@ public class Listing: NSManagedObject {
     
     var url: URL {
         get {
-            return URL(string: thumbnailUrlString ?? urlString)!
+            return URL(string: urlString)!
         }
     }
     

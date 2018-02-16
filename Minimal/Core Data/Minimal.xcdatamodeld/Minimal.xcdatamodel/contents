@@ -37,6 +37,7 @@
         <attribute name="displayNamePrefixed" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="iconImage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="String" syncable="YES"/>
+        <attribute name="isDefault" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isSubscribed" attributeType="Boolean" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="lastViewed" attributeType="Date" defaultDateTimeInterval="539474400" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="over18" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
@@ -60,7 +61,7 @@
     </entity>
     <elements>
         <element name="Listing" positionX="0" positionY="0" width="128" height="390"/>
-        <element name="Subreddit" positionX="0" positionY="153" width="128" height="225"/>
+        <element name="Subreddit" positionX="0" positionY="153" width="128" height="240"/>
         <element name="User" positionX="0" positionY="0" width="128" height="150"/>
     </elements>
 </model>

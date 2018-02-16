@@ -16,6 +16,11 @@ class SearchCell: UITableViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     let themeManager = ThemeManager()
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        selectionStyle = .none
+    }
+    
     func setView(forSubreddit subreddit: Subreddit) {
         setSeparatorInset(forInsetValue: .zero)
         displayNamePrefixedLabel.text = subreddit.displayNamePrefixed
@@ -29,10 +34,12 @@ class SearchCell: UITableViewCell {
             NSAttributedStringKey.font: themeManager.font(fontStyle: .secondary),
             NSAttributedStringKey.foregroundColor: themeManager.theme.subtitleTextColor
         ]
+        
         let attributedString = NSMutableAttributedString()
         let subscribers = NumberFormatter.localizedString(from: NSNumber(value: subreddit.subscribers), number: .decimal)
         attributedString.append(NSAttributedString(string: subscribers, attributes: subscribersAttributes))
         attributedString.append(NSAttributedString(string: " subscribers", attributes: regularAttributes))
+        
         subscribersLabel.text = nil
         subscribersLabel.textColor = nil
         subscribersLabel.attributedText = attributedString

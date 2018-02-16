@@ -14,6 +14,7 @@ class SubscribedCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        selectionStyle = .none
     }
     
     func setView() {

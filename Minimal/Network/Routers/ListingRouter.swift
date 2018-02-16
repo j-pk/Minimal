@@ -52,11 +52,15 @@ enum ListingRouter: Routable {
     var path: String {
         switch self {
         case .subreddit(let prefix, let category, _), .paginate(let prefix, let category, _, _, _):
+            if prefix.isEmpty || prefix == "" {
+                return "/.json"
+            }
+            
             var buildPath = prefix
             if let category = category {
                 buildPath += "/\(category)/.json"
             } else {
-                buildPath += buildPath == "" ? ".json" : "/.json"
+                buildPath += "/.json"
             }
             buildPath.insert("/", at: buildPath.startIndex)
             return buildPath

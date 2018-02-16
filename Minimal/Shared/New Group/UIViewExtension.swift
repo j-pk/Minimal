@@ -62,6 +62,13 @@ extension Recognizer where Self: UIView {
 }
 
 extension UIView {
+    func addShadow() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.3
+        layer.shadowOffset = CGSize.zero
+        layer.shadowRadius = 2
+    }
+    
     func attachActivityIndicator(title: String, blurEffect: UIBlurEffectStyle, indicatorStyle: UIActivityIndicatorViewStyle) {
         let themeManager = ThemeManager()
         let overlayView = UIView()
