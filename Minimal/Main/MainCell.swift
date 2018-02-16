@@ -19,9 +19,11 @@ class MainCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        animatedImageView.prepareForReuse()
+        removeIndicatorView()
+
         imageView.image = nil
         playerView.player = nil
-        animatedImageView.prepareForReuse()
         imageView.isHidden = true
         playerView.isHidden = true
         animatedImageView.isHidden = true
@@ -51,11 +53,12 @@ class MainCell: UICollectionViewCell {
             }
         case .video:
             imageView.isHidden = false
-            Manager.shared.loadImage(with: listing.url, into: imageView) { [weak self] response, _ in
+            guard let url = URL(string: listing.thumbnailUrlString ?? listing.urlString) else { return }
+            Manager.shared.loadImage(with: url, into: imageView) { [weak self] response, _ in
+                guard let this = self else { return }
+                this.attachPlayIndicator()
                 if let image = response.value {
-                    self?.imageView?.image = image
-                } else {
-                    self?.attachPlayIndicator(blurEffect: .dark)
+                    this.imageView?.image = image
                 }
             }
         default:

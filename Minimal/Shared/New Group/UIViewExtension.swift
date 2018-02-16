@@ -137,35 +137,37 @@ extension UIView {
         }
     }
     
-    func attachPlayIndicator(image: UIImage? = UIImage(imageLiteralResourceName: "playIcon"), blurEffect: UIBlurEffectStyle) {
-        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: blurEffect))
-        effectView.layer.masksToBounds = true
-        effectView.layer.opacity = 0.6
-        effectView.translatesAutoresizingMaskIntoConstraints = false
-        effectView.tag = 1
-        self.addSubview(effectView)
+    func attachPlayIndicator(image: UIImage? = UIImage(imageLiteralResourceName: "playIcon")) {
+        let containerView = UIView()
+        containerView.layer.masksToBounds = true
+        containerView.layer.opacity = 0.8
+        containerView.backgroundColor = .clear
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.tag = 1
+        self.addSubview(containerView)
         
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[effectView]-0-|",
                                                            options: NSLayoutFormatOptions.alignAllCenterX,
                                                            metrics: nil,
-                                                           views: ["effectView":effectView]))
+                                                           views: ["effectView":containerView]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[effectView]-0-|",
                                                            options: NSLayoutFormatOptions.alignAllCenterY,
                                                            metrics: nil,
-                                                           views: ["effectView":effectView]))
+                                                           views: ["effectView":containerView]))
         
         let imageView = UIImageView()
-        imageView.image = image
+        imageView.image = image?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = .red
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        effectView.contentView.addSubview(imageView)
+        containerView.addSubview(imageView)
         
-        effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[effectView]-(<=1)-[imageView(45)]",
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[imageView(30)]-|",
                                                                   options: NSLayoutFormatOptions.alignAllCenterX,
                                                                   metrics: nil,
-                                                                  views: ["effectView":effectView, "imageView":imageView]))
-        effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[effectView]-(<=1)-[imageView(45)]",
+                                                                  views: ["effectView":containerView, "imageView":imageView]))
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[imageView(30)]",
                                                                   options: NSLayoutFormatOptions.alignAllCenterY,
                                                                   metrics: nil,
-                                                                  views: ["effectView":effectView, "imageView":imageView]))
+                                                                  views: ["effectView":containerView, "imageView":imageView]))
     }
 }

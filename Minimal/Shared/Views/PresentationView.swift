@@ -64,7 +64,7 @@ class PresentationView: XibView {
                     imageView.isHidden = false
                     Manager.shared.loadImage(with: url, into: imageView)
                     data = ["url":thumbnailUrl]
-                    attachPlayIndicator(blurEffect: .regular)
+                    attachPlayIndicator()
                 }
             } else {
                 webView.isHidden = false
