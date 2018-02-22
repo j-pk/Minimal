@@ -26,7 +26,8 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var segmentController: UISegmentedControl!
     
     weak var delegate: UISearchActionDelegate?
-
+    var database: Database?
+    
     fileprivate var searchSegment: SearchSegment {
         get {
             guard let segment = SearchSegment(rawValue: segmentController.selectedSegmentIndex) else { return .subreddits }
@@ -202,6 +203,12 @@ extension SearchViewController: UISearchResultsUpdating {
             performFetch(withPredicate: NSPredicate(format: "displayName CONTAINS[cd] %@", searchString))
             tableView.reloadData()
         }
+    }
+}
+
+extension SearchViewController: Stackable {
+    func set(database: DatabaseEngine) {
+        self.database = database
     }
 }
 

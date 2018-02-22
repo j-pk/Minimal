@@ -6,6 +6,14 @@
 //  Copyright © 2017 Parker Kirby. All rights reserved.
 //
 
+// Note: For reference, the execution order of the relevant methods is as follows:
+//
+// AppDelegate.init()
+// ViewController.init()
+// AppDelegate.application(_:willFinishLaunchingWithOptions:)
+// AppDelegate.application(_:didFinishLaunchingWithOptions:)
+// ViewController.viewDidLoad()
+
 import UIKit
 import CoreData
 
@@ -67,9 +75,14 @@ private extension AppDelegate {
     
     func configureDatabase() {
         if let tabBarController = window?.rootViewController as? UITabBarController {
-            let navigationController = tabBarController.viewControllers?.filter({ $0 is HiddenNavBarNavigationController }).first as? HiddenNavBarNavigationController
-            let mainViewController = navigationController?.viewControllers.first as? MainViewController
-            mainViewController?.set(database: database)
+            tabBarController.viewControllers?.forEach({ (controller) in
+                if let navigationController = controller as? HiddenNavBarNavigationController {
+                    let mainViewController = navigationController.viewControllers.first as? MainViewController
+                    mainViewController?.set(database: database)
+                } else if let controller = controller as? Stackable {
+                    controller.set(database: database)
+                }
+            })
         }
     }
     
@@ -95,7 +108,7 @@ private extension AppDelegate {
                 User.create(context: context, completionHandler: { (error) in
                     print(error as Any)
                 })
-                Subreddit.insertDefaultSubreddits()
+                Subreddit.populateDefaultSubreddits(database: this.database)
                 SearchSubredditManager(database: this.database)
                 this.requestListings()
             } else {

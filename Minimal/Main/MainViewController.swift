@@ -64,7 +64,7 @@ class MainViewController: UIViewController {
         }
         
         headerView.addShadow()
-        guard let user = User.current() else { return }
+        guard let database = database, let user = User.current(context: database.viewContext) else { return }
         let title = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Front Page"
         titleButton.setTitle(title, for: UIControlState())
         categoryButton.setTitle(user.category.rawValue, for: UIControlState())
@@ -101,8 +101,8 @@ class MainViewController: UIViewController {
     }
     
     func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil) {
-        guard let user = User.current() else { return }
-        database?.performForegroundTask { (context) in
+        guard let database = database, let user = User.current(context: database.viewContext) else { return }
+        database.performForegroundTask { (context) in
             do {
                 if let subreddit = subreddit {
                     subreddit.lastViewed = Date()
@@ -125,8 +125,8 @@ class MainViewController: UIViewController {
     }
     
     func requestListings() {
-        guard let user = User.current() else { return }
-        database?.purgeRecords(entity: Listing.typeName, completionHandler: { [weak self] (error) in
+        guard let database = database, let user = User.current(context: database.viewContext) else { return }
+        database.purgeRecords(entity: Listing.typeName, completionHandler: { [weak self] (error) in
             guard let this = self, let database = this.database else { return }
             if let error = error {
                 print(error)
@@ -182,7 +182,7 @@ class MainViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popOverControllerSegue" {
-            guard let user = User.current() else { return }
+            guard let database = database, let user = User.current(context: database.viewContext) else { return }
             segue.destination.popoverPresentationController?.delegate = self
             let height: CGFloat = user.timeFrameString != nil ? 100 : 60
             segue.destination.preferredContentSize = CGSize(width: self.view.frame.width, height: height)
@@ -200,6 +200,7 @@ class MainViewController: UIViewController {
                 let listing = self.listingResultsController.object(at: indexPath)
                 commentsViewController.hidesBottomBarWhenPushed = true 
                 commentsViewController.listing = listing
+                commentsViewController.database = database
             }
         }
     }
@@ -246,7 +247,11 @@ extension MainViewController: UISearchActionDelegate {
     }
     
     func didSelect(defaultSubreddit: DefaultSubreddit) {
-        updateUserAndListings(forSubreddit: defaultSubreddit.subreddit, category: .hot)
+        guard let database = database else { return }
+        let predicate = NSPredicate(format: "isDefault == true && displayName == %@", defaultSubreddit.displayName)
+        if let subreddit = try? Subreddit.fetchFirst(inContext: database.viewContext, predicate: predicate) {
+            updateUserAndListings(forSubreddit: subreddit, category: .hot)
+        }
     }
 }
 
@@ -334,7 +339,7 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             guard let lastViewedListing = listingResultsController.fetchedObjects?.last else { return }
-            guard let user = User.current(), let database = database else { return }
+            guard let database = database, let user = User.current(context: database.viewContext) else { return }
             let blockOperation = BlockOperation {
                 let request = ListingRequest(subreddit: user.lastViewedSubreddit,
                                              category: user.categoryString,

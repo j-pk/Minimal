@@ -14,6 +14,7 @@ class CommentsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var listing: Listing?
+    var database: Database?
     var themeManager = ThemeManager ()
     
     override func viewDidLoad() {
