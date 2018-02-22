@@ -39,7 +39,8 @@ class SearchViewController: UIViewController {
     private var searchResultsController: NSFetchedResultsController<Subreddit> = {
         let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "displayName", ascending: true)]
-        let fetchedResultsController = NSFetchedResultsController<Subreddit>(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.default.viewContext, sectionNameKeyPath: "displayName", cacheName: nil)
+        let manager = DatabaseEngine()
+        let fetchedResultsController = NSFetchedResultsController<Subreddit>(fetchRequest: fetchRequest, managedObjectContext: manager.viewContext, sectionNameKeyPath: "displayName", cacheName: nil)
         return fetchedResultsController
     }()
     

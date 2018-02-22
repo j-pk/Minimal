@@ -56,7 +56,8 @@ extension User: Manageable {
     }
     
     static func current(context: NSManagedObjectContext? = nil) -> User? {
-        if let user = try? User.fetchFirst(inContext: context ?? CoreDataManager.default.viewContext) {
+        let manager = DatabaseEngine()
+        if let user = try? User.fetchFirst(inContext: context ?? manager.viewContext) {
             return user
         } else {
             return nil

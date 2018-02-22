@@ -10,14 +10,14 @@ import Foundation
 
 struct ListingManager {
     private let listingModel: ListingModel
-    @discardableResult init(request: Requestable, completionHandler: @escaping OptionalErrorHandler) {
+    @discardableResult init(request: Requestable, database: Database, completionHandler: @escaping OptionalErrorHandler) {
         listingModel = ListingModel(request: request) { (error, listingObjects) in
             if let error = error {
                 completionHandler(error)
             }
             if let objects = listingObjects {
                 do {
-                    try Listing.populateObjects(fromJSON: objects, completionHandler: { (error) in
+                    try Listing.populateObjects(fromJSON: objects, database: database, completionHandler: { (error) in
                         if error != nil {
                             completionHandler(error)
                         } else {

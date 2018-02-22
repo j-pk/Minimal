@@ -140,8 +140,8 @@ extension UIView {
     func attachPlayIndicator(image: UIImage? = UIImage(imageLiteralResourceName: "playIcon")) {
         let containerView = UIView()
         containerView.layer.masksToBounds = true
-        containerView.layer.opacity = 0.8
-        containerView.backgroundColor = .clear
+        containerView.layer.opacity = 0.9
+        containerView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.tag = 1
         self.addSubview(containerView)
@@ -157,7 +157,7 @@ extension UIView {
         
         let imageView = UIImageView()
         imageView.image = image?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = .red
+        imageView.tintColor = ThemeManager().theme.tintColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(imageView)
         

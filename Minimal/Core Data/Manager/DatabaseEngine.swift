@@ -16,35 +16,53 @@ enum CoreDataError: Error {
     case failedToClearCoreData(String)
 }
 
-class CoreDataManager {
-    
+typealias Database = ReadableDatabase & WritableDatabase
+
+protocol WritableDatabase {
+    func performForegroundTask(_ context: @escaping (NSManagedObjectContext) -> Void)
+    func performBackgroundTask(_ context: @escaping (NSManagedObjectContext) -> Void)
+    func purgeAllRecords(_ completionHandler: @escaping OptionalErrorHandler)
+    func purgeRecords(entity: String, completionHandler: @escaping OptionalErrorHandler)
+    func saveContext(context: NSManagedObjectContext) throws
+}
+
+protocol ReadableDatabase {
+    var viewContext: NSManagedObjectContext { get }
+    var backgroundContext: NSManagedObjectContext { get }
+}
+
+protocol Stackable {
+    func set(database: DatabaseEngine)
+}
+
+class DatabaseEngine {
+
     // MARK: - Core Data stack
-    static let `default` = CoreDataManager()
-    private let momdName = "Minimal"
+    private let modelName = "Minimal"
     
     //context for UI related tasks
-    public lazy var viewContext: NSManagedObjectContext = {
-        self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
-        self.persistentContainer.viewContext.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
-        return self.persistentContainer.viewContext
+    lazy var viewContext: NSManagedObjectContext = {
+        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+        persistentContainer.viewContext.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
+        return persistentContainer.viewContext
     }()
     
     //background context
-    public lazy var backgroundContext: NSManagedObjectContext = {
-        let backgroundContext = self.persistentContainer.newBackgroundContext()
+    lazy var backgroundContext: NSManagedObjectContext = {
+        let backgroundContext = persistentContainer.newBackgroundContext()
         return backgroundContext
     }()
     
     lazy var persistentContainer: NSPersistentContainer = {
-        guard let modelURL = Bundle(for: type(of: self)).url(forResource: self.momdName, withExtension:"momd") else {
+        guard let modelURL = Bundle(for: type(of: self)).url(forResource: modelName, withExtension:"momd") else {
             fatalError("Error loading model from bundle")
         }
         
-        guard let mom = NSManagedObjectModel(contentsOf: modelURL) else {
+        guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
             fatalError("Error initializing mom from: \(modelURL)")
         }
         
-        let container = NSPersistentContainer(name: self.momdName, managedObjectModel: mom)
+        let container = NSPersistentContainer(name: modelName, managedObjectModel: model)
         container.loadPersistentStores(completionHandler: { (_, error) in
             guard error == nil else {
                 fatalError("Failed to load store: \(String(describing: error))")
@@ -52,20 +70,21 @@ class CoreDataManager {
         })
         return container
     }()
-    
+}
+
+extension DatabaseEngine: Database {
     func performForegroundTask(_ context: @escaping (NSManagedObjectContext) -> Void) {
-        self.viewContext.perform {
+        viewContext.perform {
             context(self.viewContext)
         }
     }
     
     func performBackgroundTask(_ context: @escaping (NSManagedObjectContext) -> Void) {
-        self.persistentContainer.performBackgroundTask(context)
+        persistentContainer.performBackgroundTask(context)
     }
-        
-    // MARK: - Core Data Purge support
-    func clearCoreData(_ completionHandler: @escaping ((Error?) -> ())) {
-        self.persistentContainer.performBackgroundTask({ moc in
+    
+    func purgeAllRecords(_ completionHandler: @escaping OptionalErrorHandler) {
+        persistentContainer.performBackgroundTask({ context in
             let entitiesByName = self.persistentContainer.managedObjectModel.entities
             
             entitiesByName.forEach({ entityDescription in
@@ -73,7 +92,7 @@ class CoreDataManager {
                 let deleteRequest = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: name))
                 
                 do {
-                    try moc.execute(deleteRequest)
+                    try context.execute(deleteRequest)
                 } catch let error {
                     completionHandler(CoreDataError.failedToClearCoreData("\(error)"))
                 }
@@ -85,21 +104,19 @@ class CoreDataManager {
         })
     }
     
-    func purgeRecords(predicate: NSPredicate? = nil, entity: String, completionHandler: @escaping OptionalErrorHandler) {
+    func purgeRecords(entity: String, completionHandler: @escaping OptionalErrorHandler) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
-        fetchRequest.predicate = predicate
-        self.persistentContainer.performBackgroundTask({ moc in
+        persistentContainer.performBackgroundTask({ context in
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
             deleteRequest.resultType = .resultTypeObjectIDs
-            let mainContext = CoreDataManager.default.viewContext
             do {
-                let result = try moc.execute(deleteRequest) as? NSBatchDeleteResult
+                let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
                 guard let objectIdArray = result?.result as? [NSManagedObjectID] else {
                     completionHandler(CoreDataError.failedToPurgeObjects("NSBatchDelete results are nil"))
                     return
                 }
                 let changes = [NSDeletedObjectsKey : objectIdArray]
-                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [moc, mainContext])
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context, self.viewContext])
             } catch let error {
                 completionHandler(CoreDataError.failedToPurgeObjects("\(error)"))
             }
@@ -111,8 +128,7 @@ class CoreDataManager {
         })
     }
     
-    // MARK: - Core Data Saving support
-    func saveContext (context: NSManagedObjectContext) throws {
+    func saveContext(context: NSManagedObjectContext) throws {
         if context.hasChanges {
             do {
                 try context.save()

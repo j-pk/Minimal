@@ -13,13 +13,20 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let database = DatabaseEngine()
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         print(urls[urls.count-1] as URL)
         
+        return true
+    }
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
+        // Override point for customization after application launch.
+        
+        configureDatabase()
         configureTheme()
         configureUser()
         
@@ -48,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         do {
-            try CoreDataManager.default.viewContext.save()
+            try database.viewContext.save()
         } catch let error {
             print(error)
         }
@@ -57,6 +64,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 // Override point for customization after application launch.
 private extension AppDelegate {
+    
+    func configureDatabase() {
+        if let tabBarController = window?.rootViewController as? UITabBarController {
+            let navigationController = tabBarController.viewControllers?.filter({ $0 is HiddenNavBarNavigationController }).first as? HiddenNavBarNavigationController
+            let mainViewController = navigationController?.viewControllers.first as? MainViewController
+            mainViewController?.set(database: database)
+        }
+    }
     
     func configureTheme() {
         ThemeManager().setGlobalTheme()
@@ -74,18 +89,18 @@ private extension AppDelegate {
     
     /// Create user on first launch or check for one, should only ever have 1 user
     func configureUser() {
-        CoreDataManager.default.performBackgroundTask({ [weak self] (moc) in
+        database.performBackgroundTask({ [weak self] (context) in
             guard let this = self else { return }
             if this.isFirstLaunch() {
-                User.create(context: moc, completionHandler: { (error) in
+                User.create(context: context, completionHandler: { (error) in
                     print(error as Any)
                 })
                 Subreddit.insertDefaultSubreddits()
-                SearchSubredditManager()
+                SearchSubredditManager(database: this.database)
                 this.requestListings()
             } else {
                 do {
-                    guard try User.fetchFirst(inContext: moc) != nil else { return } //TODO: Hmm
+                    guard try User.fetchFirst(inContext: context) != nil else { return } //TODO: Hmm
                 } catch let error {
                     print(error as Any)
                 }
@@ -95,12 +110,12 @@ private extension AppDelegate {
     
     /// Kick off listing request to have collectionView populated on load
     func requestListings() {
-        CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
+        database.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
             if let error = error {
                 print(error)
             } else {
                 let request = ListingRequest(subreddit: "", category: nil)
-                ListingManager(request: request, completionHandler: { (error) in
+                ListingManager(request: request, database: self.database, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     }

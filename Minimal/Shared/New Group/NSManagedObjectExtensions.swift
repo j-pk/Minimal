@@ -58,19 +58,19 @@ extension Manageable where Self: NSManagedObject {
         return object
     }
     
-    static func populateObjects(fromJSON json: [Decodable], completionHandler: @escaping OptionalErrorHandler) throws {
-        CoreDataManager.default.performBackgroundTask { (moc) in
+    static func populateObjects(fromJSON json: [Decodable], database: Database, completionHandler: @escaping OptionalErrorHandler) throws {
+        database.performBackgroundTask { (context) in
             do {
                 json.forEach { (object) in
-                    self.populateObject(fromDecodable: object, save: false, context: moc, completionHandler: { error in
+                    self.populateObject(fromDecodable: object, save: false, context: context, completionHandler: { error in
                         if error != nil {
                             completionHandler(error)
                         }
                     })
                 }
                 
-                if moc.hasChanges {
-                    try moc.save()
+                if context.hasChanges {
+                    try context.save()
                 }
                 completionHandler(nil)
                 

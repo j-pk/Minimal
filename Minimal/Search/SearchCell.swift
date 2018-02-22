@@ -19,6 +19,8 @@ class SearchCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
+        iconImageView.clipsToBounds = true
     }
     
     func setView(forSubreddit subreddit: Subreddit) {
@@ -46,6 +48,8 @@ class SearchCell: UITableViewCell {
         
         if let urlString = subreddit.iconImage, let url = URL(string: urlString) {
             Manager.shared.loadImage(with: url, into: iconImageView)
+        } else {
+            iconImageView.image = nil
         }
     }
 }

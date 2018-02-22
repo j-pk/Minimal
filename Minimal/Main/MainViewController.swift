@@ -19,18 +19,13 @@ class MainViewController: UIViewController {
     @IBOutlet weak var categoryButton: UIButton!
     
     private var blockOperations: [BlockOperation] = []
-    private var themeManager = ThemeManager()
+    private let themeManager = ThemeManager()
+    private var database: DatabaseEngine?
     private var subredditString: String?
     
     //NOTE: Sync happens when data is older than an hour, perhaps this can be configurable
     //Still need to figure this out and when to clear out old listings
-    private var listingResultsController: NSFetchedResultsController<Listing> = {
-        let fetchRequest = NSFetchRequest<Listing>(entityName: Listing.entityName)
-        fetchRequest.predicate = NSPredicate(format: "mediaType != %@", ListingMediaType.none.rawValue as CVarArg)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "populatedDate", ascending: true)]
-        let fetchedResultsController = NSFetchedResultsController<Listing>(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.default.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        return fetchedResultsController
-    }()
+    private var listingResultsController: NSFetchedResultsController<Listing>!
     
     private let collectionViewLayout: CHTCollectionViewWaterfallLayout = {
         let layout = CHTCollectionViewWaterfallLayout()
@@ -56,8 +51,12 @@ class MainViewController: UIViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = collectionViewLayout
         collectionView.prefetchDataSource = self
-
-        listingResultsController.delegate = self
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        refreshControl.bounds = CGRect(x: refreshControl.bounds.origin.x, y: 50, width: refreshControl.bounds.size.width, height: refreshControl.bounds.size.height)
+        collectionView.refreshControl = refreshControl
+        
         performFetch()
         
         if let searchViewController = tabBarController?.fetch(viewController: SearchViewController.self) {
@@ -103,8 +102,7 @@ class MainViewController: UIViewController {
     
     func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil) {
         guard let user = User.current() else { return }
-        CoreDataManager.default.performForegroundTask { [weak self] (moc) in
-            guard let this = self else { return }
+        database?.performForegroundTask { (context) in
             do {
                 if let subreddit = subreddit {
                     subreddit.lastViewed = Date()
@@ -118,7 +116,7 @@ class MainViewController: UIViewController {
                 } else {
                     user.timeFrameString = nil
                 }
-                try moc.save()
+                try context.save()
             } catch let error {
                 print(error)
             }
@@ -128,15 +126,15 @@ class MainViewController: UIViewController {
     
     func requestListings() {
         guard let user = User.current() else { return }
-        CoreDataManager.default.purgeRecords(entity: Listing.typeName, completionHandler: { [weak self] (error) in
-            guard let this = self else { return }
+        database?.purgeRecords(entity: Listing.typeName, completionHandler: { [weak self] (error) in
+            guard let this = self, let database = this.database else { return }
             if let error = error {
                 print(error)
             } else {
                 let request = ListingRequest(subreddit: user.lastViewedSubreddit,
                                              category: user.categoryString,
                                              timeFrame: user.timeFrameString)
-                ListingManager(request: request, completionHandler: { (error) in
+                ListingManager(request: request, database: database, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     } else {
@@ -151,6 +149,11 @@ class MainViewController: UIViewController {
                 })
             }
         })
+    }
+    
+    @objc func handleRefresh(_ sender: UIRefreshControl) {
+        requestListings()
+        sender.endRefreshing()
     }
     
     @IBAction func didPressTitleButton(_ sender: UIButton) {
@@ -199,6 +202,20 @@ class MainViewController: UIViewController {
                 commentsViewController.listing = listing
             }
         }
+    }
+}
+
+// MARK: Stackable
+extension MainViewController: Stackable {
+    func set(database: DatabaseEngine) {
+        self.database = database
+        
+        let fetchRequest = NSFetchRequest<Listing>(entityName: Listing.entityName)
+        fetchRequest.predicate = NSPredicate(format: "mediaType != %@", ListingMediaType.none.rawValue as CVarArg)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "populatedDate", ascending: true)]
+        let fetchedResultsController = NSFetchedResultsController<Listing>(fetchRequest: fetchRequest, managedObjectContext: database.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        self.listingResultsController = fetchedResultsController
     }
 }
 
@@ -317,7 +334,7 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             guard let lastViewedListing = listingResultsController.fetchedObjects?.last else { return }
-            guard let user = User.current() else { return }
+            guard let user = User.current(), let database = database else { return }
             let blockOperation = BlockOperation {
                 let request = ListingRequest(subreddit: user.lastViewedSubreddit,
                                              category: user.categoryString,
@@ -326,7 +343,7 @@ extension MainViewController: UIScrollViewDelegate {
                                              limit: 25,
                                              requestType: .paginate)
                 
-                ListingManager(request: request, completionHandler: { (error) in
+                ListingManager(request: request, database: database, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     }

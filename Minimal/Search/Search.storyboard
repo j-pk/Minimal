@@ -95,7 +95,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="e5r-zs-UYh">
-                                                    <rect key="frame" x="61" y="11" width="291" height="41"/>
+                                                    <rect key="frame" x="53" y="11" width="299" height="41"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5W-HH-bOZ" customClass="TitleLabel" customModule="Minimal" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
@@ -112,7 +112,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LjD-KP-v6S">
-                                                    <rect key="frame" x="23" y="16" width="30" height="30"/>
+                                                    <rect key="frame" x="15" y="16" width="30" height="30"/>
                                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="EZY-SP-UWP"/>
@@ -126,7 +126,7 @@
                                                 <constraint firstItem="e5r-zs-UYh" firstAttribute="bottom" secondItem="pXB-9v-3gs" secondAttribute="bottomMargin" id="YVj-jg-uro"/>
                                                 <constraint firstItem="e5r-zs-UYh" firstAttribute="leading" secondItem="LjD-KP-v6S" secondAttribute="trailing" constant="8" id="j2g-ch-xDN"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="e5r-zs-UYh" secondAttribute="trailing" constant="8" id="nwS-XA-F6l"/>
-                                                <constraint firstItem="LjD-KP-v6S" firstAttribute="leading" secondItem="pXB-9v-3gs" secondAttribute="leadingMargin" constant="8" id="zg3-HV-ORv"/>
+                                                <constraint firstItem="LjD-KP-v6S" firstAttribute="leading" secondItem="pXB-9v-3gs" secondAttribute="leadingMargin" id="zg3-HV-ORv"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

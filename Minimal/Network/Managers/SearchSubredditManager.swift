@@ -11,8 +11,10 @@ import Foundation
 class SearchSubredditManager {
     var requestCount = 0
     var request: Requestable?
+    var database: Database?
     
-    @discardableResult init() {
+    @discardableResult init(database: Database) {
+        self.database = database
         requestSubreddits()
     }
     
@@ -23,9 +25,9 @@ class SearchSubredditManager {
                 print(error)
             }
             if self.requestCount <= 75 {
-                if let store = subredditStore {
+                if let store = subredditStore, let database = self.database {
                     do {
-                        try Subreddit.populateObjects(fromJSON: store.subreddits, completionHandler: { (error) in
+                        try Subreddit.populateObjects(fromJSON: store.subreddits, database: database, completionHandler: { (error) in
                             if let error = error {
                                 print(error)
                             }

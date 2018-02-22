@@ -44,7 +44,8 @@ extension Subreddit: Manageable {
     }
     
     static func insertDefaultSubreddits() {
-        CoreDataManager.default.performBackgroundTask { (context) in
+        let manager = DatabaseEngine()
+        manager.performBackgroundTask { (context) in
             do {
                 try DefaultSubreddit.allValues.filter({ $0 != .random }).forEach({ (defaultSubreddit) in
                     let subreddit: Subreddit = try Subreddit.insertObject(inContext: context)
@@ -103,13 +104,13 @@ enum DefaultSubreddit: Int {
     }
     
     var subreddit: Subreddit? {
-        let context = CoreDataManager.default.viewContext
-        let fetchRequest = Subreddit.fetchRequestForEntity(inContext: context)
+        let manager = DatabaseEngine()
+        let fetchRequest = Subreddit.fetchRequestForEntity(inContext: manager.viewContext)
         
         switch self {
         case .home, .all, .popular:
             fetchRequest.predicate = NSPredicate(format: "isDefault == true && displayName == %@", displayName)
-            let fetchedSubreddit = try? context.fetch(fetchRequest)
+            let fetchedSubreddit = try? manager.viewContext.fetch(fetchRequest)
             return fetchedSubreddit?.first
         case .random: return nil
         }
