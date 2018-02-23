@@ -77,8 +77,8 @@ private extension AppDelegate {
         if let tabBarController = window?.rootViewController as? UITabBarController {
             tabBarController.viewControllers?.forEach({ (controller) in
                 if let navigationController = controller as? HiddenNavBarNavigationController {
-                    let mainViewController = navigationController.viewControllers.first as? MainViewController
-                    mainViewController?.set(database: database)
+                    let controller = navigationController.viewControllers.first as? Stackable
+                    controller?.set(database: database)
                 } else if let controller = controller as? Stackable {
                     controller.set(database: database)
                 }

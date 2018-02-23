@@ -22,9 +22,6 @@ class MainViewController: UIViewController {
     private let themeManager = ThemeManager()
     private var database: DatabaseEngine?
     private var subredditString: String?
-    
-    //NOTE: Sync happens when data is older than an hour, perhaps this can be configurable
-    //Still need to figure this out and when to clear out old listings
     private var listingResultsController: NSFetchedResultsController<Listing>!
     
     private let collectionViewLayout: CHTCollectionViewWaterfallLayout = {
