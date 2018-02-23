@@ -25,36 +25,32 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var segmentController: UISegmentedControl!
     
+    private let searchController = UISearchController(searchResultsController: nil)
+    private let themeManager = ThemeManager()
+    private var searchResultsController: NSFetchedResultsController<Subreddit>!
     weak var delegate: UISearchActionDelegate?
     var database: Database?
-    
+
     fileprivate var searchSegment: SearchSegment {
         get {
             guard let segment = SearchSegment(rawValue: segmentController.selectedSegmentIndex) else { return .subreddits }
             return segment
         }
     }
-    let searchController = UISearchController(searchResultsController: nil)
-    let themeManager = ThemeManager()
-    
-    private var searchResultsController: NSFetchedResultsController<Subreddit> = {
-        let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "displayName", ascending: true)]
-        let manager = DatabaseEngine()
-        let fetchedResultsController = NSFetchedResultsController<Subreddit>(fetchRequest: fetchRequest, managedObjectContext: manager.viewContext, sectionNameKeyPath: "displayName", cacheName: nil)
-        return fetchedResultsController
-    }()
-    
+
     override func viewDidLoad() {
+        super.viewDidLoad()
+        definesPresentationContext = true
+
         searchResultsController.delegate = self
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
-        
+        searchController.definesPresentationContext = true
+
         configure(searchBar: searchController.searchBar)
         searchBarContainerView.addSubview(searchController.searchBar)
         searchBarView.addShadow()
-        definesPresentationContext = true
         
         performFetch(withPredicate: searchSegment.predicate)
         tableView.tableFooterView = UIView(frame: .zero)
@@ -101,8 +97,22 @@ class SearchViewController: UIViewController {
         performFetch(withPredicate: searchSegment.predicate, sortDescriptors: descriptors)
         tableView.reloadData()
     }
-}
     
+    func resetSearch() {
+        searchController.isActive = false
+        // Animates subscribe tableView and hides tableView
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseOut, animations: {
+            self.tableView.isHidden = true
+            self.subscribedTableView.isHidden = false
+            self.segmentController.isHidden = true
+            self.searchBarContainerViewHeightConstraint.priority = UILayoutPriority(rawValue: 999)
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+}
+
+// MARK: UITableViewDataSource
 extension SearchViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         if tableView == self.tableView {
@@ -166,6 +176,7 @@ extension SearchViewController: UITableViewDataSource {
     }
 }
 
+// MARK: UITableViewDelegate
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.tableView {
@@ -177,21 +188,49 @@ extension SearchViewController: UITableViewDelegate {
             delegate?.didSelect(defaultSubreddit: selectedLink)
             tabBarController?.tab(toViewController: MainViewController.self)
         }
+        resetSearch()
     }
 }
 
+// MARK: SearchSegment Enum
+private extension SearchViewController {
+    enum SearchSegment: Int {
+        case subreddits
+        case recent
+        
+        var placeholder: String {
+            switch self {
+            case .subreddits: return "Search Subreddits"
+            case .recent: return "Search Recent"
+            }
+        }
+    }
+}
+
+// MARK: SearchSegment Predicate
+private extension SearchViewController.SearchSegment {
+    var predicate: NSPredicate {
+        switch self {
+        case .subreddits:
+            return NSPredicate(format: "allowImages == true OR allowVideoGifs == true")
+        case .recent:
+            return NSPredicate(format: "lastViewed < %@ AND lastViewed > %@", Date() as NSDate, Date().subtract(days: 14) as NSDate)
+        }
+    }
+}
+
+// MARK: NSFetchedResultsControllerDelegate
 extension SearchViewController: NSFetchedResultsControllerDelegate {
-    
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
-    
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
 }
 
+// MARK: UISearchResultsUpdating
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchString = searchController.searchBar.text else { return }
@@ -206,12 +245,18 @@ extension SearchViewController: UISearchResultsUpdating {
     }
 }
 
+// MARK: Stackable
 extension SearchViewController: Stackable {
     func set(database: DatabaseEngine) {
         self.database = database
+        
+        let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "displayName", ascending: true)]
+        searchResultsController = NSFetchedResultsController<Subreddit>(fetchRequest: fetchRequest, managedObjectContext: database.viewContext, sectionNameKeyPath: "displayName", cacheName: nil)
     }
 }
 
+// MARK: UISearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         // Animates tableView to the foreground with a drop down spring
@@ -233,39 +278,6 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        // Animates subscribe tableView and hides tableView
-        self.view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseOut, animations: {
-            self.tableView.isHidden = true
-            self.subscribedTableView.isHidden = false
-            self.segmentController.isHidden = true
-            self.searchBarContainerViewHeightConstraint.priority = UILayoutPriority(rawValue: 999)
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-    }
-}
-
-private extension SearchViewController {
-    enum SearchSegment: Int {
-        case subreddits
-        case recent
-        
-        var placeholder: String {
-            switch self {
-            case .subreddits: return "Search Subreddits"
-            case .recent: return "Search Recent"
-            }
-        }
-    }
-}
-
-private extension SearchViewController.SearchSegment {
-    var predicate: NSPredicate {
-        switch self {
-        case .subreddits:
-            return NSPredicate(format: "allowImages == true OR allowVideoGifs == true")
-        case .recent:
-            return NSPredicate(format: "lastViewed < %@ AND lastViewed > %@", Date() as NSDate, Date().subtract(days: 14) as NSDate)
-        }
+        resetSearch()
     }
 }
