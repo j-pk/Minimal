@@ -25,12 +25,8 @@ public func log(message: String? = nil, category: String = "Logger", type: OSLog
             return String(format:"%p", thread)
         }
     }
-    let path = NSURL(fileURLWithPath: path).deletingPathExtension?.lastPathComponent ?? "Unknown"
-    var log = "▂▃▅▇▓▒░ Thread: \(thread) ░ \(path) ░ \(function) >> \(lineNumber) ░▒▓▇▅▃▂\n"
-    if let message = message {
-        log += "████▓▒░ \(message)"
-    }
-    Logger(category: category).log(message: log, type: type)
+    let logger = Logger(category: category)
+    logger.log(message: message, thread: thread, path: path, lineNumber: lineNumber, function: function, type: type)
 }
 
 // .info, .debug do not report to console
@@ -65,19 +61,20 @@ private class Logger {
         os_log("%@", log: log, type: type, text)
     }
     
-    func log(message: String? = nil, type: OSLogType = .default) {
-        var text = "\n"
-        if let message = message {
-            text += "\(message)\n"
-        }
-        os_log("%@", log: log, type: type, text)
-    }
-    
     func log(optionals: Any?..., type: OSLogType = .default) {
         var text = "\n"
         for (index, element) in optionals.enumerated() {
             let description = String(reflecting: element)
             text += "████▓▒░ #\(index): \(description)\n"
+        }
+        os_log("%@", log: log, type: type, text)
+    }
+    
+    func log(message: String? = nil, thread: String, path: String, lineNumber: Int, function: String, type: OSLogType = .default) {
+        let path = NSURL(fileURLWithPath: path).deletingPathExtension?.lastPathComponent ?? "Unknown"
+        var text = "░ Thread: \(thread) ░ \(path) ░ \(function) >> \(lineNumber)\n"
+        if let message = message {
+            text += "▂▃▅▇▓▒░ \(message) ░▒▓▇▅▃▂\n"
         }
         os_log("%@", log: log, type: type, text)
     }
