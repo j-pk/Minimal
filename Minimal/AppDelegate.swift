@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-// Override point for customization after application launch.
+/// Override point for customization after application launch.
 private extension AppDelegate {
     
     func configureDatabase() {
@@ -99,8 +99,7 @@ private extension AppDelegate {
         return isFirstLaunch
     }
     
-    
-    /// Create user on first launch or check for one, should only ever have 1 user
+    // Create user on first launch or check for one, should only ever have 1 user
     func configureUser() {
         database.performBackgroundTask({ [weak self] (context) in
             guard let this = self else { return }
@@ -110,7 +109,7 @@ private extension AppDelegate {
                 })
                 Subreddit.populateDefaultSubreddits(database: this.database)
                 SearchSubredditManager(database: this.database)
-                this.requestListings()
+                this.requestListings(database: this.database)
             } else {
                 do {
                     guard try User.fetchFirst(inContext: context) != nil else { return } //TODO: Hmm
@@ -121,14 +120,14 @@ private extension AppDelegate {
         })
     }
     
-    /// Kick off listing request to have collectionView populated on load
-    func requestListings() {
+    // Kick off listing request to have collectionView populated on load
+    func requestListings(database: Database) {
         database.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
             if let error = error {
                 print(error)
             } else {
                 let request = ListingRequest(subreddit: "", category: nil)
-                ListingManager(request: request, database: self.database, completionHandler: { (error) in
+                ListingManager(request: request, database: database, completionHandler: { (error) in
                     if let error = error {
                         print(error)
                     }

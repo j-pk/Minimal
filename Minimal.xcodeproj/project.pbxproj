@@ -25,6 +25,7 @@
 		C03EC9EC1FC8CCEC00ACA0F5 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */; };
 		C03F92251FA049BE009EEEF3 /* DatabaseEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92241FA049BE009EEEF3 /* DatabaseEngine.swift */; };
 		C03F92271FA11DE7009EEEF3 /* NSManagedObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */; };
+		C04AED072040CDD400554C5E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04AED062040CDD400554C5E /* Logger.swift */; };
 		C050C34C200173CB00863B52 /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C050C34B200173CB00863B52 /* UILabelExtensions.swift */; };
 		C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */; };
 		C06E18651FFD381800AB4F3A /* FontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18641FFD381800AB4F3A /* FontViewController.swift */; };
@@ -91,6 +92,7 @@
 		C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		C03F92241FA049BE009EEEF3 /* DatabaseEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseEngine.swift; sourceTree = "<group>"; };
 		C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectExtensions.swift; sourceTree = "<group>"; };
+		C04AED062040CDD400554C5E /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		C050C34B200173CB00863B52 /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
 		C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarExtensions.swift; sourceTree = "<group>"; };
 		C06E18641FFD381800AB4F3A /* FontViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontViewController.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				C097F1A81FBBF8F200706F89 /* Extensions */,
 				C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */,
 				C0DA84DB1FA01769006BE949 /* ListingEnums.swift */,
+				C04AED062040CDD400554C5E /* Logger.swift */,
 				C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */,
 				C0110E131FB4DF5700410478 /* TypeName.swift */,
 				C00B140A2029509B0064D1AF /* SegmentedController.swift */,
@@ -563,6 +566,7 @@
 				C020F9882016E43000A3E43A /* SubredditRouter.swift in Sources */,
 				C02E49941FDA59C40030347D /* ListingManager.swift in Sources */,
 				C008B1C620156574005FC651 /* UISearchBarExtensions.swift in Sources */,
+				C04AED072040CDD400554C5E /* Logger.swift in Sources */,
 				C0D584591FB75297002BCFA9 /* UIViewControllerExtensions.swift in Sources */,
 				C0A41B151FE6306F005A3F58 /* ThemeViewController.swift in Sources */,
 				C0EC9BA51FC25A760073FF7A /* UIViewExtension.swift in Sources */,
