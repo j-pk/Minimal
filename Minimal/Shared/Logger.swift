@@ -13,8 +13,7 @@ public func log(values: Any..., category: String = "Logger", type: OSLogType = .
     Logger(category: category).log(values: values, type: type)
 }
 
-public func log(message: String? = nil, category: String = "Logger", type: OSLogType = .default,
-                path: String = #file, lineNumber: Int = #line, function: String = #function) {
+public func log(message: String? = nil, category: String = "Logger", type: OSLogType = .default, path: String = #file, lineNumber: Int = #line, function: String = #function) {
     var thread: String {
         let thread = Thread.current
         if thread.isMainThread {
@@ -56,26 +55,40 @@ private class Logger {
         for (index, element) in array.enumerated() {
             let subjectType = Mirror(reflecting: element).subjectType
             let description = String(reflecting: element)
-            text += "████▓▒░ #\(index): \(subjectType) | \(description)\n"
+            text += "████▓▒░ [\(type.description)] ░ #\(index): \(subjectType) ░ \(description) ░░▒▓███\n"
         }
-        os_log("%@", log: log, type: type, text)
+        os_log("░ %@", log: log, type: type, text)
     }
     
     func log(optionals: Any?..., type: OSLogType = .default) {
         var text = "\n"
         for (index, element) in optionals.enumerated() {
             let description = String(reflecting: element)
-            text += "████▓▒░ #\(index): \(description)\n"
+            text += "████▓▒░ [\(type.description)] ░ #\(index): \(description) ░░▒▓███\n"
         }
-        os_log("%@", log: log, type: type, text)
+        os_log("░ %@", log: log, type: type, text)
     }
     
     func log(message: String? = nil, thread: String, path: String, lineNumber: Int, function: String, type: OSLogType = .default) {
         let path = NSURL(fileURLWithPath: path).deletingPathExtension?.lastPathComponent ?? "Unknown"
         var text = "░ Thread: \(thread) ░ \(path) ░ \(function) >> \(lineNumber)\n"
         if let message = message {
-            text += "▂▃▅▇▓▒░ \(message) ░▒▓▇▅▃▂\n"
+            text += "████▓▒░ [\(type.description)] ░ \(message) ░░▒▓███\n"
         }
         os_log("%@", log: log, type: type, text)
+    }
+}
+
+extension OSLogType: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .default: return "DEFAULT"
+        case .info: return "INFO"
+        case .debug: return "DEBUG"
+        case .error: return "ERROR"
+        case .fault: return "FAULT"
+        default:
+            return String()
+        }
     }
 }
