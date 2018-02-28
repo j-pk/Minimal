@@ -68,7 +68,7 @@ private class Logger {
     
     func log(message: String? = nil, thread: String, path: String, lineNumber: Int, function: String, type: OSLogType = .default) {
         let path = NSURL(fileURLWithPath: path).deletingPathExtension?.lastPathComponent ?? "Unknown"
-        var text = "████▓▒░ Thread: \(thread) ░ \(path) ░ \(function) >> \(lineNumber) ░░▒▓███\n"
+        var text = "\n████▓▒░ Thread: \(thread) ░ \(path) ░ \(function) >> \(lineNumber) ░░▒▓███\n"
         if let message = message {
             text += "████▓▒░ [\(type.description)] ░ \(message) ░░▒▓███\n"
         }
