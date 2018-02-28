@@ -54,7 +54,7 @@ private class Logger {
             let description = String(reflecting: element)
             text += "████▓▒░ [\(type.description)] ░ #\(index): \(subjectType) ░ \(description) ░░▒▓███\n"
         }
-        os_log("░ %@", log: log, type: type, text)
+        os_log("%@", log: log, type: type, text)
     }
     
     func log(optionals: Any?..., type: OSLogType = .default) {
@@ -63,7 +63,7 @@ private class Logger {
             let description = String(reflecting: element)
             text += "████▓▒░ [\(type.description)] ░ #\(index): \(description) ░░▒▓███\n"
         }
-        os_log("░ %@", log: log, type: type, text)
+        os_log("%@", log: log, type: type, text)
     }
     
     func log(message: String? = nil, thread: String, path: String, lineNumber: Int, function: String, type: OSLogType = .default) {
