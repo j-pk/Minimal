@@ -37,8 +37,9 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        log(values: collectionViewLayout, self)
-        log(message: "This is a text")
+        posLog(values: self, type: .default)
+        posLog(message: "Message")
+        
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: collectionView)
         } else {
