@@ -9,14 +9,16 @@
 import Foundation
 import os.log
 
-public func posLog(values: Any..., category: String = "Logger", type: OSLogType) {
+public func posLog(values: Any..., category: String = "Logger", type: OSLogType = .default) {
     Logger(category: category).log(values: values, type: type)
 }
 
-public func posLog(message: String? = nil, category: String = "Logger", type: OSLogType, path: String = #file, lineNumber: Int = #line, function: String = #function) {
-    let logger = Logger(category: category)
-    let thread = logger.identifyThread(thread: Thread.current)
-    logger.log(message: message, thread: thread, path: path, lineNumber: lineNumber, function: function, type: type)
+public func posLog(optionals: Any?..., category: String = "Logger", type: OSLogType = .default) {
+    Logger(category: category).log(optionals: optionals, type: type)
+}
+
+public func posLog(message: String, category: String = "Logger", type: OSLogType = .info) {
+    Logger(category: category).log(message: message, type: type)
 }
 
 public func posLog(error: Error..., category: String = "Logger", path: String = #file, lineNumber: Int = #line, function: String = #function) {
@@ -46,37 +48,38 @@ private class Logger {
     }
     
     // Mirror reflecting is not capable of discerning optional types
-    func log(values: Any..., type: OSLogType = .default) {
+    func log(values: Any..., type: OSLogType) {
         guard let array = values.first as? [Any] else { return }
         var text = "\n"
         for (index, element) in array.enumerated() {
             let subjectType = Mirror(reflecting: element).subjectType
             let description = String(reflecting: element)
-            text += "████▓▒░ [\(type.description)] ░ #\(index): \(subjectType) ░ \(description) ░░▒▓███\n"
+            text += "████▓▒░ [\(type.description)] ░ #\(index): \(subjectType) ░ \(description) \n"
         }
         os_log("%@", log: log, type: type, text)
     }
     
-    func log(optionals: Any?..., type: OSLogType = .default) {
+    func log(optionals: Any?..., type: OSLogType) {
         var text = "\n"
         for (index, element) in optionals.enumerated() {
             let description = String(reflecting: element)
-            text += "████▓▒░ [\(type.description)] ░ #\(index): \(description) ░░▒▓███\n"
+            text += "████▓▒░ [\(type.description)] ░ #\(index): \(description) \n"
         }
         os_log("%@", log: log, type: type, text)
     }
     
-    func log(message: String? = nil, thread: String, path: String, lineNumber: Int, function: String, type: OSLogType = .default) {
-        let path = NSURL(fileURLWithPath: path).deletingPathExtension?.lastPathComponent ?? "Unknown"
-        var text = "\n████▓▒░ Thread: \(thread) ░ \(path) ░ \(function) >> \(lineNumber) ░░▒▓███\n"
-        if let message = message {
-            text += "████▓▒░ [\(type.description)] ░ \(message) ░░▒▓███\n"
-        }
+    func log(message: String, type: OSLogType) {
+        let text = "████▓▒░ [\(type.description)] ░ \(message) \n"
         os_log("%@", log: log, type: type, text)
     }
     
     func log(error: [Error], thread: String, path: String, lineNumber: Int, function: String, type: OSLogType = .error) {
-        
+        let path = NSURL(fileURLWithPath: path).deletingPathExtension?.lastPathComponent ?? "Unknown"
+        var text = "\n████▓▒░ Thread: \(thread) ░ \(path) ░ \(function) >> \(lineNumber) \n"
+        for (index, element) in error.enumerated() {
+            text += "████▓▒░ [\(type.description)] ░ #\(index): \(element) \n"
+        }
+        os_log("%@", log: log, type: type, text)
     }
     
     func identifyThread(thread: Thread) -> String {
