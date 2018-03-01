@@ -56,11 +56,9 @@ public func posLog(error: Error..., category: String = "Logger", path: String = 
     logger.log(error: error, thread: thread, path: path, lineNumber: lineNumber, function: function)
 }
 
-// .info, .debug do not report to console
-// .default, .error, and .fault do
-// all report to debugger
-
-/// Private class that wraps OSLog for convience
+/// MARK: Logger
+///
+/// Private class that wraps OSLog for convenience logging
 private class Logger {
     
     private let identifier: String
@@ -124,6 +122,11 @@ private class Logger {
     
 }
 
+/// MARK: OSLogType Extension
+///
+/// Types .default, .error, and .fault report to System console
+/// Types .info, and .debug do not
+/// All types report to the Xcode console
 extension OSLogType: CustomStringConvertible {
     public var description: String {
         switch self {
