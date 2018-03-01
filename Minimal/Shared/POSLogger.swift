@@ -1,26 +1,55 @@
-//
-//  Logger.swift
-//  Minimal
-//
-//  Created by Jameson Kirby on 2/23/18.
-//  Copyright © 2018 Parker Kirby. All rights reserved.
-//
+/*
+     ██▓███   ▒█████    ██████     ██▓     ▒█████    ▄████   ▄████ ▓█████  ██▀███
+    ▓██░  ██▒▒██▒  ██▒▒██    ▒    ▓██▒    ▒██▒  ██▒ ██▒ ▀█▒ ██▒ ▀█▒▓█   ▀ ▓██ ▒ ██▒
+    ▓██░ ██▓▒▒██░  ██▒░ ▓██▄      ▒██░    ▒██░  ██▒▒██░▄▄▄░▒██░▄▄▄░▒███   ▓██ ░▄█ ▒
+    ▒██▄█▓▒ ▒▒██   ██░  ▒   ██▒   ▒██░    ▒██   ██░░▓█  ██▓░▓█  ██▓▒▓█  ▄ ▒██▀▀█▄
+    ▒██▒ ░  ░░ ████▓▒░▒██████▒▒   ░██████▒░ ████▓▒░░▒▓███▀▒░▒▓███▀▒░▒████▒░██▓ ▒██▒
+    ▒▓▒░ ░  ░░ ▒░▒░▒░ ▒ ▒▓▒ ▒ ░   ░ ▒░▓  ░░ ▒░▒░▒░  ░▒   ▒  ░▒   ▒ ░░ ▒░ ░░ ▒▓ ░▒▓░
+    ░▒ ░       ░ ▒ ▒░ ░ ░▒  ░ ░   ░ ░ ▒  ░  ░ ▒ ▒░   ░   ░   ░   ░  ░ ░  ░  ░▒ ░ ▒░
+    ░░       ░ ░ ░ ▒  ░  ░  ░       ░ ░   ░ ░ ░ ▒  ░ ░   ░ ░ ░   ░    ░     ░░   ░
+                 ░ ░        ░         ░  ░    ░ ░        ░       ░    ░  ░   ░
+ 
+                            Parker's OS Logger
+ */
 
 import Foundation
 import os.log
 
+/// POSLog Value
+///
+/// - Parameters:
+///   - values: Any non-optional type, variadic
+///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView)
+///   - type: OSLogType is set to default value, but also takes in info, debug, error, and fault
 public func posLog(values: Any..., category: String = "Logger", type: OSLogType = .default) {
     Logger(category: category).log(values: values, type: type)
 }
 
+/// POSLog Optional
+///
+/// - Parameters:
+///   - optionals: Any optional values, variadic
+///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView)
+///   - type: OSLogType is set to default value, but also takes in info, debug, error, and fault
 public func posLog(optionals: Any?..., category: String = "Logger", type: OSLogType = .default) {
     Logger(category: category).log(optionals: optionals, type: type)
 }
 
+/// POSLog Message
+///
+/// - Parameters:
+///   - message: Pass in a string to log a message
+///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView)
+///   - type: OSLogType is set to default value, but also takes in info, debug, error, and fault
 public func posLog(message: String, category: String = "Logger", type: OSLogType = .info) {
     Logger(category: category).log(message: message, type: type)
 }
 
+/// POSLog Error
+///
+/// - Parameters:
+///   - error: Log an error with identifying thread, path, function, line number and timestamp
+///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView)
 public func posLog(error: Error..., category: String = "Logger", path: String = #file, lineNumber: Int = #line, function: String = #function) {
     let logger = Logger(category: category)
     let thread = logger.identifyThread(thread: Thread.current)
@@ -31,6 +60,7 @@ public func posLog(error: Error..., category: String = "Logger", path: String = 
 // .default, .error, and .fault do
 // all report to debugger
 
+/// Private class that wraps OSLog for convience
 private class Logger {
     
     private let identifier: String
@@ -54,7 +84,7 @@ private class Logger {
         for (index, element) in array.enumerated() {
             let subjectType = Mirror(reflecting: element).subjectType
             let description = String(reflecting: element)
-            text += "████▓▒░ [\(type.description)] ░ #\(index): \(subjectType) ░ \(description) \n"
+            text += "█▓▒░ [\(type.description)] ░ #\(index): \(subjectType) ░ \(description) \n"
         }
         os_log("%@", log: log, type: type, text)
     }
@@ -63,21 +93,21 @@ private class Logger {
         var text = "\n"
         for (index, element) in optionals.enumerated() {
             let description = String(reflecting: element)
-            text += "████▓▒░ [\(type.description)] ░ #\(index): \(description) \n"
+            text += "█▓▒░ [\(type.description)] ░ #\(index): \(description) \n"
         }
         os_log("%@", log: log, type: type, text)
     }
     
     func log(message: String, type: OSLogType) {
-        let text = "████▓▒░ [\(type.description)] ░ \(message) \n"
+        let text = "█▓▒░ [\(type.description)] ░ \(message) \n"
         os_log("%@", log: log, type: type, text)
     }
     
     func log(error: [Error], thread: String, path: String, lineNumber: Int, function: String, type: OSLogType = .error) {
         let path = NSURL(fileURLWithPath: path).deletingPathExtension?.lastPathComponent ?? "Unknown"
-        var text = "\n████▓▒░ Thread: \(thread) ░ \(path) ░ \(function) >> \(lineNumber) \n"
+        var text = "\n█▓▒░ Thread: \(thread) ░ \(path) ░ \(function) >> \(lineNumber) \n"
         for (index, element) in error.enumerated() {
-            text += "████▓▒░ [\(type.description)] ░ #\(index): \(element) \n"
+            text += "█▓▒░ [\(type.description)] ░ #\(index): \(element) \n"
         }
         os_log("%@", log: log, type: type, text)
     }

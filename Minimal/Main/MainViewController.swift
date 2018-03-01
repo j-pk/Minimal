@@ -41,7 +41,7 @@ class MainViewController: UIViewController {
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: collectionView)
         } else {
-            print("3D Touch Not Available")
+            posLog(message: "3D Touch Not Available")
         }
         
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -79,7 +79,8 @@ class MainViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        print("Memory Warning")
+        posLog(message: "Memory Warning")
+
     }
     
     deinit {
@@ -93,7 +94,7 @@ class MainViewController: UIViewController {
         do {
             try listingResultsController.performFetch()
         } catch let error {
-            print("Error: \(error.localizedDescription)")
+            posLog(error: error)
         }
     }
     
@@ -115,7 +116,7 @@ class MainViewController: UIViewController {
                 }
                 try context.save()
             } catch let error {
-                print(error)
+                posLog(error: error)
             }
         }
         requestListings()
@@ -126,14 +127,14 @@ class MainViewController: UIViewController {
         database.purgeRecords(entity: Listing.typeName, completionHandler: { [weak self] (error) in
             guard let this = self, let database = this.database else { return }
             if let error = error {
-                print(error)
+                posLog(error: error)
             } else {
                 let request = ListingRequest(subreddit: user.lastViewedSubreddit,
                                              category: user.categoryString,
                                              timeFrame: user.timeFrameString)
                 ListingManager(request: request, database: database, completionHandler: { (error) in
                     if let error = error {
-                        print(error)
+                        posLog(error: error)
                     } else {
                         DispatchQueue.main.async {
                             let subreddit = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Home"
@@ -172,7 +173,7 @@ class MainViewController: UIViewController {
         } else if let imageWidth = listing.width as? CGFloat, let imageHeight = listing.height as? CGFloat {
             return CGSize(width: imageWidth, height: imageHeight)
         } else {
-            print("Default CGSize")
+            posLog(message: "Default CGSize")
             return CGSize(width: 320, height: 240)
         }
     }
@@ -347,7 +348,7 @@ extension MainViewController: UIScrollViewDelegate {
                 
                 ListingManager(request: request, database: database, completionHandler: { (error) in
                     if let error = error {
-                        print(error)
+                        posLog(error: error)
                     }
                 })
             }
@@ -375,7 +376,7 @@ extension MainViewController: NSFetchedResultsControllerDelegate {
         
         switch type {
         case .insert:
-            //print("Insert Object: \(String(describing: newIndexPath))")
+            //posLog(message: "Insert Object: \(String(describing: newIndexPath))")
             blockOperations.append(
                 BlockOperation(block: { [weak self] in
                     if let this = self, let newIndexPath = newIndexPath {
@@ -384,7 +385,7 @@ extension MainViewController: NSFetchedResultsControllerDelegate {
                 })
             )
         case .update:
-            //print("Update Object: \(String(describing: indexPath))")
+            //posLog(message: "Update Object: \(String(describing: indexPath))")
             blockOperations.append(
                 BlockOperation(block: { [weak self] in
                     if let this = self, let indexPath = indexPath {
@@ -393,7 +394,7 @@ extension MainViewController: NSFetchedResultsControllerDelegate {
                 })
             )
         case .move:
-            //print("Move Object: \(String(describing: indexPath))")
+            //posLog(message: "Move Object: \(String(describing: indexPath))")
             blockOperations.append(
                 BlockOperation(block: { [weak self] in
                     if let this = self, let indexPath = indexPath, let newIndexPath = newIndexPath {
@@ -404,7 +405,7 @@ extension MainViewController: NSFetchedResultsControllerDelegate {
                 })
             )
         case .delete:
-            //print("Delete Object: \(String(describing: indexPath))")
+            //posLog(message: "Delete Object: \(String(describing: indexPath))")
             blockOperations.append(
                 BlockOperation(block: { [weak self] in
                     if let this = self, let indexPath = indexPath {
