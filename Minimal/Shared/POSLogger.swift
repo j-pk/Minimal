@@ -9,7 +9,7 @@
     ░░       ░ ░ ░ ▒  ░  ░  ░       ░ ░   ░ ░ ░ ▒  ░ ░   ░ ░ ░   ░    ░     ░░   ░
                  ░ ░        ░         ░  ░    ░ ░        ░       ░    ░  ░   ░
  
-                            Parker's OS Logger
+                                   Parker's OS Logger
  */
 
 import Foundation
@@ -19,7 +19,7 @@ import os.log
 ///
 /// - Parameters:
 ///   - values: Any non-optional type, variadic
-///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView)
+///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView). Set to Logger by default.
 ///   - type: OSLogType is set to default value, but also takes in info, debug, error, and fault
 public func posLog(values: Any..., category: String = "Logger", type: OSLogType = .default) {
     Logger(category: category).log(values: values, type: type)
@@ -29,7 +29,7 @@ public func posLog(values: Any..., category: String = "Logger", type: OSLogType 
 ///
 /// - Parameters:
 ///   - optionals: Any optional values, variadic
-///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView)
+///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView). Set to Logger by default.
 ///   - type: OSLogType is set to default value, but also takes in info, debug, error, and fault
 public func posLog(optionals: Any?..., category: String = "Logger", type: OSLogType = .default) {
     Logger(category: category).log(optionals: optionals, type: type)
@@ -39,7 +39,7 @@ public func posLog(optionals: Any?..., category: String = "Logger", type: OSLogT
 ///
 /// - Parameters:
 ///   - message: Pass in a string to log a message
-///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView)
+///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView). Set to Logger by default.
 ///   - type: OSLogType is set to default value, but also takes in info, debug, error, and fault
 public func posLog(message: String, category: String = "Logger", type: OSLogType = .info) {
     Logger(category: category).log(message: message, type: type)
@@ -49,7 +49,7 @@ public func posLog(message: String, category: String = "Logger", type: OSLogType
 ///
 /// - Parameters:
 ///   - error: Log an error with identifying thread, path, function, line number and timestamp
-///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView)
+///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView). Set to Logger by default.
 public func posLog(error: Error..., category: String = "Logger", path: String = #file, lineNumber: Int = #line, function: String = #function) {
     let logger = Logger(category: category)
     let thread = logger.identifyThread(thread: Thread.current)
