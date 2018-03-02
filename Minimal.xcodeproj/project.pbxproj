@@ -339,17 +339,25 @@
 			path = "Data Contracts";
 			sourceTree = "<group>";
 		};
+		C0A823622048C71900847548 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */,
+				C04AED062040CDD400554C5E /* POSLogger.swift */,
+				C00B140A2029509B0064D1AF /* SegmentedController.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
 		C0DA84DA1FA01030006BE949 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				C08D623D1FD4DADC00794B2A /* Views */,
+				C0A823622048C71900847548 /* Custom */,
 				C097F1A81FBBF8F200706F89 /* Extensions */,
-				C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */,
+				C08D623D1FD4DADC00794B2A /* Views */,
 				C0DA84DB1FA01769006BE949 /* ListingEnums.swift */,
-				C04AED062040CDD400554C5E /* POSLogger.swift */,
 				C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */,
 				C0110E131FB4DF5700410478 /* TypeName.swift */,
-				C00B140A2029509B0064D1AF /* SegmentedController.swift */,
 				C09E91EC201D519200EFB3F5 /* UserDefaults.swift */,
 			);
 			path = Shared;

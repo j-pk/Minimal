@@ -41,7 +41,7 @@ class MainViewController: UIViewController {
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: collectionView)
         } else {
-            posLog(message: "3D Touch Not Available")
+            posLog(message: "3D Touch Not Available", category: MainViewController.typeName)
         }
         
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -79,7 +79,7 @@ class MainViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        posLog(message: "Memory Warning")
+        posLog(message: "Memory Warning", category: MainViewController.typeName)
 
     }
     
@@ -173,7 +173,7 @@ class MainViewController: UIViewController {
         } else if let imageWidth = listing.width as? CGFloat, let imageHeight = listing.height as? CGFloat {
             return CGSize(width: imageWidth, height: imageHeight)
         } else {
-            posLog(message: "Default CGSize")
+            posLog(message: "Default CGSize", category: MainViewController.typeName)
             return CGSize(width: 320, height: 240)
         }
     }

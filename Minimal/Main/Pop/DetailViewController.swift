@@ -28,28 +28,24 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(isPopped), name: Notification.Name.isPopped, object: nil)
         configureDetailViewControllerViews()
-        
-        subscriptLabelView.delegate = self
-        
-        self.view.backgroundColor = themeManager.theme.primaryColor
-        
+
         animator = UIDynamicAnimator(referenceView: presentationView)
-        
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPanPresentationView))
-        self.view.addGestureRecognizer(panGestureRecognizer)
+        view.addGestureRecognizer(panGestureRecognizer)
+        view.backgroundColor = themeManager.theme.primaryColor
     }
     
     @objc func isPopped() {
         downVoteWidthConstraint.priority = UILayoutPriority(rawValue: 999)
         upVoteWidthConstraint.priority = UILayoutPriority(rawValue: 999)
-        self.view.layoutIfNeeded()
+        view.layoutIfNeeded()
     }
     
     func configureDetailViewControllerViews() {
         guard let listing = listing else { return }
-        
-        presentationView.setView(forListing: listing)
+        subscriptLabelView.delegate = self
         subscriptLabelView.setLabels(forListing: listing)
+        presentationView.setView(forListing: listing)
     }
 
     override var previewActionItems: [UIPreviewActionItem] {
@@ -73,8 +69,7 @@ class DetailViewController: UIViewController {
         let velocity = sender.velocity(in: presentationView)
         let imagePushBehavior = UIPushBehavior(items: [presentationView], mode: UIPushBehaviorMode.instantaneous)
         imagePushBehavior.pushDirection = CGVector(dx: velocity.x * 0.5, dy: velocity.y * 0.5)
-        imagePushBehavior.magnitude = 35
-        imagePushBehavior.setTargetOffsetFromCenter(UIOffsetMake(-400, 400), for: presentationView)
+        imagePushBehavior.magnitude = sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y))
         
         let itemBehavior = UIDynamicItemBehavior(items: [presentationView])
         itemBehavior.friction = 0.2
@@ -85,7 +80,7 @@ class DetailViewController: UIViewController {
         
         UIView.animate(withDuration: 0.5, animations: {
             self.view.alpha = 0
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.dismiss(animated: false, completion: nil)
             }
         })

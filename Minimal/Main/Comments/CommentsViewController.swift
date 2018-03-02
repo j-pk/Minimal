@@ -15,7 +15,7 @@ class CommentsViewController: UIViewController {
     
     var listing: Listing?
     var database: Database?
-    var themeManager = ThemeManager ()
+    var themeManager = ThemeManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
