@@ -74,7 +74,7 @@ extension CommentsViewController: UITableViewDelegate {
 extension CommentsViewController: UIViewTappableDelegate {
     func didTapView(sender: UITapGestureRecognizer, data: [String:Any?]) {
         if let view = sender.view, view is UILabel {
-            print("\(view)")
+            posLog(values: view)
         } else if !data.filter({ $0.key == "image" }).isEmpty {
             performSegue(withIdentifier: "imageViewControllerSegue", sender: self)
         } else if let url = data["url"] as? URL {

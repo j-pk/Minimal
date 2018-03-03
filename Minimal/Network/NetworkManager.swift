@@ -51,8 +51,8 @@ class NetworkManager: NetworkEngine {
     func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping NetworkCompletionHandler<T>) where T: Decodable  {
         guard let request = route.urlRequest else { return }
         task = defaultSession.dataTask(with: request) { (data, urlResponse, error) in
-            print("▂▃▅▇█▓▒░ Network Request: \(request.description) ░▒▓█▇▅▃▂")
-
+            posLog(message: "Network Request: \(request.description)", category: String(describing: self))
+            
             if let error = error {
                 completionHandler(NetworkError.serverError(description: error.localizedDescription), nil)
             }
@@ -62,8 +62,8 @@ class NetworkManager: NetworkEngine {
                 return
             }
             
-            print("▂▃▅▇█▓▒░ Network Response: \(response.statusCode) ░▒▓█▇▅▃▂")
-            
+            posLog(message: "Network Request: \(response.statusCode)", category: String(describing: self))
+
             if response.mimeType == "application/json", let data = data {
                 let decoder = JSONDecoder()
                 
@@ -93,13 +93,13 @@ class NetworkManager: NetworkEngine {
     
     func authenticated(results: (url: URL?, error: Error?)) {
         if let error = results.error {
-            print(error)
+            posLog(error: error)
             return
         } else if let successURL = results.url {
             let queryItems = URLComponents(string: successURL.absoluteString)?.queryItems
             let authorizationKey = queryItems?.filter({ $0.name == "code" }).first
             UserDefaults.standard.setValue(authorizationKey?.value, forKey: UserSettingsDefaultKey.authorizationKey)
-            print(queryItems as Any)
+            posLog(optionals: queryItems)
         }
     }
 }

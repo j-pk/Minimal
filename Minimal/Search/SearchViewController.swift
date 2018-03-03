@@ -76,7 +76,7 @@ class SearchViewController: UIViewController {
         do {
             try searchResultsController.performFetch()
         } catch let error {
-            print("Error: \(error.localizedDescription)")
+            posLog(error: error, category: SearchViewController.typeName)
         }
     }
     

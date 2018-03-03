@@ -50,7 +50,7 @@ public func posLog(message: String, category: String = "Logger", type: OSLogType
 /// - Parameters:
 ///   - error: Log an error with identifying thread, path, function, line number and timestamp
 ///   - category: Pass in a string to quickly identify what you're logging (i.e. DataModel, UIView). Set to Logger by default.
-public func posLog(error: Error..., category: String = "Logger", path: String = #file, lineNumber: Int = #line, function: String = #function) {
+public func posLog(error: Error?..., category: String = "Logger", path: String = #file, lineNumber: Int = #line, function: String = #function) {
     let logger = Logger(category: category)
     let thread = logger.identifyThread(thread: Thread.current)
     logger.log(error: error, thread: thread, path: path, lineNumber: lineNumber, function: function)
@@ -97,14 +97,14 @@ private class Logger {
     }
     
     func log(message: String, type: OSLogType) {
-        let text = "█▓▒░ [\(type.description)] ░ \(message) \n"
+        let text = "\n█▓▒░ [\(type.description)] ░ \(message) \n"
         os_log("%@", log: log, type: type, text)
     }
     
-    func log(error: [Error], thread: String, path: String, lineNumber: Int, function: String, type: OSLogType = .error) {
+    func log(error: [Error?], thread: String, path: String, lineNumber: Int, function: String, type: OSLogType = .error) {
         let path = NSURL(fileURLWithPath: path).deletingPathExtension?.lastPathComponent ?? "Unknown"
         var text = "\n█▓▒░ Thread: \(thread) ░ \(path) ░ \(function) >> \(lineNumber) \n"
-        for (index, element) in error.enumerated() {
+        for (index, element) in error.flatMap({ $0 }).enumerated() {
             text += "█▓▒░ [\(type.description)] ░ #\(index): \(element) \n"
         }
         os_log("%@", log: log, type: type, text)

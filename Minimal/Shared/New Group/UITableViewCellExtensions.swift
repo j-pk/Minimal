@@ -15,12 +15,12 @@ enum InsetValue: CGFloat {
 
 extension UITableViewCell {
     func setSeparatorInset(forInsetValue value: InsetValue) {
-        self.layoutMargins = UIEdgeInsets.zero
-        self.preservesSuperviewLayoutMargins = false
+        layoutMargins = UIEdgeInsets.zero
+        preservesSuperviewLayoutMargins = false
         if value.rawValue == 0 {
-            self.separatorInset = UIEdgeInsets.zero
+            separatorInset = UIEdgeInsets.zero
         } else {
-            self.separatorInset = UIEdgeInsetsMake(0, value.rawValue, 0, 0)
+            separatorInset = UIEdgeInsetsMake(0, value.rawValue, 0, 0)
         }
     }
 }

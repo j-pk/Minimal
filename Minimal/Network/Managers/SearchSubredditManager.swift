@@ -22,25 +22,25 @@ class SearchSubredditManager {
         let defaultRequest = request ?? SubredditRequest(count: nil, after: nil)
         SubredditModel(request: defaultRequest) { (error, subredditStore) in
             if let error = error {
-                print(error)
+                posLog(error: error, category: String(describing: self))
             }
             if self.requestCount <= 75 {
                 if let store = subredditStore, let database = self.database {
                     do {
                         try Subreddit.populateObjects(fromJSON: store.subreddits, database: database, completionHandler: { (error) in
                             if let error = error {
-                                print(error)
+                                posLog(error: error, category: String(describing: self))
                             }
                         })
                     } catch let error {
-                        print(error)
+                        posLog(error: error, category: String(describing: self))
                     }
                     self.requestCount += store.subreddits.count
                     self.request = SubredditRequest(count: self.requestCount, after: store.after)
                     self.requestSubreddits()
                 }
             } else {
-                print("▂▃▅▇█▓▒░ Completed: \(self.requestCount) Subreddits Found ░▒▓█▇▅▃▂")
+                posLog(message: "Completed: \(self.requestCount) Subreddits Found", category: String(describing: self))
                 return
             }
         }

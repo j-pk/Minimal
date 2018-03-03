@@ -21,7 +21,7 @@ class SettingsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = "Settings"
+        navigationItem.title = "Settings"
     }
     
     //MARK: TableView Helper Methods
@@ -144,7 +144,7 @@ extension SettingsViewController: UITableViewDelegate {
                     networkManager.results = (url, error)
                     self?.tableView.reloadData()
                 })
-                print("Starting SFAuthenticationSession...")
+                posLog(message: "Starting SFAuthenticationSession")
                 authSession?.start()
             }
         case .theme?:

@@ -63,7 +63,7 @@ extension Subreddit: Manageable {
                 }
                 
             } catch let error {
-                print(error)
+                posLog(error: error)
             }
         }
     }

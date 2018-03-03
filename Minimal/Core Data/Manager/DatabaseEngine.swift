@@ -122,7 +122,7 @@ extension DatabaseEngine: Database {
             }
             
             DispatchQueue.main.async {
-                print("▂▃▅▇█▓▒░ Purged \(entity) ░▒▓█▇▅▃▂")
+                posLog(message: "Purged \(entity)", category: String(describing: self))
                 completionHandler(nil)
             }
         })

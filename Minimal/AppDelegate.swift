@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        print(urls[urls.count-1] as URL)
+        posLog(values: urls[urls.count-1] as URL)
         
         return true
     }
@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             try database.viewContext.save()
         } catch let error {
-            print(error)
+            posLog(error: error)
         }
     }
 }
@@ -105,7 +105,7 @@ private extension AppDelegate {
             guard let this = self else { return }
             if this.isFirstLaunch() {
                 User.create(context: context, completionHandler: { (error) in
-                    print(error as Any)
+                    posLog(error: error)
                 })
                 Subreddit.populateDefaultSubreddits(database: this.database)
                 SearchSubredditManager(database: this.database)
@@ -114,7 +114,7 @@ private extension AppDelegate {
                 do {
                     guard try User.fetchFirst(inContext: context) != nil else { return } //TODO: Hmm
                 } catch let error {
-                    print(error as Any)
+                    posLog(error: error)
                 }
             }
         })
@@ -124,12 +124,12 @@ private extension AppDelegate {
     func requestListings(database: Database) {
         database.purgeRecords(entity: Listing.typeName, completionHandler: { (error) in
             if let error = error {
-                print(error)
+                posLog(error: error)
             } else {
                 let request = ListingRequest(subreddit: "", category: nil)
                 ListingManager(request: request, database: database, completionHandler: { (error) in
                     if let error = error {
-                        print(error)
+                        posLog(error: error)
                     }
                 })
             }
