@@ -56,6 +56,7 @@ extension Subreddit: Manageable {
                     subreddit.allowVideoGifs = true
                     subreddit.over18 = defaultSubreddit != .all ? true : false
                     subreddit.publicDescription = defaultSubreddit.publicDescription
+                    subreddit.iconImage = defaultSubreddit.iconImage
                 })
                 
                 if context.hasChanges {
@@ -99,6 +100,15 @@ enum DefaultSubreddit: Int {
         case .popular: return "r/popular"
         case .all: return "r/all"
         case .random: return ""
+        }
+    }
+    
+    var iconImage: String {
+        switch self {
+        case .home: return "home"
+        case .popular: return "popular"
+        case .all: return "all"
+        case .random: return "random"
         }
     }
     

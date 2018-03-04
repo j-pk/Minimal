@@ -165,8 +165,10 @@ extension SearchViewController: UITableViewDataSource {
         } else {
             if tableView == self.subscribedTableView && indexPath.section == 0 {
                 let cell = self.subscribedTableView.dequeueReusableCell(withIdentifier: "SubscribedCell", for: indexPath) as! SubscribedCell
-                cell.titleLabel.text = DefaultSubreddit(rawValue: indexPath.row)?.displayName
-                cell.subtitleLabel.text = DefaultSubreddit(rawValue: indexPath.row)?.publicDescription
+                guard let defaultSubreddit = DefaultSubreddit(rawValue: indexPath.row) else { return cell }
+                cell.titleLabel.text = defaultSubreddit.displayName
+                cell.subtitleLabel.text = defaultSubreddit.publicDescription
+                cell.subredditImageView?.image = UIImage(named: defaultSubreddit.iconImage)
                 return cell
             } else {
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell

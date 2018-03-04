@@ -223,7 +223,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Up8-Rj-Y3M" customClass="HiddenNavBarNavigationController" customModule="Minimal" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <tabBarItem key="tabBarItem" title="" id="TxX-dV-Usm"/>
+                    <tabBarItem key="tabBarItem" title="" image="settings" id="TxX-dV-Usm"/>
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="a5K-Od-Inp">
@@ -241,6 +241,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="checkmark" width="200" height="200"/>
+        <image name="checkmark" width="40" height="40"/>
+        <image name="settings" width="25" height="25"/>
     </resources>
 </document>

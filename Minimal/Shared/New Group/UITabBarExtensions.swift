@@ -62,6 +62,11 @@ class TranslucentTabBar: UITabBar {
         adjustTabBarBlurEffect()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        removeTabBarItemText()
+    }
+    
     func adjustTabBarBlurEffect() {
         let themeManager = ThemeManager()
         
@@ -75,5 +80,12 @@ class TranslucentTabBar: UITabBar {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         backgroundImage = UIImage()
         addSubview(blurEffectView)
+    }
+    
+    func removeTabBarItemText() {
+        self.items?.forEach {
+            $0.title = ""
+            $0.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        }
     }
 }
