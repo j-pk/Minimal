@@ -92,25 +92,37 @@
                                         <blurEffect style="light"/>
                                     </visualEffectView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cuU-0f-Wlj">
-                                        <rect key="frame" x="8" y="32" width="398" height="32"/>
+                                        <rect key="frame" x="8" y="14" width="398" height="50"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="qLF-OB-1E1" customClass="HeaderImageView" customModule="Minimal" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVt-xO-KRp">
+                                                <rect key="frame" x="0.0" y="0.0" width="199" height="50"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="qLF-OB-1E1" customClass="HeaderImageView" customModule="Minimal" customModuleProvider="target">
+                                                        <rect key="frame" x="8" y="13" width="25" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="PId-m7-4i2"/>
+                                                            <constraint firstAttribute="width" constant="25" id="R7y-Jq-G1A"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHV-dd-qIH">
+                                                        <rect key="frame" x="41" y="10" width="150" height="30"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" title="Front Page"/>
+                                                        <connections>
+                                                            <action selector="didPressTitleButton:" destination="Q3z-Mk-ywe" eventType="touchUpInside" id="ccW-KG-l37"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="32" id="PId-m7-4i2"/>
-                                                    <constraint firstAttribute="width" constant="32" id="R7y-Jq-G1A"/>
+                                                    <constraint firstItem="qLF-OB-1E1" firstAttribute="centerY" secondItem="cVt-xO-KRp" secondAttribute="centerY" id="5eA-8B-1KX"/>
+                                                    <constraint firstItem="CHV-dd-qIH" firstAttribute="leading" secondItem="qLF-OB-1E1" secondAttribute="trailing" constant="8" id="QDu-wL-qmR"/>
+                                                    <constraint firstItem="qLF-OB-1E1" firstAttribute="leading" secondItem="cVt-xO-KRp" secondAttribute="leading" constant="8" id="agF-KT-LTa"/>
+                                                    <constraint firstItem="CHV-dd-qIH" firstAttribute="centerY" secondItem="qLF-OB-1E1" secondAttribute="centerY" id="f95-P6-cxU"/>
+                                                    <constraint firstAttribute="trailing" secondItem="CHV-dd-qIH" secondAttribute="trailing" priority="999" constant="8" id="yyT-ga-cno"/>
                                                 </constraints>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHV-dd-qIH">
-                                                <rect key="frame" x="162" y="1" width="75" height="30"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Front Page"/>
-                                                <connections>
-                                                    <action selector="didPressTitleButton:" destination="Q3z-Mk-ywe" eventType="touchUpInside" id="ccW-KG-l37"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVe-85-wUx">
-                                                <rect key="frame" x="368" y="1" width="30" height="30"/>
+                                                <rect key="frame" x="368" y="10" width="30" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="hot"/>
                                                 <connections>
@@ -573,7 +585,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ef8-dd-cxh">
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ef8-dd-cxh">
                                 <rect key="frame" x="12" y="665.66666666666663" width="0.0" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Ucv-XE-bol"/>
@@ -588,11 +600,11 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oXo-Lj-kgv" customClass="SubscriptLabelView" customModule="Minimal" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oXo-Lj-kgv" customClass="SubscriptLabelView" customModule="Minimal" customModuleProvider="target">
                                 <rect key="frame" x="24" y="648" width="366" height="76"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="two-f8-FJw">
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="two-f8-FJw">
                                 <rect key="frame" x="402" y="666.33333333333337" width="0.0" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="LZ3-zI-JOp" userLabel="height = 40"/>
@@ -607,7 +619,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3YO-K0-vmO" customClass="PresentationView" customModule="Minimal" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3YO-K0-vmO" customClass="PresentationView" customModule="Minimal" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="414" height="616"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
