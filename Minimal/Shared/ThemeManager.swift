@@ -60,7 +60,7 @@ struct ThemeManager {
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : theme.titleTextColor]
 
         UITabBar.appearance().barStyle = theme.barStyle
-        UITabBar.appearance().tintColor = theme.secondaryColor
+        UITabBar.appearance().tintColor = theme.tintColor
         UITabBar.appearance().barTintColor = theme.tintColor
         UIVisualEffectView.appearance().effect = UIBlurEffect(style: theme.blurEffect)
         
@@ -78,6 +78,8 @@ struct ThemeManager {
         HeaderLabel.appearance().textColor = redditOrange
         TitleLabel.appearance(whenContainedInInstancesOf: [SearchCell.self]).textColor = theme.titleTextColor
         SubtitleLabel.appearance(whenContainedInInstancesOf: [SearchCell.self]).textColor = theme.subtitleTextColor
+        UIImageView.appearance(whenContainedInInstancesOf: [SubscribedCell.self]).tintColor = theme.tintColor
+        HeaderImageView.appearance().tintColor = theme.titleTextColor
         
         UICollectionView.appearance().backgroundColor = theme.secondaryColor
         UITableViewCell.appearance().backgroundColor = theme.primaryColor

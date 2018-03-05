@@ -27,6 +27,7 @@
 		C03F92271FA11DE7009EEEF3 /* NSManagedObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */; };
 		C04AED072040CDD400554C5E /* POSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04AED062040CDD400554C5E /* POSLogger.swift */; };
 		C050C34C200173CB00863B52 /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C050C34B200173CB00863B52 /* UILabelExtensions.swift */; };
+		C055A0AE204CBAF700D09405 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C055A0AD204CBAF700D09405 /* UIImageViewExtensions.swift */; };
 		C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */; };
 		C06E18651FFD381800AB4F3A /* FontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18641FFD381800AB4F3A /* FontViewController.swift */; };
 		C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA31FAAC75900801E08 /* SearchViewController.swift */; };
@@ -94,6 +95,7 @@
 		C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectExtensions.swift; sourceTree = "<group>"; };
 		C04AED062040CDD400554C5E /* POSLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POSLogger.swift; sourceTree = "<group>"; };
 		C050C34B200173CB00863B52 /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
+		C055A0AD204CBAF700D09405 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
 		C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarExtensions.swift; sourceTree = "<group>"; };
 		C06E18641FFD381800AB4F3A /* FontViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontViewController.swift; sourceTree = "<group>"; };
 		C0897DA31FAAC75900801E08 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				C0110E151FB5671400410478 /* NotificationExtensions.swift */,
 				C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */,
 				C050C34B200173CB00863B52 /* UILabelExtensions.swift */,
+				C055A0AD204CBAF700D09405 /* UIImageViewExtensions.swift */,
 				C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */,
 				C08D62421FD617DD00794B2A /* UITableViewCellExtensions.swift */,
 				C0D584581FB75297002BCFA9 /* UIViewControllerExtensions.swift */,
@@ -571,6 +574,7 @@
 				C08D56F91FBAA10E0053FEA5 /* CategoryPopoverViewController.swift in Sources */,
 				C0DA84D81FA00D10006BE949 /* Listing+CoreDataClass.swift in Sources */,
 				C0A385A41F9F885E005064DF /* ListingContract.swift in Sources */,
+				C055A0AE204CBAF700D09405 /* UIImageViewExtensions.swift in Sources */,
 				C020F9882016E43000A3E43A /* SubredditRouter.swift in Sources */,
 				C02E49941FDA59C40030347D /* ListingManager.swift in Sources */,
 				C008B1C620156574005FC651 /* UISearchBarExtensions.swift in Sources */,
