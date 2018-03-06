@@ -20,7 +20,7 @@ class MainCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         animatedImageView.prepareForReuse()
-        removeIndicatorView()
+        removeAttachedView()
 
         imageView.image = nil
         playerView.player = nil
@@ -39,14 +39,22 @@ class MainCell: UICollectionViewCell {
         switch listing.type {
         case .image:
             imageView.isHidden = false
-            Manager.shared.loadImage(with: listing.url, into: imageView)
+            Manager.shared.loadImage(with: listing.url, into: imageView) { [weak self] response, _ in
+                guard let this = self else { return }
+                if let image = response.value {
+                    this.imageView?.image = image
+                } else {
+                    this.attachNoImageFound()
+                }
+            }
         case .animatedImage:
+            attachNoImageFound()
             guard let components = URLComponents(string: listing.url.absoluteString) else { return }
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
                 animatedImageView.isHidden = false
                 animatedImageView.imageView.contentMode = .scaleAspectFit
                 AnimatedImage.manager.loadImage(with: listing.url, into: animatedImageView)
-            } else {
+            } else { 
                 playerView.isHidden = false
                 playerView.player = AVPlayer(url: listing.url)
                 playerView.play()

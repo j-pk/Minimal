@@ -69,7 +69,7 @@ extension UIView {
         layer.shadowRadius = 2
     }
     
-    func attachActivityIndicator(title: String, blurEffect: UIBlurEffectStyle, indicatorStyle: UIActivityIndicatorViewStyle) {
+    func attachActivityIndicator(message: String, blurEffect: UIBlurEffectStyle, indicatorStyle: UIActivityIndicatorViewStyle) {
         let themeManager = ThemeManager()
         let overlayView = UIView()
         overlayView.backgroundColor = .black
@@ -98,7 +98,7 @@ extension UIView {
         effectView.contentView.addSubview(activityIndicator)
         
         let titleLabel = UILabel()
-        titleLabel.text = title
+        titleLabel.text = message
         titleLabel.font = themeManager.font(fontStyle: .primary)
         titleLabel.textColor = themeManager.theme.titleTextColor
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -129,7 +129,7 @@ extension UIView {
                                                                   views: ["overlayView":overlayView, "effectView":effectView]))
     }
     
-    func removeIndicatorView() {
+    func removeAttachedView() {
         for view in self.subviews {
             if view.tag == 1 {
                 view.removeFromSuperview()
@@ -144,16 +144,16 @@ extension UIView {
         containerView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.tag = 1
-        self.addSubview(containerView)
+        addSubview(containerView)
         
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[effectView]-0-|",
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[containerView]-0-|",
                                                            options: NSLayoutFormatOptions.alignAllCenterX,
                                                            metrics: nil,
-                                                           views: ["effectView":containerView]))
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[effectView]-0-|",
+                                                           views: ["containerView": containerView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[containerView]-0-|",
                                                            options: NSLayoutFormatOptions.alignAllCenterY,
                                                            metrics: nil,
-                                                           views: ["effectView":containerView]))
+                                                           views: ["containerView": containerView]))
         
         let imageView = UIImageView()
         imageView.image = image?.withRenderingMode(.alwaysTemplate)
@@ -164,10 +164,60 @@ extension UIView {
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[imageView(30)]-|",
                                                                   options: NSLayoutFormatOptions.alignAllCenterX,
                                                                   metrics: nil,
-                                                                  views: ["effectView":containerView, "imageView":imageView]))
+                                                                  views: ["effectView": containerView, "imageView": imageView]))
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[imageView(30)]",
                                                                   options: NSLayoutFormatOptions.alignAllCenterY,
                                                                   metrics: nil,
-                                                                  views: ["effectView":containerView, "imageView":imageView]))
+                                                                  views: ["effectView": containerView, "imageView": imageView]))
+    }
+    
+    func attachNoImageFound(message: String? = nil) {
+        let themeManager = ThemeManager()
+        let containerView = UIView()
+        containerView.layer.masksToBounds = true
+        containerView.layer.opacity = 0.9
+        containerView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.tag = 1
+        insertSubview(containerView, at: 0)
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[containerView]-0-|",
+                                                      options: NSLayoutFormatOptions.alignAllCenterX,
+                                                      metrics: nil,
+                                                      views: ["containerView": containerView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[containerView]-0-|",
+                                                      options: NSLayoutFormatOptions.alignAllCenterY,
+                                                      metrics: nil,
+                                                      views: ["containerView": containerView]))
+        
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "placeholder")
+        imageView.tintColor = themeManager.theme.tintColor
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(imageView)
+        
+        let label = UILabel()
+        label.text = message
+        label.textColor = themeManager.theme.tintColor
+        label.font = themeManager.font(fontStyle: .primaryBold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(label)
+        
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[containerView]-(<=1)-[imageView(40)]",
+                                                                    options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                    metrics: nil,
+                                                                    views: ["containerView": containerView, "imageView": imageView]))
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[containerView]-(<=1)-[imageView(40)]",
+                                                                    options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                    metrics: nil,
+                                                                    views: ["containerView": containerView, "imageView": imageView]))
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[imageView(40)]-[label]",
+                                                                    options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                    metrics: nil,
+                                                                    views: ["imageView": imageView, "label": label]))
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[label]",
+                                                                    options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                    metrics: nil,
+                                                                    views: ["label": label]))
     }
 }

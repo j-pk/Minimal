@@ -31,6 +31,8 @@ class PlayerView: UIView {
     @objc func playAndLoop() {
         player?.seek(to: kCMTimeZero)
         player?.play()
+        
+        posLog(values: playerLayer.videoRect)
     }
     
     //TODO: Handle stalls with Retry attempts
@@ -54,6 +56,10 @@ class PlayerView: UIView {
     
     var playerLayer: AVPlayerLayer {
         return layer as! AVPlayerLayer
+    }
+    
+    var isPlaying: Bool {
+        return player?.timeControlStatus == .playing && player?.error != nil && player?.rate != 0
     }
     
     // Override UIView property

@@ -26,7 +26,7 @@ class PresentationView: XibView {
         imageView.image = nil
         playerView.pause()
         playerView.player = nil
-        removeIndicatorView()
+        removeAttachedView()
         animatedImageView.prepareForReuse()
 
         imageView.isHidden = true
@@ -45,10 +45,18 @@ class PresentationView: XibView {
         addGestureRecognizer(tapGestureRecognizer)
         switch listing.type {
         case .image:
-            data = ["image":url]
+            data = ["image": url]
             imageView.isHidden = false
-            Manager.shared.loadImage(with: url, into: imageView)
+            Manager.shared.loadImage(with: url, into: imageView) { [weak self] response, _ in
+                guard let this = self else { return }
+                if let image = response.value {
+                    this.imageView?.image = image
+                } else {
+                    this.attachNoImageFound(message: "No Data")
+                }
+            }
         case .animatedImage:
+            attachNoImageFound(message: "No Data")
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
                 animatedImageView.isHidden = false
                 animatedImageView.imageView.contentMode = .scaleAspectFit
@@ -63,13 +71,13 @@ class PresentationView: XibView {
                 if let thumbnail = listing.thumbnailUrlString, let thumbnailUrl = URL(string: thumbnail) {
                     imageView.isHidden = false
                     Manager.shared.loadImage(with: url, into: imageView)
-                    data = ["url":thumbnailUrl]
+                    data = ["url": thumbnailUrl]
                     attachPlayIndicator()
                 }
             } else {
                 webView.isHidden = false
-                data = ["url":url]
-                attachActivityIndicator(title: "Loading", blurEffect: .light, indicatorStyle: .white)
+                data = ["url": url]
+                attachActivityIndicator(message: "Loading", blurEffect: .light, indicatorStyle: .white)
                 webView.load( URLRequest(url: url) )
             }
         default:
@@ -80,11 +88,11 @@ class PresentationView: XibView {
 
 extension PresentationView: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        removeIndicatorView()
+        removeAttachedView()
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        removeIndicatorView()
+        removeAttachedView()
     }
 }
 
