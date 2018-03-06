@@ -21,6 +21,7 @@ class SearchCell: UITableViewCell {
         selectionStyle = .none
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.clipsToBounds = true
+        iconImageView.tintColor = themeManager.theme.tintColor
     }
     
     func setView(forSubreddit subreddit: Subreddit) {
@@ -49,7 +50,7 @@ class SearchCell: UITableViewCell {
         if let urlString = subreddit.iconImage, let url = URL(string: urlString) {
             Manager.shared.loadImage(with: url, into: iconImageView)
         } else {
-            iconImageView.image = nil
+            iconImageView.image = #imageLiteral(resourceName: "placeholder")
         }
     }
 }

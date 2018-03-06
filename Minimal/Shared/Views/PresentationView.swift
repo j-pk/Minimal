@@ -19,7 +19,7 @@ class PresentationView: XibView {
     @IBOutlet weak var playerView: PlayerView!
     
     weak var delegate: UIViewTappableDelegate?
-    private var data: [String:Any?] = [:]
+    private var data: [String: Any?] = [:]
     fileprivate let themeManager = ThemeManager()
     
     func prepareForeReuse() {
