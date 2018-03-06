@@ -41,7 +41,8 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         definesPresentationContext = true
-
+        tabBarController?.delegate = self
+        
         searchResultsController.delegate = self
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -59,9 +60,10 @@ class SearchViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         configure(searchBar: searchController.searchBar)
     }
-    
+
     func performFetch(withPredicate predicate: NSPredicate, sortDescriptors descriptors: [NSSortDescriptor]? = nil) {
         // TODO: Determine user preference for over18
         let over18: Bool = false
@@ -101,7 +103,7 @@ class SearchViewController: UIViewController {
     func resetSearch() {
         searchController.isActive = false
         // Animates subscribe tableView and hides tableView
-        self.view.layoutIfNeeded()
+        view.layoutIfNeeded()
         UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseOut, animations: {
             self.tableView.isHidden = true
             self.subscribedTableView.isHidden = false
@@ -262,7 +264,7 @@ extension SearchViewController: Stackable {
 extension SearchViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         // Animates tableView to the foreground with a drop down spring
-        self.view.layoutIfNeeded()
+        view.layoutIfNeeded()
         UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseIn, animations: {
             self.tableView.isHidden = false
             self.subscribedTableView.isHidden = true
@@ -280,6 +282,14 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        resetSearch()
+    }
+}
+
+// MARK: UITabBarControllerDelegate
+// Purpose is to reset search and set searchController as inactive
+extension SearchViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         resetSearch()
     }
 }
