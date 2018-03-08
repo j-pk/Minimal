@@ -58,6 +58,8 @@ class SearchViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.keyboardDismissMode = .onDrag
         subscribedTableView.tableFooterView = UIView(frame: .zero)
+        
+        view.backgroundColor = themeManager.theme.primaryColor
     }
     
     override func viewWillAppear(_ animated: Bool) {

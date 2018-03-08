@@ -41,3 +41,12 @@ class HiddenNavBarNavigationController: UINavigationController {
         popRecognizer = InteractivePopRecognizer(controller: self)
     }
 }
+
+extension UINavigationBar {
+    
+    func setTransparent() {
+        self.setBackgroundImage(UIImage(), for: .default)
+        self.shadowImage = UIImage()
+        self.isTranslucent = true
+    }
+}
