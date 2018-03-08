@@ -12,6 +12,7 @@ import CoreData
 /// UISearchActionDelegate
 ///
 /// Action from a search result returns the selected subreddit
+
 protocol UISearchActionDelegate: class {
     func didSelect(subreddit: Subreddit)
     func didSelect(defaultSubreddit: DefaultSubreddit)

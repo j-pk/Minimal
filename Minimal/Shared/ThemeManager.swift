@@ -55,17 +55,14 @@ struct ThemeManager {
     
     func setGlobalTheme() {
         UINavigationBar.appearance().barStyle = theme.barStyle
-        UINavigationBar.appearance().tintColor = theme.primaryColor
         UINavigationBar.appearance().barTintColor = theme.primaryColor
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : theme.titleTextColor]
+        UINavigationBar.appearance().backgroundColor = theme.backgroundColor
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: theme.titleTextColor]
 
         UITabBar.appearance().barStyle = theme.barStyle
         UITabBar.appearance().tintColor = theme.tintColor
-        UITabBar.appearance().barTintColor = theme.tintColor
+        UITabBar.appearance().barTintColor = theme.primaryColor
         UIVisualEffectView.appearance().effect = UIBlurEffect(style: theme.blurEffect)
-        
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.titleTextColor], for:  .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: theme.subtitleTextColor], for:  .selected)
         
         UIButton.appearance().setTitleColor(theme.titleTextColor, for: .normal)
         UIButton.appearance().setTitleColor(theme.subtitleTextColor, for: .selected)
