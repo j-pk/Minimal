@@ -56,7 +56,6 @@ struct ThemeManager {
     func setGlobalTheme() {
         UINavigationBar.appearance().barStyle = theme.barStyle
         UINavigationBar.appearance().barTintColor = theme.primaryColor
-        UINavigationBar.appearance().backgroundColor = theme.backgroundColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: theme.titleTextColor]
 
         UITabBar.appearance().barStyle = theme.barStyle

@@ -287,12 +287,12 @@
 			isa = PBXGroup;
 			children = (
 				C0A385961F9E9130005064DF /* Settings.storyboard */,
-				C08D62401FD4E39200794B2A /* AuthenticateCell.swift */,
-				C008B1C1200F02A7005FC651 /* DisplayViewController.swift */,
-				C06E18641FFD381800AB4F3A /* FontViewController.swift */,
 				C0A385771F9E54B0005064DF /* SettingsViewController.swift */,
-				C0A41B161FE741B5005A3F58 /* ThemeCell.swift */,
 				C0A41B141FE6306F005A3F58 /* ThemeViewController.swift */,
+				C06E18641FFD381800AB4F3A /* FontViewController.swift */,
+				C008B1C1200F02A7005FC651 /* DisplayViewController.swift */,
+				C08D62401FD4E39200794B2A /* AuthenticateCell.swift */,
+				C0A41B161FE741B5005A3F58 /* ThemeCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";

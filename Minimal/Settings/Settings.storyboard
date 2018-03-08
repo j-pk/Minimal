@@ -15,11 +15,11 @@
             <objects>
                 <viewController id="5KQ-bK-qYU" customClass="SettingsViewController" customModule="Minimal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6dz-hR-7lu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Wcg-hL-eW5">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AuthenticateCell" id="XZD-wn-OrJ" customClass="AuthenticateCell" customModule="Minimal" customModuleProvider="target">
@@ -63,13 +63,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Wcg-hL-eW5" firstAttribute="leading" secondItem="Pba-9W-OJw" secondAttribute="leading" id="QID-9m-8Ie"/>
-                            <constraint firstItem="Wcg-hL-eW5" firstAttribute="top" secondItem="6dz-hR-7lu" secondAttribute="top" id="TqM-ha-yha"/>
+                            <constraint firstItem="Wcg-hL-eW5" firstAttribute="top" secondItem="Pba-9W-OJw" secondAttribute="top" id="TqM-ha-yha"/>
                             <constraint firstItem="Wcg-hL-eW5" firstAttribute="bottom" secondItem="Pba-9W-OJw" secondAttribute="bottom" id="YT4-eV-9Kt"/>
                             <constraint firstItem="Wcg-hL-eW5" firstAttribute="trailing" secondItem="Pba-9W-OJw" secondAttribute="trailing" id="chh-Wi-toX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Pba-9W-OJw"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Settings" id="kIu-99-IzR"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
