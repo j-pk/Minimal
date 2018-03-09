@@ -14,9 +14,11 @@ class ThemeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableFooterView = UIView(frame: .zero)
+
         navigationController?.navigationBar.topItem?.title = ""
         navigationItem.title = "Theme"
-        tableView.tableFooterView = UIView(frame: .zero)
+        view.backgroundColor = themeManager.theme.primaryColor
     }
     
     func configure(cell: ThemeCell, forRowAt indexPath: IndexPath) {

@@ -19,7 +19,6 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         tableView.tableFooterView = UIView(frame: .zero)
         
-        navigationController?.navigationBar.setTranslucent()
         view.backgroundColor = themeManager.theme.primaryColor
     }
     

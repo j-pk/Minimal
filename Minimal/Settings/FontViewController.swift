@@ -15,9 +15,11 @@ class FontViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.topItem?.title = ""
-        self.navigationItem.title = "Font"
         tableView.tableFooterView = UIView(frame: .zero)
+
+        navigationController?.navigationBar.topItem?.title = ""
+        navigationItem.title = "Font"
+        view.backgroundColor = themeManager.theme.primaryColor
     }
     
     func configure(cellForFont cell: LabelBaseCell, indexPath: IndexPath) {
