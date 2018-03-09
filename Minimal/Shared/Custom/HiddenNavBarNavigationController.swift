@@ -12,9 +12,9 @@ class InteractivePopRecognizer: NSObject {
     fileprivate weak var navigationController: UINavigationController?
     
     init(controller: UINavigationController) {
-        self.navigationController = controller
+        navigationController = controller
         super.init()
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 }
 
@@ -42,11 +42,3 @@ class HiddenNavBarNavigationController: UINavigationController {
     }
 }
 
-extension UINavigationBar {
-    
-    func setTransparent() {
-        self.setBackgroundImage(UIImage(), for: .default)
-        self.shadowImage = UIImage()
-        self.isTranslucent = true
-    }
-}

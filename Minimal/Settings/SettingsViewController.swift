@@ -10,6 +10,7 @@ import UIKit
 import SafariServices
 
 class SettingsViewController: UIViewController {
+    
     @IBOutlet weak var tableView: UITableView!
     var authSession: SFAuthenticationSession?
     var themeManager = ThemeManager()
@@ -18,7 +19,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         tableView.tableFooterView = UIView(frame: .zero)
         
-        navigationController?.navigationBar.setTransparent()
+        navigationController?.navigationBar.setTranslucent()
         view.backgroundColor = themeManager.theme.primaryColor
     }
     
