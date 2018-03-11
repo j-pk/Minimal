@@ -12,12 +12,15 @@ struct ThemeManager {
     
     var theme: Theme {
         set(newValue) {
-            UserDefaults.standard.setValue(newValue.rawValue, forKey: UserSettingsDefaultKey.theme)
-            setGlobalTheme()
+            if var defaults = Defaults.retrieve() {
+                defaults.theme = newValue.rawValue
+                defaults.store()
+                setGlobalTheme()
+            }
         }
         get {
-            if let themeRawValue = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.theme) as? String {
-                return Theme(rawValue: themeRawValue) ?? .minimalTheme
+            if let defaults = Defaults.retrieve() {
+                return Theme(rawValue: defaults.theme) ?? .minimalTheme
             }
             return .minimalTheme
         }
@@ -25,25 +28,31 @@ struct ThemeManager {
     
     var font: FontType {
         set(newValue) {
-            UserDefaults.standard.setValue(newValue.rawValue, forKey: UserSettingsDefaultKey.font)
-            setGlobalFont()
+            if var defaults = Defaults.retrieve() {
+                defaults.font = newValue.rawValue
+                defaults.store()
+                setGlobalFont()
+            }
         }
         get {
-            if let fontTypeRawValue = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.font) as? Int {
-                return FontType(rawValue: fontTypeRawValue) ?? .sanFrancisco
+            if let defaults = Defaults.retrieve() {
+                return FontType(rawValue: defaults.font) ?? .sanFrancisco
             }
-            return .helveticaNeue
+            return .sanFrancisco
         }
     }
     
     var fontSize: FontSize {
         set(newValue) {
-            UserDefaults.standard.setValue(newValue.rawValue, forKey: UserSettingsDefaultKey.fontSize)
-            setGlobalFont()
+            if var defaults = Defaults.retrieve() {
+                defaults.fontSize = newValue.rawValue
+                defaults.store()
+                setGlobalFont()
+            }
         }
         get {
-            if let fontSizeRawValue = UserDefaults.standard.value(forKey: UserSettingsDefaultKey.fontSize) as? CGFloat {
-                return FontSize(rawValue: fontSizeRawValue) ?? .normal
+            if let defaults = Defaults.retrieve() {
+                return FontSize(rawValue: defaults.fontSize) ?? .normal
             }
             return .normal
         }

@@ -40,9 +40,7 @@ extension User: Manageable {
             let user = try User.insertObject(inContext: context)
             
             user.labelNsfw = true
-            user.lastAuthenticated = nil
             user.categoryString = CategorySortType.hot.rawValue
-            user.timeFrameString = nil
             user.over18 = false
             user.searchIncludeOver18 = false
             

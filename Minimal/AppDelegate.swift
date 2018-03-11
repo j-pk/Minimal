@@ -95,6 +95,7 @@ private extension AppDelegate {
         let isFirstLaunch = !UserDefaults.standard.bool(forKey: UserSettingsDefaultKey.firstLaunch)
         if isFirstLaunch {
             UserDefaults.standard.set(true, forKey: UserSettingsDefaultKey.firstLaunch)
+            Defaults()
         }
         return isFirstLaunch
     }

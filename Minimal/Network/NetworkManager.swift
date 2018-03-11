@@ -42,12 +42,7 @@ protocol NetworkEngine {
 class NetworkManager: NetworkEngine {
     private let defaultSession = URLSession(configuration: .default)
     private var task: URLSessionDataTask?
-    var results: (url: URL?, error: Error?) {
-        didSet {
-            self.authenticated(results: results)
-        }
-    }
-    
+
     func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping NetworkCompletionHandler<T>) where T: Decodable  {
         guard let request = route.urlRequest else { return }
         task = defaultSession.dataTask(with: request) { (data, urlResponse, error) in
@@ -89,18 +84,6 @@ class NetworkManager: NetworkEngine {
         let authorizationUrl = URL(string: "https://www.reddit.com/api/v1/authorize.compact?client_id=t6Z4BZyV3a06eA&response_type=code&state=\(randomString)&redirect_uri=minimalApp://minimalApp.com&duration=permanent&scope=identity,vote,read,subscribe,mysubreddits")!
         authSession = SFAuthenticationSession(url: authorizationUrl, callbackURLScheme: callbackUrl, completionHandler: completionHandler)
         return authSession
-    }
-    
-    func authenticated(results: (url: URL?, error: Error?)) {
-        if let error = results.error {
-            posLog(error: error)
-            return
-        } else if let successURL = results.url {
-            let queryItems = URLComponents(string: successURL.absoluteString)?.queryItems
-            let authorizationKey = queryItems?.filter({ $0.name == "code" }).first
-            UserDefaults.standard.setValue(authorizationKey?.value, forKey: UserSettingsDefaultKey.authorizationKey)
-            posLog(optionals: queryItems)
-        }
     }
 }
 

@@ -14,7 +14,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var authSession: SFAuthenticationSession?
     var themeManager = ThemeManager()
-    
+    var database: Database?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView(frame: .zero)
@@ -138,14 +139,26 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch SettingsTableViewSections(indexPath: indexPath) {
         case .authenticate?:
-            if UserDefaults.standard.object(forKey: UserSettingsDefaultKey.authorizationKey) != nil {
-                UserDefaults.standard.setValue(nil, forKey: UserSettingsDefaultKey.authorizationKey)
+            if var defaults = Defaults.retrieve(), defaults.accessToken != nil {
+                defaults.accessToken = nil
+                defaults.store()
                 self.tableView.reloadData()
             } else {
                 let networkManager = NetworkManager()
                 authSession = networkManager.requestAuthentication(completionHandler: { [weak self] (url, error) in
-                    networkManager.results = (url, error)
-                    self?.tableView.reloadData()
+                    guard let this = self else { return }
+                    if let error = error {
+                        posLog(error: error)
+                    } else if let url = url, var defaults = Defaults.retrieve() {
+                        let queryItems = URLComponents(string: url.absoluteString)?.queryItems
+                        let id = queryItems?.filter({ $0.name == "state" }).first
+                        let accessToken = queryItems?.filter({ $0.name == "code" }).first
+                        defaults.accessToken = accessToken?.value
+                        defaults.id = id?.value
+                        defaults.lastAuthenticated = Date()
+                        defaults.store()
+                    }
+                    this.tableView.reloadData()
                 })
                 posLog(message: "Starting SFAuthenticationSession")
                 authSession?.start()
@@ -164,7 +177,12 @@ extension SettingsViewController: UITableViewDelegate {
         default:
             break
         }
-        
     }
 }
 
+// MARK: Stackable
+extension SettingsViewController: Stackable {
+    func set(database: DatabaseEngine) {
+        self.database = database
+    }
+}

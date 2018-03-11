@@ -30,6 +30,7 @@
 		C055A0AE204CBAF700D09405 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C055A0AD204CBAF700D09405 /* UIImageViewExtensions.swift */; };
 		C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */; };
 		C06E18651FFD381800AB4F3A /* FontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18641FFD381800AB4F3A /* FontViewController.swift */; };
+		C07FAE072054C6230049E9F0 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE062054C6230049E9F0 /* Defaults.swift */; };
 		C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA31FAAC75900801E08 /* SearchViewController.swift */; };
 		C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA51FAAC89700801E08 /* SearchCell.swift */; };
 		C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA71FABB4FB00801E08 /* PlayerView.swift */; };
@@ -38,7 +39,6 @@
 		C08D62411FD4E39200794B2A /* AuthenticateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D62401FD4E39200794B2A /* AuthenticateCell.swift */; };
 		C08D62431FD617DD00794B2A /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D62421FD617DD00794B2A /* UITableViewCellExtensions.swift */; };
 		C09E91EB201D515300EFB3F5 /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09E91EA201D515300EFB3F5 /* Routable.swift */; };
-		C09E91ED201D519200EFB3F5 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09E91EC201D519200EFB3F5 /* UserDefaults.swift */; };
 		C0A385761F9E54AF005064DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385751F9E54AF005064DF /* AppDelegate.swift */; };
 		C0A385781F9E54B0005064DF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385771F9E54B0005064DF /* SettingsViewController.swift */; };
 		C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0A3857C1F9E54B0005064DF /* Minimal.xcdatamodeld */; };
@@ -98,6 +98,7 @@
 		C055A0AD204CBAF700D09405 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
 		C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarExtensions.swift; sourceTree = "<group>"; };
 		C06E18641FFD381800AB4F3A /* FontViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontViewController.swift; sourceTree = "<group>"; };
+		C07FAE062054C6230049E9F0 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		C0897DA31FAAC75900801E08 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C0897DA51FAAC89700801E08 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		C0897DA71FABB4FB00801E08 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -106,7 +107,6 @@
 		C08D62401FD4E39200794B2A /* AuthenticateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateCell.swift; sourceTree = "<group>"; };
 		C08D62421FD617DD00794B2A /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
 		C09E91EA201D515300EFB3F5 /* Routable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
-		C09E91EC201D519200EFB3F5 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		C0A385721F9E54AF005064DF /* Minimal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minimal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A385751F9E54AF005064DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0A385771F9E54B0005064DF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -361,7 +361,7 @@
 				C0DA84DB1FA01769006BE949 /* ListingEnums.swift */,
 				C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */,
 				C0110E131FB4DF5700410478 /* TypeName.swift */,
-				C09E91EC201D519200EFB3F5 /* UserDefaults.swift */,
+				C07FAE062054C6230049E9F0 /* Defaults.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -537,7 +537,6 @@
 				C0C2AC46201842C000745869 /* Subreddit+CoreDataClass.swift in Sources */,
 				C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */,
 				C0110E141FB4DF5700410478 /* TypeName.swift in Sources */,
-				C09E91ED201D519200EFB3F5 /* UserDefaults.swift in Sources */,
 				C0ED1F9E1FB3F0DB00580C1E /* DateExtensions.swift in Sources */,
 				C0EC9BA31FC237BE0073FF7A /* PresentationView.swift in Sources */,
 				C0DA84DC1FA01769006BE949 /* ListingEnums.swift in Sources */,
@@ -580,6 +579,7 @@
 				C008B1C620156574005FC651 /* UISearchBarExtensions.swift in Sources */,
 				C04AED072040CDD400554C5E /* POSLogger.swift in Sources */,
 				C0D584591FB75297002BCFA9 /* UIViewControllerExtensions.swift in Sources */,
+				C07FAE072054C6230049E9F0 /* Defaults.swift in Sources */,
 				C0A41B151FE6306F005A3F58 /* ThemeViewController.swift in Sources */,
 				C0EC9BA51FC25A760073FF7A /* UIViewExtension.swift in Sources */,
 				C0EC9B951FBFE3980073FF7A /* CommentsViewController.swift in Sources */,

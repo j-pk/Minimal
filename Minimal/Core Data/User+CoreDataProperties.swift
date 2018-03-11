@@ -19,7 +19,6 @@ extension User {
 
     @NSManaged public var categoryString: String
     @NSManaged public var labelNsfw: Bool
-    @NSManaged public var lastAuthenticated: Date?
     @NSManaged public var over18: Bool
     @NSManaged public var searchIncludeOver18: Bool
     @NSManaged public var timeFrameString: String?
