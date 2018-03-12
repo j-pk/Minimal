@@ -15,7 +15,8 @@ struct UserSettingsDefaultKey {
 /// Storable
 ///
 /// Convenience protocol that wraps UserDefaults down to two methods: store, and retrieve.
-/// Save settings with store. Retrieve userDefaults, modify and save the changes by calling store.
+/// Struct or Class will need to conform to Codable to leverage Storable
+/// Save attributes with store. Retrieve attributes and modify values; call store to save changes.
 public protocol Storable { }
 
 extension Storable where Self: Codable {
