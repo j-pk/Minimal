@@ -31,6 +31,7 @@
 		C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */; };
 		C06E18651FFD381800AB4F3A /* FontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18641FFD381800AB4F3A /* FontViewController.swift */; };
 		C07FAE072054C6230049E9F0 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE062054C6230049E9F0 /* Defaults.swift */; };
+		C07FAE092058B0C30049E9F0 /* SubscribedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */; };
 		C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA31FAAC75900801E08 /* SearchViewController.swift */; };
 		C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA51FAAC89700801E08 /* SearchCell.swift */; };
 		C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA71FABB4FB00801E08 /* PlayerView.swift */; };
@@ -99,6 +100,7 @@
 		C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarExtensions.swift; sourceTree = "<group>"; };
 		C06E18641FFD381800AB4F3A /* FontViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontViewController.swift; sourceTree = "<group>"; };
 		C07FAE062054C6230049E9F0 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribedManager.swift; sourceTree = "<group>"; };
 		C0897DA31FAAC75900801E08 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C0897DA51FAAC89700801E08 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		C0897DA71FABB4FB00801E08 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			children = (
 				C02E49931FDA59C40030347D /* ListingManager.swift */,
 				C020F9852016E0DD00A3E43A /* SearchSubredditManager.swift */,
+				C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				C020F9862016E0DD00A3E43A /* SearchSubredditManager.swift in Sources */,
 				C0EC9B9D1FC112B90073FF7A /* HeaderCell.swift in Sources */,
 				C0A3859E1F9E98AC005064DF /* MainCell.swift in Sources */,
+				C07FAE092058B0C30049E9F0 /* SubscribedManager.swift in Sources */,
 				C0EC9B9B1FC0ED9A0073FF7A /* SubscriptLabelView.swift in Sources */,
 				C0EDC88F1FD78219009C0D39 /* User+CoreDataProperties.swift in Sources */,
 				C03EC9EC1FC8CCEC00ACA0F5 /* ThemeManager.swift in Sources */,

@@ -42,4 +42,23 @@ extension Routable {
         urlRequest.httpMethod = method.rawValue
         return urlRequest as URLRequest
     }
+    
+    func generateOAuthURL(forPath path: String, queryItems: [URLQueryItem], method: HTTPMethod) throws -> URLRequest {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "oauth.reddit.com"
+        components.path = path
+        components.queryItems = queryItems.count > 0 ? queryItems : nil
+        
+        if let defaults = Defaults.retrieve(), let accessToken = defaults.accessToken, let url = components.url {
+            let urlRequest = NSMutableURLRequest(url: url)
+            urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            urlRequest.setValue("bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+            urlRequest.httpMethod = method.rawValue
+            return urlRequest as URLRequest
+        } else {
+            throw NetworkError.generatedURLRequestFailed
+        }
+
+    }
 }

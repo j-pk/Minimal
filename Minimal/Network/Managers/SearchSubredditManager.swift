@@ -20,7 +20,7 @@ class SearchSubredditManager {
     
     private func requestSubreddits() {
         let defaultRequest = request ?? SubredditRequest(count: nil, after: nil)
-        SubredditModel(request: defaultRequest) { (error, subredditStore) in
+        SubredditNetwork(request: defaultRequest) { (error, subredditStore) in
             if let error = error {
                 posLog(error: error, category: String(describing: self))
             }
@@ -47,7 +47,7 @@ class SearchSubredditManager {
     }
 }
 
-struct SubredditModel: Modelable {
+struct SubredditNetwork: Networkable {
     var networkEngine: NetworkEngine = NetworkManager()
     
     @discardableResult init(request: Requestable, completionHandler: @escaping (NetworkError?, SubredditStore?) -> Void) {

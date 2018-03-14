@@ -9,9 +9,9 @@
 import Foundation
 
 struct ListingManager {
-    private let listingModel: ListingModel
+    private let listingNetwork: ListingNetwork
     @discardableResult init(request: Requestable, database: Database, completionHandler: @escaping OptionalErrorHandler) {
-        listingModel = ListingModel(request: request) { (error, listingObjects) in
+        listingNetwork = ListingNetwork(request: request) { (error, listingObjects) in
             if let error = error {
                 completionHandler(error)
             }
@@ -34,7 +34,7 @@ struct ListingManager {
     }
 }
 
-struct ListingModel: Modelable {
+struct ListingNetwork: Networkable {
     var networkEngine: NetworkEngine = NetworkManager()
     
     init(request: Requestable, completionHandler: @escaping DecodableCompletionHandler) {

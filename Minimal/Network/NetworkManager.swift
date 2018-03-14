@@ -29,9 +29,10 @@ public enum NetworkError: Error {
     case failedToParse(Error)
     case responseError(response: URLResponse?)
     case serverError(description: String)
+    case generatedURLRequestFailed
 }
 
-protocol Modelable {
+protocol Networkable {
     var networkEngine: NetworkEngine { get }
 }
 
