@@ -60,4 +60,24 @@ extension Routable {
         }
         return urlRequest as URLRequest
     }
+    
+    func generateAuthorizationURL(forPath path: String, queryItems: [URLQueryItem], method: HTTPMethod) -> URLRequest? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "ssl.reddit.com"
+        components.path = path
+        components.queryItems = queryItems.count > 0 ? queryItems : nil
+        
+        guard let encodedParameters = components.string?.dropFirst().data(using: .utf8, allowLossyConversion: false) else { return nil }
+        guard let data = String(format: "%@:%@", "mtOhKTWpoebjUg", "").data(using: .utf8) else { return nil }
+        let credentials = data.base64EncodedString(options: [])
+        
+        let urlRequest = NSMutableURLRequest(url: components.url!)
+        urlRequest.httpMethod = HTTPMethod.post.rawValue
+        urlRequest.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        urlRequest.addValue("Basic \(credentials)", forHTTPHeaderField: "Authorization")
+        urlRequest.httpBody = encodedParameters
+
+        return urlRequest as URLRequest
+    }
 }

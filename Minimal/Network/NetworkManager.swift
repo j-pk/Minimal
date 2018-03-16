@@ -116,7 +116,7 @@ class NetworkManager: NetworkEngine {
             "redirect_uri": "minimalApp://minimalApp.com"
         ]
         var components = URLComponents()
-        components.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
+        components.queryItems = parameters.map{ URLQueryItem(name: $0, value: $1) }
         guard let encodedParameters = components.string?.dropFirst().data(using: .utf8, allowLossyConversion: false) else { return }
         
         let request = NSMutableURLRequest(url: url)
@@ -124,6 +124,8 @@ class NetworkManager: NetworkEngine {
         request.addValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.addValue("Basic \(credentials)", forHTTPHeaderField: "Authorization")
         request.httpBody = encodedParameters
+        
+        
         
         task = defaultSession.dataTask(with: request as URLRequest) { (data, urlResponse, error) in
             posLog(message: "Network Request: \(request.description)", category: String(describing: self))
