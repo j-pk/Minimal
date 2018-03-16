@@ -9,28 +9,44 @@
 import Foundation
 
 struct SubredditRequest: Requestable {
-    let after: String?
-    let count: Int?
+    enum RequestType {
+        case paginate
+        case getSubscribed
+    }
     
-    init(count: Int?, after: String?) {
+    let count: Int?
+    let after: String?
+    let requestType: RequestType
+    
+    init(count: Int? = nil, after: String? = nil, requestType: RequestType = .paginate) {
         self.count = count
         self.after = after
+        self.requestType = requestType
     }
     
     var router: Routable {
-        get {
+        switch requestType {
+        case .paginate:
             return SubredditRouter.paginate(count: count, after: after)
+        case .getSubscribed:
+            return SubredditRouter.getSubscribed()
         }
     }
 }
 
 enum SubredditRouter: Routable {
     case paginate(count: Int?, after: String?)
+    case getSubscribed()
     
     var path: String {
+        var buildPath = ""
         switch self {
         case .paginate(_, _):
-            var buildPath = "reddits.json"
+            buildPath += "reddits.json"
+            buildPath.insert("/", at: buildPath.startIndex)
+            return buildPath
+        case .getSubscribed:
+            buildPath +=  "subreddits/mine/subscriber"
             buildPath.insert("/", at: buildPath.startIndex)
             return buildPath
         }
@@ -47,23 +63,24 @@ enum SubredditRouter: Routable {
                 paginateQuery.append(URLQueryItem(name: "after", value: after))
             }
             return paginateQuery
+        case .getSubscribed:
+            return []
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .paginate:
+        case .paginate, .getSubscribed:
             return .get
         }
     }
     
     func setURLRequest() throws -> URLRequest {
-        let baseRequest = generateBaseURL(forPath: path, queryItems: queryItems, method: method)
-        
         switch self {
         case .paginate:
-            //urlRequest.setValue(token, forHTTPHeaderField: "Access-Token")
-            return baseRequest
+            return generateBaseURL(forPath: path, queryItems: queryItems, method: method)
+        case .getSubscribed:
+            return generateOAuthURL(forPath: path, queryItems: queryItems, method: method)
         }
     }
 }

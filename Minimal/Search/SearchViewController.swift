@@ -65,6 +65,16 @@ class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configure(searchBar: searchController.searchBar)
+        if let defaults = Defaults.retrieve(), defaults.accessToken != nil, let database = database {
+            let request = SubredditRequest(requestType: .getSubscribed)
+            SubscribedManager(request: request, database: database, completionHandler: { (error) in
+                if let error = error {
+                    posLog(error: error)
+                } else {
+                    posLog(message: "Sucessfully Got Subscribed")
+                }
+            })
+        }
     }
 
     func performFetch(withPredicate predicate: NSPredicate, sortDescriptors descriptors: [NSSortDescriptor]? = nil) {

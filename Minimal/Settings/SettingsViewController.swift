@@ -59,7 +59,7 @@ class SettingsViewController: UIViewController {
     
     func configure(cell: AuthenticateCell, forRowAt indexPath: IndexPath) {
         cell.setSeparatorInset(forInsetValue: .none)
-        if UserDefaults.standard.object(forKey: "AuthorizationKey") != nil {
+        if let defaults = Defaults.retrieve(), defaults.accessToken != nil {
             cell.authenticateLabel.text = "Disconnect from Reddit"
         } else {
             cell.authenticateLabel.text = "Connect to Reddit"
@@ -146,19 +146,8 @@ extension SettingsViewController: UITableViewDelegate {
             } else {
                 let networkManager = NetworkManager()
                 authSession = networkManager.requestAuthentication(completionHandler: { [weak self] (url, error) in
-                    guard let this = self else { return }
-                    if let error = error {
-                        posLog(error: error)
-                    } else if let url = url, var defaults = Defaults.retrieve() {
-                        let queryItems = URLComponents(string: url.absoluteString)?.queryItems
-                        let id = queryItems?.filter({ $0.name == "state" }).first
-                        let accessToken = queryItems?.filter({ $0.name == "code" }).first
-                        defaults.accessToken = accessToken?.value
-                        defaults.id = id?.value
-                        defaults.lastAuthenticated = Date()
-                        defaults.store()
-                    }
-                    this.tableView.reloadData()
+                    networkManager.results = (url: url, error: error)
+                    self?.tableView.reloadData()
                 })
                 posLog(message: "Starting SFAuthenticationSession")
                 authSession?.start()

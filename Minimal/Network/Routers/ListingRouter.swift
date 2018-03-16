@@ -106,7 +106,6 @@ enum ListingRouter: Routable {
         
         switch self {
         case .subreddit, .paginate:
-            //urlRequest.setValue(token, forHTTPHeaderField: "Access-Token")
             return baseRequest
         }
     }

@@ -18,6 +18,28 @@
 import Foundation
 
 class SubscribedManager {
-    
-}
+    private let listingNetwork: ListingNetwork
+    @discardableResult init(request: Requestable, database: Database, completionHandler: @escaping OptionalErrorHandler) {
+        listingNetwork = ListingNetwork(request: request) { (error, listingObjects) in
+            if let error = error {
+                completionHandler(error)
+            }
+            if let objects = listingObjects {
+                posLog(values: objects)
+//                do {
+//                    try Listing.populateObjects(fromJSON: objects, database: database, completionHandler: { (error) in
+//                        if error != nil {
+//                            completionHandler(error)
+//                        } else {
+//                            completionHandler(nil)
+//                        }
+//                    })
+//                } catch let error {
+//                    completionHandler(error)
+//                }
+            } else {
+                completionHandler(error)
+            }
+        }
+    }}
 
