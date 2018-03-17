@@ -34,6 +34,7 @@
 		C07FAE092058B0C30049E9F0 /* SubscribedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */; };
 		C07FAE0D205C7E690049E9F0 /* AuthorizationContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE0C205C7E690049E9F0 /* AuthorizationContract.swift */; };
 		C07FAE0F205C820D0049E9F0 /* AuthorizationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE0E205C820D0049E9F0 /* AuthorizationRouter.swift */; };
+		C07FAE11205C96C40049E9F0 /* RequestAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE10205C96C40049E9F0 /* RequestAuthorizer.swift */; };
 		C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA31FAAC75900801E08 /* SearchViewController.swift */; };
 		C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA51FAAC89700801E08 /* SearchCell.swift */; };
 		C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA71FABB4FB00801E08 /* PlayerView.swift */; };
@@ -105,6 +106,7 @@
 		C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribedManager.swift; sourceTree = "<group>"; };
 		C07FAE0C205C7E690049E9F0 /* AuthorizationContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationContract.swift; sourceTree = "<group>"; };
 		C07FAE0E205C820D0049E9F0 /* AuthorizationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouter.swift; sourceTree = "<group>"; };
+		C07FAE10205C96C40049E9F0 /* RequestAuthorizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAuthorizer.swift; sourceTree = "<group>"; };
 		C0897DA31FAAC75900801E08 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C0897DA51FAAC89700801E08 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		C0897DA71FABB4FB00801E08 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				C02E49931FDA59C40030347D /* ListingManager.swift */,
 				C020F9852016E0DD00A3E43A /* SearchSubredditManager.swift */,
 				C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */,
+				C07FAE10205C96C40049E9F0 /* RequestAuthorizer.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				C08D62411FD4E39200794B2A /* AuthenticateCell.swift in Sources */,
 				C0EC9B971FC0A1750073FF7A /* HiddenNavBarNavigationController.swift in Sources */,
 				C0C2AC47201842C000745869 /* Subreddit+CoreDataProperties.swift in Sources */,
+				C07FAE11205C96C40049E9F0 /* RequestAuthorizer.swift in Sources */,
 				C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */,
 				C020F9842016DA3700A3E43A /* SubredditContract.swift in Sources */,
 				C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */,

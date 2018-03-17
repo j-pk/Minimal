@@ -16,7 +16,7 @@ protocol Routable {
     var path: String { get }
     var queryItems: [URLQueryItem] { get }
     var method: HTTPMethod { get }
-    func setURLRequest() throws -> URLRequest
+    func setURLRequest() throws -> URLRequest?
 }
 
 /// Requestable
@@ -28,8 +28,18 @@ protocol Requestable {
 }
 
 extension Routable {
-    public var urlRequest: URLRequest? { return try? setURLRequest() }
+    public var urlRequest: URLRequest? {
+        guard let request = try? setURLRequest() else { return nil }
+        return request
+    }
     
+    /// Generate Base URL
+    ///
+    /// - Parameters:
+    ///   - path: API endpoint path
+    ///   - queryItems: url query items to append to url
+    ///   - method: HTTP method
+    /// - Returns: URLRequest
     func generateBaseURL(forPath path: String, queryItems: [URLQueryItem], method: HTTPMethod) -> URLRequest {
         var components = URLComponents()
         components.scheme = "https"
@@ -43,6 +53,14 @@ extension Routable {
         return urlRequest as URLRequest
     }
     
+    /// Generate OAuth URL
+    /// Leverages access token report app usage to Reddit
+    ///
+    /// - Parameters:
+    ///   - path: API endpoint path
+    ///   - queryItems: url query items to append to url
+    ///   - method: HTTP method
+    /// - Returns: URLRequest
     func generateOAuthURL(forPath path: String, queryItems: [URLQueryItem], method: HTTPMethod) -> URLRequest {
         var components = URLComponents()
         components.scheme = "https"
@@ -61,6 +79,14 @@ extension Routable {
         return urlRequest as URLRequest
     }
     
+    /// Generate Authorization URL
+    /// Last part of the approval process to connect user's Reddit account with Minimal
+    ///
+    /// - Parameters:
+    ///   - path: API endpoint path
+    ///   - queryItems: url query items to append to url
+    ///   - method: HTTP method
+    /// - Returns: Optional URLRequest
     func generateAuthorizationURL(forPath path: String, queryItems: [URLQueryItem], method: HTTPMethod) -> URLRequest? {
         var components = URLComponents()
         components.scheme = "https"

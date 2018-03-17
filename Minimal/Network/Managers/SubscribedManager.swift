@@ -41,5 +41,6 @@ class SubscribedManager {
                 completionHandler(error)
             }
         }
-    }}
+    }
+}
 

@@ -101,7 +101,7 @@ enum ListingRouter: Routable {
         }
     }
     
-    func setURLRequest() throws -> URLRequest {
+    func setURLRequest() throws -> URLRequest? {
         let baseRequest = generateBaseURL(forPath: path, queryItems: queryItems, method: method)
         
         switch self {

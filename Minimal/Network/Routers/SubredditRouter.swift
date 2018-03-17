@@ -75,7 +75,7 @@ enum SubredditRouter: Routable {
         }
     }
     
-    func setURLRequest() throws -> URLRequest {
+    func setURLRequest() throws -> URLRequest? {
         switch self {
         case .paginate:
             return generateBaseURL(forPath: path, queryItems: queryItems, method: method)

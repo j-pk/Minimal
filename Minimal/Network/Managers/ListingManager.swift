@@ -38,7 +38,7 @@ struct ListingNetwork: Networkable {
     var networkEngine: NetworkEngine = NetworkManager()
     
     init(request: Requestable, completionHandler: @escaping DecodableCompletionHandler) {
-        self.networkEngine.session(forRoute: request.router, withDecodable: ListingStore.self) { (error, decoded) in
+        networkEngine.session(forRoute: request.router, withDecodable: ListingStore.self) { (error, decoded) in
             if let error = error {
                 completionHandler(error, nil)
             } else {

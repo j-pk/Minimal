@@ -49,7 +49,7 @@ enum AuthorizationRouter: Routable {
         }
     }
     
-    func setURLRequest() throws -> URLRequest {
+    func setURLRequest() throws -> URLRequest? {
         return generateAuthorizationURL(forPath: path, queryItems: queryItems, method: method)
     }
 }
