@@ -39,16 +39,20 @@ extension Storable where Self: Codable {
 
 struct Defaults: Codable, Storable {
     var accessToken: String?
+    var refreshToken: String?
     var id: String?
     var lastAuthenticated: Date?
+    var expiry: Date?
     var theme: String
     var font: Int
     var fontSize: CGFloat
     
-    @discardableResult init(accessToken: String? = nil, id: String? = nil, lastAuthenticated: Date? = nil, theme: String = Theme.minimalTheme.rawValue, font: Int = FontType.sanFrancisco.rawValue, fontSize: CGFloat = FontSize.normal.rawValue) {
+    @discardableResult init(accessToken: String? = nil, refreshToken: String? = nil, id: String? = nil, lastAuthenticated: Date? = nil, expiry: Date? = nil, theme: String = Theme.minimalTheme.rawValue, font: Int = FontType.sanFrancisco.rawValue, fontSize: CGFloat = FontSize.normal.rawValue) {
         self.accessToken = accessToken
+        self.refreshToken = refreshToken
         self.id = id
         self.lastAuthenticated = lastAuthenticated
+        self.expiry = expiry
         self.theme = theme
         self.font = font
         self.fontSize = fontSize

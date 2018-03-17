@@ -21,7 +21,7 @@ import Foundation
 struct AuthorizationObject: Decodable {
     let accessToken: String
     let expiresIn: Int
-    let refreshToken: String
+    let refreshToken: String?
     let scope: String
     let tokenType: String
     
@@ -37,7 +37,7 @@ struct AuthorizationObject: Decodable {
         let root = try decoder.container(keyedBy: CodingKeys.self)
         accessToken = try root.decode(String.self, forKey: .accessToken)
         expiresIn = try root.decode(Int.self, forKey: .expiresIn)
-        refreshToken = try root.decode(String.self, forKey: .refreshToken)
+        refreshToken = try root.decodeIfPresent(String.self, forKey: .refreshToken)
         scope = try root.decode(String.self, forKey: .scope)
         tokenType = try root.decode(String.self, forKey: .tokenType)
     }

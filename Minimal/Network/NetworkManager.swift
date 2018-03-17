@@ -79,7 +79,14 @@ class NetworkManager: NetworkEngine {
         task?.resume()
     }
     
-    /// OAuth with Reddit using SFAuthenticationSession
+    func refreshToken() {
+        let request = URLRequest(url: URL(string: "")!)
+        task = defaultSession.dataTask(with: request) { (data, urlResponse, error) in
+        }
+    }
+    
+    /// OAuth Phase 1 with Reddit using SFAuthenticationSession
+    /// Connects Minimal with user's Reddit account
     ///
     /// - Parameter completionHandler: CompletionHandler to process authentication results
     /// - Returns: SFAuthentication is configured in Network Manager but needs to launch `start()` from SettingsViewController
@@ -92,6 +99,8 @@ class NetworkManager: NetworkEngine {
         return authSession
     }
     
+    /// OAuth Phase 2 with Reddit using RequestAuthorization
+    /// Acquires tokens
     func authenticated(results: (url: URL?, error: Error?)) {
         if let error = results.error {
             posLog(error: error)
@@ -100,9 +109,7 @@ class NetworkManager: NetworkEngine {
             let queryItems = URLComponents(string: successURL.absoluteString)?.queryItems
             let state = queryItems?.filter({ $0.name == "state" }).first
             let code = queryItems?.filter({ $0.name == "code" }).first
-            RequestAuthorizer(withCode: code?.value, state: state?.value, completionHandler: { (error) in
-                posLog(error: error)
-            })
+            RequestAuthorization(withCode: code?.value, state: state?.value)
             posLog(optionals: queryItems)
         }
     }

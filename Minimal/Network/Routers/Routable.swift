@@ -79,7 +79,7 @@ extension Routable {
         return urlRequest as URLRequest
     }
     
-    /// Generate Authorization URL
+    /// Generate Basic Authorization URL
     /// Last part of the approval process to connect user's Reddit account with Minimal
     ///
     /// - Parameters:
@@ -87,7 +87,7 @@ extension Routable {
     ///   - queryItems: url query items to append to url
     ///   - method: HTTP method
     /// - Returns: Optional URLRequest
-    func generateAuthorizationURL(forPath path: String, queryItems: [URLQueryItem], method: HTTPMethod) -> URLRequest? {
+    func generateBasicAuthorizationURL(forPath path: String, queryItems: [URLQueryItem], method: HTTPMethod) -> URLRequest? {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "ssl.reddit.com"
