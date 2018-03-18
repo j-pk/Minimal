@@ -36,20 +36,18 @@ class RequestAuthorization {
 
 class RefreshToken {
     var networkEngine: NetworkEngine = NetworkManager()
-    
-    @discardableResult init(token: String?, completionHandler: @escaping OptionalErrorHandler) {
-        guard let token = token else { completionHandler(NetworkError.generatedURLRequestFailed); return  }
+
+    @discardableResult init(completionHandler: @escaping OptionalErrorHandler) {
+        guard var defaults = Defaults.retrieve(), let token = defaults.refreshToken else { completionHandler(NetworkError.generatedURLRequestFailed); return  }
         let request = AuthorizationRequest(requestType: .refresh(token: token))
         networkEngine.session(forRoute: request.router, withDecodable: AuthorizationObject.self) { (error, authorizationObject) in
             if let error = error {
                 completionHandler(error)
             } else if let object = authorizationObject {
-                if var defaults = Defaults.retrieve() {
-                    defaults.accessToken = object.accessToken
-                    defaults.expiry = Calendar.current.date(byAdding: .second, value: object.expiresIn, to: Date())
-                    defaults.lastAuthenticated = Date()
-                    defaults.store()
-                }
+                defaults.accessToken = object.accessToken
+                defaults.expiry = Calendar.current.date(byAdding: .second, value: object.expiresIn, to: Date())
+                defaults.lastAuthenticated = Date()
+                defaults.store()
                 posLog(values: object)
             } else {
                 completionHandler(NetworkError.serverError(description: "No data for \(String(describing: request.router.urlRequest))"))

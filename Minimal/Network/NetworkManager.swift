@@ -58,31 +58,38 @@ class NetworkManager: NetworkEngine {
                 completionHandler(NetworkError.serverError(description: error.localizedDescription), nil)
             }
             
-            guard let response = urlResponse as? HTTPURLResponse, response.statusCode == 200 else {
+            guard let response = urlResponse as? HTTPURLResponse else {
                 completionHandler(NetworkError.responseError(response: urlResponse), nil)
                 return
             }
             
             posLog(message: "Network Request: \(response.statusCode)", category: String(describing: self))
-
-            if response.mimeType == "application/json", let data = data {
+            
+            if response.statusCode == 401 {
+                RefreshToken { (error) in
+                    if let error = error {
+                        completionHandler(NetworkError.serverError(description: error.localizedDescription), nil)
+                    } else {
+                        self.session(forRoute: route, withDecodable: decodable, completionHandler: completionHandler)
+                    }
+                }
+            } else if response.statusCode == 200, let data = data {
                 let decoder = JSONDecoder()
-                
                 do {
                     let decoded = try decoder.decode(T.self, from: data)
                     completionHandler(nil, decoded)
                 } catch let error {
                     completionHandler(NetworkError.failedToParse(error), nil)
                 }
+            } else  {
+                completionHandler(NetworkError.serverError(description: "Server Error: \(response)"), nil)
             }
         }
         task?.resume()
     }
     
-    func refreshToken() {
-        let request = URLRequest(url: URL(string: "")!)
-        task = defaultSession.dataTask(with: request) { (data, urlResponse, error) in
-        }
+    func retry(attempts: Int, request: URLRequest, completionHandler: @escaping OptionalErrorHandler) {
+        
     }
     
     /// OAuth Phase 1 with Reddit using SFAuthenticationSession
