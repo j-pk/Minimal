@@ -38,17 +38,14 @@ struct ListingNetwork: Networkable {
     var networkEngine: NetworkEngine = NetworkManager()
     
     init(request: Requestable, completionHandler: @escaping DecodableCompletionHandler) {
-        networkEngine.session(forRoute: request.router, withDecodable: ListingStore.self) { (error, decoded) in
-            if let error = error {
+        networkEngine.session(forRoute: request.router, withDecodable: ListingStore.self) { (result) in
+            switch result {
+            case .failure(let error):
                 completionHandler(error, nil)
-            } else {
-                if let decoded = decoded {
-                    var objects = decoded.listings
-                    objects.indices.forEach({ objects[$0].after = decoded.after })
-                    completionHandler(nil, objects)
-                } else {
-                    completionHandler(NetworkError.serverError(description: "No data for \(String(describing: request.router.urlRequest))"), nil)
-                }
+            case .success(let decoded):
+                var objects = decoded.listings
+                objects.indices.forEach({ objects[$0].after = decoded.after })
+                completionHandler(nil, objects)
             }
         }
     }

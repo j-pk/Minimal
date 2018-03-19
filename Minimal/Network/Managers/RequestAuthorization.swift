@@ -14,21 +14,20 @@ class RequestAuthorization {
     @discardableResult init(withCode code: String?, state: String?) {
         guard let code = code, let state = state else { return }
         let request = AuthorizationRequest(requestType: .authorize(code: code, state: state))
-        networkEngine.session(forRoute: request.router, withDecodable: AuthorizationObject.self) { (error, authorizationObject) in
-            if let error = error {
+        networkEngine.session(forRoute: request.router, withDecodable: AuthorizationObject.self) { (result) in
+            switch result {
+            case .failure(let error):
                 posLog(error: error)
-            } else if let object = authorizationObject {
+            case .success(let authorizationObject):
                 if var defaults = Defaults.retrieve() {
-                    defaults.accessToken = object.accessToken
-                    defaults.refreshToken = object.refreshToken
-                    defaults.expiry = Calendar.current.date(byAdding: .second, value: object.expiresIn, to: Date())
+                    defaults.accessToken = authorizationObject.accessToken
+                    defaults.refreshToken = authorizationObject.refreshToken
+                    defaults.expiry = Calendar.current.date(byAdding: .second, value: authorizationObject.expiresIn, to: Date())
                     defaults.lastAuthenticated = Date()
                     defaults.id = state
                     defaults.store()
                 }
-                posLog(values: object)
-            } else {
-                posLog(error: error)
+                posLog(values: authorizationObject)
             }
         }
     }
@@ -40,17 +39,16 @@ class RefreshToken {
     @discardableResult init(completionHandler: @escaping OptionalErrorHandler) {
         guard var defaults = Defaults.retrieve(), let token = defaults.refreshToken else { completionHandler(NetworkError.generatedURLRequestFailed); return  }
         let request = AuthorizationRequest(requestType: .refresh(token: token))
-        networkEngine.session(forRoute: request.router, withDecodable: AuthorizationObject.self) { (error, authorizationObject) in
-            if let error = error {
+        networkEngine.session(forRoute: request.router, withDecodable: AuthorizationObject.self) { (result) in
+            switch result {
+            case .failure(let error):
                 completionHandler(error)
-            } else if let object = authorizationObject {
-                defaults.accessToken = object.accessToken
-                defaults.expiry = Calendar.current.date(byAdding: .second, value: object.expiresIn, to: Date())
+            case .success(let authorizationObject):
+                defaults.accessToken = authorizationObject.accessToken
+                defaults.expiry = Calendar.current.date(byAdding: .second, value: authorizationObject.expiresIn, to: Date())
                 defaults.lastAuthenticated = Date()
                 defaults.store()
-                posLog(values: object)
-            } else {
-                completionHandler(NetworkError.serverError(description: "No data for \(String(describing: request.router.urlRequest))"))
+                posLog(values: authorizationObject)
             }
         }
     }

@@ -11,7 +11,7 @@ import SafariServices
 
 typealias OptionalErrorHandler = (Error?) -> Void
 typealias DecodableCompletionHandler = (NetworkError?, [Decodable]?) -> Void
-typealias NetworkCompletionHandler<T> = (NetworkError?, T?) -> Void
+typealias NetworkCompletionHandler<T> = (NetworkResult<T>) -> Void
 
 public enum HTTPMethod: String {
     case options = "OPTIONS"
@@ -30,6 +30,11 @@ public enum NetworkError: Error {
     case responseError(response: URLResponse?)
     case serverError(description: String)
     case generatedURLRequestFailed
+}
+
+public enum NetworkResult<T> {
+    case success(T)
+    case failure(NetworkError)
 }
 
 protocol Networkable {
@@ -55,11 +60,11 @@ class NetworkManager: NetworkEngine {
             posLog(message: "Network Request: \(request.description)", category: String(describing: self))
             
             if let error = error {
-                completionHandler(NetworkError.serverError(description: error.localizedDescription), nil)
+                completionHandler(.failure(NetworkError.serverError(description: error.localizedDescription)))
             }
             
             guard let response = urlResponse as? HTTPURLResponse else {
-                completionHandler(NetworkError.responseError(response: urlResponse), nil)
+                completionHandler(.failure(NetworkError.responseError(response: urlResponse)))
                 return
             }
             
@@ -68,7 +73,7 @@ class NetworkManager: NetworkEngine {
             if response.statusCode == 401 {
                 RefreshToken { (error) in
                     if let error = error {
-                        completionHandler(NetworkError.serverError(description: error.localizedDescription), nil)
+                        completionHandler(.failure(NetworkError.serverError(description: error.localizedDescription)))
                     } else {
                         self.session(forRoute: route, withDecodable: decodable, completionHandler: completionHandler)
                     }
@@ -77,12 +82,12 @@ class NetworkManager: NetworkEngine {
                 let decoder = JSONDecoder()
                 do {
                     let decoded = try decoder.decode(T.self, from: data)
-                    completionHandler(nil, decoded)
+                    completionHandler(.success(decoded))
                 } catch let error {
-                    completionHandler(NetworkError.failedToParse(error), nil)
+                    completionHandler(.failure(NetworkError.failedToParse(error)))
                 }
             } else  {
-                completionHandler(NetworkError.serverError(description: "Server Error: \(response)"), nil)
+                completionHandler(.failure(NetworkError.serverError(description: "Server Error: \(response)")))
             }
         }
         task?.resume()

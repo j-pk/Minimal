@@ -23,8 +23,7 @@ class SearchSubredditManager {
         SubredditNetwork(request: defaultRequest) { (error, subredditStore) in
             if let error = error {
                 posLog(error: error, category: String(describing: self))
-            }
-            if self.requestCount <= 75 {
+            } else if self.requestCount <= 75 {
                 if let store = subredditStore, let database = self.database {
                     do {
                         try Subreddit.populateObjects(fromJSON: store.subreddits, database: database, completionHandler: { (error) in
@@ -41,7 +40,6 @@ class SearchSubredditManager {
                 }
             } else {
                 posLog(message: "Completed: \(self.requestCount) Subreddits Found", category: String(describing: self))
-                return
             }
         }
     }
@@ -51,15 +49,12 @@ struct SubredditNetwork: Networkable {
     var networkEngine: NetworkEngine = NetworkManager()
     
     @discardableResult init(request: Requestable, completionHandler: @escaping (NetworkError?, SubredditStore?) -> Void) {
-        self.networkEngine.session(forRoute: request.router, withDecodable: SubredditStore.self) { (error, decoded) in
-            if let error = error {
+        self.networkEngine.session(forRoute: request.router, withDecodable: SubredditStore.self) { (result) in
+            switch result {
+            case .failure(let error):
                 completionHandler(error, nil)
-            } else {
-                if let decoded = decoded {
-                    completionHandler(nil, decoded)
-                } else {
-                    completionHandler(NetworkError.serverError(description: "No data for \(String(describing: request.router.urlRequest))"), nil)
-                }
+            case .success(let decoded):
+                completionHandler(nil, decoded)
             }
         }
     }
