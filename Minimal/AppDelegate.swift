@@ -127,7 +127,7 @@ private extension AppDelegate {
             if let error = error {
                 posLog(error: error)
             } else {
-                let request = ListingRequest(subreddit: "", category: nil)
+                let request = ListingRequest(requestType: .subreddit(prefix: "", category: nil, timeFrame: nil))
                 ListingManager(request: request, database: database, completionHandler: { (error) in
                     if let error = error {
                         posLog(error: error)

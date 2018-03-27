@@ -9,19 +9,20 @@
 import Foundation
 
 struct SubredditRequest: Requestable {
-    enum RequestType {
-        case paginate
-        case getSubscribed
-    }
-    
     let count: Int?
     let after: String?
-    let requestType: RequestType
+    let requestType: SubredditRouter
     
-    init(count: Int? = nil, after: String? = nil, requestType: RequestType = .paginate) {
-        self.count = count
-        self.after = after
+    init(requestType: SubredditRouter) {
         self.requestType = requestType
+        switch requestType {
+        case .paginate(let count, let after):
+            self.count = count
+            self.after = after
+        case .getSubscribed:
+            self.count = nil
+            self.after = nil
+        }
     }
     
     var router: Routable {

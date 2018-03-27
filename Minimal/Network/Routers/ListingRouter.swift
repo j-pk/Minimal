@@ -9,27 +9,28 @@
 import Foundation
 
 struct ListingRequest: Requestable {
-    
-    enum RequestType {
-        case subreddit
-        case paginate
-    }
-    
     let subreddit: String
     let category: String?
     let timeFrame: String?
     let after: String?
-    let limit: Int
-    let requestType: RequestType
+    let limit: Int = 25
+    let requestType: ListingRouter
     
-    init(subreddit: String, category: String?, timeFrame: String? = nil, after: String? = nil, limit: Int = 25, requestType: RequestType = .subreddit) {
-        self.subreddit = subreddit
-        self.category = category
-        self.timeFrame = timeFrame
-        self.after = after
-        self.limit = limit
+    init(requestType: ListingRouter) {
         self.requestType = requestType
-    }
+        switch requestType {
+        case .subreddit(let prefix, let category, let timeFrame):
+            self.subreddit = prefix
+            self.category = category
+            self.timeFrame = timeFrame
+            self.after = nil
+        case .paginate(let prefix, let category, let timeFrame, _, let after):
+            self.subreddit = prefix
+            self.category = category
+            self.timeFrame = timeFrame
+            self.after = after
+        }
+    }   
     
     var router: Routable {
         get {

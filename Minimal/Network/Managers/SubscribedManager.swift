@@ -18,27 +18,22 @@
 import Foundation
 
 class SubscribedManager {
-    private let listingNetwork: ListingNetwork
+    private let network: SubredditNetwork
     @discardableResult init(request: Requestable, database: Database, completionHandler: @escaping OptionalErrorHandler) {
-        listingNetwork = ListingNetwork(request: request) { (error, listingObjects) in
-            if let error = error {
+        network = SubredditNetwork(request: request) { (result) in
+            switch result {
+            case .failure(let error):
                 completionHandler(error)
-            }
-            if let objects = listingObjects {
-                posLog(values: objects)
-//                do {
-//                    try Listing.populateObjects(fromJSON: objects, database: database, completionHandler: { (error) in
-//                        if error != nil {
-//                            completionHandler(error)
-//                        } else {
-//                            completionHandler(nil)
-//                        }
-//                    })
-//                } catch let error {
-//                    completionHandler(error)
-//                }
-            } else {
-                completionHandler(error)
+            case .success(let object):
+                    do {
+                        try Subreddit.populateObjects(fromJSON: object.subreddits, database: database, completionHandler: { (error) in
+                            if let error = error {
+                                posLog(error: error)
+                            }
+                        })
+                    } catch let error {
+                        posLog(error: error)
+                }
             }
         }
     }

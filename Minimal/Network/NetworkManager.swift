@@ -10,8 +10,8 @@ import Foundation
 import SafariServices
 
 typealias OptionalErrorHandler = (Error?) -> Void
-typealias DecodableCompletionHandler = (NetworkError?, [Decodable]?) -> Void
-typealias NetworkCompletionHandler<T> = (NetworkResult<T>) -> Void
+typealias DecodableCompletionHandler = (Error?, [Decodable]?) -> Void
+typealias ResultCompletionHandler<T> = (Result<T>) -> Void
 
 public enum HTTPMethod: String {
     case options = "OPTIONS"
@@ -32,9 +32,9 @@ public enum NetworkError: Error {
     case generatedURLRequestFailed
 }
 
-public enum NetworkResult<T> {
+public enum Result<T> {
     case success(T)
-    case failure(NetworkError)
+    case failure(Error)
 }
 
 protocol Networkable {
@@ -42,7 +42,7 @@ protocol Networkable {
 }
 
 protocol NetworkEngine {
-    func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping NetworkCompletionHandler<T>) where T: Decodable
+    func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping ResultCompletionHandler<T>) where T: Decodable
 }
 
 class NetworkManager: NetworkEngine {
@@ -54,7 +54,7 @@ class NetworkManager: NetworkEngine {
         }
     }
 
-    func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping NetworkCompletionHandler<T>) where T: Decodable  {
+    func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping ResultCompletionHandler<T>) where T: Decodable  {
         guard let request = route.urlRequest else { return }
         task = defaultSession.dataTask(with: request) { (data, urlResponse, error) in
             posLog(message: "Network Request: \(request.description)", category: String(describing: self))

@@ -129,9 +129,7 @@ class MainViewController: UIViewController {
             if let error = error {
                 posLog(error: error)
             } else {
-                let request = ListingRequest(subreddit: user.lastViewedSubreddit,
-                                             category: user.categoryString,
-                                             timeFrame: user.timeFrameString)
+                let request = ListingRequest(requestType: .subreddit(prefix: user.lastViewedSubreddit, category: user.categoryString, timeFrame: user.timeFrameString))
                 ListingManager(request: request, database: database, completionHandler: { (error) in
                     if let error = error {
                         posLog(error: error)
@@ -339,13 +337,7 @@ extension MainViewController: UIScrollViewDelegate {
             guard let lastViewedListing = listingResultsController.fetchedObjects?.last else { return }
             guard let database = database, let user = User.current(context: database.viewContext) else { return }
             let blockOperation = BlockOperation {
-                let request = ListingRequest(subreddit: user.lastViewedSubreddit,
-                                             category: user.categoryString,
-                                             timeFrame: user.timeFrameString,
-                                             after: lastViewedListing.after ?? "",
-                                             limit: 25,
-                                             requestType: .paginate)
-                
+                let request = ListingRequest(requestType: .paginate(prefix: user.lastViewedSubreddit, category: user.categoryString, timeFrame: user.timeFrameString, limit: 25, after: lastViewedListing.after ?? ""))
                 ListingManager(request: request, database: database, completionHandler: { (error) in
                     if let error = error {
                         posLog(error: error)

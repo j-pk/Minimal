@@ -19,11 +19,11 @@ protocol UISearchActionDelegate: class {
 }
 
 class SearchViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBarContainerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var subscribedTableView: UITableView!
     @IBOutlet weak var searchBarView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
+    @IBOutlet weak var searchBarContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var segmentController: UISegmentedControl!
     
     private let searchController = UISearchController(searchResultsController: nil)
@@ -57,35 +57,23 @@ class SearchViewController: UIViewController {
         performFetch(withPredicate: searchSegment.predicate)
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.keyboardDismissMode = .onDrag
-        subscribedTableView.tableFooterView = UIView(frame: .zero)
-        
+
         view.backgroundColor = themeManager.theme.primaryColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configure(searchBar: searchController.searchBar)
-        if let defaults = Defaults.retrieve(), defaults.accessToken != nil, let database = database {
-            let request = SubredditRequest(requestType: .getSubscribed)
-            SubscribedManager(request: request, database: database, completionHandler: { (error) in
-                if let error = error {
-                    posLog(error: error)
-                } else {
-                    posLog(message: "Sucessfully Got Subscribed")
-                }
-            })
-        }
     }
 
     func performFetch(withPredicate predicate: NSPredicate, sortDescriptors descriptors: [NSSortDescriptor]? = nil) {
         // TODO: Determine user preference for over18
         let over18: Bool = false
         let over18Predicate = NSPredicate(format: "over18 == %@", over18 as CVarArg)
-        let isSubscribedPredicate = NSPredicate(format: "isSubscribed == true")
         let isDefault = NSPredicate(format: "isDefault == false")
         let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, over18Predicate, isDefault])
         
-        searchResultsController.fetchRequest.predicate = !tableView.isHidden ? compoundPredicate : isSubscribedPredicate
+        searchResultsController.fetchRequest.predicate = compoundPredicate
         searchResultsController.fetchRequest.sortDescriptors = descriptors ?? [NSSortDescriptor(key: "displayName", ascending: true)]
         
         do {
@@ -119,32 +107,37 @@ class SearchViewController: UIViewController {
         view.layoutIfNeeded()
         UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseOut, animations: {
             self.tableView.isHidden = true
-            self.subscribedTableView.isHidden = false
+            self.scrollView.isHidden = false
             self.segmentController.isHidden = true
             self.searchBarContainerViewHeightConstraint.priority = UILayoutPriority(rawValue: 999)
             self.view.layoutIfNeeded()
         }, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "subscribedSegue" {
+            if let subscribedViewController = segue.destination as? SubscribedViewController {
+                guard let database = self.database else { return }
+                subscribedViewController.database = database
+                subscribedViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            }
+        } else if segue.identifier == "defaultSegue" {
+            if let defaultSubredditViewController = segue.destination as? DefaultSubredditsViewController {
+                defaultSubredditViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            }
+        }
     }
 }
 
 // MARK: UITableViewDataSource
 extension SearchViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        if tableView == self.tableView {
-            return searchResultsController.sections?.count ?? 1
-        } else {
-            guard let objects = searchResultsController.fetchedObjects, objects.count > 0 else { return 1 }
-            return 2
-        }
+        return searchResultsController.sections?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == self.tableView {
-            let sections = searchResultsController.sections
-            return sections?[section].numberOfObjects ?? 0
-        } else {
-            return section == 0 ? DefaultSubreddit.allValues.count : searchResultsController.fetchedObjects?.count ?? 0
-        }
+        let sections = searchResultsController.sections
+        return sections?[section].numberOfObjects ?? 0
     }
     
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
@@ -159,52 +152,20 @@ extension SearchViewController: UITableViewDataSource {
         return currentCollation.sectionIndexTitles
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard tableView == self.subscribedTableView else { return 0.0 }
-        return 50.0
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard tableView == self.subscribedTableView else { return nil }
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SubscribedHeaderCell") as! SubscribedHeaderCell
-        cell.headerLabel.text = section == 0 ? "Minimal" : "Subscribed"
-        return cell.contentView
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == self.tableView && !self.tableView.isHidden {
-            let cell = self.tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
-            let subreddit = searchResultsController.object(at: indexPath)
-            cell.setView(forSubreddit: subreddit)
-            return cell
-        } else {
-            if tableView == self.subscribedTableView && indexPath.section == 0 {
-                let cell = self.subscribedTableView.dequeueReusableCell(withIdentifier: "SubscribedCell", for: indexPath) as! SubscribedCell
-                guard let defaultSubreddit = DefaultSubreddit(rawValue: indexPath.row) else { return cell }
-                cell.titleLabel.text = defaultSubreddit.displayName
-                cell.subtitleLabel.text = defaultSubreddit.publicDescription
-                cell.subredditImageView?.image = UIImage(named: defaultSubreddit.iconImage)
-                return cell
-            } else {
-                let cell = self.tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
-                return cell
-            }
-        }
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
+        let subreddit = searchResultsController.object(at: indexPath)
+        cell.setView(forSubreddit: subreddit)
+        return cell
     }
 }
 
 // MARK: UITableViewDelegate
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == self.tableView {
-            let subreddit = searchResultsController.object(at: indexPath)
-            delegate?.didSelect(subreddit: subreddit)
-            tabBarController?.tab(toViewController: MainViewController.self)
-        } else if tableView == self.subscribedTableView && indexPath.section == 0 {
-            guard let selectedLink = DefaultSubreddit(rawValue: indexPath.row) else { return }
-            delegate?.didSelect(defaultSubreddit: selectedLink)
-            tabBarController?.tab(toViewController: MainViewController.self)
-        }
+        let subreddit = searchResultsController.object(at: indexPath)
+        delegate?.didSelect(subreddit: subreddit)
+        tabBarController?.tab(toViewController: MainViewController.self)
         resetSearch()
     }
 }
@@ -270,6 +231,10 @@ extension SearchViewController: Stackable {
         let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "displayName", ascending: true)]
         searchResultsController = NSFetchedResultsController<Subreddit>(fetchRequest: fetchRequest, managedObjectContext: database.viewContext, sectionNameKeyPath: "displayName", cacheName: nil)
+        
+        if let subscribedViewController = self.childViewControllers.filter({ $0 is Stackable }).first as? Stackable {
+            subscribedViewController.set(database: database)
+        }
     }
 }
 
@@ -280,7 +245,7 @@ extension SearchViewController: UISearchBarDelegate {
         view.layoutIfNeeded()
         UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseIn, animations: {
             self.tableView.isHidden = false
-            self.subscribedTableView.isHidden = true
+            self.scrollView.isHidden = true
             self.searchBarContainerViewHeightConstraint.priority = UILayoutPriority(rawValue: 997)
             self.view.layoutIfNeeded()
         }, completion: nil)

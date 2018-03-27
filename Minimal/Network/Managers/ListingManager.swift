@@ -11,13 +11,13 @@ import Foundation
 struct ListingManager {
     private let listingNetwork: ListingNetwork
     @discardableResult init(request: Requestable, database: Database, completionHandler: @escaping OptionalErrorHandler) {
-        listingNetwork = ListingNetwork(request: request) { (error, listingObjects) in
-            if let error = error {
+        listingNetwork = ListingNetwork(request: request) { (result) in
+            switch result {
+            case .failure(let error):
                 completionHandler(error)
-            }
-            if let objects = listingObjects {
+            case .success(let listingObjects):
                 do {
-                    try Listing.populateObjects(fromJSON: objects, database: database, completionHandler: { (error) in
+                    try Listing.populateObjects(fromJSON: listingObjects, database: database, completionHandler: { (error) in
                         if error != nil {
                             completionHandler(error)
                         } else {
@@ -27,8 +27,6 @@ struct ListingManager {
                 } catch let error {
                     completionHandler(error)
                 }
-            } else {
-                completionHandler(error)
             }
         }
     }
@@ -37,15 +35,15 @@ struct ListingManager {
 struct ListingNetwork: Networkable {
     var networkEngine: NetworkEngine = NetworkManager()
     
-    init(request: Requestable, completionHandler: @escaping DecodableCompletionHandler) {
+    init(request: Requestable, completionHandler: @escaping ResultCompletionHandler<[Decodable]>) {
         networkEngine.session(forRoute: request.router, withDecodable: ListingStore.self) { (result) in
             switch result {
             case .failure(let error):
-                completionHandler(error, nil)
+                completionHandler(.failure(error))
             case .success(let decoded):
                 var objects = decoded.listings
                 objects.indices.forEach({ objects[$0].after = decoded.after })
-                completionHandler(nil, objects)
+                completionHandler(.success(objects))
             }
         }
     }
