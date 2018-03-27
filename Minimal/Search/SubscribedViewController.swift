@@ -85,6 +85,7 @@ extension SubscribedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let isSubscribed = subscribedResultsController.fetchedObjects?.isEmpty, !isSubscribed else { return nil }
         let headerView = SubscribedHeaderView()
         headerView.headerLabel.text = "Subscribed"
         return headerView.contentView

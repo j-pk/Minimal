@@ -81,17 +81,23 @@
                                     <outlet property="delegate" destination="8SD-xH-Rh5" id="SDQ-0b-E3h"/>
                                 </connections>
                             </tableView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PpG-Ur-Zwy">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PpG-Ur-Zwy">
                                 <rect key="frame" x="0.0" y="78" width="375" height="540"/>
                                 <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ojk-oY-uOE">
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ojk-oY-uOE">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="194"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" priority="1" constant="194" id="yYw-CJ-rUY"/>
+                                        </constraints>
                                         <connections>
                                             <segue destination="qIS-fe-Po7" kind="embed" identifier="defaultSegue" id="T7q-yu-8mJ"/>
                                         </connections>
                                     </containerView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7dH-7i-1oQ">
-                                        <rect key="frame" x="0.0" y="202" width="375" height="338"/>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7dH-7i-1oQ">
+                                        <rect key="frame" x="0.0" y="193" width="375" height="347"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" priority="1" constant="347" id="B9G-g9-3BJ"/>
+                                        </constraints>
                                         <connections>
                                             <segue destination="vx3-fJ-pBR" kind="embed" identifier="subscribedSegue" id="qKS-iq-WBf"/>
                                         </connections>
@@ -103,7 +109,7 @@
                                     <constraint firstAttribute="trailing" secondItem="7dH-7i-1oQ" secondAttribute="trailing" id="Xet-Az-ZtF"/>
                                     <constraint firstItem="7dH-7i-1oQ" firstAttribute="bottom" secondItem="PpG-Ur-Zwy" secondAttribute="bottom" id="gzN-Uc-BXs"/>
                                     <constraint firstItem="7dH-7i-1oQ" firstAttribute="leading" secondItem="PpG-Ur-Zwy" secondAttribute="leading" id="ii4-SX-xlg"/>
-                                    <constraint firstItem="7dH-7i-1oQ" firstAttribute="top" secondItem="Ojk-oY-uOE" secondAttribute="bottom" id="qzJ-49-b2G"/>
+                                    <constraint firstItem="7dH-7i-1oQ" firstAttribute="top" secondItem="Ojk-oY-uOE" secondAttribute="bottom" constant="-1" id="qzJ-49-b2G"/>
                                     <constraint firstItem="7dH-7i-1oQ" firstAttribute="centerX" secondItem="PpG-Ur-Zwy" secondAttribute="centerX" id="sb7-ag-8ta"/>
                                     <constraint firstAttribute="trailing" secondItem="Ojk-oY-uOE" secondAttribute="trailing" id="wRD-Du-ueT"/>
                                 </constraints>
@@ -189,11 +195,11 @@
             <objects>
                 <viewController id="vx3-fJ-pBR" customClass="SubscribedViewController" customModule="Minimal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Oaq-uc-0ja" customClass="SCNView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="338"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="347"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="O1n-Ty-Dcf">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="338"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="347"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="999" constant="338" id="qeP-aE-b81"/>
@@ -249,6 +255,7 @@
                             <constraint firstItem="3ta-aA-w2P" firstAttribute="top" secondItem="V04-U2-8Cx" secondAttribute="top" id="Zdk-DB-RVM"/>
                             <constraint firstAttribute="trailing" secondItem="3ta-aA-w2P" secondAttribute="trailing" id="fBC-eu-1go"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="bCB-mN-n28"/>
                     </view>
                     <size key="freeformSize" width="375" height="200"/>
                     <connections>
