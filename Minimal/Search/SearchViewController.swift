@@ -115,15 +115,18 @@ class SearchViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let mainViewController = tabBarController?.fetch(viewController: MainViewController.self) else { return }
         if segue.identifier == "subscribedSegue" {
             if let subscribedViewController = segue.destination as? SubscribedViewController {
                 guard let database = self.database else { return }
                 subscribedViewController.database = database
                 subscribedViewController.view.translatesAutoresizingMaskIntoConstraints = false
+                subscribedViewController.delegate = mainViewController
             }
         } else if segue.identifier == "defaultSegue" {
             if let defaultSubredditViewController = segue.destination as? DefaultSubredditsViewController {
                 defaultSubredditViewController.view.translatesAutoresizingMaskIntoConstraints = false
+                defaultSubredditViewController.delegate = mainViewController
             }
         }
     }

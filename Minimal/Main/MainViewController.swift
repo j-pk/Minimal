@@ -212,7 +212,7 @@ extension MainViewController: Stackable {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "populatedDate", ascending: true)]
         let fetchedResultsController = NSFetchedResultsController<Listing>(fetchRequest: fetchRequest, managedObjectContext: database.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
-        self.listingResultsController = fetchedResultsController
+        listingResultsController = fetchedResultsController
     }
 }
 

@@ -11,7 +11,8 @@ import UIKit
 class DefaultSubredditsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
-    
+    weak var delegate: UISearchActionDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView(frame: .zero)
@@ -54,7 +55,11 @@ extension DefaultSubredditsViewController: UITableViewDataSource {
 }
 
 extension DefaultSubredditsViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let defaultSubreddit = DefaultSubreddit(rawValue: indexPath.row) else { return }
+        delegate?.didSelect(defaultSubreddit: defaultSubreddit)
+        tabBarController?.tab(toViewController: MainViewController.self)
+    }
 }
 
 

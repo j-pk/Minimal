@@ -16,6 +16,7 @@ class SubscribedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var database: Database?
     private var subscribedResultsController: NSFetchedResultsController<Subreddit>!
+    weak var delegate: UISearchActionDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +62,11 @@ class SubscribedViewController: UIViewController {
 
 // MARK: UITableViewDelegate
 extension SubscribedViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let subreddit = subscribedResultsController.object(at: indexPath)
+        delegate?.didSelect(subreddit: subreddit)
+        tabBarController?.tab(toViewController: MainViewController.self)
+    }
 }
 
 // MARK: UITableViewDataSource
