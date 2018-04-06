@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -93,21 +93,21 @@
 		0D3FCB6ED7460070156FE30B7A7B848E /* Pods-Minimal-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Minimal-acknowledgements.markdown"; sourceTree = "<group>"; };
 		18A53751AB65A791D62B2C24285B0459 /* Nuke.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nuke.xcconfig; sourceTree = "<group>"; };
 		21708F5C6E103E3724D8431FFE3BEE25 /* Nuke.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Nuke.swift; path = Sources/Nuke.swift; sourceTree = "<group>"; };
-		21EC17C7F4F993C0DE25AE427E06EA1A /* Pods-Minimal.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Minimal.modulemap"; sourceTree = "<group>"; };
+		21EC17C7F4F993C0DE25AE427E06EA1A /* Pods-Minimal.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Minimal.modulemap"; sourceTree = "<group>"; };
 		2447589616C8D053C4AF4591E0662A0E /* Nuke-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nuke-prefix.pch"; sourceTree = "<group>"; };
-		330DFC75951D7BDA423D260BE4F3C864 /* Nuke.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Nuke.framework; path = Nuke.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		330DFC75951D7BDA423D260BE4F3C864 /* Nuke.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nuke.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34C738DEB037492179BC9DC3A4A83C5D /* Internal.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Internal.swift; path = Sources/Internal.swift; sourceTree = "<group>"; };
 		389C92406A87DC096345544A12CC4DBA /* DataLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataLoader.swift; path = Sources/DataLoader.swift; sourceTree = "<group>"; };
 		393691FFA4D7EABF011E679890BBCA71 /* Preheater.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Preheater.swift; path = Sources/Preheater.swift; sourceTree = "<group>"; };
-		41BB6D02C23E22FE84A0A79AA4670857 /* Gifu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Gifu.framework; path = Gifu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		526DF0F26918BBA88AC682372AC4616C /* NukeGifuPlugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = NukeGifuPlugin.framework; path = "Nuke-Gifu-Plugin.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		41BB6D02C23E22FE84A0A79AA4670857 /* Gifu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Gifu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		526DF0F26918BBA88AC682372AC4616C /* NukeGifuPlugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NukeGifuPlugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59441D3DDC012C9B64C59460C019FBF3 /* Nuke-Gifu-Plugin-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Nuke-Gifu-Plugin-dummy.m"; sourceTree = "<group>"; };
 		5A38FEDEF13D000925574576367FD2AF /* CGSize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CGSize.swift; path = Source/Extensions/CGSize.swift; sourceTree = "<group>"; };
 		5CFE6D29493428A16B3CADF487E84FCD /* Cache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cache.swift; path = Sources/Cache.swift; sourceTree = "<group>"; };
 		5F451D9413D70B6E83B9AFCB28DB42C6 /* Pods-Minimal-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Minimal-frameworks.sh"; sourceTree = "<group>"; };
-		64DCEAB29888B04DE7780FA41426EBF6 /* Gifu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Gifu.modulemap; sourceTree = "<group>"; };
+		64DCEAB29888B04DE7780FA41426EBF6 /* Gifu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Gifu.modulemap; sourceTree = "<group>"; };
 		694D7DEC206D18B2E3710CB44DF7520B /* Pods-Minimal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Minimal.debug.xcconfig"; sourceTree = "<group>"; };
-		6EAB5DC0D4AA1A248940165EBF3B29EF /* Pods_Minimal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Minimal.framework; path = "Pods-Minimal.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EAB5DC0D4AA1A248940165EBF3B29EF /* Pods_Minimal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Minimal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		714779CE9E84B721B15242C8126EB6D9 /* Animator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Animator.swift; path = Source/Classes/Animator.swift; sourceTree = "<group>"; };
 		76A7C4E136EFBFBAB0B1547C4DDA6DDF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EF85071038712748837A0E7021A1C87 /* Nuke-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nuke-umbrella.h"; sourceTree = "<group>"; };
@@ -117,12 +117,12 @@
 		9236453A939C0E58602D7737CAB1676F /* FrameStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FrameStore.swift; path = Source/Classes/FrameStore.swift; sourceTree = "<group>"; };
 		92765D950CED3249C166BBA37A908F2B /* Processor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Processor.swift; path = Sources/Processor.swift; sourceTree = "<group>"; };
 		9330889D7043136B3C6FDB38D7D3CD94 /* Pods-Minimal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Minimal.release.xcconfig"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		988BF457EA835BDBF7A8C908FE8A2DCB /* Nuke.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nuke.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B15B57634FDC5435E087B91D1914FD1 /* Pods-Minimal-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Minimal-dummy.m"; sourceTree = "<group>"; };
 		9F758CB31521CABA15D1E318C3D29DB9 /* Nuke-Gifu-Plugin.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Nuke-Gifu-Plugin.xcconfig"; sourceTree = "<group>"; };
 		A74C80EBA3DA291C1C90D33D1F84999E /* UIImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIImageView.swift; path = Source/Extensions/UIImageView.swift; sourceTree = "<group>"; };
-		AD6C0099BEA5278C02550FF58DD0A39F /* Nuke.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Nuke.modulemap; sourceTree = "<group>"; };
+		AD6C0099BEA5278C02550FF58DD0A39F /* Nuke.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Nuke.modulemap; sourceTree = "<group>"; };
 		AE930231D9D230E55729BFB5979F295E /* AnimatedFrame.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedFrame.swift; path = Source/Classes/AnimatedFrame.swift; sourceTree = "<group>"; };
 		B4CF06DCE27309A3F3AFECB7C86E8B45 /* Gifu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Gifu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5C0E626C2EF2C49EE77F1A9869E6E22 /* Manager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Manager.swift; path = Sources/Manager.swift; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 		DDC4212DB889499B5B939AB3AA86B827 /* UIImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = Source/Extensions/UIImage.swift; sourceTree = "<group>"; };
 		E061A1DFB3DA58B98BAF558D32A40E29 /* GIFAnimatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GIFAnimatable.swift; path = Source/Classes/GIFAnimatable.swift; sourceTree = "<group>"; };
 		E491CC3BD074ADA02DDCB524E4B10AF5 /* Nuke-Gifu-Plugin-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nuke-Gifu-Plugin-prefix.pch"; sourceTree = "<group>"; };
-		E90EAE91862D90D858E496FA2D1EA9CC /* Nuke-Gifu-Plugin.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Nuke-Gifu-Plugin.modulemap"; sourceTree = "<group>"; };
+		E90EAE91862D90D858E496FA2D1EA9CC /* Nuke-Gifu-Plugin.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Nuke-Gifu-Plugin.modulemap"; sourceTree = "<group>"; };
 		E9459826D8E70632F727F6FB3CE7A76B /* GIFImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GIFImageView.swift; path = Source/Classes/GIFImageView.swift; sourceTree = "<group>"; };
 		E95C907095C96EBA5CF98F21F7454076 /* Pods-Minimal-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Minimal-acknowledgements.plist"; sourceTree = "<group>"; };
 		EB99F30F37CA318E9256FC4222BEE5A8 /* AnimatedImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedImage.swift; path = Source/AnimatedImage.swift; sourceTree = "<group>"; };
@@ -190,7 +190,6 @@
 				EB99F30F37CA318E9256FC4222BEE5A8 /* AnimatedImage.swift */,
 				46FCD461E7861D4AAF718F3D5F2EAA86 /* Support Files */,
 			);
-			name = "Nuke-Gifu-Plugin";
 			path = "Nuke-Gifu-Plugin";
 			sourceTree = "<group>";
 		};
@@ -296,7 +295,6 @@
 				A74C80EBA3DA291C1C90D33D1F84999E /* UIImageView.swift */,
 				5ABDD98602BC50D735D58CD277DA442E /* Support Files */,
 			);
-			name = Gifu;
 			path = Gifu;
 			sourceTree = "<group>";
 		};
@@ -348,7 +346,6 @@
 				0A7BD8654860F4A8FAC769493954B2EC /* Request.swift */,
 				CDD6A7801FD86A86FA039E9BA2D57945 /* Support Files */,
 			);
-			name = Nuke;
 			path = Nuke;
 			sourceTree = "<group>";
 		};
@@ -471,7 +468,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0930;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -725,6 +722,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -732,6 +730,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -819,6 +818,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -826,6 +826,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
