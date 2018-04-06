@@ -35,6 +35,9 @@ fileprivate func > <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
                          sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize
     
     @objc optional func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                         annotationForItemAtIndexPath indexPath: IndexPath) -> String?
+    
+    @objc optional func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                                         heightForHeaderInSection section: Int) -> CGFloat
     
     @objc optional func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
@@ -62,32 +65,38 @@ public class CHTCollectionViewWaterfallLayout: UICollectionViewLayout {
     public var columnCount: Int {
         didSet {
             invalidateLayout()
-        }}
+        }
+    }
     
     public var minimumColumnSpacing: CGFloat {
         didSet {
             invalidateLayout()
-        }}
+        }
+    }
     
     public var minimumInteritemSpacing: CGFloat {
         didSet {
             invalidateLayout()
-        }}
+        }
+    }
     
     public var headerHeight: CGFloat {
         didSet {
             invalidateLayout()
-        }}
+        }
+    }
     
     public var footerHeight: CGFloat {
         didSet {
             invalidateLayout()
-        }}
+        }
+    }
     
     public var sectionInset: UIEdgeInsets {
         didSet {
             invalidateLayout()
-        }}
+        }
+    }
     
     
     public var itemRenderDirection: CHTCollectionViewWaterfallLayoutItemRenderDirection {
@@ -110,6 +119,7 @@ public class CHTCollectionViewWaterfallLayout: UICollectionViewLayout {
     public var footersAttributes: [Int: UICollectionViewLayoutAttributes]
     public var unionRects: [NSValue]
     public let unionSize = 20
+    let themeManager = ThemeManager()
     
     override public init() {
         self.headerHeight = 0.0
@@ -244,9 +254,17 @@ public class CHTCollectionViewWaterfallLayout: UICollectionViewLayout {
                 
                 let yOffset = ((self.columnHeights[section] as AnyObject).object (at: columnIndex) as AnyObject).doubleValue
                 let itemSize = self.delegate?.collectionView(self.collectionView!, layout: self, sizeForItemAtIndexPath: indexPath)
+                let annotation = self.delegate?.collectionView?(self.collectionView!, layout: self, annotationForItemAtIndexPath: indexPath)
+                let annotationHeight = annotation?.height(withConstrainedWidth: itemWidth, font: themeManager.font(fontStyle: .primaryBold))
                 var itemHeight: CGFloat = 0.0
                 if itemSize?.height > 0 && itemSize?.width > 0 {
-                    itemHeight = floor(itemSize!.height * itemWidth / itemSize!.width)
+                    if let annotationHeight = annotationHeight {
+                        let calculatedItemHeight = floor((itemSize!.height) * itemWidth / itemSize!.width)
+                        let adjustedItemHeight = ceil(annotationHeight + (self.minimumInteritemSpacing * 2))
+                        itemHeight = calculatedItemHeight + adjustedItemHeight
+                    } else {
+                        itemHeight = floor(itemSize!.height * itemWidth / itemSize!.width)
+                    }
                 }
                 
                 attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)

@@ -176,6 +176,12 @@ class MainViewController: UIViewController {
         }
     }
     
+    func configureAnnotationForItem(atIndexPath indexPath: IndexPath) -> String? {
+        let listing = self.listingResultsController.object(at: indexPath)
+        return listing.title
+    }
+
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popOverControllerSegue" {
             guard let database = database, let user = User.current(context: database.viewContext) else { return }
@@ -227,7 +233,7 @@ extension MainViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: indexPath) as! MainCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as! DetailCell
         
         let listing = listingResultsController.object(at: indexPath)
         cell.configureCell(forListing: listing)
@@ -269,6 +275,10 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
 extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         return calculateSizeForItem(atIndexPath: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, annotationForItemAtIndexPath indexPath: IndexPath) -> String? {
+        return configureAnnotationForItem(atIndexPath: indexPath)
     }
 }
 
