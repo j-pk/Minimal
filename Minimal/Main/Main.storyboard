@@ -73,6 +73,80 @@
                                             <segue destination="gO7-rA-08V" kind="show" identifier="commentsControllerSegue" id="67v-Q5-tWu"/>
                                         </connections>
                                     </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailCell" id="jD4-js-5lw" customClass="DetailCell" customModule="Minimal" customModuleProvider="target">
+                                        <rect key="frame" x="146.66666666666666" y="10" width="121" height="195"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="121" height="195"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xt7-ZF-rBR">
+                                                    <rect key="frame" x="0.0" y="0.0" width="121" height="195"/>
+                                                    <subviews>
+                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raS-e8-6Qz" customClass="PlayerView" customModule="Minimal" customModuleProvider="target">
+                                                            <rect key="frame" x="-0.6666666666666643" y="0.0" width="121" height="167"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
+                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xk4-30-Gbs">
+                                                            <rect key="frame" x="-0.6666666666666643" y="0.0" width="121" height="167"/>
+                                                        </imageView>
+                                                        <view hidden="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Rd-T2-jrZ" customClass="AnimatedImageView" customModule="NukeGifuPlugin">
+                                                            <rect key="frame" x="-0.6666666666666643" y="0.0" width="121" height="167"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nYN-lT-mOY">
+                                                            <rect key="frame" x="8" y="175" width="121" height="12"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mi7-5V-cWZ" customClass="TitleLabel" customModule="Minimal" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="121" height="12"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dE-aF-x1W" customClass="SubtitleLabel" customModule="Minimal" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="-175" width="121" height="0.0"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="raS-e8-6Qz" secondAttribute="trailing" id="FsU-nN-dO9"/>
+                                                        <constraint firstItem="nYN-lT-mOY" firstAttribute="top" secondItem="raS-e8-6Qz" secondAttribute="bottom" constant="8" id="GHg-df-isv"/>
+                                                        <constraint firstItem="nYN-lT-mOY" firstAttribute="top" secondItem="7Rd-T2-jrZ" secondAttribute="bottom" constant="8" id="M2U-vp-5tN"/>
+                                                        <constraint firstItem="7Rd-T2-jrZ" firstAttribute="leading" secondItem="Xt7-ZF-rBR" secondAttribute="leading" id="Olz-M0-LPm"/>
+                                                        <constraint firstAttribute="trailing" secondItem="7Rd-T2-jrZ" secondAttribute="trailing" id="QHS-XT-4O6"/>
+                                                        <constraint firstItem="xk4-30-Gbs" firstAttribute="leading" secondItem="Xt7-ZF-rBR" secondAttribute="leading" id="Qct-7F-ySf"/>
+                                                        <constraint firstItem="nYN-lT-mOY" firstAttribute="leading" secondItem="Xt7-ZF-rBR" secondAttribute="leading" constant="8" id="SYb-LG-02N"/>
+                                                        <constraint firstAttribute="trailing" secondItem="nYN-lT-mOY" secondAttribute="trailing" constant="8" id="V8w-KF-TD4"/>
+                                                        <constraint firstAttribute="bottom" secondItem="nYN-lT-mOY" secondAttribute="bottom" constant="8" id="Yvp-v2-sw2"/>
+                                                        <constraint firstItem="nYN-lT-mOY" firstAttribute="top" secondItem="xk4-30-Gbs" secondAttribute="bottom" constant="8" id="ZK2-9c-6UU"/>
+                                                        <constraint firstItem="xk4-30-Gbs" firstAttribute="top" secondItem="Xt7-ZF-rBR" secondAttribute="top" id="hW6-ng-gsN"/>
+                                                        <constraint firstItem="7Rd-T2-jrZ" firstAttribute="top" secondItem="Xt7-ZF-rBR" secondAttribute="top" id="nyK-xw-59R"/>
+                                                        <constraint firstItem="raS-e8-6Qz" firstAttribute="leading" secondItem="Xt7-ZF-rBR" secondAttribute="leading" id="p3K-Op-nMP"/>
+                                                        <constraint firstAttribute="trailing" secondItem="xk4-30-Gbs" secondAttribute="trailing" id="sPg-1B-KU0"/>
+                                                        <constraint firstItem="raS-e8-6Qz" firstAttribute="top" secondItem="Xt7-ZF-rBR" secondAttribute="top" id="yfi-Jg-MRL"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Xt7-ZF-rBR" secondAttribute="trailing" id="W3h-xE-MDb"/>
+                                            <constraint firstItem="Xt7-ZF-rBR" firstAttribute="leading" secondItem="jD4-js-5lw" secondAttribute="leading" id="Wcx-XA-8cE"/>
+                                            <constraint firstItem="Xt7-ZF-rBR" firstAttribute="top" secondItem="jD4-js-5lw" secondAttribute="top" id="hO3-pX-yRQ"/>
+                                            <constraint firstAttribute="bottom" secondItem="Xt7-ZF-rBR" secondAttribute="bottom" id="hhq-qG-zYD"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="animatedImageView" destination="7Rd-T2-jrZ" id="fFj-NQ-B45"/>
+                                            <outlet property="detailStackView" destination="nYN-lT-mOY" id="bD4-wz-H8V"/>
+                                            <outlet property="imageView" destination="xk4-30-Gbs" id="YxV-HJ-Ip3"/>
+                                            <outlet property="playerView" destination="raS-e8-6Qz" id="9Af-g7-NjH"/>
+                                            <outlet property="subtitleLabel" destination="1dE-aF-x1W" id="cln-z7-krP"/>
+                                            <outlet property="titleLabel" destination="Mi7-5V-cWZ" id="bAb-Ov-R65"/>
+                                        </connections>
+                                    </collectionViewCell>
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="Q3z-Mk-ywe" id="V2l-HD-C4Y"/>
@@ -420,11 +494,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="399.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M2C-DC-EMD" customClass="SubscriptLabelView" customModule="Minimal" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2C-DC-EMD" customClass="SubscriptLabelView" customModule="Minimal" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="312" width="374" height="76"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5s4-rs-Pud" customClass="PresentationView" customModule="Minimal" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5s4-rs-Pud" customClass="PresentationView" customModule="Minimal" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
