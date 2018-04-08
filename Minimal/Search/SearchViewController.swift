@@ -68,8 +68,7 @@ class SearchViewController: UIViewController {
 
     func performFetch(withPredicate predicate: NSPredicate, sortDescriptors descriptors: [NSSortDescriptor]? = nil) {
         // TODO: Determine user preference for over18
-        let over18: Bool = false
-        let over18Predicate = NSPredicate(format: "over18 == %@", over18 as CVarArg)
+        let over18Predicate = NSPredicate(format: "over18 == false")
         let isDefault = NSPredicate(format: "isDefault == false")
         let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, over18Predicate, isDefault])
         
