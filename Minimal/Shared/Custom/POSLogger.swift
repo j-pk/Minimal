@@ -104,7 +104,7 @@ private class Logger {
     func log(error: [Error?], thread: String, path: String, lineNumber: Int, function: String, type: OSLogType = .error) {
         let path = NSURL(fileURLWithPath: path).deletingPathExtension?.lastPathComponent ?? "Unknown"
         var text = "\n█▓▒░ Thread: \(thread) ░ \(path) ░ \(function) >> \(lineNumber) \n"
-        for (index, element) in error.flatMap({ $0 }).enumerated() {
+        for (index, element) in error.compactMap({ $0 }).enumerated() {
             text += "█▓▒░ [\(type.description)] ░ #\(index): \(element) \n"
         }
         os_log("%@", log: log, type: type, text)

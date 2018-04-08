@@ -96,7 +96,7 @@ extension FontViewController: UITableViewDelegate {
         reloadViews()
         view.layoutIfNeeded()
         cell.selectionImageButton.isHidden = false
-        let deselectedCells = tableView.visibleCells.flatMap({ $0 as? LabelBaseCell }).filter({ $0 != cell }).filter({ self.tableView.indexPath(for: $0)?.section != FontTableViewSections.font.rawValue })
+        let deselectedCells = tableView.visibleCells.compactMap({ $0 as? LabelBaseCell }).filter({ $0 != cell }).filter({ self.tableView.indexPath(for: $0)?.section != FontTableViewSections.font.rawValue })
         deselectedCells.forEach({ $0.selectionImageButton.isHidden = true })
         self.tableView.reloadSections([0, 1], with: .none)
     }

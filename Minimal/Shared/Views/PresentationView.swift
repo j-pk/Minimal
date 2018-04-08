@@ -60,7 +60,7 @@ class PresentationView: XibView {
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
                 animatedImageView.isHidden = false
                 animatedImageView.imageView.contentMode = .scaleAspectFit
-                AnimatedImage.manager.loadImage(with: listing.url, into: animatedImageView)
+                Nuke.Manager.animatedImageManager.loadImage(with: listing.url, into: animatedImageView)
             } else {
                 playerView.isHidden = false
                 playerView.player = AVPlayer(url: url)

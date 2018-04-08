@@ -97,8 +97,8 @@ extension Listing: Manageable {
     static private func determineImageSize(fromDecodable json: ListingObject) -> (width: Int?, height: Int?) {
         var width = json.thumbnailWidth
         var height = json.thumbnailHeight
-        let widths = json.images?.first?.resolutions?.flatMap({ $0.width })
-        let heights = json.images?.first?.resolutions?.flatMap({ $0.height })
+        let widths = json.images?.first?.resolutions?.map({ $0.width })
+        let heights = json.images?.first?.resolutions?.map({ $0.height })
         
         if let widths = widths, let heights = heights {
             if widths.count >= 3 && heights.count >= 3 {
@@ -167,7 +167,7 @@ extension Listing: Manageable {
         } else if components.path.hasSuffix("webm") {
             modifiedUrlComponents.path = components.path.replacingOccurrences(of: "webm", with: "mp4")
         } else if let host = components.host, host.contains("youtube") || host.contains("youtu.be") {
-            if let id = components.queryItems?.filter({ $0.name == "v" }).flatMap({ $0.value }).first {
+            if let filteredId = components.queryItems?.filter({ $0.name == "v" }).map({ $0.value }).first, let id = filteredId {
                 modifiedUrlComponents.path = components.path.replacingOccurrences(of: "/watch", with: "/embed/\(id)")
                 modifiedUrlComponents.queryItems = nil
             } else {

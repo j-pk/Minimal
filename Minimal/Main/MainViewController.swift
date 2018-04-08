@@ -157,7 +157,7 @@ class MainViewController: UIViewController {
     }
     
     func setPlayerStateForViewControllerTransition(isReturning: Bool) {
-        collectionView.visibleCells.flatMap({ $0 as? MainCell }).forEach { (cell) in
+        collectionView.visibleCells.compactMap({ $0 as? MainCell }).forEach { (cell) in
             if cell.playerView.player != nil {
                 isReturning ? cell.playerView.play() : cell.playerView.pause()
             }

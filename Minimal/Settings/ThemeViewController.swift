@@ -61,7 +61,7 @@ extension ThemeViewController: UITableViewDelegate {
             themeManager.theme = theme
             reloadViews()
             cell.checkmark.isHidden = false
-            let deselectedCells = tableView.visibleCells.flatMap({ $0 as? ThemeCell }).filter({ $0 != cell })
+            let deselectedCells = tableView.visibleCells.compactMap({ $0 as? ThemeCell }).filter({ $0 != cell })
             deselectedCells.forEach({ $0.checkmark.isHidden = true })
         }
     }
