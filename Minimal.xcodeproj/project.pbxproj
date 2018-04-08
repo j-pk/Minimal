@@ -436,7 +436,6 @@
 				C0A3856F1F9E54AF005064DF /* Frameworks */,
 				C0A385701F9E54AF005064DF /* Resources */,
 				9BAE6D41A5F94D3473927681 /* [CP] Embed Pods Frameworks */,
-				C0283CCC3BBC4DD260FA9B4F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -540,21 +539,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Minimal/Pods-Minimal-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C0283CCC3BBC4DD260FA9B4F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Minimal/Pods-Minimal-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
