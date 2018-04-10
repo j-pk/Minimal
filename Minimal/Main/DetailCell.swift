@@ -13,17 +13,17 @@ import NukeGifuPlugin
 import Gifu
 
 class DetailCell: UICollectionViewCell {
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var playerView: PlayerView!
     @IBOutlet weak var animatedImageView: AnimatedImageView!
-    @IBOutlet weak var titleLabel: TitleLabel!
-    @IBOutlet weak var subtitleLabel: SubtitleLabel!
-    @IBOutlet weak var detailStackView: UIStackView!
+
+    @IBOutlet weak var subscriptLabelView: SubscriptLabelView!
     
     override func prepareForReuse() {
         super.prepareForReuse()
         animatedImageView.prepareForReuse()
-        removeAttachedView()
+        containerView.removeAttachedView()
         
         imageView.image = nil
         playerView.player = nil
@@ -34,13 +34,11 @@ class DetailCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        layer.cornerRadius = 4.0
-        layoutIfNeeded()
+        subscriptLabelView.descriptionLabel.isHidden = true
     }
     
     func configureCell(forListing listing: Listing) {
-        titleLabel.text = listing.title
-        subtitleLabel.isHidden = true
+        subscriptLabelView.setLabels(forListing: listing)
         switch listing.type {
         case .image:
             imageView.isHidden = false
@@ -49,16 +47,22 @@ class DetailCell: UICollectionViewCell {
                 if let image = response.value {
                     this.imageView?.image = image
                 } else {
-                    this.attachNoImageFound()
+                    this.containerView.attachNoImageFound()
                 }
             }
         case .animatedImage:
-            attachNoImageFound()
             guard let components = URLComponents(string: listing.url.absoluteString) else { return }
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
                 animatedImageView.isHidden = false
                 animatedImageView.imageView.contentMode = .scaleAspectFit
-                Nuke.Manager.animatedImageManager.loadImage(with: listing.url, into: animatedImageView)
+                Nuke.Manager.animatedImageManager.loadImage(with: listing.url, into: animatedImageView) { [weak self] response, _ in
+                    guard let this = self else { return }
+                    if let image = response.value, let data = image.animatedImageData {
+                        this.animatedImageView.imageView.animate(withGIFData: data)
+                    } else {
+                        this.containerView.attachNoImageFound()
+                    }
+                }
             } else {
                 playerView.isHidden = false
                 playerView.player = AVPlayer(url: listing.url)
@@ -69,7 +73,7 @@ class DetailCell: UICollectionViewCell {
             guard let url = URL(string: listing.thumbnailUrlString ?? listing.urlString) else { return }
             Manager.shared.loadImage(with: url, into: imageView) { [weak self] response, _ in
                 guard let this = self else { return }
-                this.attachPlayIndicator()
+                this.containerView.attachPlayIndicator()
                 if let image = response.value {
                     this.imageView?.image = image
                 }
@@ -77,6 +81,7 @@ class DetailCell: UICollectionViewCell {
         default:
             return
         }
+        layoutIfNeeded()
     }
 }
 

@@ -31,8 +31,6 @@ class MainCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        layer.cornerRadius = 4.0
-        layoutIfNeeded()
     }
     
     func configureCell(forListing listing: Listing) {
@@ -48,13 +46,19 @@ class MainCell: UICollectionViewCell {
                 }
             }
         case .animatedImage:
-            attachNoImageFound()
             guard let components = URLComponents(string: listing.url.absoluteString) else { return }
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
                 animatedImageView.isHidden = false
                 animatedImageView.imageView.contentMode = .scaleAspectFit
-                Nuke.Manager.animatedImageManager.loadImage(with: listing.url, into: animatedImageView)
-            } else { 
+                Nuke.Manager.animatedImageManager.loadImage(with: listing.url, into: animatedImageView) { [weak self] response, _ in
+                    guard let this = self else { return }
+                    if let image = response.value, let data = image.animatedImageData {
+                        this.animatedImageView.imageView.animate(withGIFData: data)
+                    } else {
+                        this.attachNoImageFound()
+                    }
+                }
+            } else {
                 playerView.isHidden = false
                 playerView.player = AVPlayer(url: listing.url)
                 playerView.play()

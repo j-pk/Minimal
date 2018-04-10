@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
         let layout = CHTCollectionViewWaterfallLayout()
         layout.minimumColumnSpacing = 10.0
         layout.minimumInteritemSpacing = 10.0
-        layout.columnCount = 2
+        layout.columnCount = 1
         layout.headerHeight = 10
         layout.footerHeight = 10
         layout.sectionInset = UIEdgeInsets(top: 54, left: 10, bottom: 0, right: 10)
@@ -178,7 +178,8 @@ class MainViewController: UIViewController {
     
     func configureAnnotationForItem(atIndexPath indexPath: IndexPath) -> String? {
         let listing = self.listingResultsController.object(at: indexPath)
-        return listing.title
+        let annotations = [listing.title, listing.subredditNamePrefixed, listing.author, String(listing.score)].compactMap({ $0 }).joined(separator: "\n")
+        return annotations
     }
 
     
@@ -197,7 +198,7 @@ class MainViewController: UIViewController {
             }
         } else if segue.identifier == "commentsControllerSegue" {
             if let commentsViewController = segue.destination as? CommentsViewController {
-                guard let cell = sender as? MainCell else { return }
+                guard let cell = sender as? UICollectionViewCell else { return }
                 guard let indexPath = collectionView.indexPath(for: cell) else { return }
                 let listing = self.listingResultsController.object(at: indexPath)
                 commentsViewController.hidesBottomBarWhenPushed = true
@@ -257,6 +258,17 @@ extension MainViewController: UISearchActionDelegate {
     }
 }
 
+// MARK: CHTCollectionViewDelegateWaterfallLayout
+extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
+    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+        return calculateSizeForItem(atIndexPath: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, annotationForItemAtIndexPath indexPath: IndexPath) -> String? {
+        return configureAnnotationForItem(atIndexPath: indexPath)
+    }
+}
+
 // MARK: UICollectionViewDataSourcePrefetching
 extension MainViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
@@ -271,16 +283,6 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
     }
 }
 
-// MARK: CHTCollectionViewDelegateWaterfallLayout
-extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
-    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        return calculateSizeForItem(atIndexPath: indexPath)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, annotationForItemAtIndexPath indexPath: IndexPath) -> String? {
-        return configureAnnotationForItem(atIndexPath: indexPath)
-    }
-}
 
 // MARK: UIViewControllerPreviewingDelegate
 // Peek & Pop
