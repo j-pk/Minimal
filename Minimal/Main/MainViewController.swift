@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
     private var database: DatabaseEngine?
     private var subredditString: String?
     private var listingResultsController: NSFetchedResultsController<Listing>!
+    private let categoryTransitionManager = CategoryPopoverTransitionManager()
     
     private let collectionViewLayout: CHTCollectionViewWaterfallLayout = {
         let layout = CHTCollectionViewWaterfallLayout()
@@ -186,13 +187,8 @@ class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popOverControllerSegue" {
             guard let database = database, let user = User.current(context: database.viewContext) else { return }
-            segue.destination.popoverPresentationController?.delegate = self
-            let height: CGFloat = user.timeFrameString != nil ? 100 : 60
-            segue.destination.preferredContentSize = CGSize(width: self.view.frame.width, height: height)
-            segue.destination.popoverPresentationController?.sourceRect = CGRect(x: (categoryButton.frame.width / 2), y: categoryButton.frame.maxY * 2, width: 0, height: 0)
-            segue.destination.popoverPresentationController?.backgroundColor = themeManager.theme.secondaryColor
-            segue.destination.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.init(rawValue: 0)
             if let popOverController = segue.destination as? CategoryPopoverViewController {
+                popOverController.transitioningDelegate = categoryTransitionManager
                 popOverController.category = user.category
                 popOverController.timeFrame = user.timeFrame
             }
@@ -205,6 +201,12 @@ class MainViewController: UIViewController {
                 commentsViewController.database = database
                 commentsViewController.listing = listing
             }
+        }
+    }
+    
+    @IBAction func unwindToViewController(sender: UIStoryboardSegue) {
+        if let categoryPopOverViewController = sender.source as? CategoryPopoverViewController {
+            updateUserAndListings(category: categoryPopOverViewController.category, timeFrame: categoryPopOverViewController.timeFrame)
         }
     }
 }
@@ -243,21 +245,6 @@ extension MainViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: UISearchActionDelegate
-extension MainViewController: UISearchActionDelegate {
-    func didSelect(subreddit: Subreddit) {
-        updateUserAndListings(forSubreddit: subreddit, category: .hot)
-    }
-    
-    func didSelect(defaultSubreddit: DefaultSubreddit) {
-        guard let database = database else { return }
-        let predicate = NSPredicate(format: "isDefault == true && displayName == %@", defaultSubreddit.displayName)
-        if let subreddit = try? Subreddit.fetchFirst(inContext: database.viewContext, predicate: predicate) {
-            updateUserAndListings(forSubreddit: subreddit, category: .hot)
-        }
-    }
-}
-
 // MARK: CHTCollectionViewDelegateWaterfallLayout
 extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
@@ -283,6 +270,20 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
     }
 }
 
+// MARK: UISearchActionDelegate
+extension MainViewController: UISearchActionDelegate {
+    func didSelect(subreddit: Subreddit) {
+        updateUserAndListings(forSubreddit: subreddit, category: .hot)
+    }
+    
+    func didSelect(defaultSubreddit: DefaultSubreddit) {
+        guard let database = database else { return }
+        let predicate = NSPredicate(format: "isDefault == true && displayName == %@", defaultSubreddit.displayName)
+        if let subreddit = try? Subreddit.fetchFirst(inContext: database.viewContext, predicate: predicate) {
+            updateUserAndListings(forSubreddit: subreddit, category: .hot)
+        }
+    }
+}
 
 // MARK: UIViewControllerPreviewingDelegate
 // Peek & Pop
@@ -307,19 +308,6 @@ extension MainViewController: UIViewControllerPreviewingDelegate {
         detailViewController.preferredContentSize = CGSize(width: 0, height: 460)
         detailViewController.listing = listing
         return detailViewController
-    }
-}
-
-// MARK: UIPopoverPresentationControllerDelegate
-// Category & Timeframe
-extension MainViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-    
-    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        guard let categoryPopOverViewController = popoverPresentationController.presentedViewController as? CategoryPopoverViewController else { return }
-        updateUserAndListings(category: categoryPopOverViewController.category, timeFrame: categoryPopOverViewController.timeFrame)
     }
 }
 

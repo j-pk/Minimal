@@ -9,7 +9,7 @@
 import UIKit
 
 extension UITabBarController {
-    func tab<T>(toViewController viewController: T.Type) where T : UIViewController {
+    func tab<T>(toViewController viewController: T.Type) where T: UIViewController {
         self.viewControllers?.forEach({ (viewController) in
             if viewController is UINavigationController {
                 if let navigationController = viewController as? UINavigationController {
@@ -25,7 +25,7 @@ extension UITabBarController {
         })
     }
     
-    func fetch<T>(viewController: T.Type) -> T? where T : UIViewController {
+    func fetch<T>(viewController: T.Type) -> T? where T: UIViewController {
         var destination: T?
         self.viewControllers?.forEach({ (viewController) in
             if viewController is UINavigationController {

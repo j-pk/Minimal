@@ -82,7 +82,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="121" height="103"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
-                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xk4-30-Gbs">
+                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xk4-30-Gbs">
                                                             <rect key="frame" x="0.0" y="0.0" width="121" height="103"/>
                                                         </imageView>
                                                         <view hidden="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Rd-T2-jrZ" customClass="AnimatedImageView" customModule="NukeGifuPlugin">
@@ -90,7 +90,6 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="7Rd-T2-jrZ" secondAttribute="bottom" id="47q-ph-LU4"/>
                                                         <constraint firstAttribute="trailing" secondItem="7Rd-T2-jrZ" secondAttribute="trailing" id="96S-jm-0NM"/>
@@ -185,9 +184,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="hot"/>
                                                 <connections>
-                                                    <segue destination="coe-Gc-YPD" kind="popoverPresentation" identifier="popOverControllerSegue" popoverAnchorView="jVe-85-wUx" id="9Ob-pm-hQF">
-                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
-                                                    </segue>
+                                                    <segue destination="coe-Gc-YPD" kind="presentation" identifier="popOverControllerSegue" modalPresentationStyle="overFullScreen" id="9Ob-pm-hQF"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -427,6 +424,7 @@
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="QK8-YL-nHf" firstAttribute="centerX" secondItem="Lli-Lb-ez2" secondAttribute="centerX" id="Fhg-Tx-54g"/>
                             <constraint firstItem="QK8-YL-nHf" firstAttribute="leading" secondItem="mrO-Wh-CYJ" secondAttribute="leading" id="NkO-Vz-1FG"/>
@@ -437,6 +435,9 @@
                             <constraint firstItem="QK8-YL-nHf" firstAttribute="top" secondItem="mrO-Wh-CYJ" secondAttribute="top" id="yXN-Fo-eD9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mrO-Wh-CYJ"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="zmc-Dg-W0s" appends="YES" id="PHu-rx-fJT"/>
+                        </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="280" height="96"/>
@@ -457,6 +458,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AZu-E9-98i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="30A-s6-Udj" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="zmc-Dg-W0s">
+                    <connections>
+                        <segue destination="30A-s6-Udj" kind="unwind" unwindAction="unwindToViewControllerWithSender:" id="yfJ-lp-n2Z"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="160.86956521739131" y="1601.9021739130435"/>
         </scene>

@@ -35,6 +35,8 @@ class DetailCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         subscriptLabelView.descriptionLabel.isHidden = true
+        clipsToBounds = true
+        layer.cornerRadius = 4.0
     }
     
     func configureCell(forListing listing: Listing) {
@@ -42,7 +44,8 @@ class DetailCell: UICollectionViewCell {
         switch listing.type {
         case .image:
             imageView.isHidden = false
-            Manager.shared.loadImage(with: listing.url, into: imageView) { [weak self] response, _ in
+            let request = Request(url: listing.url).processed(with: RoundedCorners(radius: 4.0))
+            Manager.shared.loadImage(with: request, into: imageView) { [weak self] response, _ in
                 guard let this = self else { return }
                 if let image = response.value {
                     this.imageView?.image = image

@@ -32,10 +32,12 @@
 		C03F92251FA049BE009EEEF3 /* DatabaseEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92241FA049BE009EEEF3 /* DatabaseEngine.swift */; };
 		C03F92271FA11DE7009EEEF3 /* NSManagedObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */; };
 		C04AED072040CDD400554C5E /* POSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04AED062040CDD400554C5E /* POSLogger.swift */; };
+		C04E092B2082D7110017BBB5 /* CategoryPopoverTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04E092A2082D7110017BBB5 /* CategoryPopoverTransitionManager.swift */; };
 		C050C34C200173CB00863B52 /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C050C34B200173CB00863B52 /* UILabelExtensions.swift */; };
 		C055A0AE204CBAF700D09405 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C055A0AD204CBAF700D09405 /* UIImageViewExtensions.swift */; };
 		C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */; };
 		C06E18651FFD381800AB4F3A /* FontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18641FFD381800AB4F3A /* FontViewController.swift */; };
+		C07A81DC20802CA80075164E /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07A81DB20802CA80075164E /* ImageProcessor.swift */; };
 		C07FAE072054C6230049E9F0 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE062054C6230049E9F0 /* Defaults.swift */; };
 		C07FAE092058B0C30049E9F0 /* SubscribedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */; };
 		C07FAE0D205C7E690049E9F0 /* AuthorizationContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE0C205C7E690049E9F0 /* AuthorizationContract.swift */; };
@@ -110,10 +112,12 @@
 		C03F92241FA049BE009EEEF3 /* DatabaseEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseEngine.swift; sourceTree = "<group>"; };
 		C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectExtensions.swift; sourceTree = "<group>"; };
 		C04AED062040CDD400554C5E /* POSLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POSLogger.swift; sourceTree = "<group>"; };
+		C04E092A2082D7110017BBB5 /* CategoryPopoverTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPopoverTransitionManager.swift; sourceTree = "<group>"; };
 		C050C34B200173CB00863B52 /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
 		C055A0AD204CBAF700D09405 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
 		C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarExtensions.swift; sourceTree = "<group>"; };
 		C06E18641FFD381800AB4F3A /* FontViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontViewController.swift; sourceTree = "<group>"; };
+		C07A81DB20802CA80075164E /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 		C07FAE062054C6230049E9F0 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribedManager.swift; sourceTree = "<group>"; };
 		C07FAE0C205C7E690049E9F0 /* AuthorizationContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationContract.swift; sourceTree = "<group>"; };
@@ -303,9 +307,9 @@
 			children = (
 				C0A385941F9E90DF005064DF /* Main.storyboard */,
 				C0A3859B1F9E9796005064DF /* MainViewController.swift */,
+				C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */,
 				C0A3859D1F9E98AC005064DF /* MainCell.swift */,
 				C01A6DBA206B39BD00CA50C2 /* DetailCell.swift */,
-				C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */,
 				C0EC9B9F1FC2352B0073FF7A /* Pop */,
 				C0EC9B9E1FC235050073FF7A /* Comments */,
 			);
@@ -388,6 +392,7 @@
 				C0A823622048C71900847548 /* Custom */,
 				C097F1A81FBBF8F200706F89 /* Extensions */,
 				C08D623D1FD4DADC00794B2A /* Views */,
+				C07A81DB20802CA80075164E /* ImageProcessor.swift */,
 				C0DA84DB1FA01769006BE949 /* ListingEnums.swift */,
 				C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */,
 				C0110E131FB4DF5700410478 /* TypeName.swift */,
@@ -409,6 +414,7 @@
 		C0EC9B9F1FC2352B0073FF7A /* Pop */ = {
 			isa = PBXGroup;
 			children = (
+				C04E092A2082D7110017BBB5 /* CategoryPopoverTransitionManager.swift */,
 				C08D56F81FBAA10E0053FEA5 /* CategoryPopoverViewController.swift */,
 				C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */,
 			);
@@ -564,7 +570,9 @@
 				C0A41B171FE741B5005A3F58 /* ThemeCell.swift in Sources */,
 				C00B140B2029509B0064D1AF /* SegmentedController.swift in Sources */,
 				C08D62411FD4E39200794B2A /* AuthenticateCell.swift in Sources */,
+				C04E092B2082D7110017BBB5 /* CategoryPopoverTransitionManager.swift in Sources */,
 				C0EC9B971FC0A1750073FF7A /* HiddenNavBarNavigationController.swift in Sources */,
+				C07A81DC20802CA80075164E /* ImageProcessor.swift in Sources */,
 				C0C2AC47201842C000745869 /* Subreddit+CoreDataProperties.swift in Sources */,
 				C07FAE11205C96C40049E9F0 /* RequestAuthorization.swift in Sources */,
 				C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */,
