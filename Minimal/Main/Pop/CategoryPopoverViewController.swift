@@ -10,14 +10,14 @@ import UIKit
 
 class CategoryPopoverViewController: UIViewController {
     
+    @IBOutlet weak var categoryStackView: UIStackView!
     @IBOutlet weak var hotButton: UIButton!
     @IBOutlet weak var newButton: UIButton!
     @IBOutlet weak var risingButton: UIButton!
     @IBOutlet weak var controversialButton: UIButton!
     @IBOutlet weak var topButton: UIButton!
-    @IBOutlet weak var timeFrameScrollView: UIScrollView!
-    @IBOutlet weak var categoryScrollView: UIScrollView!
 
+    @IBOutlet weak var timeFrameStackView: UIStackView!
     @IBOutlet weak var oneHour: UIButton!
     @IBOutlet weak var twentyFourHours: UIButton!
     @IBOutlet weak var week: UIButton!
@@ -41,33 +41,32 @@ class CategoryPopoverViewController: UIViewController {
     
         guard let selectedCategoryButton = categoryButtonSet.filter({ $0.titleLabel?.text == category.rawValue }).first else { return }
         select(button: selectedCategoryButton)
-        categoryScrollView.setContentOffset(CGPoint(x: categoryScrollView.contentSize.width - selectedCategoryButton.frame.origin.x, y: 0), animated: true)
         
         if let timeFrame = timeFrame?.titleValue {
             guard let selectedTimeframeButton = timeFrameButtonSet.filter({ $0.titleLabel?.text == timeFrame }).first else { return }
             select(button: selectedTimeframeButton)
         }
+        
+        self.timeFrameStackView.isHidden = !category.isSetByTimeframe
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        guard let selectedCategoryButton = categoryButtonSet.filter({ $0.titleLabel?.text == category.rawValue }).first else { return }
-        guard let selectedTimeframeButton = timeFrameButtonSet.filter({ $0.titleLabel?.text == timeFrame?.titleValue }).first else { return }
 
-        categoryScrollView.scrollRectToVisible(selectedCategoryButton.frame, animated: true)
-        timeFrameScrollView.scrollRectToVisible(selectedTimeframeButton.frame, animated: true)
-    }
-    
-    
     @IBAction func didPressCategoryButton(_ sender: UIButton) {
         guard let selectedCategory = CategorySortType.allValues.filter({ $0.rawValue == sender.titleLabel?.text }).first else { return }
         category = selectedCategory
+
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveEaseOut], animations: {
+            // BUG: http://www.openradar.me/22819594
+            // This is a workaround, do not set setHidden:true if it is already hidden
+            if self.timeFrameStackView.isHidden == false && selectedCategory.isSetByTimeframe == false {
+                self.timeFrameStackView.isHidden = true
+            } else if self.timeFrameStackView.isHidden == true && selectedCategory.isSetByTimeframe == true {
+                self.timeFrameStackView.isHidden = false
+            } else if self.timeFrameStackView.isHidden == true && selectedCategory.isSetByTimeframe == false {
+                // Don't do anything
+            }
+        }, completion: nil)
         
-        if selectedCategory.isSetByTimeframe {
-            preferredContentSize = CGSize(width: view.frame.width, height: 100)
-            timeFrameScrollView.isHidden = false
-        } else {
-            preferredContentSize = CGSize(width: view.frame.width, height: 60)
-            timeFrameScrollView.isHidden = true
+        if !selectedCategory.isSetByTimeframe {
             timeFrame = nil
         }
         
@@ -78,7 +77,6 @@ class CategoryPopoverViewController: UIViewController {
                 deselect(button: button)
             }
         }
-        categoryScrollView.scrollRectToVisible(sender.frame, animated: true)
     }
     
     @IBAction func didPressTimeFrameButton(_ sender: UIButton) {
@@ -92,7 +90,6 @@ class CategoryPopoverViewController: UIViewController {
                 deselect(button: button)
             }
         }
-        timeFrameScrollView.scrollRectToVisible(sender.frame, animated: true)
     }
     
     func select(button: UIButton) {

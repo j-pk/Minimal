@@ -92,7 +92,7 @@ struct ThemeManager {
         UITableView.appearance().backgroundColor = theme.primaryColor
         DetailCell.appearance().backgroundColor = theme.primaryColor
         
-        UIScrollView.appearance().backgroundColor = theme.secondaryColor
+        //UIScrollView.appearance().backgroundColor = theme.secondaryColor
         
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = theme.tintColor
         SegmentedController.appearance().tintColor = theme.tintColor

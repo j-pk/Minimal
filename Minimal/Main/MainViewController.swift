@@ -189,6 +189,7 @@ class MainViewController: UIViewController {
             guard let database = database, let user = User.current(context: database.viewContext) else { return }
             if let popOverController = segue.destination as? CategoryPopoverViewController {
                 popOverController.transitioningDelegate = categoryTransitionManager
+                popOverController.preferredContentSize = user.category.isSetByTimeframe ? CGSize(width: view.frame.width, height: 60) : CGSize(width: view.frame.width, height: 96)
                 popOverController.category = user.category
                 popOverController.timeFrame = user.timeFrame
             }
