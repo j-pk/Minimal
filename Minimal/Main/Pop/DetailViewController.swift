@@ -19,6 +19,8 @@ class DetailViewController: UIViewController {
     var animator: UIDynamicAnimator!
     var listing: Listing?
     var themeManager = ThemeManager()
+    var database: Database?
+    weak var delegate: SubredditSelectionProtocol?
 
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -89,8 +91,10 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: UIViewTappableDelegate {
     func didTapView(sender: UITapGestureRecognizer, data: [String: Any?]) {
-        if let data = data as? UILabel {
-            posLog(values: data.text)
+        if let prefixedSubreddit = data["subreddit"] as? String, let database = self.database {
+            dismiss(animated: true) {
+                self.delegate?.didSelect(prefixedSubreddit: prefixedSubreddit, context: database.viewContext)
+            }
         }
     }
 }

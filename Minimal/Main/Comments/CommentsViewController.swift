@@ -76,16 +76,8 @@ extension CommentsViewController: UIViewTappableDelegate {
     func didTapView(sender: UITapGestureRecognizer, data: [String: Any?]) {
         if let view = sender.view, let label = view as? UILabel {
             guard let database = database, let prefixedSubreddit = label.text else { return }
-            do {
-                guard let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "displayNamePrefixed == %@", prefixedSubreddit)) else {
-                    posLog(message: "Failed")
-                    return
-                }
-                delegate?.didSelect(subreddit: subreddit)
-                navigationController?.popViewController(animated: true)
-            } catch let error {
-                posLog(error: error)
-            }
+            delegate?.didSelect(prefixedSubreddit: prefixedSubreddit, context: database.viewContext)
+            navigationController?.popViewController(animated: true)
         } else if !data.filter({ $0.key == "image" }).isEmpty {
             performSegue(withIdentifier: "imageViewControllerSegue", sender: self)
         } else if let url = data["url"] as? URL {

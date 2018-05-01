@@ -297,7 +297,7 @@ extension MainViewController: SubredditSelectionProtocol {
 }
 
 extension MainViewController: UIViewTappableDelegate {
-    func didTapView(sender: UITapGestureRecognizer, data: [String : Any?]) {
+    func didTapView(sender: UITapGestureRecognizer, data: [String: Any?]) {
         if let view = sender.view, let label = view as? UILabel {
             guard let database = database, let prefixedSubreddit = label.text else { return }
             do {
@@ -335,6 +335,8 @@ extension MainViewController: UIViewControllerPreviewingDelegate {
         let detailViewController: DetailViewController = UIViewController.make(storyboard: .main)
         detailViewController.preferredContentSize = CGSize(width: 0, height: 460)
         detailViewController.listing = listing
+        detailViewController.database = database
+        detailViewController.delegate = self
         return detailViewController
     }
 }

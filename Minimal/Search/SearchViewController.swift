@@ -16,6 +16,20 @@ import CoreData
 protocol SubredditSelectionProtocol: class {
     func didSelect(subreddit: Subreddit)
     func didSelect(defaultSubreddit: DefaultSubreddit)
+    func didSelect(prefixedSubreddit: String, context: NSManagedObjectContext)
+}
+
+extension SubredditSelectionProtocol {
+    func didSelect(prefixedSubreddit: String, context: NSManagedObjectContext) {
+        do {
+            guard let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: context, predicate: NSPredicate(format: "displayNamePrefixed == %@", prefixedSubreddit)) else {
+                throw NSError(domain: "SubredditSelectionProtocol", code: 0, userInfo: nil)
+            }
+            didSelect(subreddit: subreddit)
+        } catch let error {
+            posLog(error: error)
+        }
+    }
 }
 
 class SearchViewController: UIViewController {
