@@ -13,7 +13,7 @@ import CoreData
 ///
 /// Action from a search result returns the selected subreddit
 
-protocol UISearchActionDelegate: class {
+protocol SubredditSelectionProtocol: class {
     func didSelect(subreddit: Subreddit)
     func didSelect(defaultSubreddit: DefaultSubreddit)
 }
@@ -29,7 +29,7 @@ class SearchViewController: UIViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private let themeManager = ThemeManager()
     private var searchResultsController: NSFetchedResultsController<Subreddit>!
-    weak var delegate: UISearchActionDelegate?
+    weak var delegate: SubredditSelectionProtocol?
     var database: Database?
 
     fileprivate var searchSegment: SearchSegment {

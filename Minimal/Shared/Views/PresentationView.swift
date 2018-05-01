@@ -47,14 +47,12 @@ class PresentationView: XibView {
         case .image:
             data = ["image": url]
             imageView.isHidden = false
-            Manager.shared.loadImage(with: url, into: imageView) { [weak self] response, _ in
-                guard let this = self else { return }
-                if let image = response.value {
-                    this.imageView?.image = image
-                } else {
-                    this.attachNoImageFound(message: "No Data")
-                }
+            var request = Request(url: listing.url).processed(with: RoundedCorners(radius: 4))
+            if listing.over18 {
+                request = Request(url: listing.url).processed(with: Pixelate(scale: 50))
             }
+            let image = Cache.shared[request]
+            self.imageView.image = image
         case .animatedImage:
             attachNoImageFound(message: "No Data")
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {

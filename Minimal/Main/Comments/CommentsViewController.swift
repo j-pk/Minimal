@@ -15,6 +15,7 @@ class CommentsViewController: UIViewController {
     
     var listing: Listing?
     var database: Database?
+    weak var delegate: SubredditSelectionProtocol?
     var themeManager = ThemeManager()
     
     override func viewDidLoad() {
@@ -61,7 +62,7 @@ extension CommentsViewController: UITableViewDelegate {
         case 0:
             if let listing = listing {
                 cell.configureCell(forListing: listing)
-                cell.subscriptLabelView.delegate = self
+                cell.annotationView.delegate = self
                 cell.presentationView.delegate = self
             }
             return cell.contentView
@@ -72,9 +73,19 @@ extension CommentsViewController: UITableViewDelegate {
 }
 
 extension CommentsViewController: UIViewTappableDelegate {
-    func didTapView(sender: UITapGestureRecognizer, data: [String:Any?]) {
-        if let view = sender.view, view is UILabel {
-            posLog(values: view)
+    func didTapView(sender: UITapGestureRecognizer, data: [String: Any?]) {
+        if let view = sender.view, let label = view as? UILabel {
+            guard let database = database, let prefixedSubreddit = label.text else { return }
+            do {
+                guard let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "displayNamePrefixed == %@", prefixedSubreddit)) else {
+                    posLog(message: "Failed")
+                    return
+                }
+                delegate?.didSelect(subreddit: subreddit)
+                navigationController?.popViewController(animated: true)
+            } catch let error {
+                posLog(error: error)
+            }
         } else if !data.filter({ $0.key == "image" }).isEmpty {
             performSegue(withIdentifier: "imageViewControllerSegue", sender: self)
         } else if let url = data["url"] as? URL {

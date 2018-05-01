@@ -9,7 +9,7 @@
 import UIKit
 
 class HeaderCell: UITableViewCell {
-    @IBOutlet weak var subscriptLabelView: SubscriptLabelView!
+    @IBOutlet weak var annotationView: AnnotationView!
     @IBOutlet weak var presentationView: PresentationView!
     
     var url: URL?
@@ -25,7 +25,7 @@ class HeaderCell: UITableViewCell {
     
     func configureCell(forListing listing: Listing) {
         contentView.backgroundColor = themeManager.theme.primaryColor
-        subscriptLabelView.setLabels(forListing: listing)
+        annotationView.setLabels(forListing: listing)
         presentationView.setView(forListing: listing)
         layoutIfNeeded()
     }

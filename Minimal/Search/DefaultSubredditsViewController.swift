@@ -11,7 +11,7 @@ import UIKit
 class DefaultSubredditsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
-    weak var delegate: UISearchActionDelegate?
+    weak var delegate: SubredditSelectionProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()

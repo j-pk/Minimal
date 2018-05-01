@@ -164,11 +164,61 @@ extension UIView {
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[imageView(30)]-|",
                                                                   options: NSLayoutFormatOptions.alignAllCenterX,
                                                                   metrics: nil,
-                                                                  views: ["effectView": containerView, "imageView": imageView]))
+                                                                  views: ["containerView": containerView, "imageView": imageView]))
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[imageView(30)]",
                                                                   options: NSLayoutFormatOptions.alignAllCenterY,
                                                                   metrics: nil,
-                                                                  views: ["effectView": containerView, "imageView": imageView]))
+                                                                  views: ["containerView": containerView, "imageView": imageView]))
+    }
+    
+    func attachNSFWLabel() {
+        let containerView = UIView()
+        containerView.layer.masksToBounds = true
+        containerView.layer.opacity = 0.9
+        containerView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.tag = 1
+        addSubview(containerView)
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[containerView]-0-|",
+                                                      options: NSLayoutFormatOptions.alignAllCenterX,
+                                                      metrics: nil,
+                                                      views: ["containerView": containerView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[containerView]-0-|",
+                                                      options: NSLayoutFormatOptions.alignAllCenterY,
+                                                      metrics: nil,
+                                                      views: ["containerView": containerView]))
+        let labelContainerView = UIView()
+        labelContainerView.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        labelContainerView.translatesAutoresizingMaskIntoConstraints = false
+        labelContainerView.layer.masksToBounds = true
+        labelContainerView.layer.cornerRadius = 4.0
+        containerView.addSubview(labelContainerView)
+        
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[labelContainerView(35)]-|",
+                                                                    options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                    metrics: nil,
+                                                                    views: ["containerView": containerView, "labelContainerView": labelContainerView]))
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[labelContainerView]",
+                                                                    options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                    metrics: nil,
+                                                                    views: ["containerView": containerView, "labelContainerView": labelContainerView]))
+
+        let nsfwLabel = WarningLabel()
+        nsfwLabel.text = "NSFW"
+        nsfwLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        nsfwLabel.backgroundColor = .clear
+        nsfwLabel.translatesAutoresizingMaskIntoConstraints = false
+        labelContainerView.addSubview(nsfwLabel)
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[nsfwLabel]-8-|",
+                                                      options: NSLayoutFormatOptions.alignAllCenterX,
+                                                      metrics: nil,
+                                                      views: ["nsfwLabel": nsfwLabel]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[nsfwLabel]-8-|",
+                                                      options: NSLayoutFormatOptions.alignAllCenterY,
+                                                      metrics: nil,
+                                                      views: ["nsfwLabel": nsfwLabel]))
     }
     
     func attachNoImageFound(message: String? = nil) {

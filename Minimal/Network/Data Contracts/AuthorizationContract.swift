@@ -1,4 +1,4 @@
-//
+    //
 //  AuthorizationContract.swift
 //  Minimal
 //

@@ -83,6 +83,7 @@ struct ThemeManager {
         HeaderLabel.appearance().textColor = redditOrange
         TitleLabel.appearance(whenContainedInInstancesOf: [SearchCell.self]).textColor = theme.titleTextColor
         SubtitleLabel.appearance(whenContainedInInstancesOf: [SearchCell.self]).textColor = theme.subtitleTextColor
+        WarningLabel.appearance().textColor = .black
         UIImageView.appearance(whenContainedInInstancesOf: [SubscribedCell.self]).tintColor = theme.tintColor
         HeaderImageView.appearance().tintColor = theme.titleTextColor
         
@@ -90,10 +91,8 @@ struct ThemeManager {
         UITableViewCell.appearance().backgroundColor = theme.primaryColor
         UITableView.appearance().separatorColor = theme.backgroundColor
         UITableView.appearance().backgroundColor = theme.primaryColor
-        DetailCell.appearance().backgroundColor = theme.primaryColor
-        
-        //UIScrollView.appearance().backgroundColor = theme.secondaryColor
-        
+        MediaAnnotatedCell.appearance().backgroundColor = theme.primaryColor
+                
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = theme.tintColor
         SegmentedController.appearance().tintColor = theme.tintColor
         UILabel.appearance(whenContainedInInstancesOf: [SegmentedController.self]).defaultFont = font(fontStyle: .secondary)
@@ -104,6 +103,7 @@ struct ThemeManager {
         TitleLabel.appearance().defaultFontBold = font(fontStyle: .primaryBold)
         SubtitleLabel.appearance().defaultFont = font(fontStyle: .secondary)
         HeaderLabel.appearance().defaultFont = font(fontStyle: .primary)
+        WarningLabel.appearance().defaultFontBold = font(fontStyle: .primaryBold)
         UILabel.appearance(whenContainedInInstancesOf: [SegmentedController.self]).defaultFont = font(fontStyle: .secondary)
     }
     

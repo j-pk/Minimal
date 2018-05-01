@@ -1,5 +1,5 @@
 //
-//  DetailCell.swift
+//  MediaCascadeCell.swift
 //  Minimal
 //
 //  Created by Jameson Kirby on 10/23/17.
@@ -12,19 +12,20 @@ import Nuke
 import NukeGifuPlugin
 import Gifu
 
-class DetailCell: UICollectionViewCell {
-    @IBOutlet weak var containerView: UIView!
+class MediaCascadeCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var playerView: PlayerView!
     @IBOutlet weak var animatedImageView: AnimatedImageView!
-
-    @IBOutlet weak var subscriptLabelView: SubscriptLabelView!
+    
+    class var identifier: String {
+        return String(describing: self)
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         animatedImageView.prepareForReuse()
-        containerView.removeAttachedView()
-        
+        removeAttachedView()
+
         imageView.image = nil
         playerView.player = nil
         imageView.isHidden = true
@@ -34,13 +35,9 @@ class DetailCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        subscriptLabelView.descriptionLabel.isHidden = true
-        clipsToBounds = true
-        layer.cornerRadius = 4.0
     }
     
     func configureCell(forListing listing: Listing) {
-        subscriptLabelView.setLabels(forListing: listing)
         switch listing.type {
         case .image:
             imageView.isHidden = false
@@ -50,7 +47,7 @@ class DetailCell: UICollectionViewCell {
                 if let image = response.value {
                     this.imageView?.image = image
                 } else {
-                    this.containerView.attachNoImageFound()
+                    this.attachNoImageFound()
                 }
             }
         case .animatedImage:
@@ -63,7 +60,7 @@ class DetailCell: UICollectionViewCell {
                     if let image = response.value, let data = image.animatedImageData {
                         this.animatedImageView.imageView.animate(withGIFData: data)
                     } else {
-                        this.containerView.attachNoImageFound()
+                        this.attachNoImageFound()
                     }
                 }
             } else {
@@ -76,7 +73,7 @@ class DetailCell: UICollectionViewCell {
             guard let url = URL(string: listing.thumbnailUrlString ?? listing.urlString) else { return }
             Manager.shared.loadImage(with: url, into: imageView) { [weak self] response, _ in
                 guard let this = self else { return }
-                this.containerView.attachPlayIndicator()
+                this.attachPlayIndicator()
                 if let image = response.value {
                     this.imageView?.image = image
                 }
@@ -84,7 +81,5 @@ class DetailCell: UICollectionViewCell {
         default:
             return
         }
-        layoutIfNeeded()
     }
 }
-

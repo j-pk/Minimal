@@ -16,7 +16,7 @@ class SubscribedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var database: Database?
     private var subscribedResultsController: NSFetchedResultsController<Subreddit>!
-    weak var delegate: UISearchActionDelegate?
+    weak var delegate: SubredditSelectionProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()

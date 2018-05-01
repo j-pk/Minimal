@@ -28,13 +28,36 @@ struct RoundedCorners: Processing {
     }
 }
 
+struct Pixelate: Processing {
+    private let scale: Int
+    
+    init(scale: Int = 8) {
+        self.scale = scale
+    }
+    
+    func process(_ image: UIImage) -> UIImage? {
+        return image.pixelate(scale: scale)
+    }
+    
+    static func ==(lhs: Pixelate, rhs: Pixelate) -> Bool {
+        return lhs.scale == rhs.scale
+    }
+}
+
 extension UIImage {
     public func rounderCorners(radius: CGFloat) -> UIImage? {
         let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
         UIGraphicsBeginImageContextWithOptions(size, false, 1)
         UIBezierPath(roundedRect: rect, cornerRadius: 4).addClip()
-//        UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: radius, height: radius)).addClip()
         draw(in: rect)
         return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    public func pixelate(scale: Int = 8) -> UIImage? {
+        guard let ciImage = UIKit.CIImage(image: self), let filter = CIFilter(name: "CIPixellate") else { return nil }
+        filter.setValue(ciImage, forKey: "inputImage")
+        filter.setValue(scale, forKey: "inputScale")
+        guard let output = filter.outputImage else { return nil }
+        return UIImage(ciImage: output)
     }
 }

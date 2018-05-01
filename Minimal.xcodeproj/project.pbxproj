@@ -16,7 +16,7 @@
 		C0110E141FB4DF5700410478 /* TypeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0110E131FB4DF5700410478 /* TypeName.swift */; };
 		C0110E161FB5671400410478 /* NotificationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0110E151FB5671400410478 /* NotificationExtensions.swift */; };
 		C011383E2067582000FBD5E7 /* SubscribedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C011383D2067582000FBD5E7 /* SubscribedCell.xib */; };
-		C01A6DBB206B39BD00CA50C2 /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01A6DBA206B39BD00CA50C2 /* DetailCell.swift */; };
+		C01A6DBB206B39BD00CA50C2 /* MediaAnnotatedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01A6DBA206B39BD00CA50C2 /* MediaAnnotatedCell.swift */; };
 		C01A6DBD206D972900CA50C2 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01A6DBC206D972900CA50C2 /* StringExtensions.swift */; };
 		C01B23051FD09DBE001F60B8 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01B23041FD09DBE001F60B8 /* ImageViewController.swift */; };
 		C020F9842016DA3700A3E43A /* SubredditContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020F9832016DA3700A3E43A /* SubredditContract.swift */; };
@@ -60,7 +60,7 @@
 		C0A385951F9E90DF005064DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A385941F9E90DF005064DF /* Main.storyboard */; };
 		C0A385971F9E9130005064DF /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A385961F9E9130005064DF /* Settings.storyboard */; };
 		C0A3859C1F9E9796005064DF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A3859B1F9E9796005064DF /* MainViewController.swift */; };
-		C0A3859E1F9E98AC005064DF /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A3859D1F9E98AC005064DF /* MainCell.swift */; };
+		C0A3859E1F9E98AC005064DF /* MediaCascadeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A3859D1F9E98AC005064DF /* MediaCascadeCell.swift */; };
 		C0A385A41F9F885E005064DF /* ListingContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385A31F9F885E005064DF /* ListingContract.swift */; };
 		C0A41B151FE6306F005A3F58 /* ThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A41B141FE6306F005A3F58 /* ThemeViewController.swift */; };
 		C0A41B171FE741B5005A3F58 /* ThemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A41B161FE741B5005A3F58 /* ThemeCell.swift */; };
@@ -73,8 +73,8 @@
 		C0E3C0F41FE9FF0100B9DE37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0A3857F1F9E54B0005064DF /* Assets.xcassets */; };
 		C0EC9B951FBFE3980073FF7A /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */; };
 		C0EC9B971FC0A1750073FF7A /* HiddenNavBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */; };
-		C0EC9B991FC0EC780073FF7A /* SubscriptLabelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EC9B981FC0EC780073FF7A /* SubscriptLabelView.xib */; };
-		C0EC9B9B1FC0ED9A0073FF7A /* SubscriptLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B9A1FC0ED9A0073FF7A /* SubscriptLabelView.swift */; };
+		C0EC9B991FC0EC780073FF7A /* AnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EC9B981FC0EC780073FF7A /* AnnotationView.xib */; };
+		C0EC9B9B1FC0ED9A0073FF7A /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B9A1FC0ED9A0073FF7A /* AnnotationView.swift */; };
 		C0EC9B9D1FC112B90073FF7A /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B9C1FC112B90073FF7A /* HeaderCell.swift */; };
 		C0EC9BA11FC237AA0073FF7A /* PresentationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EC9BA01FC237AA0073FF7A /* PresentationView.xib */; };
 		C0EC9BA31FC237BE0073FF7A /* PresentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9BA21FC237BE0073FF7A /* PresentationView.swift */; };
@@ -96,7 +96,7 @@
 		C0110E131FB4DF5700410478 /* TypeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeName.swift; sourceTree = "<group>"; };
 		C0110E151FB5671400410478 /* NotificationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtensions.swift; sourceTree = "<group>"; };
 		C011383D2067582000FBD5E7 /* SubscribedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubscribedCell.xib; sourceTree = "<group>"; };
-		C01A6DBA206B39BD00CA50C2 /* DetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
+		C01A6DBA206B39BD00CA50C2 /* MediaAnnotatedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaAnnotatedCell.swift; sourceTree = "<group>"; };
 		C01A6DBC206D972900CA50C2 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		C01B23041FD09DBE001F60B8 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		C020F9832016DA3700A3E43A /* SubredditContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditContract.swift; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 		C0A385941F9E90DF005064DF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C0A385961F9E9130005064DF /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		C0A3859B1F9E9796005064DF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		C0A3859D1F9E98AC005064DF /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
+		C0A3859D1F9E98AC005064DF /* MediaCascadeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCascadeCell.swift; sourceTree = "<group>"; };
 		C0A385A31F9F885E005064DF /* ListingContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingContract.swift; sourceTree = "<group>"; };
 		C0A41B141FE6306F005A3F58 /* ThemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewController.swift; sourceTree = "<group>"; };
 		C0A41B161FE741B5005A3F58 /* ThemeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCell.swift; sourceTree = "<group>"; };
@@ -155,8 +155,8 @@
 		C0DA84DB1FA01769006BE949 /* ListingEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingEnums.swift; sourceTree = "<group>"; };
 		C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenNavBarNavigationController.swift; sourceTree = "<group>"; };
-		C0EC9B981FC0EC780073FF7A /* SubscriptLabelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubscriptLabelView.xib; sourceTree = "<group>"; };
-		C0EC9B9A1FC0ED9A0073FF7A /* SubscriptLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptLabelView.swift; sourceTree = "<group>"; };
+		C0EC9B981FC0EC780073FF7A /* AnnotationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnnotationView.xib; sourceTree = "<group>"; };
+		C0EC9B9A1FC0ED9A0073FF7A /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		C0EC9B9C1FC112B90073FF7A /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		C0EC9BA01FC237AA0073FF7A /* PresentationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresentationView.xib; sourceTree = "<group>"; };
 		C0EC9BA21FC237BE0073FF7A /* PresentationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationView.swift; sourceTree = "<group>"; };
@@ -227,8 +227,8 @@
 				C0897DA71FABB4FB00801E08 /* PlayerView.swift */,
 				C0EC9BA21FC237BE0073FF7A /* PresentationView.swift */,
 				C0EC9BA01FC237AA0073FF7A /* PresentationView.xib */,
-				C0EC9B9A1FC0ED9A0073FF7A /* SubscriptLabelView.swift */,
-				C0EC9B981FC0EC780073FF7A /* SubscriptLabelView.xib */,
+				C0EC9B9A1FC0ED9A0073FF7A /* AnnotationView.swift */,
+				C0EC9B981FC0EC780073FF7A /* AnnotationView.xib */,
 				C00B140C202FA3010064D1AF /* SubscribedCell.swift */,
 				C011383D2067582000FBD5E7 /* SubscribedCell.xib */,
 				C022E7FB2069D2A4002277B4 /* SubscribedHeaderView.swift */,
@@ -308,8 +308,8 @@
 				C0A385941F9E90DF005064DF /* Main.storyboard */,
 				C0A3859B1F9E9796005064DF /* MainViewController.swift */,
 				C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */,
-				C0A3859D1F9E98AC005064DF /* MainCell.swift */,
-				C01A6DBA206B39BD00CA50C2 /* DetailCell.swift */,
+				C0A3859D1F9E98AC005064DF /* MediaCascadeCell.swift */,
+				C01A6DBA206B39BD00CA50C2 /* MediaAnnotatedCell.swift */,
 				C0EC9B9F1FC2352B0073FF7A /* Pop */,
 				C0EC9B9E1FC235050073FF7A /* Comments */,
 			);
@@ -496,7 +496,7 @@
 				C0A3858F1F9E5718005064DF /* Root.storyboard in Resources */,
 				C0A385931F9E9089005064DF /* Search.storyboard in Resources */,
 				C022E7FA2069D293002277B4 /* SubscribedHeaderView.xib in Resources */,
-				C0EC9B991FC0EC780073FF7A /* SubscriptLabelView.xib in Resources */,
+				C0EC9B991FC0EC780073FF7A /* AnnotationView.xib in Resources */,
 				C0A385971F9E9130005064DF /* Settings.storyboard in Resources */,
 				C0E3C0F41FE9FF0100B9DE37 /* Assets.xcassets in Resources */,
 				C0EC9BA11FC237AA0073FF7A /* PresentationView.xib in Resources */,
@@ -589,9 +589,9 @@
 				C07FAE0D205C7E690049E9F0 /* AuthorizationContract.swift in Sources */,
 				C020F9862016E0DD00A3E43A /* SearchSubredditManager.swift in Sources */,
 				C0EC9B9D1FC112B90073FF7A /* HeaderCell.swift in Sources */,
-				C0A3859E1F9E98AC005064DF /* MainCell.swift in Sources */,
+				C0A3859E1F9E98AC005064DF /* MediaCascadeCell.swift in Sources */,
 				C07FAE092058B0C30049E9F0 /* SubscribedManager.swift in Sources */,
-				C0EC9B9B1FC0ED9A0073FF7A /* SubscriptLabelView.swift in Sources */,
+				C0EC9B9B1FC0ED9A0073FF7A /* AnnotationView.swift in Sources */,
 				C0EDC88F1FD78219009C0D39 /* User+CoreDataProperties.swift in Sources */,
 				C03EC9EC1FC8CCEC00ACA0F5 /* ThemeManager.swift in Sources */,
 				C03F92251FA049BE009EEEF3 /* DatabaseEngine.swift in Sources */,
@@ -604,7 +604,7 @@
 				C0A385A41F9F885E005064DF /* ListingContract.swift in Sources */,
 				C055A0AE204CBAF700D09405 /* UIImageViewExtensions.swift in Sources */,
 				C020F9882016E43000A3E43A /* SubredditRouter.swift in Sources */,
-				C01A6DBB206B39BD00CA50C2 /* DetailCell.swift in Sources */,
+				C01A6DBB206B39BD00CA50C2 /* MediaAnnotatedCell.swift in Sources */,
 				C02E49941FDA59C40030347D /* ListingManager.swift in Sources */,
 				C008B1C620156574005FC651 /* UISearchBarExtensions.swift in Sources */,
 				C0235EF52065E8AC0084D3C5 /* SubscribedViewController.swift in Sources */,

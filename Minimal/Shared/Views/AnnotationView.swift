@@ -1,5 +1,5 @@
 //
-//  SubscriptLabelView.swift
+//  AnnotationView.swift
 //  Minimal
 //
 //  Created by Jameson Kirby on 11/18/17.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-class SubscriptLabelView: XibView {
+class AnnotationView: XibView {
     @IBOutlet weak var titleLabel: TitleLabel!
     @IBOutlet weak var subtitleLabel: SubtitleLabel!
     @IBOutlet weak var detailLabel: SubtitleLabel!
     @IBOutlet weak var descriptionLabel: SubtitleLabel!
     
     weak var delegate: UIViewTappableDelegate?
-    private var data: [String:Any?] = [:]
+    private var data: [String: Any?] = [:]
     fileprivate let themeManager = ThemeManager()
     
     func setLabels(forListing listing: Listing) {
@@ -45,7 +45,7 @@ class SubscriptLabelView: XibView {
         
         detailLabel.text = listing.subredditNamePrefixed
         detailLabel.textColor = themeManager.linkTextColor
-        data = ["subreddit":listing.subredditNamePrefixed]
+        data = ["subreddit": listing.subredditNamePrefixed]
         
         let descriptionAttributedString = NSMutableAttributedString()
         let score = NumberFormatter.localizedString(from: NSNumber(value: listing.score), number: .decimal)
@@ -70,7 +70,7 @@ class SubscriptLabelView: XibView {
     }
 }
 
-extension SubscriptLabelView: Tappable, Recognizer {
+extension AnnotationView: Tappable, Recognizer {
     func didTapView(_ sender: UITapGestureRecognizer) {
         delegate?.didTapView(sender: sender, data: data)
     }

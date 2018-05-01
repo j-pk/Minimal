@@ -50,40 +50,34 @@ enum ListingRouter: Routable {
     
     //https://www.reddit.com/r/funny/top/.json?sort=top&t=24hours
     //https://www.reddit.com/r/funny/top/?sort=top&t=24hours&count=25&after=t3_7eaiko
+    //https://www.reddit.com/controversial.json?t=week
+    //http://reddit.com/r/[subreddit].[rss/json]?limit=[limit]&after=[after]
     var path: String {
         switch self {
         case .subreddit(let prefix, let category, _), .paginate(let prefix, let category, _, _, _):
-            if prefix.isEmpty || prefix == "" {
-                return "/.json"
-            }
-            
             var buildPath = prefix
             if let category = category {
-                buildPath += "/\(category)/.json"
+                buildPath += prefix == "" ? "/\(category).json" : "/\(category)/.json"
             } else {
                 buildPath += "/.json"
             }
-            buildPath.insert("/", at: buildPath.startIndex)
+            if buildPath.first != "/" {
+               buildPath.insert("/", at: buildPath.startIndex)
+            }
             return buildPath
         }
     }
     
     var queryItems: [URLQueryItem] {
         switch self {
-        case .subreddit(_, let category, let timeFrame):
+        case .subreddit(_, _, let timeFrame):
             var subredditQuery: [URLQueryItem] = []
-            if let category = category {
-               subredditQuery.append(URLQueryItem(name: "sort", value: category))
-            }
             if let timeFrame = timeFrame {
                 subredditQuery.append(URLQueryItem(name: "t", value: timeFrame))
             }
             return subredditQuery
-        case .paginate(_, let category, let timeFrame, let limit, let after):
+        case .paginate(_, _, let timeFrame, let limit, let after):
             var paginateQuery: [URLQueryItem] = []
-            if let category = category {
-                paginateQuery.append(URLQueryItem(name: "sort", value: category))
-            }
             if let timeFrame = timeFrame {
                 paginateQuery.append(URLQueryItem(name: "t", value: timeFrame))
             }

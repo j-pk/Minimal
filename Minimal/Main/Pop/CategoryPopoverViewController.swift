@@ -54,7 +54,7 @@ class CategoryPopoverViewController: UIViewController {
         guard let selectedCategory = CategorySortType.allValues.filter({ $0.rawValue == sender.titleLabel?.text }).first else { return }
         category = selectedCategory
 
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveEaseOut], animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0.2, options: [.curveLinear], animations: {
             // BUG: http://www.openradar.me/22819594
             // This is a workaround, do not set setHidden:true if it is already hidden
             if self.timeFrameStackView.isHidden == false && selectedCategory.isSetByTimeframe == false {

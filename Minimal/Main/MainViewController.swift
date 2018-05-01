@@ -49,7 +49,7 @@ class MainViewController: UIViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = collectionViewLayout
         collectionView.prefetchDataSource = self
-        
+
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         refreshControl.bounds = CGRect(x: refreshControl.bounds.origin.x, y: 50, width: refreshControl.bounds.size.width, height: refreshControl.bounds.size.height)
@@ -65,7 +65,11 @@ class MainViewController: UIViewController {
         guard let database = database, let user = User.current(context: database.viewContext) else { return }
         let title = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Front Page"
         titleButton.setTitle(title, for: UIControlState())
-        categoryButton.setTitle(user.category.rawValue, for: UIControlState())
+        var category = user.category.rawValue
+        if let timeFrame = user.timeFrame?.rawValue {
+            category += " | " + timeFrame
+        }
+        categoryButton.setTitle(category, for: UIControlState())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -137,8 +141,12 @@ class MainViewController: UIViewController {
                     } else {
                         DispatchQueue.main.async {
                             let subreddit = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Home"
+                            var category = user.category.rawValue
+                            if let timeFrame = user.timeFrame?.rawValue {
+                                category += " | " + timeFrame
+                            }
                             this.titleButton.setTitle(subreddit, for: UIControlState())
-                            this.categoryButton.setTitle(user.categoryString, for: UIControlState())
+                            this.categoryButton.setTitle(category, for: UIControlState())
                             this.categoryButton.sizeToFit()
                             this.collectionView.reloadData()
                         }
@@ -158,7 +166,7 @@ class MainViewController: UIViewController {
     }
     
     func setPlayerStateForViewControllerTransition(isReturning: Bool) {
-        collectionView.visibleCells.compactMap({ $0 as? MainCell }).forEach { (cell) in
+        collectionView.visibleCells.compactMap({ $0 as? MediaCascadeCell }).forEach { (cell) in
             if cell.playerView.player != nil {
                 isReturning ? cell.playerView.play() : cell.playerView.pause()
             }
@@ -201,6 +209,7 @@ class MainViewController: UIViewController {
                 commentsViewController.hidesBottomBarWhenPushed = true
                 commentsViewController.database = database
                 commentsViewController.listing = listing
+                commentsViewController.delegate = self
             }
         }
     }
@@ -231,16 +240,17 @@ extension MainViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return listingResultsController.fetchedObjects?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as! DetailCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaAnnotatedCell.identifier, for: indexPath) as! MediaAnnotatedCell
         
         let listing = listingResultsController.object(at: indexPath)
         cell.configureCell(forListing: listing)
+        cell.annotationView.delegate = self
 
         return cell
     }
@@ -272,7 +282,7 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
 }
 
 // MARK: UISearchActionDelegate
-extension MainViewController: UISearchActionDelegate {
+extension MainViewController: SubredditSelectionProtocol {
     func didSelect(subreddit: Subreddit) {
         updateUserAndListings(forSubreddit: subreddit, category: .hot)
     }
@@ -282,6 +292,23 @@ extension MainViewController: UISearchActionDelegate {
         let predicate = NSPredicate(format: "isDefault == true && displayName == %@", defaultSubreddit.displayName)
         if let subreddit = try? Subreddit.fetchFirst(inContext: database.viewContext, predicate: predicate) {
             updateUserAndListings(forSubreddit: subreddit, category: .hot)
+        }
+    }
+}
+
+extension MainViewController: UIViewTappableDelegate {
+    func didTapView(sender: UITapGestureRecognizer, data: [String : Any?]) {
+        if let view = sender.view, let label = view as? UILabel {
+            guard let database = database, let prefixedSubreddit = label.text else { return }
+            do {
+                guard let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "displayNamePrefixed == %@", prefixedSubreddit)) else {
+                    posLog(message: "Failed")
+                    return
+                }
+                updateUserAndListings(forSubreddit: subreddit, category: .hot)
+            } catch let error {
+                posLog(error: error)
+            }
         }
     }
 }

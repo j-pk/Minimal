@@ -14,7 +14,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var downVoteButton: UIButton!
     @IBOutlet weak var downVoteWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var upVoteWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var subscriptLabelView: SubscriptLabelView!
+    @IBOutlet weak var annotationView: AnnotationView!
     
     var animator: UIDynamicAnimator!
     var listing: Listing?
@@ -43,8 +43,8 @@ class DetailViewController: UIViewController {
     
     func configureDetailViewControllerViews() {
         guard let listing = listing else { return }
-        subscriptLabelView.delegate = self
-        subscriptLabelView.setLabels(forListing: listing)
+        annotationView.delegate = self
+        annotationView.setLabels(forListing: listing)
         presentationView.setView(forListing: listing)
     }
 
@@ -88,6 +88,9 @@ class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: UIViewTappableDelegate {
-    func didTapView(sender: UITapGestureRecognizer, data: [String:Any?]) {
+    func didTapView(sender: UITapGestureRecognizer, data: [String: Any?]) {
+        if let data = data as? UILabel {
+            posLog(values: data.text)
+        }
     }
 }
