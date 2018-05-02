@@ -77,6 +77,13 @@ extension Listing: Manageable {
                 listing.mediaType = ListingMediaType.none.rawValue
             }
 
+            if let subredditId = listing.subredditId, let range = subredditId.range(of: "_") {
+                let id = subredditId[range.upperBound..<subredditId.endIndex]
+                let subreddit: Subreddit? = try Subreddit.fetchFirst(inContext: context, predicate: NSPredicate(format: "id == %@", String(id)))
+                listing.subreddit = subreddit
+            }
+            
+
             if save {
                 try context.save()
             }

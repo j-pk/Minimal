@@ -9,16 +9,17 @@
 import UIKit
 
 class AnnotationView: XibView {
-    @IBOutlet weak var titleLabel: TitleLabel!
-    @IBOutlet weak var subtitleLabel: SubtitleLabel!
-    @IBOutlet weak var detailLabel: SubtitleLabel!
-    @IBOutlet weak var descriptionLabel: SubtitleLabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var detailLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     weak var delegate: UIViewTappableDelegate?
     private var data: [String: Any?] = [:]
-    fileprivate let themeManager = ThemeManager()
+    private let themeManager = ThemeManager()
     
     func setLabels(forListing listing: Listing) {
+        posLog(values: listing.subreddit)
+        
         let boldAttributes = [
             NSAttributedStringKey.font: themeManager.font(fontStyle: .primaryBold),
             NSAttributedStringKey.foregroundColor: themeManager.theme.titleTextColor
@@ -34,15 +35,15 @@ class AnnotationView: XibView {
             NSAttributedStringKey.foregroundColor: themeManager.redditOrange
         ]
         
+        let attributedTitleString = NSMutableAttributedString()
         if let title = listing.title {
-            let titleAttributedString = NSAttributedString(string: title, attributes: boldAttributes)
-            titleLabel.attributedText = titleAttributedString
+            attributedTitleString.append(NSAttributedString(string: title, attributes: boldAttributes))
         }
         if let domain = listing.domain {
-            let domainAttributedString = NSAttributedString(string: "(\(domain))", attributes: regularAttributes)
-            subtitleLabel.attributedText = domainAttributedString
+            attributedTitleString.append(NSAttributedString(string: " (\(domain))", attributes: regularAttributes))
         }
         
+        titleLabel.attributedText = attributedTitleString
         detailLabel.text = listing.subredditNamePrefixed
         detailLabel.textColor = themeManager.linkTextColor
         data = ["subreddit": listing.subredditNamePrefixed]
@@ -73,11 +74,5 @@ class AnnotationView: XibView {
 extension AnnotationView: Tappable, Recognizer {
     func didTapView(_ sender: UITapGestureRecognizer) {
         delegate?.didTapView(sender: sender, data: data)
-    }
-}
-
-extension IntegerLiteralType {
-    func string() {
-        
     }
 }

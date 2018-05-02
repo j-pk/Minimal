@@ -30,5 +30,6 @@ extension Subreddit {
     @NSManaged public var publicDescription: String?
     @NSManaged public var subscribers: Int64
     @NSManaged public var user: User?
+    @NSManaged public var listings: Set<Listing>?
 
 }
