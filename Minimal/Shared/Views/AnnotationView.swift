@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Nuke
 
 class AnnotationView: XibView {
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var detailLabel: UILabel!
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var prefixedSubredditLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
     weak var delegate: UIViewTappableDelegate?
@@ -18,7 +20,15 @@ class AnnotationView: XibView {
     private let themeManager = ThemeManager()
     
     func setLabels(forListing listing: Listing) {
-        posLog(values: listing.subreddit)
+        iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
+        iconImageView.clipsToBounds = true
+        iconImageView.tintColor = themeManager.theme.tintColor
+        
+        if let subreddit = listing.subreddit, let urlString = subreddit.iconImage, let url = URL(string: urlString) {
+            Manager.shared.loadImage(with: url, into: iconImageView)
+        } else {
+            iconImageView.image = #imageLiteral(resourceName: "placeholder")
+        }
         
         let boldAttributes = [
             NSAttributedStringKey.font: themeManager.font(fontStyle: .primaryBold),
@@ -35,6 +45,11 @@ class AnnotationView: XibView {
             NSAttributedStringKey.foregroundColor: themeManager.redditOrange
         ]
         
+        let linkAttributes = [
+            NSAttributedStringKey.font: themeManager.font(fontStyle: .secondaryBold),
+            NSAttributedStringKey.foregroundColor: themeManager.linkTextColor
+        ]
+        
         let attributedTitleString = NSMutableAttributedString()
         if let title = listing.title {
             attributedTitleString.append(NSAttributedString(string: title, attributes: boldAttributes))
@@ -42,11 +57,6 @@ class AnnotationView: XibView {
         if let domain = listing.domain {
             attributedTitleString.append(NSAttributedString(string: " (\(domain))", attributes: regularAttributes))
         }
-        
-        titleLabel.attributedText = attributedTitleString
-        detailLabel.text = listing.subredditNamePrefixed
-        detailLabel.textColor = themeManager.linkTextColor
-        data = ["subreddit": listing.subredditNamePrefixed]
         
         let descriptionAttributedString = NSMutableAttributedString()
         let score = NumberFormatter.localizedString(from: NSNumber(value: listing.score), number: .decimal)
@@ -58,16 +68,28 @@ class AnnotationView: XibView {
             descriptionAttributedString.append(authorAttributedString)
         }
         if let dateCreated = listing.created {
-            let dateCreatedAttributedString = NSAttributedString(string: " \(dateCreated.timeAgoSinceNow())", attributes: regularAttributes)
+            let dateCreatedAttributedString = NSAttributedString(string: " \(dateCreated.timeAgoSinceNow().lowercased())", attributes: regularAttributes)
             descriptionAttributedString.append(dateCreatedAttributedString)
         }
-        descriptionLabel.attributedText = descriptionAttributedString
+        
+        let linkAttributedString = NSMutableAttributedString()
+        if let prefixedSubreddit = listing.subredditNamePrefixed {
+            linkAttributedString.append(NSAttributedString(string: prefixedSubreddit, attributes: linkAttributes))
+        }
+        
+        DispatchQueue.main.async {
+            self.titleLabel.attributedText = attributedTitleString
+            self.prefixedSubredditLabel.attributedText = linkAttributedString
+            self.descriptionLabel.attributedText = descriptionAttributedString
+        }
+        
+        data = ["subreddit": listing.subredditNamePrefixed]
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        detailLabel.isUserInteractionEnabled = true
-        detailLabel.addGestureRecognizer(tapGestureRecognizer)
+        prefixedSubredditLabel.isUserInteractionEnabled = true
+        prefixedSubredditLabel.addGestureRecognizer(tapGestureRecognizer)
     }
 }
 

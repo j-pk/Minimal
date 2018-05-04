@@ -37,7 +37,6 @@ class MediaAnnotatedCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        annotationView.descriptionLabel.isHidden = true
         clipsToBounds = true
         layer.cornerRadius = 4.0
     }

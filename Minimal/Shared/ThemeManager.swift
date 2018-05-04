@@ -87,11 +87,11 @@ struct ThemeManager {
         UIImageView.appearance(whenContainedInInstancesOf: [SubscribedCell.self]).tintColor = theme.tintColor
         HeaderImageView.appearance().tintColor = theme.titleTextColor
         
-        UICollectionView.appearance().backgroundColor = theme.secondaryColor
+        UICollectionView.appearance().backgroundColor = theme.primaryColor
         UITableViewCell.appearance().backgroundColor = theme.primaryColor
         UITableView.appearance().separatorColor = theme.backgroundColor
         UITableView.appearance().backgroundColor = theme.primaryColor
-        MediaAnnotatedCell.appearance().backgroundColor = theme.primaryColor
+        MediaAnnotatedCell.appearance().backgroundColor = theme.secondaryColor
                 
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = theme.tintColor
         SegmentedController.appearance().tintColor = theme.tintColor
@@ -115,6 +115,8 @@ struct ThemeManager {
             return UIFont(name: font.bold, size: fontSize.rawValue)!
         case .secondary:
             return UIFont(name: font.regular, size: fontSize.rawValue - 2)!
+        case .secondaryBold:
+            return UIFont(name: font.bold, size: fontSize.rawValue - 2)!
         }
     }
 }
@@ -251,6 +253,7 @@ enum FontStyle {
     case primary
     case primaryBold
     case secondary
+    case secondaryBold
 }
 
 enum FontType: Int {

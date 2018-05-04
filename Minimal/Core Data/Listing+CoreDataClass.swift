@@ -47,7 +47,7 @@ extension Listing: Manageable {
             
             listing.domain = json.domain
             listing.author = json.author
-            listing.created = Date()
+            listing.created = Date(timeIntervalSince1970: json.created)
             listing.downs = json.downs
             listing.hidden = json.hidden
             listing.id = json.id
