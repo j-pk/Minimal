@@ -35,12 +35,6 @@ class MediaAnnotatedCell: UICollectionViewCell {
         animatedImageView.isHidden = true
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        clipsToBounds = true
-        layer.cornerRadius = 4.0
-    }
-    
     func configureCell(forListing listing: Listing) {
         annotationView.setLabels(forListing: listing)
         switch listing.type {

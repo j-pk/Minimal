@@ -27,12 +27,12 @@ class MainViewController: UIViewController {
     
     private let collectionViewLayout: CHTCollectionViewWaterfallLayout = {
         let layout = CHTCollectionViewWaterfallLayout()
-        layout.minimumColumnSpacing = 10.0
-        layout.minimumInteritemSpacing = 10.0
+        layout.minimumColumnSpacing = 20.0
+        layout.minimumInteritemSpacing = 20.0
         layout.columnCount = 1
         layout.headerHeight = 10
         layout.footerHeight = 10
-        layout.sectionInset = UIEdgeInsets(top: 54, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 54, left: 0, bottom: 0, right: 0)
         return layout
     }()
     
