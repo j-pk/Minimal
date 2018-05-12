@@ -96,6 +96,8 @@ struct ThemeManager {
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = theme.tintColor
         SegmentedController.appearance().tintColor = theme.tintColor
         UILabel.appearance(whenContainedInInstancesOf: [SegmentedController.self]).defaultFont = font(fontStyle: .secondary)
+        
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = theme.blurEffect == .dark ? .white : .black
     }
     
     func setGlobalFont() {

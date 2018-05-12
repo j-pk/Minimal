@@ -54,7 +54,7 @@ class DatabaseEngine {
     }()
     
     lazy var persistentContainer: NSPersistentContainer = {
-        guard let modelURL = Bundle(for: type(of: self)).url(forResource: modelName, withExtension:"momd") else {
+        guard let modelURL = Bundle(for: type(of: self)).url(forResource: modelName, withExtension: "momd") else {
             fatalError("Error loading model from bundle")
         }
         
@@ -115,7 +115,7 @@ extension DatabaseEngine: Database {
                     completionHandler(CoreDataError.failedToPurgeObjects("NSBatchDelete results are nil"))
                     return
                 }
-                let changes = [NSDeletedObjectsKey : objectIdArray]
+                let changes = [NSDeletedObjectsKey: objectIdArray]
                 NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context, self.viewContext])
             } catch let error {
                 completionHandler(CoreDataError.failedToPurgeObjects("\(error)"))

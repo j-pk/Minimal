@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
     private var database: DatabaseEngine?
     private var subredditString: String?
     private var listingResultsController: NSFetchedResultsController<Listing>!
-    private let categoryTransitionManager = CategoryPopoverTransitionManager()
+    private var model: MainModel?
     
     private let collectionViewLayout: CHTCollectionViewWaterfallLayout = {
         let layout = CHTCollectionViewWaterfallLayout()
@@ -65,8 +65,8 @@ class MainViewController: UIViewController {
         guard let database = database, let user = User.current(context: database.viewContext) else { return }
         let title = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Front Page"
         titleButton.setTitle(title, for: UIControlState())
-        var category = user.category.rawValue
-        if let timeFrame = user.timeFrame?.rawValue {
+        var category = user.category.rawValue.capitalized
+        if let timeFrame = user.timeFrame?.rawValue.capitalized {
             category += " | " + timeFrame
         }
         categoryButton.setTitle(category, for: UIControlState())
@@ -95,6 +95,34 @@ class MainViewController: UIViewController {
         blockOperations.removeAll(keepingCapacity: false)
     }
     
+    @IBAction func didPressCategoryButton(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Category", message: nil, preferredStyle: .actionSheet)
+        let timeFrameAlertController = UIAlertController(title: "Time Frame", message: nil, preferredStyle: .actionSheet)
+        CategorySortType.allValues.forEach({ category in
+            let action = UIAlertAction(title: category.rawValue.capitalized, style: .default, handler: { (action) in
+                guard let selectedCategory = CategorySortType.allValues.first(where: { $0.rawValue.capitalized == action.title }) else { return }
+                if selectedCategory.isSetByTimeframe {
+                    CategoryTimeFrame.allValues.forEach({ timeFrame in
+                        let action = UIAlertAction(title: timeFrame.titleValue.capitalized, style: .default, handler: { (action) in
+                            guard let selectedTimeFrame = CategoryTimeFrame.allValues.first(where: { $0.titleValue.capitalized == action.title }) else { return }
+                            self.updateUIForRequestedListings(category: category, timeFrame: selectedTimeFrame)
+                        })
+                        timeFrameAlertController.addAction(action)
+                    })
+                    self.present(timeFrameAlertController, animated: true, completion: nil)
+                } else {
+                    self.updateUIForRequestedListings(category: selectedCategory, timeFrame: nil)
+                }
+            })
+            alertController.addAction(action)
+        })
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func didPressTitleButton(_ sender: UIButton) {
+        
+    }
+    
     func performFetch() {
         do {
             try listingResultsController.performFetch()
@@ -103,66 +131,20 @@ class MainViewController: UIViewController {
         }
     }
     
-    func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil) {
-        guard let database = database, let user = User.current(context: database.viewContext) else { return }
-        database.performForegroundTask { (context) in
-            do {
-                if let subreddit = subreddit {
-                    subreddit.lastViewed = Date()
-                    user.addToSubreddits(subreddit)
-                }
-                if let category = category {
-                    user.categoryString = category.rawValue
-                }
-                if let timeFrame = timeFrame {
-                    user.timeFrameString = timeFrame.rawValue
-                } else {
-                    user.timeFrameString = nil
-                }
-                try context.save()
-            } catch let error {
-                posLog(error: error)
-            }
-        }
-        requestListings()
-    }
-    
-    func requestListings() {
-        guard let database = database, let user = User.current(context: database.viewContext) else { return }
-        database.purgeRecords(entity: Listing.typeName, completionHandler: { [weak self] (error) in
-            guard let this = self, let database = this.database else { return }
-            if let error = error {
-                posLog(error: error)
-            } else {
-                let request = ListingRequest(requestType: .subreddit(prefix: user.lastViewedSubreddit, category: user.categoryString, timeFrame: user.timeFrameString))
-                ListingManager(request: request, database: database, completionHandler: { (error) in
-                    if let error = error {
-                        posLog(error: error)
-                    } else {
-                        DispatchQueue.main.async {
-                            let subreddit = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Home"
-                            var category = user.category.rawValue
-                            if let timeFrame = user.timeFrame?.rawValue {
-                                category += " | " + timeFrame
-                            }
-                            this.titleButton.setTitle(subreddit, for: UIControlState())
-                            this.categoryButton.setTitle(category, for: UIControlState())
-                            this.categoryButton.sizeToFit()
-                            this.collectionView.reloadData()
-                        }
-                    }
-                })
-            }
-        })
-    }
-    
     @objc func handleRefresh(_ sender: UIRefreshControl) {
-        requestListings()
+        model?.requestListings()
         sender.endRefreshing()
     }
     
-    @IBAction func didPressTitleButton(_ sender: UIButton) {
-        
+    func updateUIForRequestedListings(forSubreddit subreddit: Subreddit? = nil, category: CategorySortType, timeFrame: CategoryTimeFrame? = nil) {
+        model?.updateUserAndListings(forSubreddit: subreddit, category: category, timeFrame: timeFrame, completionHandler: { (subreddit, categoryAndTimeFrame) in
+            DispatchQueue.main.async {
+                self.titleButton.setTitle(subreddit, for: UIControlState())
+                self.categoryButton.setTitle(categoryAndTimeFrame, for: UIControlState())
+                self.categoryButton.sizeToFit()
+                self.collectionView.reloadData()
+            }
+        })
     }
     
     func setPlayerStateForViewControllerTransition(isReturning: Bool) {
@@ -193,15 +175,7 @@ class MainViewController: UIViewController {
 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "popOverControllerSegue" {
-            guard let database = database, let user = User.current(context: database.viewContext) else { return }
-            if let popOverController = segue.destination as? CategoryPopoverViewController {
-                popOverController.transitioningDelegate = categoryTransitionManager
-                popOverController.preferredContentSize = user.category.isSetByTimeframe ? CGSize(width: view.frame.width, height: 60) : CGSize(width: view.frame.width, height: 96)
-                popOverController.category = user.category
-                popOverController.timeFrame = user.timeFrame
-            }
-        } else if segue.identifier == "commentsControllerSegue" {
+       if segue.identifier == "commentsControllerSegue" {
             if let commentsViewController = segue.destination as? CommentsViewController {
                 guard let cell = sender as? UICollectionViewCell else { return }
                 guard let indexPath = collectionView.indexPath(for: cell) else { return }
@@ -211,12 +185,6 @@ class MainViewController: UIViewController {
                 commentsViewController.listing = listing
                 commentsViewController.delegate = self
             }
-        }
-    }
-    
-    @IBAction func unwindToViewController(sender: UIStoryboardSegue) {
-        if let categoryPopOverViewController = sender.source as? CategoryPopoverViewController {
-            updateUserAndListings(category: categoryPopOverViewController.category, timeFrame: categoryPopOverViewController.timeFrame)
         }
     }
 }
@@ -232,6 +200,8 @@ extension MainViewController: Stackable {
         let fetchedResultsController = NSFetchedResultsController<Listing>(fetchRequest: fetchRequest, managedObjectContext: database.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
         listingResultsController = fetchedResultsController
+        
+        model = MainModel(database: database)
     }
 }
 
@@ -284,14 +254,14 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
 // MARK: UISearchActionDelegate
 extension MainViewController: SubredditSelectionProtocol {
     func didSelect(subreddit: Subreddit) {
-        updateUserAndListings(forSubreddit: subreddit, category: .hot)
+        updateUIForRequestedListings(forSubreddit: subreddit, category: .hot)
     }
     
     func didSelect(defaultSubreddit: DefaultSubreddit) {
         guard let database = database else { return }
         let predicate = NSPredicate(format: "isDefault == true && displayName == %@", defaultSubreddit.displayName)
         if let subreddit = try? Subreddit.fetchFirst(inContext: database.viewContext, predicate: predicate) {
-            updateUserAndListings(forSubreddit: subreddit, category: .hot)
+            updateUIForRequestedListings(forSubreddit: subreddit, category: .hot)
         }
     }
 }
@@ -305,7 +275,7 @@ extension MainViewController: UIViewTappableDelegate {
                     posLog(message: "Failed")
                     return
                 }
-                updateUserAndListings(forSubreddit: subreddit, category: .hot)
+                model?.updateUserAndListings(forSubreddit: subreddit, category: .hot)
             } catch let error {
                 posLog(error: error)
             }

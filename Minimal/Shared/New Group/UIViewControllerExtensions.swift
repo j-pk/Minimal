@@ -14,13 +14,16 @@ extension UIViewController {
     }
     
     func reloadViews() {
-        let windows = UIApplication.shared.windows
-        for window in windows {
-            for view in window.subviews {
-                view.removeFromSuperview()
-                window.addSubview(view)
+        UIView.animate(withDuration: 0.5) {
+            let windows = UIApplication.shared.windows
+            for window in windows {
+                for view in window.subviews {
+                    view.removeFromSuperview()
+                    window.addSubview(view)
+                }
             }
         }
+        
     }
 }
 

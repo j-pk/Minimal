@@ -32,7 +32,6 @@
 		C03F92251FA049BE009EEEF3 /* DatabaseEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92241FA049BE009EEEF3 /* DatabaseEngine.swift */; };
 		C03F92271FA11DE7009EEEF3 /* NSManagedObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */; };
 		C04AED072040CDD400554C5E /* POSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04AED062040CDD400554C5E /* POSLogger.swift */; };
-		C04E092B2082D7110017BBB5 /* CategoryPopoverTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04E092A2082D7110017BBB5 /* CategoryPopoverTransitionManager.swift */; };
 		C050C34C200173CB00863B52 /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C050C34B200173CB00863B52 /* UILabelExtensions.swift */; };
 		C055A0AE204CBAF700D09405 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C055A0AD204CBAF700D09405 /* UIImageViewExtensions.swift */; };
 		C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */; };
@@ -46,10 +45,10 @@
 		C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA31FAAC75900801E08 /* SearchViewController.swift */; };
 		C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA51FAAC89700801E08 /* SearchCell.swift */; };
 		C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA71FABB4FB00801E08 /* PlayerView.swift */; };
-		C08D56F91FBAA10E0053FEA5 /* CategoryPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D56F81FBAA10E0053FEA5 /* CategoryPopoverViewController.swift */; };
 		C08D623F1FD4DC5D00794B2A /* LabelBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D623E1FD4DC5D00794B2A /* LabelBaseCell.swift */; };
 		C08D62411FD4E39200794B2A /* AuthenticateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D62401FD4E39200794B2A /* AuthenticateCell.swift */; };
 		C08D62431FD617DD00794B2A /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08D62421FD617DD00794B2A /* UITableViewCellExtensions.swift */; };
+		C096E53A20A53FEF0061442D /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C096E53920A53FEF0061442D /* MainModel.swift */; };
 		C09E91EB201D515300EFB3F5 /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09E91EA201D515300EFB3F5 /* Routable.swift */; };
 		C0A385761F9E54AF005064DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385751F9E54AF005064DF /* AppDelegate.swift */; };
 		C0A385781F9E54B0005064DF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385771F9E54B0005064DF /* SettingsViewController.swift */; };
@@ -112,7 +111,6 @@
 		C03F92241FA049BE009EEEF3 /* DatabaseEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseEngine.swift; sourceTree = "<group>"; };
 		C03F92261FA11DE6009EEEF3 /* NSManagedObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectExtensions.swift; sourceTree = "<group>"; };
 		C04AED062040CDD400554C5E /* POSLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POSLogger.swift; sourceTree = "<group>"; };
-		C04E092A2082D7110017BBB5 /* CategoryPopoverTransitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPopoverTransitionManager.swift; sourceTree = "<group>"; };
 		C050C34B200173CB00863B52 /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
 		C055A0AD204CBAF700D09405 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
 		C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarExtensions.swift; sourceTree = "<group>"; };
@@ -126,10 +124,10 @@
 		C0897DA31FAAC75900801E08 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C0897DA51FAAC89700801E08 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		C0897DA71FABB4FB00801E08 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
-		C08D56F81FBAA10E0053FEA5 /* CategoryPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPopoverViewController.swift; sourceTree = "<group>"; };
 		C08D623E1FD4DC5D00794B2A /* LabelBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LabelBaseCell.swift; path = Minimal/Shared/LabelBaseCell.swift; sourceTree = SOURCE_ROOT; };
 		C08D62401FD4E39200794B2A /* AuthenticateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateCell.swift; sourceTree = "<group>"; };
 		C08D62421FD617DD00794B2A /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
+		C096E53920A53FEF0061442D /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		C09E91EA201D515300EFB3F5 /* Routable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
 		C0A385721F9E54AF005064DF /* Minimal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minimal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A385751F9E54AF005064DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -306,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				C0A385941F9E90DF005064DF /* Main.storyboard */,
+				C096E53920A53FEF0061442D /* MainModel.swift */,
 				C0A3859B1F9E9796005064DF /* MainViewController.swift */,
 				C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */,
 				C0A3859D1F9E98AC005064DF /* MediaCascadeCell.swift */,
@@ -414,8 +413,6 @@
 		C0EC9B9F1FC2352B0073FF7A /* Pop */ = {
 			isa = PBXGroup;
 			children = (
-				C04E092A2082D7110017BBB5 /* CategoryPopoverTransitionManager.swift */,
-				C08D56F81FBAA10E0053FEA5 /* CategoryPopoverViewController.swift */,
 				C0ED1F9B1FB2AC1900580C1E /* DetailViewController.swift */,
 			);
 			path = Pop;
@@ -570,7 +567,6 @@
 				C0A41B171FE741B5005A3F58 /* ThemeCell.swift in Sources */,
 				C00B140B2029509B0064D1AF /* SegmentedController.swift in Sources */,
 				C08D62411FD4E39200794B2A /* AuthenticateCell.swift in Sources */,
-				C04E092B2082D7110017BBB5 /* CategoryPopoverTransitionManager.swift in Sources */,
 				C0EC9B971FC0A1750073FF7A /* HiddenNavBarNavigationController.swift in Sources */,
 				C07A81DC20802CA80075164E /* ImageProcessor.swift in Sources */,
 				C0C2AC47201842C000745869 /* Subreddit+CoreDataProperties.swift in Sources */,
@@ -599,7 +595,6 @@
 				C08D62431FD617DD00794B2A /* UITableViewCellExtensions.swift in Sources */,
 				C01B23051FD09DBE001F60B8 /* ImageViewController.swift in Sources */,
 				C050C34C200173CB00863B52 /* UILabelExtensions.swift in Sources */,
-				C08D56F91FBAA10E0053FEA5 /* CategoryPopoverViewController.swift in Sources */,
 				C0DA84D81FA00D10006BE949 /* Listing+CoreDataClass.swift in Sources */,
 				C0A385A41F9F885E005064DF /* ListingContract.swift in Sources */,
 				C055A0AE204CBAF700D09405 /* UIImageViewExtensions.swift in Sources */,
@@ -609,6 +604,7 @@
 				C008B1C620156574005FC651 /* UISearchBarExtensions.swift in Sources */,
 				C0235EF52065E8AC0084D3C5 /* SubscribedViewController.swift in Sources */,
 				C04AED072040CDD400554C5E /* POSLogger.swift in Sources */,
+				C096E53A20A53FEF0061442D /* MainModel.swift in Sources */,
 				C0D584591FB75297002BCFA9 /* UIViewControllerExtensions.swift in Sources */,
 				C07FAE072054C6230049E9F0 /* Defaults.swift in Sources */,
 				C022E7F82069CB45002277B4 /* DefaultSubredditsViewController.swift in Sources */,
