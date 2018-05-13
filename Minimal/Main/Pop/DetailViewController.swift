@@ -69,23 +69,32 @@ class DetailViewController: UIViewController {
         animator.removeAllBehaviors()
         
         let velocity = sender.velocity(in: presentationView)
-        let imagePushBehavior = UIPushBehavior(items: [presentationView], mode: UIPushBehaviorMode.instantaneous)
-        imagePushBehavior.pushDirection = CGVector(dx: velocity.x * 0.5, dy: velocity.y * 0.5)
-        imagePushBehavior.magnitude = sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y))
+        let magnitude = sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y))
+        let threshold: CGFloat = 1000
+        let velocityPadding: CGFloat = 35
         
-        let itemBehavior = UIDynamicItemBehavior(items: [presentationView])
-        itemBehavior.friction = 0.2
-        itemBehavior.allowsRotation = true
-        
-        animator.addBehavior(itemBehavior)
-        animator.addBehavior(imagePushBehavior)
-        
-        UIView.animate(withDuration: 0.5, animations: {
-            self.view.alpha = 0
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.dismiss(animated: false, completion: nil)
-            }
-        })
+        if magnitude > threshold {
+            let imagePushBehavior = UIPushBehavior(items: [presentationView], mode: .instantaneous)
+            imagePushBehavior.pushDirection = CGVector(dx: velocity.x / 10, dy: velocity.y / 10)
+            imagePushBehavior.magnitude = magnitude / velocityPadding
+            
+            let itemBehavior = UIDynamicItemBehavior(items: [presentationView])
+            let angle = CGFloat(arc4random_uniform(20)) - 10
+            
+            itemBehavior.friction = 0.2
+            itemBehavior.allowsRotation = true
+            itemBehavior.addAngularVelocity(angle, for: presentationView)
+            
+            animator.addBehavior(itemBehavior)
+            animator.addBehavior(imagePushBehavior)
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.view.alpha = 0
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.dismiss(animated: false, completion: nil)
+                }
+            })
+        }
     }
 }
 

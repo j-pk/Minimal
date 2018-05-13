@@ -52,7 +52,8 @@ class MainViewController: UIViewController {
 
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
-        refreshControl.bounds = CGRect(x: refreshControl.bounds.origin.x, y: 50, width: refreshControl.bounds.size.width, height: refreshControl.bounds.size.height)
+        let refreshYAxis = headerView.frame.height - UIApplication.shared.statusBarFrame.height
+        refreshControl.bounds = CGRect(x: refreshControl.bounds.origin.x, y: refreshYAxis, width: refreshControl.bounds.size.width, height: refreshControl.bounds.size.height)
         collectionView.refreshControl = refreshControl
         
         performFetch()
@@ -62,14 +63,10 @@ class MainViewController: UIViewController {
         }
         
         headerView.addShadow()
-        guard let database = database, let user = User.current(context: database.viewContext) else { return }
-        let title = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Front Page"
-        titleButton.setTitle(title, for: UIControlState())
-        var category = user.category.rawValue.capitalized
-        if let timeFrame = user.timeFrame?.rawValue.capitalized {
-            category += " | " + timeFrame
-        }
-        categoryButton.setTitle(category, for: UIControlState())
+
+        let data = model?.fetchLastViewedSubredditData()
+        titleButton.setTitle(data?.subreddit, for: UIControlState())
+        categoryButton.setTitle(data?.categoryAndTimeFrame, for: UIControlState())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,7 +82,6 @@ class MainViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         posLog(message: "Memory Warning", category: MainViewController.typeName)
-
     }
     
     deinit {
@@ -136,8 +132,8 @@ class MainViewController: UIViewController {
         sender.endRefreshing()
     }
     
-    func updateUIForRequestedListings(forSubreddit subreddit: Subreddit? = nil, category: CategorySortType, timeFrame: CategoryTimeFrame? = nil) {
-        model?.updateUserAndListings(forSubreddit: subreddit, category: category, timeFrame: timeFrame, completionHandler: { (subreddit, categoryAndTimeFrame) in
+    func updateUIForRequestedListings(forSubreddit subreddit: Subreddit? = nil, prefixedSubreddit: String? = nil, category: CategorySortType, timeFrame: CategoryTimeFrame? = nil) {
+        model?.updateUserAndListings(forSubreddit: subreddit, prefixedSubreddit: prefixedSubreddit, category: category, timeFrame: timeFrame, completionHandler: { (subreddit, categoryAndTimeFrame) in
             DispatchQueue.main.async {
                 self.titleButton.setTitle(subreddit, for: UIControlState())
                 self.categoryButton.setTitle(categoryAndTimeFrame, for: UIControlState())
@@ -173,7 +169,6 @@ class MainViewController: UIViewController {
         return annotations
     }
 
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
        if segue.identifier == "commentsControllerSegue" {
             if let commentsViewController = segue.destination as? CommentsViewController {
@@ -258,27 +253,15 @@ extension MainViewController: SubredditSelectionProtocol {
     }
     
     func didSelect(defaultSubreddit: DefaultSubreddit) {
-        guard let database = database else { return }
-        let predicate = NSPredicate(format: "isDefault == true && displayName == %@", defaultSubreddit.displayName)
-        if let subreddit = try? Subreddit.fetchFirst(inContext: database.viewContext, predicate: predicate) {
-            updateUIForRequestedListings(forSubreddit: subreddit, category: .hot)
-        }
+        updateUIForRequestedListings(prefixedSubreddit: defaultSubreddit.displayNamePrefixed, category: .hot)
     }
 }
 
 extension MainViewController: UIViewTappableDelegate {
     func didTapView(sender: UITapGestureRecognizer, data: [String: Any?]) {
         if let view = sender.view, let label = view as? UILabel {
-            guard let database = database, let prefixedSubreddit = label.text else { return }
-            do {
-                guard let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "displayNamePrefixed == %@", prefixedSubreddit)) else {
-                    posLog(message: "Failed")
-                    return
-                }
-                model?.updateUserAndListings(forSubreddit: subreddit, category: .hot)
-            } catch let error {
-                posLog(error: error)
-            }
+            guard let prefixedSubreddit = label.text else { return }
+            updateUIForRequestedListings(prefixedSubreddit: prefixedSubreddit, category: .hot)
         }
     }
 }
@@ -335,17 +318,7 @@ extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             guard let lastViewedListing = listingResultsController.fetchedObjects?.last else { return }
-            guard let database = database, let user = User.current(context: database.viewContext) else { return }
-            let blockOperation = BlockOperation {
-                let request = ListingRequest(requestType: .paginate(prefix: user.lastViewedSubreddit, category: user.categoryString, timeFrame: user.timeFrameString, limit: 25, after: lastViewedListing.after ?? ""))
-                ListingManager(request: request, database: database, completionHandler: { (error) in
-                    if let error = error {
-                        posLog(error: error)
-                    }
-                })
-            }
-            let queue = OperationQueue()
-            queue.addOperation(blockOperation)
+            model?.paginate(forLastViewedListing: lastViewedListing)
         }
     }
 }

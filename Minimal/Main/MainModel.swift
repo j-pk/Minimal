@@ -16,35 +16,69 @@ class MainModel {
         self.database = database
     }
     
-    func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil, completionHandler: ((String, String) -> Void)? = nil) {
+    func fetchLastViewedSubredditData() -> (subreddit: String, categoryAndTimeFrame: String) {
+        guard let database = database, let user = User.current(context: database.viewContext) else { return (subreddit: "", categoryAndTimeFrame: "") }
+        let subreddit = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Front Page"
+        var categoryAndTimeFrame = user.category.rawValue.capitalized
+        if let timeFrame = user.timeFrame?.rawValue.capitalized {
+            categoryAndTimeFrame += " | " + timeFrame
+        }
+        return (subreddit: subreddit, categoryAndTimeFrame: categoryAndTimeFrame)
+    }
+    
+    func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, prefixedSubreddit: String? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil, completionHandler: ((String, String) -> Void)? = nil) {
+        
+        updateUserAndListings(forSubreddit: subreddit, prefixedSubreddit: prefixedSubreddit, category: category, timeFrame: timeFrame) { (results) in
+            switch results {
+            case .failure(let error):
+                posLog(error: error)
+            case .success(let user):
+                self.requestListings() { error in
+                    posLog(error: error)
+
+                    let subreddit = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Home"
+                    var category = user.category.rawValue.capitalized
+                    if let timeFrame = user.timeFrame?.rawValue.capitalized {
+                        category += " | " + timeFrame
+                    }
+                    completionHandler?(subreddit, category)
+                }
+            }
+        }
+    }
+    
+    private func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, prefixedSubreddit: String? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil, completionHandler: @escaping ResultCompletionHandler<User>) {
         guard let database = database, let user = User.current(context: database.viewContext) else { return }
         database.performForegroundTask { (context) in
             do {
                 if let subreddit = subreddit {
                     subreddit.lastViewed = Date()
                     user.addToSubreddits(subreddit)
+                } else if let prefixedSubreddit = prefixedSubreddit {
+                    if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "displayNamePrefixed == %@", prefixedSubreddit)) {
+                        subreddit.lastViewed = Date()
+                        user.addToSubreddits(subreddit)
+                    }
                 }
+                
                 if let category = category {
                     user.categoryString = category.rawValue
                 }
+                
                 if let timeFrame = timeFrame {
                     user.timeFrameString = timeFrame.rawValue
                 } else {
                     user.timeFrameString = nil
                 }
+                
                 try context.save()
+                
+                completionHandler(.success(user))
+                
             } catch let error {
+                completionHandler(.failure(error))
                 posLog(error: error)
             }
-        }
-        
-        requestListings() { error in
-            let subreddit = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Home"
-            var category = user.category.rawValue.capitalized
-            if let timeFrame = user.timeFrame?.rawValue.capitalized {
-                category += " | " + timeFrame
-            }
-            completionHandler?(subreddit, category)
         }
     }
     
@@ -66,5 +100,19 @@ class MainModel {
                 })
             }
         })
+    }
+    
+    func paginate(forLastViewedListing listing: Listing) {
+        guard let database = database, let user = User.current(context: database.viewContext) else { return }
+        let blockOperation = BlockOperation {
+            let request = ListingRequest(requestType: .paginate(prefix: user.lastViewedSubreddit, category: user.categoryString, timeFrame: user.timeFrameString, limit: 25, after: listing.after ?? ""))
+            ListingManager(request: request, database: database, completionHandler: { (error) in
+                if let error = error {
+                    posLog(error: error)
+                }
+            })
+        }
+        let queue = OperationQueue()
+        queue.addOperation(blockOperation)
     }
 }
