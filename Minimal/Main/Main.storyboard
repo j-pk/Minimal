@@ -76,23 +76,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKM-nF-srd" customClass="AnnotationView" customModule="Minimal" customModuleProvider="target">
-                                                    <rect key="frame" x="7.3333333333333357" y="8" width="105" height="64"/>
+                                                    <rect key="frame" x="7.6666666666666643" y="8" width="105" height="64"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="250" constant="20" id="NC1-9V-04g"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5EX-GB-BME">
-                                                    <rect key="frame" x="0.0" y="80" width="121" height="115"/>
+                                                    <rect key="frame" x="0.0" y="80" width="121" height="70"/>
                                                     <subviews>
                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raS-e8-6Qz" customClass="PlayerView" customModule="Minimal" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="115"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="70"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xk4-30-Gbs">
-                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="115"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="70"/>
                                                         </imageView>
                                                         <view hidden="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Rd-T2-jrZ" customClass="AnimatedImageView" customModule="NukeGifuPlugin">
-                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="115"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="70"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                     </subviews>
@@ -111,15 +111,24 @@
                                                         <constraint firstItem="raS-e8-6Qz" firstAttribute="top" secondItem="5EX-GB-BME" secondAttribute="top" id="zUt-Oj-5yB"/>
                                                     </constraints>
                                                 </view>
+                                                <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8W-bp-exD" customClass="ActionView" customModule="Minimal" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="150" width="121" height="45"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="45" id="gq6-kH-T1H"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="5EX-GB-BME" secondAttribute="bottom" id="16q-3J-spm"/>
+                                            <constraint firstItem="c8W-bp-exD" firstAttribute="leading" secondItem="jD4-js-5lw" secondAttribute="leading" id="4Pn-A6-SIs"/>
                                             <constraint firstItem="qKM-nF-srd" firstAttribute="leading" secondItem="jD4-js-5lw" secondAttribute="leading" constant="8" id="HBf-Dh-5fO"/>
+                                            <constraint firstAttribute="trailing" secondItem="c8W-bp-exD" secondAttribute="trailing" id="JW6-G4-Cya"/>
                                             <constraint firstItem="5EX-GB-BME" firstAttribute="leading" secondItem="jD4-js-5lw" secondAttribute="leading" id="Qos-wh-Dju"/>
                                             <constraint firstItem="qKM-nF-srd" firstAttribute="top" secondItem="jD4-js-5lw" secondAttribute="top" constant="8" id="Ue5-Tg-2yA"/>
                                             <constraint firstAttribute="trailing" secondItem="5EX-GB-BME" secondAttribute="trailing" id="bHe-LQ-CiF"/>
                                             <constraint firstItem="5EX-GB-BME" firstAttribute="top" secondItem="qKM-nF-srd" secondAttribute="bottom" constant="8" id="duk-uh-qNJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="c8W-bp-exD" secondAttribute="bottom" id="g77-a1-7oj"/>
+                                            <constraint firstItem="c8W-bp-exD" firstAttribute="top" secondItem="5EX-GB-BME" secondAttribute="bottom" id="gtU-zQ-Xyn"/>
                                             <constraint firstAttribute="trailing" secondItem="qKM-nF-srd" secondAttribute="trailing" constant="8" id="jbG-TC-yMk"/>
                                         </constraints>
                                         <connections>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActionView" customModule="Minimal" customModuleProvider="target">
+            <connections>
+                <outlet property="downvoteButton" destination="GHg-aP-oLv" id="8G8-qy-AGC"/>
+                <outlet property="moreButton" destination="0RU-Ct-OCJ" id="riK-i3-MRX"/>
+                <outlet property="pageDownButton" destination="NBy-w4-YEh" id="dTV-PP-RWY"/>
+                <outlet property="upvoteButton" destination="Mal-wJ-yOy" id="RHa-xx-CSN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bHj-S8-PKa">
+                    <rect key="frame" x="8" y="0.0" width="359" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mal-wJ-yOy">
+                            <rect key="frame" x="0.0" y="7.5" width="25" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="Nt6-Dj-fCG"/>
+                                <constraint firstAttribute="width" constant="25" id="lfa-Qb-3cb"/>
+                            </constraints>
+                            <state key="normal" image="upArrow"/>
+                            <connections>
+                                <action selector="didSelectUpvoteButton:" destination="-1" eventType="touchUpInside" id="DCG-Pl-9ZM"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHg-aP-oLv">
+                            <rect key="frame" x="111.5" y="7.5" width="25" height="25"/>
+                            <state key="normal" image="downArrow"/>
+                            <connections>
+                                <action selector="didSelectDownvoteButton:" destination="-1" eventType="touchUpInside" id="Mqh-b0-tqK"/>
+                            </connections>
+                        </button>
+                        <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBy-w4-YEh">
+                            <rect key="frame" x="136.5" y="7.5" width="25" height="25"/>
+                            <state key="normal" image="scrollDown"/>
+                            <connections>
+                                <action selector="didSelectPageDownButton:" destination="-1" eventType="touchUpInside" id="hky-QH-TOe"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edX-sv-cup">
+                            <rect key="frame" x="222.5" y="7.5" width="25" height="25"/>
+                            <state key="normal" image="comment"/>
+                            <connections>
+                                <action selector="didSelectMoreButton:" destination="-1" eventType="touchUpInside" id="5cp-Yr-Pm0"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RU-Ct-OCJ">
+                            <rect key="frame" x="334" y="7.5" width="25" height="25"/>
+                            <state key="normal" image="more"/>
+                            <connections>
+                                <action selector="didSelectMoreButton:" destination="-1" eventType="touchUpInside" id="gO4-Gx-n0P"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.79215686269999996" green="0.82352941180000006" blue="0.77647058820000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="GHg-aP-oLv" firstAttribute="width" secondItem="Mal-wJ-yOy" secondAttribute="width" id="76K-bh-oqx"/>
+                        <constraint firstItem="0RU-Ct-OCJ" firstAttribute="height" secondItem="Mal-wJ-yOy" secondAttribute="height" id="9w4-KC-lmF"/>
+                        <constraint firstItem="edX-sv-cup" firstAttribute="height" secondItem="Mal-wJ-yOy" secondAttribute="height" id="QJa-z6-tKc"/>
+                        <constraint firstItem="NBy-w4-YEh" firstAttribute="width" secondItem="Mal-wJ-yOy" secondAttribute="width" id="V8W-Im-Hce"/>
+                        <constraint firstItem="GHg-aP-oLv" firstAttribute="height" secondItem="Mal-wJ-yOy" secondAttribute="height" id="fHh-7D-OVG"/>
+                        <constraint firstItem="edX-sv-cup" firstAttribute="width" secondItem="Mal-wJ-yOy" secondAttribute="width" id="gK3-8h-My9"/>
+                        <constraint firstItem="0RU-Ct-OCJ" firstAttribute="width" secondItem="Mal-wJ-yOy" secondAttribute="width" id="iY3-4O-qZS"/>
+                        <constraint firstItem="NBy-w4-YEh" firstAttribute="height" secondItem="Mal-wJ-yOy" secondAttribute="height" id="q38-et-ARD"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="bHj-S8-PKa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="LWU-Q9-fQa"/>
+                <constraint firstItem="bHj-S8-PKa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="MOg-f8-eDl"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bHj-S8-PKa" secondAttribute="bottom" id="ibO-U5-cxG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bHj-S8-PKa" secondAttribute="trailing" constant="8" id="vE5-6s-lPU"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="comment" width="40" height="40"/>
+        <image name="downArrow" width="40" height="40"/>
+        <image name="more" width="40" height="40"/>
+        <image name="scrollDown" width="40" height="40"/>
+        <image name="upArrow" width="40" height="40"/>
+    </resources>
+</document>

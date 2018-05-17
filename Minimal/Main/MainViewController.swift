@@ -92,8 +92,11 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func didPressCategoryButton(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "Category", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "Sort by Category", message: nil, preferredStyle: .actionSheet)
+        alertController.setValue(NSAttributedString(string: "Sort by Category", attributes: [NSAttributedStringKey.font: themeManager.font(fontStyle: .primaryBold), NSAttributedStringKey.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
         let timeFrameAlertController = UIAlertController(title: "Time Frame", message: nil, preferredStyle: .actionSheet)
+        timeFrameAlertController.setValue(NSAttributedString(string: "Time Frame", attributes: [NSAttributedStringKey.font: themeManager.font(fontStyle: .primaryBold), NSAttributedStringKey.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
+
         CategorySortType.allValues.forEach({ category in
             let action = UIAlertAction(title: category.rawValue.capitalized, style: .default, handler: { (action) in
                 guard let selectedCategory = CategorySortType.allValues.first(where: { $0.rawValue.capitalized == action.title }) else { return }

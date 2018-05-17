@@ -261,7 +261,7 @@ public class CHTCollectionViewWaterfallLayout: UICollectionViewLayout {
                     if let annotationHeight = annotationHeight {
                         let calculatedItemHeight = floor((itemSize!.height) * itemWidth / itemSize!.width)
                         let adjustedItemHeight = ceil(annotationHeight + (self.minimumInteritemSpacing * 2))
-                        itemHeight = calculatedItemHeight + adjustedItemHeight
+                        itemHeight = calculatedItemHeight + adjustedItemHeight + 35
                     } else {
                         itemHeight = floor(itemSize!.height * itemWidth / itemSize!.width)
                     }

@@ -9,7 +9,6 @@
 import Foundation
 
 class MainModel {
-    
     private var database: Database?
     
     init(database: Database) {
@@ -34,7 +33,9 @@ class MainModel {
                 posLog(error: error)
             case .success(let user):
                 self.requestListings() { error in
-                    posLog(error: error)
+                    if error != nil {
+                        posLog(error: error)
+                    }
 
                     let subreddit = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Home"
                     var category = user.category.rawValue.capitalized
