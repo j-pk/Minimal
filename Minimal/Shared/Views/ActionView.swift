@@ -13,6 +13,7 @@ class ActionView: XibView {
     @IBOutlet weak var upvoteButton: UIButton!
     @IBOutlet weak var downvoteButton: UIButton!
     @IBOutlet weak var pageDownButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
     
     @IBAction func didSelectUpvoteButton(_ sender: UIButton) {
@@ -20,6 +21,8 @@ class ActionView: XibView {
     @IBAction func didSelectDownvoteButton(_ sender: UIButton) {
     }
     @IBAction func didSelectPageDownButton(_ sender: UIButton) {
+    }
+    @IBAction func didSelectCommentButton(_ sender: UIButton) {
     }
     @IBAction func didSelectMoreButton(_ sender: UIButton) {
     }

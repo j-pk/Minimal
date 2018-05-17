@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActionView" customModule="Minimal" customModuleProvider="target">
             <connections>
+                <outlet property="commentButton" destination="edX-sv-cup" id="qcr-mr-sOM"/>
                 <outlet property="downvoteButton" destination="GHg-aP-oLv" id="8G8-qy-AGC"/>
                 <outlet property="moreButton" destination="0RU-Ct-OCJ" id="riK-i3-MRX"/>
                 <outlet property="pageDownButton" destination="NBy-w4-YEh" id="dTV-PP-RWY"/>
@@ -37,23 +38,24 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHg-aP-oLv">
-                            <rect key="frame" x="111.5" y="7.5" width="25" height="25"/>
+                            <rect key="frame" x="83.5" y="7.5" width="25" height="25"/>
                             <state key="normal" image="downArrow"/>
                             <connections>
                                 <action selector="didSelectDownvoteButton:" destination="-1" eventType="touchUpInside" id="Mqh-b0-tqK"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBy-w4-YEh">
-                            <rect key="frame" x="136.5" y="7.5" width="25" height="25"/>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBy-w4-YEh">
+                            <rect key="frame" x="167" y="7.5" width="25" height="25"/>
                             <state key="normal" image="scrollDown"/>
                             <connections>
                                 <action selector="didSelectPageDownButton:" destination="-1" eventType="touchUpInside" id="hky-QH-TOe"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edX-sv-cup">
-                            <rect key="frame" x="222.5" y="7.5" width="25" height="25"/>
+                            <rect key="frame" x="250.5" y="7.5" width="25" height="25"/>
                             <state key="normal" image="comment"/>
                             <connections>
+                                <action selector="didSelectCommentButton:" destination="-1" eventType="touchUpInside" id="g6A-db-Wak"/>
                                 <action selector="didSelectMoreButton:" destination="-1" eventType="touchUpInside" id="5cp-Yr-Pm0"/>
                             </connections>
                         </button>

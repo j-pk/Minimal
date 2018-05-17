@@ -12,6 +12,7 @@ import SafariServices
 class CommentsViewController: UIViewController {
     @IBOutlet weak var bottomMenuBar: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var actionView: ActionView!
     
     var listing: Listing?
     var database: Database?
@@ -28,6 +29,7 @@ class CommentsViewController: UIViewController {
         view.backgroundColor = themeManager.theme.primaryColor
         bottomMenuBar.backgroundColor = themeManager.theme.primaryColor
         tableView.backgroundColor = themeManager.theme.primaryColor
+        actionView.commentButton.isHidden = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -114,7 +114,7 @@
                                                 <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8W-bp-exD" customClass="ActionView" customModule="Minimal" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="150" width="121" height="45"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="45" id="gq6-kH-T1H"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="45" id="gq6-kH-T1H"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -132,6 +132,7 @@
                                             <constraint firstAttribute="trailing" secondItem="qKM-nF-srd" secondAttribute="trailing" constant="8" id="jbG-TC-yMk"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="actionView" destination="c8W-bp-exD" id="H5f-aK-7Ez"/>
                                             <outlet property="animatedImageView" destination="7Rd-T2-jrZ" id="fFj-NQ-B45"/>
                                             <outlet property="annotationView" destination="qKM-nF-srd" id="pjX-Us-pcr"/>
                                             <outlet property="containerView" destination="5EX-GB-BME" id="1o8-yD-C1i"/>
@@ -293,50 +294,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dsv-20-lsS">
                                 <rect key="frame" x="0.0" y="686" width="414" height="50"/>
                                 <subviews>
-                                    <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACR-tR-Gm2">
+                                    <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACR-tR-Gm2" customClass="ActionView" customModule="Minimal" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7C2-AQ-xGD">
-                                                <rect key="frame" x="8" y="0.0" width="398" height="50"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMV-jq-Be5">
-                                                        <rect key="frame" x="0.0" y="12.666666666666629" width="25" height="25"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="25" id="7qW-lh-OXc"/>
-                                                            <constraint firstAttribute="height" constant="25" id="gzL-N3-4O7"/>
-                                                        </constraints>
-                                                        <state key="normal" image="upArrow"/>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DlM-yN-ddS">
-                                                        <rect key="frame" x="124.33333333333334" y="12.666666666666629" width="25" height="25"/>
-                                                        <state key="normal" image="downArrow"/>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZv-cD-gW4">
-                                                        <rect key="frame" x="248.66666666666669" y="12.666666666666629" width="25" height="25"/>
-                                                        <state key="normal" image="scrollDown"/>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ra-zt-ksb">
-                                                        <rect key="frame" x="373" y="12.666666666666629" width="25" height="25"/>
-                                                        <state key="normal" image="share"/>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.792156862745098" green="0.82352941176470584" blue="0.77647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstItem="DlM-yN-ddS" firstAttribute="width" secondItem="nMV-jq-Be5" secondAttribute="width" id="ClZ-M9-yyz"/>
-                                                    <constraint firstItem="TZv-cD-gW4" firstAttribute="height" secondItem="nMV-jq-Be5" secondAttribute="height" id="Hkx-nT-zuI"/>
-                                                    <constraint firstItem="7ra-zt-ksb" firstAttribute="height" secondItem="nMV-jq-Be5" secondAttribute="height" id="HsY-8U-yMC"/>
-                                                    <constraint firstItem="DlM-yN-ddS" firstAttribute="height" secondItem="nMV-jq-Be5" secondAttribute="height" id="iJx-aI-yVl"/>
-                                                    <constraint firstItem="7ra-zt-ksb" firstAttribute="width" secondItem="nMV-jq-Be5" secondAttribute="width" id="jO8-io-qat"/>
-                                                    <constraint firstItem="TZv-cD-gW4" firstAttribute="width" secondItem="nMV-jq-Be5" secondAttribute="width" id="whO-ZZ-C0u"/>
-                                                </constraints>
-                                            </stackView>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="7C2-AQ-xGD" firstAttribute="leading" secondItem="ACR-tR-Gm2" secondAttribute="leading" constant="8" id="1rm-hT-VaJ"/>
-                                            <constraint firstAttribute="trailing" secondItem="7C2-AQ-xGD" secondAttribute="trailing" constant="8" id="QUo-39-2Hf"/>
-                                            <constraint firstItem="7C2-AQ-xGD" firstAttribute="top" secondItem="ACR-tR-Gm2" secondAttribute="top" id="W3h-wc-q2j"/>
-                                            <constraint firstAttribute="bottom" secondItem="7C2-AQ-xGD" secondAttribute="bottom" id="jIL-gk-aH7"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -362,6 +321,7 @@
                         <viewLayoutGuide key="safeArea" id="veW-cm-XEw"/>
                     </view>
                     <connections>
+                        <outlet property="actionView" destination="ACR-tR-Gm2" id="Dt8-Bd-kk9"/>
                         <outlet property="bottomMenuBar" destination="Dsv-20-lsS" id="F4K-o2-sQx"/>
                         <outlet property="tableView" destination="UcT-V0-iMp" id="k5B-zL-Fmo"/>
                         <segue destination="Omd-kR-zBF" kind="show" identifier="imageViewControllerSegue" id="4ld-3Q-grL"/>
@@ -369,7 +329,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I8x-eN-bSY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="892.75362318840587" y="1862.771739130435"/>
+            <point key="canvasLocation" x="383" y="1770"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="ajt-fs-kpF">
@@ -415,7 +375,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Y8-Qw-Ikp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1628.985507246377" y="1862.771739130435"/>
+            <point key="canvasLocation" x="1119" y="1770"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="Y8g-gs-d6Q">
@@ -519,8 +479,6 @@
         <image name="downArrow" width="40" height="40"/>
         <image name="minimal" width="30" height="40"/>
         <image name="minimalSmall" width="18" height="25"/>
-        <image name="scrollDown" width="40" height="40"/>
-        <image name="share" width="40" height="40"/>
         <image name="upArrow" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>

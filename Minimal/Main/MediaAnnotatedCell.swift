@@ -18,7 +18,8 @@ class MediaAnnotatedCell: UICollectionViewCell {
     @IBOutlet var playerView: PlayerView!
     @IBOutlet weak var animatedImageView: AnimatedImageView!
     @IBOutlet weak var annotationView: AnnotationView!
-        
+    @IBOutlet weak var actionView: ActionView!
+    
     class var identifier: String {
         return String(describing: self)
     }
@@ -33,6 +34,7 @@ class MediaAnnotatedCell: UICollectionViewCell {
         imageView.isHidden = true
         playerView.isHidden = true
         animatedImageView.isHidden = true
+        actionView.pageDownButton.isHidden = true
     }
     
     func configureCell(forListing listing: Listing) {
@@ -94,6 +96,7 @@ class MediaAnnotatedCell: UICollectionViewCell {
         default:
             return
         }
+        actionView.pageDownButton.isHidden = true
         layoutIfNeeded()
     }
 }
