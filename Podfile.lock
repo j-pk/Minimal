@@ -1,25 +1,20 @@
 PODS:
   - Gifu (3.0.0)
-  - Nuke (6.1)
-  - Nuke-Gifu-Plugin (3.0):
-    - Gifu (~> 3.0)
-    - Nuke (~> 6.0)
+  - Nuke (7.0.1)
 
 DEPENDENCIES:
-  - Nuke (~> 6.1)
-  - Nuke-Gifu-Plugin (~> 3.0)
+  - Gifu
+  - Nuke (~> 7.0)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Gifu
     - Nuke
-    - Nuke-Gifu-Plugin
 
 SPEC CHECKSUMS:
   Gifu: 6543ca2056a3d697097c09fe543ef49348ccc892
-  Nuke: 0513c8d156bd9a2adb15db70622c3527f44542c5
-  Nuke-Gifu-Plugin: 2018528a96a4ac9836cd4d24a0c00d1bab34402b
+  Nuke: 0944b2e721c8f21857028d980dc3d6a249df8b3e
 
-PODFILE CHECKSUM: bff92f0fcc941697bbdfa59fc6926d8ccc152818
+PODFILE CHECKSUM: e2d65a0d17f1ac674ce0658d5b661a16420185f9
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.2

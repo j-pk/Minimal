@@ -48,7 +48,7 @@ class SearchCell: UITableViewCell {
         subscribersLabel.attributedText = attributedString
         
         if let urlString = subreddit.iconImage, let url = URL(string: urlString) {
-            Manager.shared.loadImage(with: url, into: iconImageView)
+            Nuke.loadImage(with: url, into: iconImageView)
         } else {
             iconImageView.image = #imageLiteral(resourceName: "placeholder")
         }

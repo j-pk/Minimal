@@ -24,7 +24,7 @@ class ImageViewController: UIViewController {
         }
         view.backgroundColor = themeManager.theme.primaryColor
         imageView.backgroundColor = themeManager.theme.primaryColor
-        Manager.shared.loadImage(with: url, into: imageView)
+        Nuke.loadImage(with: url, into: imageView)
     }
 }
 

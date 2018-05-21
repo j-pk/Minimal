@@ -25,7 +25,7 @@ class AnnotationView: XibView {
         iconImageView.tintColor = themeManager.theme.tintColor
         
         if let subreddit = listing.subreddit, let urlString = subreddit.iconImage, let url = URL(string: urlString) {
-            Manager.shared.loadImage(with: url, into: iconImageView)
+            Nuke.loadImage(with: url, into: iconImageView)
         } else {
             iconImageView.image = #imageLiteral(resourceName: "placeholder")
         }

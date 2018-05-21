@@ -31,9 +31,9 @@ public class Listing: NSManagedObject {
     }
     
     //Nuke type for image loading and cache
-    var request: Request {
+    var request: ImageRequest {
         get {
-            return Request(url: url)
+            return ImageRequest(url: url)
         }
     }
 }

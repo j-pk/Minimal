@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4EB09F33097B2134019A918D /* Pods_Minimal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61CBBD01DF4E0DDD853B07D /* Pods_Minimal.framework */; };
 		C002922720AD29BA00E489A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C002922620AD29BA00E489A6 /* Assets.xcassets */; };
 		C003B9011FC6139800A2B089 /* ListingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C003B9001FC6139800A2B089 /* ListingRouter.swift */; };
 		C008B1C2200F02A7005FC651 /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008B1C1200F02A7005FC651 /* DisplayViewController.swift */; };
@@ -19,6 +18,7 @@
 		C011383E2067582000FBD5E7 /* SubscribedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C011383D2067582000FBD5E7 /* SubscribedCell.xib */; };
 		C01A6DBB206B39BD00CA50C2 /* MediaAnnotatedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01A6DBA206B39BD00CA50C2 /* MediaAnnotatedCell.swift */; };
 		C01A6DBD206D972900CA50C2 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01A6DBC206D972900CA50C2 /* StringExtensions.swift */; };
+		C01A780520B2675100EA969E /* GifuExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01A780420B2675000EA969E /* GifuExtensions.swift */; };
 		C01B23051FD09DBE001F60B8 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01B23041FD09DBE001F60B8 /* ImageViewController.swift */; };
 		C020F9842016DA3700A3E43A /* SubredditContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020F9832016DA3700A3E43A /* SubredditContract.swift */; };
 		C020F9862016E0DD00A3E43A /* SearchSubredditManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020F9852016E0DD00A3E43A /* SearchSubredditManager.swift */; };
@@ -85,10 +85,13 @@
 		C0EDC88E1FD78219009C0D39 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDC88C1FD78219009C0D39 /* User+CoreDataClass.swift */; };
 		C0EDC88F1FD78219009C0D39 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDC88D1FD78219009C0D39 /* User+CoreDataProperties.swift */; };
 		C0EDC8911FDA4352009C0D39 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDC8901FDA4352009C0D39 /* NetworkManager.swift */; };
+		E32AE7930CE8B3FE376733E1 /* Pods_Minimal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12D93EB896176E9F4989268F /* Pods_Minimal.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6EE6E699A8CC366AF9CF9E08 /* Pods-Minimal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minimal.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minimal/Pods-Minimal.release.xcconfig"; sourceTree = "<group>"; };
+		12D93EB896176E9F4989268F /* Pods_Minimal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Minimal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1F1DC4D585DB7C567088424 /* Pods-Minimal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minimal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minimal/Pods-Minimal.debug.xcconfig"; sourceTree = "<group>"; };
+		AEF97AFF3EDFC59B93D037A2 /* Pods-Minimal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minimal.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minimal/Pods-Minimal.release.xcconfig"; sourceTree = "<group>"; };
 		C002922620AD29BA00E489A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C003B9001FC6139800A2B089 /* ListingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRouter.swift; sourceTree = "<group>"; };
 		C008B1C1200F02A7005FC651 /* DisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +103,7 @@
 		C011383D2067582000FBD5E7 /* SubscribedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubscribedCell.xib; sourceTree = "<group>"; };
 		C01A6DBA206B39BD00CA50C2 /* MediaAnnotatedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaAnnotatedCell.swift; sourceTree = "<group>"; };
 		C01A6DBC206D972900CA50C2 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		C01A780420B2675000EA969E /* GifuExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifuExtensions.swift; sourceTree = "<group>"; };
 		C01B23041FD09DBE001F60B8 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		C020F9832016DA3700A3E43A /* SubredditContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditContract.swift; sourceTree = "<group>"; };
 		C020F9852016E0DD00A3E43A /* SearchSubredditManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSubredditManager.swift; sourceTree = "<group>"; };
@@ -168,8 +172,6 @@
 		C0EDC88C1FD78219009C0D39 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C0EDC88D1FD78219009C0D39 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C0EDC8901FDA4352009C0D39 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		E24D1E61FEBD271FBA772ED4 /* Pods-Minimal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minimal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minimal/Pods-Minimal.debug.xcconfig"; sourceTree = "<group>"; };
-		F61CBBD01DF4E0DDD853B07D /* Pods_Minimal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Minimal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,19 +179,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EB09F33097B2134019A918D /* Pods_Minimal.framework in Frameworks */,
+				E32AE7930CE8B3FE376733E1 /* Pods_Minimal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5F52AD4E0753BB7BB3796F51 /* Frameworks */ = {
+		B9CE67C9F8B0B5D4C087DEDD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F61CBBD01DF4E0DDD853B07D /* Pods_Minimal.framework */,
+				A1F1DC4D585DB7C567088424 /* Pods-Minimal.debug.xcconfig */,
+				AEF97AFF3EDFC59B93D037A2 /* Pods-Minimal.release.xcconfig */,
 			);
-			name = Frameworks;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		C003B8FF1FC6137700A2B089 /* Routers */ = {
@@ -255,6 +258,7 @@
 				C0EC9BA41FC25A760073FF7A /* UIViewExtension.swift */,
 				C008B1C520156574005FC651 /* UISearchBarExtensions.swift */,
 				C01A6DBC206D972900CA50C2 /* StringExtensions.swift */,
+				C01A780420B2675000EA969E /* GifuExtensions.swift */,
 			);
 			name = Extensions;
 			path = "New Group";
@@ -265,8 +269,8 @@
 			children = (
 				C0A385741F9E54AF005064DF /* Minimal */,
 				C0A385731F9E54AF005064DF /* Products */,
-				F5C3049FE95056FF784690EE /* Pods */,
-				5F52AD4E0753BB7BB3796F51 /* Frameworks */,
+				B9CE67C9F8B0B5D4C087DEDD /* Pods */,
+				CAC7195BBC3C4CAF2E5B21EC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -424,13 +428,12 @@
 			path = Pop;
 			sourceTree = "<group>";
 		};
-		F5C3049FE95056FF784690EE /* Pods */ = {
+		CAC7195BBC3C4CAF2E5B21EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E24D1E61FEBD271FBA772ED4 /* Pods-Minimal.debug.xcconfig */,
-				6EE6E699A8CC366AF9CF9E08 /* Pods-Minimal.release.xcconfig */,
+				12D93EB896176E9F4989268F /* Pods_Minimal.framework */,
 			);
-			name = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,11 +443,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0A385871F9E54B0005064DF /* Build configuration list for PBXNativeTarget "Minimal" */;
 			buildPhases = (
-				828580B289DBBA509F252B62 /* [CP] Check Pods Manifest.lock */,
+				A47039CDA88331DD45E0744A /* [CP] Check Pods Manifest.lock */,
 				C0A3856E1F9E54AF005064DF /* Sources */,
 				C0A3856F1F9E54AF005064DF /* Frameworks */,
 				C0A385701F9E54AF005064DF /* Resources */,
-				9BAE6D41A5F94D3473927681 /* [CP] Embed Pods Frameworks */,
+				D6F70A7A169CEF12EAE5E27C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -511,7 +514,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		828580B289DBBA509F252B62 /* [CP] Check Pods Manifest.lock */ = {
+		A47039CDA88331DD45E0744A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -529,7 +532,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9BAE6D41A5F94D3473927681 /* [CP] Embed Pods Frameworks */ = {
+		D6F70A7A169CEF12EAE5E27C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -538,13 +541,11 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Minimal/Pods-Minimal-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Gifu/Gifu.framework",
 				"${BUILT_PRODUCTS_DIR}/Nuke/Nuke.framework",
-				"${BUILT_PRODUCTS_DIR}/Nuke-Gifu-Plugin/NukeGifuPlugin.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gifu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nuke.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NukeGifuPlugin.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -558,6 +559,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C01A780520B2675100EA969E /* GifuExtensions.swift in Sources */,
 				C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */,
 				C06E18651FFD381800AB4F3A /* FontViewController.swift in Sources */,
 				C0C2AC46201842C000745869 /* Subreddit+CoreDataClass.swift in Sources */,
@@ -754,7 +756,7 @@
 		};
 		C0A385881F9E54B0005064DF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E24D1E61FEBD271FBA772ED4 /* Pods-Minimal.debug.xcconfig */;
+			baseConfigurationReference = A1F1DC4D585DB7C567088424 /* Pods-Minimal.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -770,7 +772,7 @@
 		};
 		C0A385891F9E54B0005064DF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6EE6E699A8CC366AF9CF9E08 /* Pods-Minimal.release.xcconfig */;
+			baseConfigurationReference = AEF97AFF3EDFC59B93D037A2 /* Pods-Minimal.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -9,13 +9,12 @@
 import UIKit
 import AVFoundation
 import Nuke
-import NukeGifuPlugin
 import Gifu
 
 class MediaCascadeCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var playerView: PlayerView!
-    @IBOutlet weak var animatedImageView: AnimatedImageView!
+    @IBOutlet weak var animatedImageView: GIFImageView!
     
     class var identifier: String {
         return String(describing: self)
@@ -41,10 +40,10 @@ class MediaCascadeCell: UICollectionViewCell {
         switch listing.type {
         case .image:
             imageView.isHidden = false
-            let request = Request(url: listing.url).processed(with: RoundedCorners(radius: 4.0))
-            Manager.shared.loadImage(with: request, into: imageView) { [weak self] response, _ in
+            let request = ImageRequest(url: listing.url).processed(with: RoundedCorners(radius: 4.0))
+            Nuke.loadImage(with: request, into: imageView) { [weak self] response, _ in
                 guard let this = self else { return }
-                if let image = response.value {
+                if let image = response?.image {
                     this.imageView?.image = image
                 } else {
                     this.attachNoImageFound()
@@ -54,11 +53,11 @@ class MediaCascadeCell: UICollectionViewCell {
             guard let components = URLComponents(string: listing.url.absoluteString) else { return }
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
                 animatedImageView.isHidden = false
-                animatedImageView.imageView.contentMode = .scaleAspectFit
-                Nuke.Manager.animatedImageManager.loadImage(with: listing.url, into: animatedImageView) { [weak self] response, _ in
+                animatedImageView.contentMode = .scaleAspectFit
+                Nuke.loadImage(with: listing.url, into: animatedImageView) { [weak self] response, _ in
                     guard let this = self else { return }
-                    if let image = response.value, let data = image.animatedImageData {
-                        this.animatedImageView.imageView.animate(withGIFData: data)
+                    if let image = response?.image, let data = image.animatedImageData {
+                        this.animatedImageView.animate(withGIFData: data)
                     } else {
                         this.attachNoImageFound()
                     }
@@ -71,10 +70,10 @@ class MediaCascadeCell: UICollectionViewCell {
         case .video:
             imageView.isHidden = false
             guard let url = URL(string: listing.thumbnailUrlString ?? listing.urlString) else { return }
-            Manager.shared.loadImage(with: url, into: imageView) { [weak self] response, _ in
+            Nuke.loadImage(with: url, into: imageView) { [weak self] response, _ in
                 guard let this = self else { return }
                 this.attachPlayIndicator()
-                if let image = response.value {
+                if let image = response?.image {
                     this.imageView?.image = image
                 }
             }

@@ -9,14 +9,13 @@
 import UIKit
 import AVFoundation
 import Nuke
-import NukeGifuPlugin
 import Gifu
 
 class MediaAnnotatedCell: UICollectionViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var playerView: PlayerView!
-    @IBOutlet weak var animatedImageView: AnimatedImageView!
+    @IBOutlet weak var animatedImageView: GIFImageView!
     @IBOutlet weak var annotationView: AnnotationView!
     @IBOutlet weak var actionView: ActionView!
     
@@ -42,19 +41,19 @@ class MediaAnnotatedCell: UICollectionViewCell {
         switch listing.type {
         case .image:
             imageView.isHidden = false
-            var request = Request(url: listing.url).processed(with: RoundedCorners(radius: 4))
+            var request = ImageRequest(url: listing.url).processed(with: RoundedCorners(radius: 4))
             if listing.over18 {
-                request = Request(url: listing.url).processed(with: Pixelate(scale: 50))
+                request = ImageRequest(url: listing.url).processed(with: Pixelate(scale: 50))
                 self.containerView.attachNSFWLabel()
             }
-            if let image = Cache.shared[request] {
+            if let image = ImageCache.shared[request] {
                 self.imageView.image = image
             } else {
-                Manager.shared.loadImage(with: request, into: imageView) { [weak self] response, _ in
+                Nuke.loadImage(with: request, into: imageView) { [weak self] response, _ in
                     guard let this = self else { return }
-                    if let image = response.value {
+                    if let image = response?.image {
                         this.imageView?.image = image
-                        Cache.shared[request] = image
+                        ImageCache.shared[request] = image
                     } else {
                         this.containerView.attachNoImageFound()
                     }
@@ -64,15 +63,15 @@ class MediaAnnotatedCell: UICollectionViewCell {
             guard let components = URLComponents(string: listing.url.absoluteString) else { return }
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
                 animatedImageView.isHidden = false
-                animatedImageView.imageView.contentMode = .scaleAspectFit
-                if let image = Cache.shared[Request(url: listing.url)], let data = image.animatedImageData {
-                    self.animatedImageView.imageView.animate(withGIFData: data)
+                animatedImageView.contentMode = .scaleAspectFit
+                if let image = ImageCache.shared[ImageRequest(url: listing.url)], let data = image.animatedImageData {
+                    self.animatedImageView.animate(withGIFData: data)
                 } else {
-                    Nuke.Manager.animatedImageManager.loadImage(with: listing.url, into: animatedImageView) { [weak self] response, _ in
+                    Nuke.loadImage(with: listing.url, into: animatedImageView) { [weak self] response, _ in
                         guard let this = self else { return }
-                        if let image = response.value, let data = image.animatedImageData {
-                            Cache.shared[Request(url: listing.url)] = image
-                            this.animatedImageView.imageView.animate(withGIFData: data)
+                        if let image = response?.image, let data = image.animatedImageData {
+                            ImageCache.shared[ImageRequest(url: listing.url)] = image
+                            this.animatedImageView.animate(withGIFData: data)
                         } else {
                             this.containerView.attachNoImageFound()
                         }
@@ -86,10 +85,10 @@ class MediaAnnotatedCell: UICollectionViewCell {
         case .video:
             imageView.isHidden = false
             guard let url = URL(string: listing.thumbnailUrlString ?? listing.urlString) else { return }
-            Manager.shared.loadImage(with: url, into: imageView) { [weak self] response, _ in
+            Nuke.loadImage(with: url, into: imageView) { [weak self] response, _ in
                 guard let this = self else { return }
                 this.containerView.attachPlayIndicator()
-                if let image = response.value {
+                if let image = response?.image {
                     this.imageView?.image = image
                 }
             }

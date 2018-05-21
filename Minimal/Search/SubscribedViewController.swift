@@ -97,7 +97,7 @@ extension SubscribedViewController: UITableViewDataSource {
         cell.titleLabel.text = object.displayName
         cell.subtitleLabel.text = object.publicDescription
         if let urlString = object.iconImage, let url = URL(string: urlString) {
-            Manager.shared.loadImage(with: url, into: cell.subredditImageView)
+            Nuke.loadImage(with: url, into: cell.subredditImageView)
         }
         return cell
     }

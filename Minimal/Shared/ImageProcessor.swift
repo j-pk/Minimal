@@ -9,7 +9,8 @@
 import UIKit
 import Nuke
 
-struct RoundedCorners: Processing {
+struct RoundedCorners: ImageProcessing {
+
     private let radius: CGFloat
     
     /// Initializes the receiver with a corner radius.
@@ -18,7 +19,7 @@ struct RoundedCorners: Processing {
     }
     
     /// Clip image corners.
-    func process(_ image: UIImage) -> UIImage? {
+    func process(image: Image, context: ImageProcessingContext) -> Image? {
         return image.rounderCorners(radius: radius)
     }
     
@@ -28,14 +29,15 @@ struct RoundedCorners: Processing {
     }
 }
 
-struct Pixelate: Processing {
+struct Pixelate: ImageProcessing {
+    
     private let scale: Int
     
     init(scale: Int = 8) {
         self.scale = scale
     }
     
-    func process(_ image: UIImage) -> UIImage? {
+    func process(image: Image, context: ImageProcessingContext) -> Image? {
         return image.pixelate(scale: scale)
     }
     

@@ -8,13 +8,13 @@
 
 import UIKit
 import Nuke
-import NukeGifuPlugin
+import Gifu
 import WebKit
 import AVFoundation
 
 class PresentationView: XibView {
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var animatedImageView: AnimatedImageView!
+    @IBOutlet weak var animatedImageView: GIFImageView!
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var playerView: PlayerView!
     
@@ -47,18 +47,18 @@ class PresentationView: XibView {
         case .image:
             data = ["image": url]
             imageView.isHidden = false
-            var request = Request(url: listing.url).processed(with: RoundedCorners(radius: 4))
+            var request = ImageRequest(url: listing.url).processed(with: RoundedCorners(radius: 4))
             if listing.over18 {
-                request = Request(url: listing.url).processed(with: Pixelate(scale: 50))
+                request = ImageRequest(url: listing.url).processed(with: Pixelate(scale: 50))
             }
-            let image = Cache.shared[request]
+            let image = ImageCache.shared[request]
             self.imageView.image = image
         case .animatedImage:
             attachNoImageFound(message: "No Data")
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
                 animatedImageView.isHidden = false
-                animatedImageView.imageView.contentMode = .scaleAspectFit
-                Nuke.Manager.animatedImageManager.loadImage(with: listing.url, into: animatedImageView)
+                animatedImageView.contentMode = .scaleAspectFit
+                Nuke.loadImage(with: listing.url, into: animatedImageView)
             } else {
                 playerView.isHidden = false
                 playerView.player = AVPlayer(url: url)
@@ -68,7 +68,7 @@ class PresentationView: XibView {
             if let host = components.host, host.contains("vimeo") || host.contains("streamable") {
                 if let thumbnail = listing.thumbnailUrlString, let thumbnailUrl = URL(string: thumbnail) {
                     imageView.isHidden = false
-                    Manager.shared.loadImage(with: url, into: imageView)
+                    Nuke.loadImage(with: url, into: imageView)
                     data = ["url": thumbnailUrl]
                     attachPlayIndicator()
                 }

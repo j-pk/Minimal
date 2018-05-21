@@ -45,6 +45,9 @@ class MainViewController: UIViewController {
             posLog(message: "3D Touch Not Available", category: MainViewController.typeName)
         }
         
+        // NUKE
+        ImagePipeline.Configuration.isAnimatedImageDataEnabled = true
+        
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         collectionView.alwaysBounceVertical = true
         collectionView.collectionViewLayout = collectionViewLayout
@@ -156,7 +159,7 @@ class MainViewController: UIViewController {
     
     func calculateSizeForItem(atIndexPath indexPath: IndexPath) -> CGSize {        
         let listing = self.listingResultsController.object(at: indexPath)
-        if let image = Cache.shared[listing.request] {
+        if let image = ImageCache.shared[listing.request] {
             return image.size
         } else if let imageWidth = listing.width as? CGFloat, let imageHeight = listing.height as? CGFloat {
             return CGSize(width: imageWidth, height: imageHeight)
@@ -239,12 +242,12 @@ extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
 extension MainViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         let urls = indexPaths.map({ listingResultsController.object(at: $0).request })
-        let preheater = Preheater(manager: Manager.shared)
+        let preheater = ImagePreheater(pipeline: ImagePipeline.shared, maxConcurrentRequestCount: 5)
         preheater.startPreheating(with: urls)
     }
     
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        let preheater = Preheater(manager: Manager.shared)
+        let preheater = ImagePreheater(pipeline: ImagePipeline.shared, maxConcurrentRequestCount: 5)
         preheater.stopPreheating()
     }
 }
