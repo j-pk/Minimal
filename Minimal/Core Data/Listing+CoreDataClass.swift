@@ -39,7 +39,7 @@ public class Listing: NSManagedObject {
 }
 
 extension Listing: Manageable {
-    static func populateObject(fromDecodable json: Decodable, save: Bool, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler) {
+    static func populateObject(fromDecodable json: Decodable, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler) {
         guard let json = json as? ListingObject else { fatalError("Failed to cast decodable as ListingObject.") }
 
         do {
@@ -81,11 +81,6 @@ extension Listing: Manageable {
                 let id = subredditId[range.upperBound..<subredditId.endIndex]
                 let subreddit: Subreddit? = try Subreddit.fetchFirst(inContext: context, predicate: NSPredicate(format: "id == %@", String(id)))
                 listing.subreddit = subreddit
-            }
-            
-
-            if save {
-                try context.save()
             }
             
             completionHandler(nil)

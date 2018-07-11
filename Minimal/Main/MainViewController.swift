@@ -193,7 +193,7 @@ class MainViewController: UIViewController {
 // MARK: Stackable
 extension MainViewController: Stackable {
     func set(database: DatabaseEngine) {
-        self.database = database
+        self.database = database       
         
         let fetchRequest = NSFetchRequest<Listing>(entityName: Listing.entityName)
         fetchRequest.predicate = NSPredicate(format: "mediaType != %@", ListingMediaType.none.rawValue as CVarArg)

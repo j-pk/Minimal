@@ -137,6 +137,8 @@ internal final class Operation: Foundation.Operation {
         }
     }
 
+    private var _didFinish: Int32 = 0
+
     override var isExecuting: Bool {
         return queue.sync { _state == .executing }
     }
@@ -159,16 +161,15 @@ internal final class Operation: Foundation.Operation {
         }
         _setState(.executing)
         starter { [weak self] in
-            DispatchQueue.main.async { self?._finish() }
+            self?._finish()
         }
     }
 
-    // Calls to _finish() are syncrhonized on the main thread. This way we
-    // guarantee that `starter` doesn't finish operation more than once.
-    // Other paths are also guaranteed to be safe.
     private func _finish() {
-        guard _state != .finished else { return }
-        _setState(.finished)
+        // Make sure that we ignore if `finish` is called more than once.
+        if OSAtomicCompareAndSwap32Barrier(0, 1, &_didFinish) {
+            _setState(.finished)
+        }
     }
 }
 
@@ -349,6 +350,7 @@ internal struct _CancellationSource {
     private mutating func _register(_ closure: @escaping () -> Void) -> Bool {
         _lock.lock(); defer { _lock.unlock() }
         guard !_isCancelling else { return false }
+        assert(_observer == nil)
         _observer = closure
         return true
     }
@@ -377,7 +379,7 @@ internal struct ResumableData {
     let data: Data
     let validator: String // Either Last-Modified or ETag
 
-    init?(response: URLResponse?, data: Data) {
+    init?(response: URLResponse, data: Data) {
         // Check if "Accept-Ranges" is present and the response is valid.
         guard !data.isEmpty,
             let response = response as? HTTPURLResponse,
@@ -535,19 +537,91 @@ internal struct Printer {
     }
 }
 
-// MARK: Result
+// MARK: - Misc
 
-// we're still using Result internally, but don't pollute user's space
-internal enum _Result<T, Error: Swift.Error> {
-    case success(T), failure(Error)
-
-    /// Returns a `value` if the result is success.
-    var value: T? {
-        if case let .success(val) = self { return val } else { return nil }
+struct TaskMetrics {
+    var startDate: Date? = nil
+    var endDate: Date? = nil
+    mutating func start() {
+        self.startDate = Date()
     }
-
-    /// Returns an `error` if the result is failure.
-    var error: Error? {
-        if case let .failure(err) = self { return err } else { return nil }
+    mutating func end() {
+        self.endDate = Date()
     }
 }
+
+final class DisposableOperation: Hashable {
+    // When all registered tasks remove references to image processing
+    // session the wrapped operation gets deallocated.
+    deinit {
+        operation?.cancel()
+    }
+
+    weak var operation: Foundation.Operation?
+
+    init(_ operation: Foundation.Operation) {
+        self.operation = operation
+    }
+
+    // MARK: - Hashable
+
+    public static func == (lhs: DisposableOperation, rhs: DisposableOperation) -> Bool {
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+    }
+
+    public var hashValue: Int {
+        return ObjectIdentifier(self).hashValue
+    }
+}
+
+/// A simple observable property. Not thread safe.
+final class Property<T> {
+    var value: T {
+        didSet {
+            for observer in observers {
+                observer(value)
+            }
+        }
+    }
+
+    init(value: T) {
+        self.value = value
+    }
+
+    private var observers = [(T) -> Void]()
+
+    func observe(_ closure: @escaping (T) -> Void) {
+        observers.append(closure)
+    }
+}
+
+#if !swift(>=4.1)
+extension Sequence {
+    public func compactMap<ElementOfResult>(_ transform: (Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult] {
+        return try flatMap(transform)
+    }
+}
+#endif
+
+#if swift(>=4.2)
+import CommonCrypto
+
+extension String {
+    /// Calculates SHA1 from the given string and returns its hex representation.
+    ///
+    /// ```swift
+    /// print("http://test.com".sha1)
+    /// // prints "50334ee0b51600df6397ce93ceed4728c37fee4e"
+    /// ```
+    var sha1: String? {
+        guard let input = self.data(using: .utf8) else {
+            return nil
+        }
+        var hash = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
+        input.withUnsafeBytes {
+            _ = CC_SHA1($0, CC_LONG(input.count), &hash)
+        }
+        return hash.map({ String(format: "%02x", $0) }).joined()
+    }
+}
+#endif

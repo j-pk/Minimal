@@ -16,6 +16,8 @@ class ActionView: XibView {
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
     
+    var listing: Listing?
+    
     @IBAction func didSelectUpvoteButton(_ sender: UIButton) {
         applyShakeAnimationAndHapticFeedback(toButton: sender)
     }

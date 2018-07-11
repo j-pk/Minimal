@@ -15,7 +15,7 @@ public class Subreddit: NSManagedObject {
 }
 
 extension Subreddit: Manageable {
-    static func populateObject(fromDecodable json: Decodable, save: Bool, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler) {
+    static func populateObject(fromDecodable json: Decodable, context: NSManagedObjectContext, completionHandler: @escaping OptionalErrorHandler) {
         guard let json = json as? SubredditObject else { fatalError("Failed to cast decodable as ListingObject.") }
         
         do {
@@ -31,10 +31,6 @@ extension Subreddit: Manageable {
             subreddit.over18 = json.over18
             subreddit.publicDescription = json.publicDescription
             subreddit.subscribers = Int64(json.subscribers)
-            
-            if save {
-                try context.save()
-            }
             
             completionHandler(nil)
             

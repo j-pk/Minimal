@@ -30,6 +30,7 @@ class MediaAnnotatedCell: UICollectionViewCell {
         
         imageView.image = nil
         playerView.player = nil
+        actionView.listing = nil
         imageView.isHidden = true
         playerView.isHidden = true
         animatedImageView.isHidden = true
@@ -38,6 +39,7 @@ class MediaAnnotatedCell: UICollectionViewCell {
     
     func configureCell(forListing listing: Listing) {
         annotationView.setLabels(forListing: listing)
+        actionView.listing = listing
         switch listing.type {
         case .image:
             imageView.isHidden = false

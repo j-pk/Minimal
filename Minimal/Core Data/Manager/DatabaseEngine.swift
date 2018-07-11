@@ -35,7 +35,7 @@ protocol Stackable {
     func set(database: DatabaseEngine)
 }
 
-class DatabaseEngine {
+class DatabaseEngine: Database {
 
     // MARK: - Core Data stack
     private let modelName = "Minimal"
@@ -72,7 +72,7 @@ class DatabaseEngine {
     }()
 }
 
-extension DatabaseEngine: Database {
+extension DatabaseEngine {
     func performForegroundTask(_ context: @escaping (NSManagedObjectContext) -> Void) {
         viewContext.perform {
             context(self.viewContext)
