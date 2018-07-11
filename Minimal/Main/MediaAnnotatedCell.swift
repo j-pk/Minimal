@@ -36,67 +36,44 @@ class MediaAnnotatedCell: UICollectionViewCell {
         animatedImageView.isHidden = true
         actionView.pageDownButton.isHidden = true
     }
-    
-    func configureCell(forListing listing: Listing) {
+
+    func configureCell(forListing listing: Listing, with model: MainModel?) {
         annotationView.setLabels(forListing: listing)
         actionView.listing = listing
-        switch listing.type {
-        case .image:
-            imageView.isHidden = false
-            var request = ImageRequest(url: listing.url).processed(with: RoundedCorners(radius: 4))
-            if listing.over18 {
-                request = ImageRequest(url: listing.url).processed(with: Pixelate(scale: 50))
-                self.containerView.attachNSFWLabel()
-            }
-            if let image = ImageCache.shared[request] {
-                self.imageView.image = image
-            } else {
-                Nuke.loadImage(with: request, into: imageView) { [weak self] response, _ in
-                    guard let this = self else { return }
-                    if let image = response?.image {
-                        this.imageView?.image = image
-                        ImageCache.shared[request] = image
-                    } else {
-                        this.containerView.attachNoImageFound()
-                    }
-                }
-            }
-        case .animatedImage:
-            guard let components = URLComponents(string: listing.url.absoluteString) else { return }
-            if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
-                animatedImageView.isHidden = false
-                animatedImageView.contentMode = .scaleAspectFit
-                if let image = ImageCache.shared[ImageRequest(url: listing.url)], let data = image.animatedImageData {
-                    self.animatedImageView.animate(withGIFData: data)
+        model?.fetchAndCacheImage(for: listing, completionHandler: { [weak self] (imageData) in
+            guard let this = self else { return }
+            switch listing.type {
+            case .image:
+                this.imageView.isHidden = false
+//                if listing.over18 {
+//                    request = ImageRequest(url: listing.url).processed(with: Pixelate(scale: 50))
+//                    self.containerView.attachNSFWLabel()
+//                }
+                if let image = imageData.image {
+                    this.imageView.image = image
                 } else {
-                    Nuke.loadImage(with: listing.url, into: animatedImageView) { [weak self] response, _ in
-                        guard let this = self else { return }
-                        if let image = response?.image, let data = image.animatedImageData {
-                            ImageCache.shared[ImageRequest(url: listing.url)] = image
-                            this.animatedImageView.animate(withGIFData: data)
-                        } else {
-                            this.containerView.attachNoImageFound()
-                        }
-                    }
+                    this.containerView.attachNoImageFound()
                 }
-            } else {
-                playerView.isHidden = false
-                playerView.player = AVPlayer(url: listing.url)
-                playerView.play()
-            }
-        case .video:
-            imageView.isHidden = false
-            guard let url = URL(string: listing.thumbnailUrlString ?? listing.urlString) else { return }
-            Nuke.loadImage(with: url, into: imageView) { [weak self] response, _ in
-                guard let this = self else { return }
+            case .animatedImage:
+                guard let components = URLComponents(string: listing.url.absoluteString) else { return }
+                if components.path.hasSuffix(ListingMediaFormat.gif.rawValue), let data = imageData.data {
+                    this.animatedImageView.isHidden = false
+                    this.animatedImageView.contentMode = .scaleAspectFit
+                    this.animatedImageView.animate(withGIFData: data)
+                } else {
+                    this.playerView.isHidden = false
+                    this.playerView.player = AVPlayer(url: listing.url)
+                    this.playerView.play()
+                }
+            case .video:
+                this.imageView.isHidden = false
                 this.containerView.attachPlayIndicator()
-                if let image = response?.image {
-                    this.imageView?.image = image
-                }
+                this.imageView.image = imageData.image
+            default:
+                return
             }
-        default:
-            return
-        }
+        })
+        
         actionView.pageDownButton.isHidden = true
         layoutIfNeeded()
     }

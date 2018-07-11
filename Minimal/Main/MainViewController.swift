@@ -84,6 +84,7 @@ class MainViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        ImageCache.shared.removeAll()
         posLog(message: "Memory Warning", category: MainViewController.typeName)
     }
     
@@ -220,7 +221,7 @@ extension MainViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaAnnotatedCell.identifier, for: indexPath) as! MediaAnnotatedCell
         
         let listing = listingResultsController.object(at: indexPath)
-        cell.configureCell(forListing: listing)
+        cell.configureCell(forListing: listing, with: model)
         cell.annotationView.delegate = self
 
         return cell

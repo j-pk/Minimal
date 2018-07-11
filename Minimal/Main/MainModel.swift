@@ -6,7 +6,12 @@
 //  Copyright © 2018 Parker Kirby. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import AVFoundation
+import Nuke
+import Gifu
+
+typealias ImageData = (image: UIImage?, data: Data?)
 
 class MainModel {
     private var database: Database?
@@ -115,5 +120,52 @@ class MainModel {
         }
         let queue = OperationQueue()
         queue.addOperation(blockOperation)
+    }
+    
+    func fetchAndCacheImage(for listing: Listing, completionHandler: @escaping ((ImageData) -> Void)) {
+        switch listing.type {
+        case .image:
+            if let image = ImageCache.shared[listing.request] {
+                completionHandler((image: image, data: nil))
+            } else {
+                ImagePipeline.shared.loadImage(with: listing.request) { (response, error) in
+                    posLog(error: error)
+                    ImageCache.shared[listing.request] = response?.image
+                    completionHandler((image: response?.image, data: nil))
+                }
+            }
+            
+        case .animatedImage:
+                if let image = ImageCache.shared[listing.request], let data = image.animatedImageData {
+                    completionHandler((image: nil, data: data))
+                } else {
+                    ImagePipeline.shared.loadImage(with: listing.url) { (response, error) in
+                        posLog(error: error)
+                        if let image = response?.image, let data = image.animatedImageData {
+                            ImageCache.shared[listing.request] = image
+                            completionHandler((image: nil, data: data))
+                        } else {
+                            posLog(message: "No Animated Image Data")
+                            completionHandler((image: nil, data: nil))
+                        }
+                    }
+                }
+    
+        case .video:
+            guard let url = URL(string: listing.thumbnailUrlString ?? listing.urlString) else { return }
+            let request = ImageRequest(url: url)
+            if let image = ImageCache.shared[request] {
+                completionHandler((image: image, data: nil))
+            } else {
+                ImagePipeline.shared.loadImage(with: request) { (response, error) in
+                    posLog(error: error)
+                    ImageCache.shared[listing.request] = response?.image
+                    completionHandler((image: response?.image, data: nil))
+                }
+            }
+            
+        default:
+            completionHandler((image: nil, data: nil))
+        }
     }
 }

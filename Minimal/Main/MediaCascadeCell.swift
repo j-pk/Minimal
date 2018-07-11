@@ -36,49 +36,35 @@ class MediaCascadeCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    func configureCell(forListing listing: Listing) {
-        switch listing.type {
-        case .image:
-            imageView.isHidden = false
-            let request = ImageRequest(url: listing.url).processed(with: RoundedCorners(radius: 4.0))
-            Nuke.loadImage(with: request, into: imageView) { [weak self] response, _ in
-                guard let this = self else { return }
-                if let image = response?.image {
-                    this.imageView?.image = image
+    func configureCell(forListing listing: Listing, with model: MainModel?) {
+        model?.fetchAndCacheImage(for: listing, completionHandler: { [weak self] (imageData) in
+            guard let this = self else { return }
+            switch listing.type {
+            case .image:
+                this.imageView.isHidden = false
+                if let image = imageData.image {
+                    this.imageView.image = image
                 } else {
                     this.attachNoImageFound()
                 }
-            }
-        case .animatedImage:
-            guard let components = URLComponents(string: listing.url.absoluteString) else { return }
-            if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
-                animatedImageView.isHidden = false
-                animatedImageView.contentMode = .scaleAspectFit
-                Nuke.loadImage(with: listing.url, into: animatedImageView) { [weak self] response, _ in
-                    guard let this = self else { return }
-                    if let image = response?.image, let data = image.animatedImageData {
-                        this.animatedImageView.animate(withGIFData: data)
-                    } else {
-                        this.attachNoImageFound()
-                    }
+            case .animatedImage:
+                guard let components = URLComponents(string: listing.url.absoluteString) else { return }
+                if components.path.hasSuffix(ListingMediaFormat.gif.rawValue), let data = imageData.data {
+                    this.animatedImageView.isHidden = false
+                    this.animatedImageView.contentMode = .scaleAspectFit
+                    this.animatedImageView.animate(withGIFData: data)
+                } else {
+                    this.playerView.isHidden = false
+                    this.playerView.player = AVPlayer(url: listing.url)
+                    this.playerView.play()
                 }
-            } else {
-                playerView.isHidden = false
-                playerView.player = AVPlayer(url: listing.url)
-                playerView.play()
-            }
-        case .video:
-            imageView.isHidden = false
-            guard let url = URL(string: listing.thumbnailUrlString ?? listing.urlString) else { return }
-            Nuke.loadImage(with: url, into: imageView) { [weak self] response, _ in
-                guard let this = self else { return }
+            case .video:
+                this.imageView.isHidden = false
                 this.attachPlayIndicator()
-                if let image = response?.image {
-                    this.imageView?.image = image
-                }
+                this.imageView.image = imageData.image
+            default:
+                return
             }
-        default:
-            return
-        }
+        })
     }
 }
