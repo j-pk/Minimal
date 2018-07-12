@@ -43,22 +43,18 @@ class PresentationView: XibView {
         webView.navigationDelegate = self
         
         addGestureRecognizer(tapGestureRecognizer)
+        
         switch listing.type {
         case .image:
             data = ["image": url]
             imageView.isHidden = false
-            var request = ImageRequest(url: listing.url).processed(with: RoundedCorners(radius: 4))
-            if listing.over18 {
-                request = ImageRequest(url: listing.url).processed(with: Pixelate(scale: 50))
-            }
-            let image = ImageCache.shared[request]
+            let image = ImageCache.shared[listing.request]
             self.imageView.image = image
         case .animatedImage:
-            attachNoImageFound(message: "No Data")
-            if components.path.hasSuffix(ListingMediaFormat.gif.rawValue) {
+            if components.path.hasSuffix(ListingMediaFormat.gif.rawValue), let data = ImageCache.shared[listing.request]?.animatedImageData {
                 animatedImageView.isHidden = false
                 animatedImageView.contentMode = .scaleAspectFit
-                Nuke.loadImage(with: listing.url, into: animatedImageView)
+                animatedImageView.animate(withGIFData: data)
             } else {
                 playerView.isHidden = false
                 playerView.player = AVPlayer(url: url)
@@ -66,17 +62,16 @@ class PresentationView: XibView {
             }
         case .video:
             if let host = components.host, host.contains("vimeo") || host.contains("streamable") {
-                if let thumbnail = listing.thumbnailUrlString, let thumbnailUrl = URL(string: thumbnail) {
-                    imageView.isHidden = false
-                    Nuke.loadImage(with: url, into: imageView)
-                    data = ["url": thumbnailUrl]
-                    attachPlayIndicator()
-                }
+                imageView.isHidden = false
+                let image = ImageCache.shared[listing.request]
+                self.imageView.image = image
+                data = ["url": listing.thumbnailUrlString]
+                attachPlayIndicator()
             } else {
                 webView.isHidden = false
                 data = ["url": url]
                 attachActivityIndicator(message: "Loading", blurEffect: .light, indicatorStyle: .white)
-                webView.load( URLRequest(url: url) )
+                webView.load(URLRequest(url: url))
             }
         default:
             return
