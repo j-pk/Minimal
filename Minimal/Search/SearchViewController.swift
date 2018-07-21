@@ -71,8 +71,6 @@ class SearchViewController: UIViewController {
         performFetch(withPredicate: searchSegment.predicate)
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.keyboardDismissMode = .onDrag
-
-        view.backgroundColor = themeManager.theme.primaryColor
     }
     
     override func viewWillAppear(_ animated: Bool) {

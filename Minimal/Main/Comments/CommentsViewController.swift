@@ -30,13 +30,14 @@ class CommentsViewController: UIViewController {
         bottomMenuBar.backgroundColor = themeManager.theme.primaryColor
         tableView.backgroundColor = themeManager.theme.primaryColor
         actionView.commentButton.isHidden = true
+        actionView.pageDownButton.isHidden = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "imageViewControllerSegue" {
             if let destination = segue.destination as? ImageViewController {
-                guard let urlString = listing?.urlString, let url = URL(string: urlString) else { return }
-                destination.url = url
+                guard let listing = listing else { return }
+                destination.request = listing.request
             }
         }
     }

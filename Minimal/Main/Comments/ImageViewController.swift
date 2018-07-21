@@ -13,18 +13,18 @@ class ImageViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    var url: URL?
+    var request: ImageRequest?
     var themeManager = ThemeManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let url = url else {
+        guard let request = request, let image = ImageCache.shared[request] else {
             dismiss(animated: true, completion: nil)
             return
         }
         view.backgroundColor = themeManager.theme.primaryColor
         imageView.backgroundColor = themeManager.theme.primaryColor
-        Nuke.loadImage(with: url, into: imageView)
+        imageView.image = image
     }
 }
 

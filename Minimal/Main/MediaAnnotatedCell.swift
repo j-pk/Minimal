@@ -34,7 +34,6 @@ class MediaAnnotatedCell: UICollectionViewCell {
         imageView.isHidden = true
         playerView.isHidden = true
         animatedImageView.isHidden = true
-        actionView.pageDownButton.isHidden = true
     }
 
     func configureCell(forListing listing: Listing, with model: MainModel?) {
@@ -73,8 +72,6 @@ class MediaAnnotatedCell: UICollectionViewCell {
                 return
             }
         })
-        
-        actionView.pageDownButton.isHidden = true
         layoutIfNeeded()
     }
 }
