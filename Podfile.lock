@@ -1,6 +1,6 @@
 PODS:
   - Gifu (3.1.0)
-  - Nuke (7.3)
+  - Nuke (7.3.2)
 
 DEPENDENCIES:
   - Gifu
@@ -13,7 +13,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Gifu: fd1e9e3a15ac5d90bae0a510e4ed9f94b485ab03
-  Nuke: 3680b7186b18f84a5e9e283bfce4357bfd70fdf9
+  Nuke: a9a31bbd6c6723753ab024ef22057dcaaf046c1b
 
 PODFILE CHECKSUM: e2d65a0d17f1ac674ce0658d5b661a16420185f9
 
