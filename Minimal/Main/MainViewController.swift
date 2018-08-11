@@ -38,7 +38,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
         if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: collectionView)
         } else {
@@ -75,6 +74,7 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setPlayerStateForViewControllerTransition(isReturning: true)
+        collectionView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

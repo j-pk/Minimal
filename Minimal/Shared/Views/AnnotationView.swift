@@ -13,7 +13,9 @@ class AnnotationView: XibView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var prefixedSubredditLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var upvoteCountLabel: UILabel!
+    @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var dateCreatedLabel: UILabel!
     
     weak var delegate: UIViewTappableDelegate?
     private var data: [String: Any?] = [:]
@@ -58,18 +60,18 @@ class AnnotationView: XibView {
             attributedTitleString.append(NSAttributedString(string: " (\(domain))", attributes: regularAttributes))
         }
         
-        let descriptionAttributedString = NSMutableAttributedString()
         let score = NumberFormatter.localizedString(from: NSNumber(value: listing.score), number: .decimal)
         let scoreAttributedString = NSAttributedString(string: score, attributes: scoreAttributes)
-        descriptionAttributedString.append(scoreAttributedString)
+        
+        let autherAttributedString = NSMutableAttributedString()
         
         if let author = listing.author {
-            let authorAttributedString = NSAttributedString(string: " upvotes submitted by \(author)", attributes: regularAttributes)
-            descriptionAttributedString.append(authorAttributedString)
+            autherAttributedString.append(NSAttributedString(string: "u/\(author)", attributes: regularAttributes))
         }
+        
+        let dateCreatedAttributedString = NSMutableAttributedString()
         if let dateCreated = listing.created {
-            let dateCreatedAttributedString = NSAttributedString(string: " \(dateCreated.timeAgoSinceNow().lowercased())", attributes: regularAttributes)
-            descriptionAttributedString.append(dateCreatedAttributedString)
+            dateCreatedAttributedString.append(NSAttributedString(string: dateCreated.timeAgoSinceNow().lowercased(), attributes: regularAttributes))
         }
         
         let linkAttributedString = NSMutableAttributedString()
@@ -77,10 +79,13 @@ class AnnotationView: XibView {
             linkAttributedString.append(NSAttributedString(string: prefixedSubreddit, attributes: linkAttributes))
         }
         
+        // Attributes don't take affect unless pushed on to the main thread 
         DispatchQueue.main.async {
             self.titleLabel.attributedText = attributedTitleString
             self.prefixedSubredditLabel.attributedText = linkAttributedString
-            self.descriptionLabel.attributedText = descriptionAttributedString
+            self.upvoteCountLabel.attributedText = scoreAttributedString
+            self.authorLabel.attributedText = autherAttributedString
+            self.dateCreatedLabel.attributedText = dateCreatedAttributedString
         }
         
         data = ["subreddit": listing.subredditNamePrefixed]

@@ -58,11 +58,14 @@ extension ThemeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = self.tableView.cellForRow(at: indexPath) as? ThemeCell {
             let theme = Theme.allValues[indexPath.section]
-            themeManager.theme = theme
-            reloadViews()
-            cell.checkmark.isHidden = false
-            let deselectedCells = tableView.visibleCells.compactMap({ $0 as? ThemeCell }).filter({ $0 != cell })
-            deselectedCells.forEach({ $0.checkmark.isHidden = true })
+            if themeManager.theme != theme {
+                themeManager.theme = theme
+                tabBarController?.tabBar.barStyle = theme.barStyle
+                reloadViews()
+                cell.checkmark.isHidden = false
+                let deselectedCells = tableView.visibleCells.compactMap({ $0 as? ThemeCell }).filter({ $0 != cell })
+                deselectedCells.forEach({ $0.checkmark.isHidden = true })
+            }
         }
     }
 }

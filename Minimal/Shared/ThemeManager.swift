@@ -85,6 +85,7 @@ struct ThemeManager {
         SubtitleLabel.appearance(whenContainedInInstancesOf: [SearchCell.self]).textColor = theme.subtitleTextColor
         WarningLabel.appearance().textColor = .black
         UIImageView.appearance(whenContainedInInstancesOf: [SubscribedCell.self]).tintColor = theme.tintColor
+        UIImageView.appearance(whenContainedInInstancesOf: [AnnotationView.self]).tintColor = redditOrange
         HeaderImageView.appearance().tintColor = theme.titleTextColor
         
         UICollectionView.appearance().backgroundColor = theme.primaryColor
@@ -183,7 +184,7 @@ extension Theme {
         case .darkTheme:
             return #colorLiteral(red: 0.1921568627, green: 0.4274509804, blue: 0.5725490196, alpha: 1)
         case .lightTheme:
-            return #colorLiteral(red: 0.8666666667, green: 0.8666666667, blue: 0.8666666667, alpha: 1)
+            return #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
         }
     }
     
@@ -194,7 +195,7 @@ extension Theme {
         case .darkTheme:
             return #colorLiteral(red: 0.1647058824, green: 0.2745098039, blue: 0.3607843137, alpha: 1)
         case .lightTheme:
-            return #colorLiteral(red: 0.8666666667, green: 0.8666666667, blue: 0.8666666667, alpha: 1)
+            return #colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 1)
         }
     }
     

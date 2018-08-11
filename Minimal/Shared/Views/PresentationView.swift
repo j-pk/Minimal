@@ -28,6 +28,7 @@ class PresentationView: XibView {
         playerView.player = nil
         removeAttachedView()
         animatedImageView.prepareForReuse()
+        animatedImageView.animationImages = nil
 
         imageView.isHidden = true
         animatedImageView.isHidden = true
@@ -49,7 +50,7 @@ class PresentationView: XibView {
             data = ["image": url]
             imageView.isHidden = false
             let image = ImageCache.shared[listing.request]
-            self.imageView.image = image
+            imageView.image = image
         case .animatedImage:
             if components.path.hasSuffix(ListingMediaFormat.gif.rawValue), let data = ImageCache.shared[listing.request]?.animatedImageData {
                 animatedImageView.isHidden = false
