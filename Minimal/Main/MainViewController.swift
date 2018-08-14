@@ -260,7 +260,7 @@ extension MainViewController: SubredditSelectionProtocol {
     }
     
     func didSelect(defaultSubreddit: DefaultSubreddit) {
-        updateUIForRequestedListings(subredditId: defaultSubreddit.displayNamePrefixed, category: .hot)
+        updateUIForRequestedListings(subredditId: "\(defaultSubreddit.rawValue)", category: .hot)
     }
 }
 
