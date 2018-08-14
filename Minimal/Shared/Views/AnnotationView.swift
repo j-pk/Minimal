@@ -88,7 +88,7 @@ class AnnotationView: XibView {
             self.dateCreatedLabel.attributedText = dateCreatedAttributedString
         }
         
-        data = ["subreddit": listing.subredditNamePrefixed]
+        data = ["subredditId": listing.subredditId]
     }
     
     override func layoutSubviews() {

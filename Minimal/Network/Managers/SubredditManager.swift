@@ -1,23 +1,14 @@
 //
-//  SubscribedManager.swift
+//  SubredditManager.swift
 //  Minimal
 //
-//  Created by Jameson Parker Kirby on 3/13/18.
+//  Created by Jameson Kirby on 8/13/18.
 //  Copyright © 2018 Parker Kirby. All rights reserved.
 //
 
-
-//https://www.reddit.com/dev/api#GET_subreddits_mine_{where}
-//GET /subreddits/mine/where
-//subscriber - subreddits the user is subscribed to
-//
-//https://www.reddit.com/dev/api#POST_api_subscribe
-//POST /api/subscribe
-//Subscribe to or unsubscribe from a subreddit.
-
 import Foundation
 
-class SubscribedManager {
+class SubredditManager {
     private let network: SubredditNetwork
     @discardableResult init(request: Requestable, database: Database, completionHandler: @escaping OptionalErrorHandler) {
         network = SubredditNetwork(request: request) { (result) in
@@ -39,4 +30,3 @@ class SubscribedManager {
         }
     }
 }
-

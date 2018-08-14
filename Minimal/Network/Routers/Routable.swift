@@ -53,6 +53,19 @@ extension Routable {
         return urlRequest as URLRequest
     }
     
+    func generateBasicAPIUrl(forPath path: String, queryItems: [URLQueryItem], method: HTTPMethod) -> URLRequest {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.reddit.com"
+        components.path = "/api" + path
+        components.queryItems = queryItems.count > 0 ? queryItems : nil
+        
+        let urlRequest = NSMutableURLRequest(url: components.url!)
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpMethod = method.rawValue
+        return urlRequest as URLRequest
+    }
+    
     /// Generate OAuth URL
     /// Leverages access token report app usage to Reddit
     ///

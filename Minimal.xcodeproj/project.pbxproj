@@ -85,6 +85,7 @@
 		C0EDC88E1FD78219009C0D39 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDC88C1FD78219009C0D39 /* User+CoreDataClass.swift */; };
 		C0EDC88F1FD78219009C0D39 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDC88D1FD78219009C0D39 /* User+CoreDataProperties.swift */; };
 		C0EDC8911FDA4352009C0D39 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDC8901FDA4352009C0D39 /* NetworkManager.swift */; };
+		C0F110E02122367000B62CC9 /* SubredditManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F110DF2122367000B62CC9 /* SubredditManager.swift */; };
 		E32AE7930CE8B3FE376733E1 /* Pods_Minimal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12D93EB896176E9F4989268F /* Pods_Minimal.framework */; };
 /* End PBXBuildFile section */
 
@@ -172,6 +173,7 @@
 		C0EDC88C1FD78219009C0D39 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C0EDC88D1FD78219009C0D39 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C0EDC8901FDA4352009C0D39 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C0F110DF2122367000B62CC9 /* SubredditManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,9 +212,10 @@
 			isa = PBXGroup;
 			children = (
 				C02E49931FDA59C40030347D /* ListingManager.swift */,
-				C020F9852016E0DD00A3E43A /* SearchSubredditManager.swift */,
-				C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */,
 				C07FAE10205C96C40049E9F0 /* RequestAuthorization.swift */,
+				C020F9852016E0DD00A3E43A /* SearchSubredditManager.swift */,
+				C0F110DF2122367000B62CC9 /* SubredditManager.swift */,
+				C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				C0C2AC46201842C000745869 /* Subreddit+CoreDataClass.swift in Sources */,
 				C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */,
 				C0110E141FB4DF5700410478 /* TypeName.swift in Sources */,
+				C0F110E02122367000B62CC9 /* SubredditManager.swift in Sources */,
 				C0ED1F9E1FB3F0DB00580C1E /* DateExtensions.swift in Sources */,
 				C07FAE0F205C820D0049E9F0 /* AuthorizationRouter.swift in Sources */,
 				C0EC9BA31FC237BE0073FF7A /* PresentationView.swift in Sources */,

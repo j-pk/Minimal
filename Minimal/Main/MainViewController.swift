@@ -139,8 +139,8 @@ class MainViewController: UIViewController {
         sender.endRefreshing()
     }
     
-    func updateUIForRequestedListings(forSubreddit subreddit: Subreddit? = nil, prefixedSubreddit: String? = nil, category: CategorySortType, timeFrame: CategoryTimeFrame? = nil) {
-        model?.updateUserAndListings(forSubreddit: subreddit, prefixedSubreddit: prefixedSubreddit, category: category, timeFrame: timeFrame, completionHandler: { (subreddit, categoryAndTimeFrame) in
+    func updateUIForRequestedListings(forSubreddit subreddit: Subreddit? = nil, subredditId: String? = nil, category: CategorySortType, timeFrame: CategoryTimeFrame? = nil) {
+        model?.updateUserAndListings(forSubreddit: subreddit, subredditId: subredditId, category: category, timeFrame: timeFrame, completionHandler: { (subreddit, categoryAndTimeFrame) in
             DispatchQueue.main.async {
                 self.titleButton.setTitle(subreddit, for: UIControlState())
                 self.categoryButton.setTitle(categoryAndTimeFrame, for: UIControlState())
@@ -260,15 +260,14 @@ extension MainViewController: SubredditSelectionProtocol {
     }
     
     func didSelect(defaultSubreddit: DefaultSubreddit) {
-        updateUIForRequestedListings(prefixedSubreddit: defaultSubreddit.displayNamePrefixed, category: .hot)
+        updateUIForRequestedListings(subredditId: defaultSubreddit.displayNamePrefixed, category: .hot)
     }
 }
 
 extension MainViewController: UIViewTappableDelegate {
     func didTapView(sender: UITapGestureRecognizer, data: [String: Any?]) {
-        if let view = sender.view, let label = view as? UILabel {
-            guard let prefixedSubreddit = label.text else { return }
-            updateUIForRequestedListings(prefixedSubreddit: prefixedSubreddit, category: .hot)
+        if let subredditId = data["subredditId"] as? String  {
+            updateUIForRequestedListings(subredditId: subredditId, category: .hot)
         }
     }
 }

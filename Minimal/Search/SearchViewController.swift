@@ -156,14 +156,12 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         guard tableView == self.tableView && searchSegment == .subreddits else { return 0 }
-        let currentCollation = UILocalizedIndexedCollation.current()
-        return currentCollation.section(forSectionIndexTitle: index)
+        return searchResultsController.section(forSectionIndexTitle: title, at: index)
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         guard tableView == self.tableView && searchSegment == .subreddits else { return nil }
-        let currentCollation = UILocalizedIndexedCollation.current()
-        return currentCollation.sectionIndexTitles
+        return searchResultsController.sectionIndexTitles
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

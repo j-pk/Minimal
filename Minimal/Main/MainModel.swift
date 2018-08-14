@@ -30,9 +30,9 @@ class MainModel {
         return (subreddit: subreddit, categoryAndTimeFrame: categoryAndTimeFrame)
     }
     
-    func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, prefixedSubreddit: String? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil, completionHandler: ((String, String) -> Void)? = nil) {
+    func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, subredditId: String? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil, completionHandler: ((String, String) -> Void)? = nil) {
         
-        updateUserAndListings(forSubreddit: subreddit, prefixedSubreddit: prefixedSubreddit, category: category, timeFrame: timeFrame) { (results) in
+        updateUserAndListings(forSubreddit: subreddit, subredditId: subredditId, category: category, timeFrame: timeFrame) { (results) in
             switch results {
             case .failure(let error):
                 posLog(error: error)
@@ -53,38 +53,70 @@ class MainModel {
         }
     }
     
-    private func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, prefixedSubreddit: String? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil, completionHandler: @escaping ResultCompletionHandler<User>) {
+    private func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, subredditId: String? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil, completionHandler: @escaping ResultCompletionHandler<User>) {
         guard let database = database, let user = User.current(context: database.viewContext) else { return }
         database.performForegroundTask { (context) in
-            do {
+            if let subredditId = subredditId, subreddit == nil {
+                self.requestSubreddit(withId: subredditId) { (results) in
+                    switch results {
+                    case .success(let subreddit):
+                        subreddit.lastViewed = Date()
+                        user.addToSubreddits(subreddit)
+                    case .failure(let error):
+                        completionHandler(.failure(error))
+                        posLog(error: error)
+                    }
+                }
+            } else {
                 if let subreddit = subreddit {
                     subreddit.lastViewed = Date()
                     user.addToSubreddits(subreddit)
-                } else if let prefixedSubreddit = prefixedSubreddit {
-                    if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "displayNamePrefixed == %@", prefixedSubreddit)) {
-                        subreddit.lastViewed = Date()
-                        user.addToSubreddits(subreddit)
-                    }
                 }
-                
                 if let category = category {
                     user.categoryString = category.rawValue
                 }
-                
                 if let timeFrame = timeFrame {
                     user.timeFrameString = timeFrame.rawValue
                 } else {
                     user.timeFrameString = nil
                 }
-                
+            }
+            
+            do {
                 try context.save()
-                
                 completionHandler(.success(user))
-                
             } catch let error {
                 completionHandler(.failure(error))
                 posLog(error: error)
             }
+        }
+    }
+
+
+    func requestSubreddit(withId subredditId: String, completionHandler: @escaping ResultCompletionHandler<Subreddit>) {
+        guard let database = database else { return }
+        do {
+            if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "id CONTAINS[c] %@", subredditId)) {
+                completionHandler(.success(subreddit))
+            } else {
+                let request = SubredditRequest(requestType: .subreddit(id: subredditId))
+                SubredditManager(request: request, database: database) { (error) in
+                    if let error = error {
+                        completionHandler(.failure(error))
+                    } else {
+                        do {
+                            if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "id MATCHES %@", subredditId.split(separator: "_")[1] as CVarArg)) {
+                                completionHandler(.success(subreddit))
+                            }
+                            completionHandler(.failure(CoreDataError.failedToFetchObject("Subreddit")))
+                        } catch {
+                            completionHandler(.failure(error))
+                        }
+                    }
+                }
+            }
+        } catch {
+            completionHandler(.failure(error))
         }
     }
     
