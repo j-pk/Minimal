@@ -20,7 +20,7 @@ extension UITableViewCell {
         if value.rawValue == 0 {
             separatorInset = UIEdgeInsets.zero
         } else {
-            separatorInset = UIEdgeInsetsMake(0, value.rawValue, 0, 0)
+            separatorInset = UIEdgeInsets.init(top: 0, left: value.rawValue, bottom: 0, right: 0)
         }
     }
 }

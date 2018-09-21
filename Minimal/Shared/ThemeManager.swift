@@ -65,7 +65,7 @@ struct ThemeManager {
     func setGlobalTheme() {
         UINavigationBar.appearance().barStyle = theme.barStyle
         UINavigationBar.appearance().barTintColor = theme.primaryColor
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: theme.titleTextColor]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.titleTextColor]
 
         UITabBar.appearance().barStyle = theme.barStyle
         UITabBar.appearance().tintColor = theme.tintColor
@@ -75,9 +75,7 @@ struct ThemeManager {
         UIButton.appearance().setTitleColor(theme.titleTextColor, for: .normal)
         UIButton.appearance().setTitleColor(theme.subtitleTextColor, for: .selected)
         UIButton.appearance().tintColor = theme.tintColor
-        
-        UIApplication.shared.statusBarStyle = theme.statusBarStyle
-        
+                
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.titleTextColor
         HeaderLabel.appearance().textColor = redditOrange
@@ -240,7 +238,7 @@ extension Theme {
         }
     }
     
-    var blurEffect: UIBlurEffectStyle {
+    var blurEffect: UIBlurEffect.Style {
         switch self {
         case .minimalTheme, .darkTheme:
             return .dark

@@ -70,20 +70,20 @@ class LabelBaseCell: UITableViewCell {
         contentView.addSubview(mainStackView)
         
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[selectionImageButton(20)]",
-                                                                  options: NSLayoutFormatOptions.alignAllLeading,
+                                                                  options: NSLayoutConstraint.FormatOptions.alignAllLeading,
                                                                   metrics: nil,
                                                                   views: ["selectionImageButton": selectionImageButton]))
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[selectionImageButton(20)]",
-                                                                  options: NSLayoutFormatOptions.alignAllLeading,
+                                                                  options: NSLayoutConstraint.FormatOptions.alignAllLeading,
                                                                   metrics: nil,
                                                                   views: ["selectionImageButton": selectionImageButton]))
         
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[mainStackView]-8-|",
-                                                                  options: NSLayoutFormatOptions.alignAllLeading,
+                                                                  options: NSLayoutConstraint.FormatOptions.alignAllLeading,
                                                                   metrics: nil,
                                                                   views: ["mainStackView": mainStackView]))
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-12-[mainStackView]-[selectionImageButton]-|",
-                                                                  options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                  options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                                   metrics: nil,
                                                                   views: ["mainStackView": mainStackView, "selectionImageButton": selectionImageButton]))
         
@@ -91,7 +91,7 @@ class LabelBaseCell: UITableViewCell {
     
     private func configure(selectionImage: SelectionImage) {
         if let image = selectionImage.image {
-            selectionImageButton.setImage(image, for: UIControlState())
+            selectionImageButton.setImage(image, for: UIControl.State())
             selectionImageButton.imageView?.contentMode = .scaleAspectFit
         } else {
             selectionImageButton.isHidden = true

@@ -103,7 +103,7 @@ class MainModel {
         }
         
         do {
-            if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "id CONTAINS[c] %@", id)) {
+            if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "id == %@", id)) {
                 completionHandler(.success(subreddit))
             } else {
                 let request = SubredditRequest(requestType: .subreddit(id: subredditId))
@@ -112,7 +112,7 @@ class MainModel {
                         completionHandler(.failure(error))
                     } else {
                         do {
-                            if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "id CONTAINS[c] %@", id)) {
+                            if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "id == %@", id)) {
                                 completionHandler(.success(subreddit))
                             }
                             completionHandler(.failure(CoreDataError.failedToFetchObject("Subreddit")))
