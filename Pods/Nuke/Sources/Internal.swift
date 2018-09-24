@@ -312,6 +312,7 @@ internal struct _CancellationToken {
     fileprivate let source: _CancellationTokenSource? // no-op when `nil`
 
     /// Returns `true` if cancellation has been requested for this token.
+    /// Returns `false` if the source was deallocated.
     var isCancelling: Bool {
         return source?.isCancelling ?? false
     }
@@ -513,30 +514,6 @@ struct TaskMetrics {
 
     mutating func end() {
         endDate = Date()
-    }
-}
-
-final class DisposableOperation: Hashable {
-    // When all registered tasks remove references to image processing
-    // session the wrapped operation gets deallocated.
-    deinit {
-        operation?.cancel()
-    }
-
-    weak var operation: Foundation.Operation?
-
-    init(_ operation: Foundation.Operation) {
-        self.operation = operation
-    }
-
-    // MARK: - Hashable
-
-    public static func == (lhs: DisposableOperation, rhs: DisposableOperation) -> Bool {
-        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
-    }
-
-    public var hashValue: Int {
-        return ObjectIdentifier(self).hashValue
     }
 }
 
