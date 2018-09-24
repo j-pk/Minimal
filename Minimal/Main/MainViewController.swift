@@ -242,14 +242,14 @@ extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
 // MARK: UICollectionViewDataSourcePrefetching
 extension MainViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        let urls = indexPaths.map({ listingResultsController.object(at: $0).request })
-        let preheater = ImagePreheater(pipeline: ImagePipeline.shared, maxConcurrentRequestCount: 5)
-        preheater.startPreheating(with: urls)
+        //let urls = indexPaths.map({ listingResultsController.object(at: $0).request })
+        //let preheater = ImagePreheater(pipeline: ImagePipeline.shared, maxConcurrentRequestCount: 5)
+        //preheater.startPreheating(with: urls)
     }
     
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        let preheater = ImagePreheater(pipeline: ImagePipeline.shared, maxConcurrentRequestCount: 5)
-        preheater.stopPreheating()
+        //let preheater = ImagePreheater(pipeline: ImagePipeline.shared, maxConcurrentRequestCount: 5)
+        //preheater.stopPreheating()
     }
 }
 
