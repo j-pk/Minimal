@@ -9,6 +9,10 @@
 import UIKit
 
 extension UIViewController {
+    var preferredStatusBarStyle: UIStatusBarStyle {
+        return ThemeManager().theme.statusBarStyle
+    }
+    
     static func make<T: UIViewController>(storyboard: UIStoryboard.Storyboard) -> T {
         return UIStoryboard.storyboard(storyboard).instantiateViewController(withIdentifier: T.typeName) as! T
     }

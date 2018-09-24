@@ -28,7 +28,7 @@ class XibView: UIView {
         contentView.frame = bounds
         
         // Make the view stretch with containing view
-        contentView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+        contentView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
         
         // Adding custom subview on top of our view (over any custom drawing > see note below)
         addSubview(contentView)
@@ -69,7 +69,7 @@ extension UIView {
         layer.shadowRadius = 2
     }
     
-    func attachActivityIndicator(message: String, blurEffect: UIBlurEffectStyle, indicatorStyle: UIActivityIndicatorViewStyle) {
+    func attachActivityIndicator(message: String, blurEffect: UIBlurEffect.Style, indicatorStyle: UIActivityIndicatorView.Style) {
         let themeManager = ThemeManager()
         let overlayView = UIView()
         overlayView.backgroundColor = .black
@@ -78,11 +78,11 @@ extension UIView {
         overlayView.tag = 1
         self.addSubview(overlayView)
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[overlayView]-0-|",
-                                                           options: NSLayoutFormatOptions.alignAllCenterX,
+                                                           options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                            metrics: nil,
                                                            views: ["overlayView":overlayView]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[overlayView]-0-|",
-                                                           options: NSLayoutFormatOptions.alignAllCenterY,
+                                                           options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                            metrics: nil,
                                                            views: ["overlayView":overlayView]))
         
@@ -92,7 +92,7 @@ extension UIView {
         effectView.translatesAutoresizingMaskIntoConstraints = false
         overlayView.addSubview(effectView)
         
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: indicatorStyle)
+        let activityIndicator = UIActivityIndicatorView(style: indicatorStyle)
         activityIndicator.startAnimating()
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         effectView.contentView.addSubview(activityIndicator)
@@ -106,25 +106,25 @@ extension UIView {
         effectView.contentView.addSubview(titleLabel)
         
         effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[activityIndicator]-|",
-                                                                 options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                 options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                                  metrics: nil,
                                                                  views: ["activityIndicator":activityIndicator]))
         effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[titleLabel]-|",
-                                                                 options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                 options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                                  metrics: nil,
                                                                  views: ["titleLabel":titleLabel]))
         effectView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[activityIndicator]-[titleLabel]-|",
-                                                                 options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                 options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                                  metrics: nil,
                                                                  views: ["activityIndicator":activityIndicator, "titleLabel":titleLabel]))
         
         
         overlayView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[overlayView]-(<=1)-[effectView]",
-                                                                  options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                  options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                                   metrics: nil,
                                                                   views: ["overlayView":overlayView, "effectView":effectView]))
         overlayView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[overlayView]-(<=1)-[effectView]",
-                                                                  options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                  options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                                   metrics: nil,
                                                                   views: ["overlayView":overlayView, "effectView":effectView]))
     }
@@ -147,11 +147,11 @@ extension UIView {
         addSubview(containerView)
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[containerView]-0-|",
-                                                           options: NSLayoutFormatOptions.alignAllCenterX,
+                                                           options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                            metrics: nil,
                                                            views: ["containerView": containerView]))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[containerView]-0-|",
-                                                           options: NSLayoutFormatOptions.alignAllCenterY,
+                                                           options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                            metrics: nil,
                                                            views: ["containerView": containerView]))
         
@@ -162,11 +162,11 @@ extension UIView {
         containerView.addSubview(imageView)
         
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[imageView(30)]-|",
-                                                                  options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                  options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                                   metrics: nil,
                                                                   views: ["containerView": containerView, "imageView": imageView]))
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[imageView(30)]",
-                                                                  options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                  options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                                   metrics: nil,
                                                                   views: ["containerView": containerView, "imageView": imageView]))
     }
@@ -181,11 +181,11 @@ extension UIView {
         addSubview(containerView)
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[containerView]-0-|",
-                                                      options: NSLayoutFormatOptions.alignAllCenterX,
+                                                      options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                       metrics: nil,
                                                       views: ["containerView": containerView]))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[containerView]-0-|",
-                                                      options: NSLayoutFormatOptions.alignAllCenterY,
+                                                      options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                       metrics: nil,
                                                       views: ["containerView": containerView]))
         let labelContainerView = UIView()
@@ -196,11 +196,11 @@ extension UIView {
         containerView.addSubview(labelContainerView)
         
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[labelContainerView(35)]-|",
-                                                                    options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                    options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                                     metrics: nil,
                                                                     views: ["containerView": containerView, "labelContainerView": labelContainerView]))
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[labelContainerView]",
-                                                                    options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                    options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                                     metrics: nil,
                                                                     views: ["containerView": containerView, "labelContainerView": labelContainerView]))
 
@@ -212,11 +212,11 @@ extension UIView {
         labelContainerView.addSubview(nsfwLabel)
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[nsfwLabel]-8-|",
-                                                      options: NSLayoutFormatOptions.alignAllCenterX,
+                                                      options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                       metrics: nil,
                                                       views: ["nsfwLabel": nsfwLabel]))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[nsfwLabel]-8-|",
-                                                      options: NSLayoutFormatOptions.alignAllCenterY,
+                                                      options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                       metrics: nil,
                                                       views: ["nsfwLabel": nsfwLabel]))
     }
@@ -232,11 +232,11 @@ extension UIView {
         insertSubview(containerView, at: 0)
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[containerView]-0-|",
-                                                      options: NSLayoutFormatOptions.alignAllCenterX,
+                                                      options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                       metrics: nil,
                                                       views: ["containerView": containerView]))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[containerView]-0-|",
-                                                      options: NSLayoutFormatOptions.alignAllCenterY,
+                                                      options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                       metrics: nil,
                                                       views: ["containerView": containerView]))
         
@@ -254,19 +254,19 @@ extension UIView {
         containerView.addSubview(label)
         
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[containerView]-(<=1)-[imageView(40)]",
-                                                                    options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                    options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                                     metrics: nil,
                                                                     views: ["containerView": containerView, "imageView": imageView]))
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[containerView]-(<=1)-[imageView(40)]",
-                                                                    options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                    options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                                     metrics: nil,
                                                                     views: ["containerView": containerView, "imageView": imageView]))
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[imageView(40)]-[label]",
-                                                                    options: NSLayoutFormatOptions.alignAllCenterX,
+                                                                    options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                                     metrics: nil,
                                                                     views: ["imageView": imageView, "label": label]))
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[label]",
-                                                                    options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                    options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                                     metrics: nil,
                                                                     views: ["label": label]))
     }

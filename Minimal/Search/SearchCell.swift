@@ -30,12 +30,12 @@ class SearchCell: UITableViewCell {
         publicDescriptionLabel.text = subreddit.publicDescription
         
         let subscribersAttributes = [
-            NSAttributedStringKey.font: themeManager.font(fontStyle: .secondary),
-            NSAttributedStringKey.foregroundColor: themeManager.redditOrange
+            NSAttributedString.Key.font: themeManager.font(fontStyle: .secondary),
+            NSAttributedString.Key.foregroundColor: themeManager.redditOrange
         ]
         let regularAttributes = [
-            NSAttributedStringKey.font: themeManager.font(fontStyle: .secondary),
-            NSAttributedStringKey.foregroundColor: themeManager.theme.subtitleTextColor
+            NSAttributedString.Key.font: themeManager.font(fontStyle: .secondary),
+            NSAttributedString.Key.foregroundColor: themeManager.theme.subtitleTextColor
         ]
         
         let attributedString = NSMutableAttributedString()

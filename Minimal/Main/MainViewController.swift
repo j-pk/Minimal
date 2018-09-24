@@ -67,8 +67,8 @@ class MainViewController: UIViewController {
         headerView.addShadow()
 
         let data = model?.fetchLastViewedSubredditData()
-        titleButton.setTitle(data?.subreddit, for: UIControlState())
-        categoryButton.setTitle(data?.categoryAndTimeFrame, for: UIControlState())
+        titleButton.setTitle(data?.subreddit, for: UIControl.State())
+        categoryButton.setTitle(data?.categoryAndTimeFrame, for: UIControl.State())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,9 +97,9 @@ class MainViewController: UIViewController {
     
     @IBAction func didPressCategoryButton(_ sender: UIButton) {
         let alertController = UIAlertController(title: "Sort by Category", message: nil, preferredStyle: .actionSheet)
-        alertController.setValue(NSAttributedString(string: "Sort by Category", attributes: [NSAttributedStringKey.font: themeManager.font(fontStyle: .primaryBold), NSAttributedStringKey.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
+        alertController.setValue(NSAttributedString(string: "Sort by Category", attributes: [NSAttributedString.Key.font: themeManager.font(fontStyle: .primaryBold), NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
         let timeFrameAlertController = UIAlertController(title: "Time Frame", message: nil, preferredStyle: .actionSheet)
-        timeFrameAlertController.setValue(NSAttributedString(string: "Time Frame", attributes: [NSAttributedStringKey.font: themeManager.font(fontStyle: .primaryBold), NSAttributedStringKey.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
+        timeFrameAlertController.setValue(NSAttributedString(string: "Time Frame", attributes: [NSAttributedString.Key.font: themeManager.font(fontStyle: .primaryBold), NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
 
         CategorySortType.allValues.forEach({ category in
             let action = UIAlertAction(title: category.rawValue.capitalized, style: .default, handler: { (action) in
@@ -142,8 +142,8 @@ class MainViewController: UIViewController {
     func updateUIForRequestedListings(forSubreddit subreddit: Subreddit? = nil, subredditId: String? = nil, category: CategorySortType, timeFrame: CategoryTimeFrame? = nil) {
         model?.updateUserAndListings(forSubreddit: subreddit, subredditId: subredditId, category: category, timeFrame: timeFrame, completionHandler: { (subreddit, categoryAndTimeFrame) in
             DispatchQueue.main.async {
-                self.titleButton.setTitle(subreddit, for: UIControlState())
-                self.categoryButton.setTitle(categoryAndTimeFrame, for: UIControlState())
+                self.titleButton.setTitle(subreddit, for: UIControl.State())
+                self.categoryButton.setTitle(categoryAndTimeFrame, for: UIControl.State())
                 self.categoryButton.sizeToFit()
                 self.collectionView.reloadData()
             }
@@ -260,7 +260,7 @@ extension MainViewController: SubredditSelectionProtocol {
     }
     
     func didSelect(defaultSubreddit: DefaultSubreddit) {
-        updateUIForRequestedListings(subredditId: defaultSubreddit.displayNamePrefixed, category: .hot)
+        updateUIForRequestedListings(subredditId: "\(defaultSubreddit.rawValue)", category: .hot)
     }
 }
 

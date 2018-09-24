@@ -55,33 +55,37 @@ class MainModel {
     
     private func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, subredditId: String? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil, completionHandler: @escaping ResultCompletionHandler<User>) {
         guard let database = database, let user = User.current(context: database.viewContext) else { return }
-        database.performForegroundTask { (context) in
-            if let subredditId = subredditId, subreddit == nil {
-                self.requestSubreddit(withId: subredditId) { (results) in
-                    switch results {
-                    case .success(let subreddit):
-                        subreddit.lastViewed = Date()
-                        user.addToSubreddits(subreddit)
-                    case .failure(let error):
-                        completionHandler(.failure(error))
-                        posLog(error: error)
-                    }
-                }
-            } else {
-                if let subreddit = subreddit {
+        
+        if let subreddit = subreddit {
+            subreddit.lastViewed = Date()
+            user.addToSubreddits(subreddit)
+            populateValuesFor(user: user, completionHandler: completionHandler)
+        } else if let subredditId = subredditId {
+            self.requestSubreddit(withId: subredditId) { (results) in
+                switch results {
+                case .success(let subreddit):
                     subreddit.lastViewed = Date()
                     user.addToSubreddits(subreddit)
+                case .failure(let error):
+                    completionHandler(.failure(error))
+                    posLog(error: error)
                 }
-                if let category = category {
-                    user.categoryString = category.rawValue
-                }
-                if let timeFrame = timeFrame {
-                    user.timeFrameString = timeFrame.rawValue
-                } else {
-                    user.timeFrameString = nil
-                }
+                self.populateValuesFor(user: user, completionHandler: completionHandler)
             }
-            
+        }
+    }
+    
+    private func populateValuesFor(user: User, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil, completionHandler: @escaping ResultCompletionHandler<User>) {
+        guard let database = database else { return }
+        if let category = category {
+            user.categoryString = category.rawValue
+        }
+        if let timeFrame = timeFrame {
+            user.timeFrameString = timeFrame.rawValue
+        } else {
+            user.timeFrameString = nil
+        }
+        database.performForegroundTask { (context) in
             do {
                 try context.save()
                 completionHandler(.success(user))
@@ -91,12 +95,15 @@ class MainModel {
             }
         }
     }
-
-
-    func requestSubreddit(withId subredditId: String, completionHandler: @escaping ResultCompletionHandler<Subreddit>) {
-        guard let database = database else { return }
+    
+    private func requestSubreddit(withId subredditId: String, completionHandler: @escaping ResultCompletionHandler<Subreddit>) {
+        guard let database = database, let id = subredditId.contains("_") ? subredditId.components(separatedBy: "_").last : subredditId else {
+            completionHandler(.failure(CoreDataError.failedToFetchObject("Subreddit")))
+            return
+        }
+        
         do {
-            if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "id CONTAINS[c] %@", subredditId)) {
+            if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "id == %@", id)) {
                 completionHandler(.success(subreddit))
             } else {
                 let request = SubredditRequest(requestType: .subreddit(id: subredditId))
@@ -105,7 +112,7 @@ class MainModel {
                         completionHandler(.failure(error))
                     } else {
                         do {
-                            if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "id MATCHES %@", subredditId.split(separator: "_")[1] as CVarArg)) {
+                            if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "id == %@", id)) {
                                 completionHandler(.success(subreddit))
                             }
                             completionHandler(.failure(CoreDataError.failedToFetchObject("Subreddit")))

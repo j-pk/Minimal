@@ -24,7 +24,7 @@ class CommentsViewController: UIViewController {
         //in addition to passing the listing, perhaps just pass the image to instead of setting it to do
         //calculations on sectionHeaderHeight
         tableView.sectionHeaderHeight = 400
-        tableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
 
         view.backgroundColor = themeManager.theme.primaryColor
         bottomMenuBar.backgroundColor = themeManager.theme.primaryColor

@@ -33,23 +33,23 @@ class AnnotationView: XibView {
         }
         
         let boldAttributes = [
-            NSAttributedStringKey.font: themeManager.font(fontStyle: .primaryBold),
-            NSAttributedStringKey.foregroundColor: themeManager.theme.titleTextColor
+            NSAttributedString.Key.font: themeManager.font(fontStyle: .primaryBold),
+            NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor
         ]
         
         let regularAttributes = [
-            NSAttributedStringKey.font: themeManager.font(fontStyle: .secondary),
-            NSAttributedStringKey.foregroundColor: themeManager.theme.subtitleTextColor
+            NSAttributedString.Key.font: themeManager.font(fontStyle: .secondary),
+            NSAttributedString.Key.foregroundColor: themeManager.theme.subtitleTextColor
         ]
         
         let scoreAttributes = [
-            NSAttributedStringKey.font: themeManager.font(fontStyle: .secondary),
-            NSAttributedStringKey.foregroundColor: themeManager.redditOrange
+            NSAttributedString.Key.font: themeManager.font(fontStyle: .secondary),
+            NSAttributedString.Key.foregroundColor: themeManager.redditOrange
         ]
         
         let linkAttributes = [
-            NSAttributedStringKey.font: themeManager.font(fontStyle: .secondaryBold),
-            NSAttributedStringKey.foregroundColor: themeManager.linkTextColor
+            NSAttributedString.Key.font: themeManager.font(fontStyle: .secondaryBold),
+            NSAttributedString.Key.foregroundColor: themeManager.linkTextColor
         ]
         
         let attributedTitleString = NSMutableAttributedString()

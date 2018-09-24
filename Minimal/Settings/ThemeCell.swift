@@ -32,20 +32,20 @@ class ThemeCell: UITableViewCell {
         contentView.addSubview(bottomLineView)
         
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[lineView(1)]",
-                                                                  options: NSLayoutFormatOptions.alignAllLeading,
+                                                                  options: NSLayoutConstraint.FormatOptions.alignAllLeading,
                                                                   metrics: nil,
                                                                   views: ["lineView":topLineView]))
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[lineView]-0-|",
-                                                                  options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                  options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                                   metrics: nil,
                                                                   views: ["lineView":topLineView]))
         
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[bottomLineView(1)]-0-|",
-                                                                  options: NSLayoutFormatOptions.alignAllLeading,
+                                                                  options: NSLayoutConstraint.FormatOptions.alignAllLeading,
                                                                   metrics: nil,
                                                                   views: ["bottomLineView":bottomLineView]))
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[bottomLineView]-0-|",
-                                                                  options: NSLayoutFormatOptions.alignAllCenterY,
+                                                                  options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                                   metrics: nil,
                                                                   views: ["bottomLineView":bottomLineView]))
     }

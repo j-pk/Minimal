@@ -29,14 +29,14 @@ class PlayerView: UIView {
     }
     
     @objc func playAndLoop() {
-        player?.seek(to: kCMTimeZero)
+        player?.seek(to: CMTime.zero)
         player?.play()
     }
     
     //TODO: Handle stalls with Retry attempts
     @objc private func stalled() {
         if let player = self.player {
-            if player.currentTime() > kCMTimeZero && player.currentTime() != player.currentItem?.duration {
+            if player.currentTime() > CMTime.zero && player.currentTime() != player.currentItem?.duration {
                 player.pause()
             }
         }
