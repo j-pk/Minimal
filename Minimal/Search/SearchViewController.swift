@@ -244,7 +244,7 @@ extension SearchViewController: Stackable {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "displayName", ascending: true)]
         searchResultsController = NSFetchedResultsController<Subreddit>(fetchRequest: fetchRequest, managedObjectContext: database.viewContext, sectionNameKeyPath: "displayName", cacheName: nil)
         
-        if let subscribedViewController = self.childViewControllers.filter({ $0 is Stackable }).first as? Stackable {
+        if let subscribedViewController = self.children.filter({ $0 is Stackable }).first as? Stackable {
             subscribedViewController.set(database: database)
         }
     }
