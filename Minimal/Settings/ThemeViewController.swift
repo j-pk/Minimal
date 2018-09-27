@@ -60,7 +60,10 @@ extension ThemeViewController: UITableViewDelegate {
             let theme = Theme.allValues[indexPath.section]
             if themeManager.theme != theme {
                 themeManager.theme = theme
-                tabBarController?.tabBar.barStyle = theme.barStyle
+                DispatchQueue.main.async {
+                    self.tabBarController?.tabBar.barStyle = theme.barStyle
+                    self.tabBarController?.tabBar.layoutIfNeeded()
+                }
                 reloadViews()
                 cell.checkmark.isHidden = false
                 let deselectedCells = tableView.visibleCells.compactMap({ $0 as? ThemeCell }).filter({ $0 != cell })

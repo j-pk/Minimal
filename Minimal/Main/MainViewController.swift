@@ -54,7 +54,7 @@ class MainViewController: UIViewController {
 
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
-        let refreshYAxis = headerView.frame.height - UIApplication.shared.statusBarFrame.height
+        let refreshYAxis = headerView.frame.height - view.safeAreaLayoutGuide.layoutFrame.size.height
         refreshControl.bounds = CGRect(x: refreshControl.bounds.origin.x, y: refreshYAxis, width: refreshControl.bounds.size.width, height: refreshControl.bounds.size.height)
         collectionView.refreshControl = refreshControl
         

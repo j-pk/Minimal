@@ -75,6 +75,7 @@ class SearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        view.backgroundColor = themeManager.theme.primaryColor
         configure(searchBar: searchController.searchBar)
     }
 
