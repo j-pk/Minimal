@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 import SafariServices
 
 class SettingsViewController: UIViewController {
@@ -44,7 +45,7 @@ class SettingsViewController: UIViewController {
             }
         case .app?:
             cell.selectionImage = .none
-            switch SettingsTableViewSections.App(indexPath: indexPath) {
+            switch SettingsTableViewSections.AppSection(indexPath: indexPath) {
             case .rate?:
                 cell.titleLabel.text = "Rate Minimal"
             case .share?:
@@ -87,7 +88,7 @@ extension SettingsViewController: UITableViewDataSource {
             }
         }
         
-        enum App: Int {
+        enum AppSection: Int {
             case rate
             case share
             case feedback
@@ -138,6 +139,18 @@ extension SettingsViewController: UITableViewDataSource {
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch SettingsTableViewSections(indexPath: indexPath) {
+        case .app?:
+            switch SettingsTableViewSections.AppSection(indexPath: indexPath) {
+            case .rate?:
+                posLog(message: "Rate")
+                presentStoreReviewController()
+            case .share?:
+                posLog(message: "Share")
+            case .feedback?:
+                posLog(message: "Feedback")
+            default:
+                break
+            }
         case .authenticate?:
             if var defaults = Defaults.retrieve(), defaults.accessToken != nil {
                 defaults.accessToken = nil
@@ -173,5 +186,27 @@ extension SettingsViewController: UITableViewDelegate {
 extension SettingsViewController: Stackable {
     func set(database: DatabaseEngine) {
         self.database = database
+    }
+}
+
+extension SettingsViewController {
+    private func presentStoreReviewController() {
+        // If the count has not yet been stored, this will return 0
+        guard var defaults = Defaults.retrieve() else { return }
+        defaults.rateCount += 1
+        defaults.store()
+        
+        guard let currentVersion = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
+            else { fatalError("Expected to find a bundle version in the info dictionary") }
+        
+        if defaults.rateCount < 4 && currentVersion != defaults.lastVersionPromptedForReview {
+            DispatchQueue.main.async { [navigationController] in
+                if navigationController?.topViewController is SettingsViewController {
+                    SKStoreReviewController.requestReview()
+                }
+            }
+        } else {
+            // Looks like you reviewed this app version or submitted multiple reviews already. Thanks and please consider submitting a review on the next update
+        }
     }
 }

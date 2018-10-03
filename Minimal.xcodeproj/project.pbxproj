@@ -52,6 +52,7 @@
 		C096E53A20A53FEF0061442D /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C096E53920A53FEF0061442D /* MainModel.swift */; };
 		C096E53C20AD1BFC0061442D /* ActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C096E53B20AD1BFC0061442D /* ActionView.swift */; };
 		C096E53E20AD1C0B0061442D /* ActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C096E53D20AD1C0B0061442D /* ActionView.xib */; };
+		C099266B216465A900441957 /* StoreReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C099266A216465A900441957 /* StoreReview.swift */; };
 		C09E91EB201D515300EFB3F5 /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09E91EA201D515300EFB3F5 /* Routable.swift */; };
 		C0A385761F9E54AF005064DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385751F9E54AF005064DF /* AppDelegate.swift */; };
 		C0A385781F9E54B0005064DF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385771F9E54B0005064DF /* SettingsViewController.swift */; };
@@ -138,6 +139,7 @@
 		C096E53920A53FEF0061442D /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		C096E53B20AD1BFC0061442D /* ActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionView.swift; sourceTree = "<group>"; };
 		C096E53D20AD1C0B0061442D /* ActionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionView.xib; sourceTree = "<group>"; };
+		C099266A216465A900441957 /* StoreReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReview.swift; sourceTree = "<group>"; };
 		C09E91EA201D515300EFB3F5 /* Routable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
 		C0A385721F9E54AF005064DF /* Minimal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minimal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A385751F9E54AF005064DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -409,6 +411,7 @@
 				C03EC9EB1FC8CCEC00ACA0F5 /* ThemeManager.swift */,
 				C0110E131FB4DF5700410478 /* TypeName.swift */,
 				C07FAE062054C6230049E9F0 /* Defaults.swift */,
+				C099266A216465A900441957 /* StoreReview.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */,
 				C08D623F1FD4DC5D00794B2A /* LabelBaseCell.swift in Sources */,
 				C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */,
+				C099266B216465A900441957 /* StoreReview.swift in Sources */,
 				C01A6DBD206D972900CA50C2 /* StringExtensions.swift in Sources */,
 				C03167C01FB175A900E420D0 /* MainCollectionViewFlowLayout.swift in Sources */,
 				C0EDC88E1FD78219009C0D39 /* User+CoreDataClass.swift in Sources */,
