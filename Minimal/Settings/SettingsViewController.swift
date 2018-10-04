@@ -9,6 +9,7 @@
 import UIKit
 import StoreKit
 import SafariServices
+import MessageUI
 
 class SettingsViewController: UIViewController {
     
@@ -146,8 +147,10 @@ extension SettingsViewController: UITableViewDelegate {
                 presentStoreReviewController()
             case .share?:
                 posLog(message: "Share")
+                presentShareOptions()
             case .feedback?:
                 posLog(message: "Feedback")
+                presentFeedbackEmail()
             default:
                 break
             }
@@ -209,4 +212,43 @@ extension SettingsViewController {
             // Looks like you reviewed this app version or submitted multiple reviews already. Thanks and please consider submitting a review on the next update
         }
     }
+    
+    private func presentShareOptions() {
+        if let url = URL(string: "https://itunes.apple.com/app/id<App ID Here>?mt=8") {
+            let shareText = "Minimal for Reddit app"
+            let viewController = UIActivityViewController(activityItems: [shareText, url], applicationActivities: nil)
+            present(viewController, animated: true)
+        }
+    }
 }
+
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
+    private func presentFeedbackEmail() {
+        guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else { return }
+        guard let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else { return }
+        let body =
+        """
+        <p>Thanks for the feedback!</p>
+        
+        Miminal for Reddit App
+        version: \(version)
+        build: \(build)
+        """
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["minimalApp@gmail.com"])
+            mail.setSubject("Miminal for Reddit App Feedback")
+            mail.setMessageBody(body, isHTML: true)
+            
+            present(mail, animated: true)
+        } else {
+            posLog(message: "Mail is not configured on this device")
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+}
+
