@@ -123,7 +123,26 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func didPressTitleButton(_ sender: UIButton) {
-        
+        let alertController = UIAlertController(title: "Recent Subreddits", message: nil, preferredStyle: .actionSheet)
+        alertController.setValue(NSAttributedString(string: "Recent Subreddits", attributes: [NSAttributedString.Key.font: themeManager.font(fontStyle: .primaryBold), NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
+        do {
+            guard let database = database else { return }
+            let recentPredicate = NSPredicate(format: "lastViewed < %@ AND lastViewed > %@", Date() as NSDate, Date().subtract(days: 14) as NSDate)
+            let recentSubreddits = try Subreddit.fetchObjects(inContext: database.viewContext, predicate: recentPredicate)
+            recentSubreddits.prefix(5).forEach({ subreddit in
+                let action = UIAlertAction(title: subreddit.displayName, style: .default, handler: { (action) in
+                    self.updateUIForRequestedListings(forSubreddit: subreddit, subredditId: subreddit.id, category: .hot, timeFrame: nil)
+                })
+                alertController.addAction(action)
+            })
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            cancel.setValue(themeManager.theme.titleTextColor, forKey: "titleTextColor")
+            alertController.addAction(cancel)
+            present(alertController, animated: true, completion: nil)
+        } catch {
+            posLog(error: error)
+            return
+        }
     }
     
     func performFetch() {

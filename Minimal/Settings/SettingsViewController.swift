@@ -228,17 +228,17 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
         guard let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else { return }
         let body =
         """
-        <p>Thanks for the feedback!</p>
+        <p>Feedback</p>
         
-        Miminal for Reddit App
-        version: \(version)
-        build: \(build)
+        Miminal for Reddit App<br>
+        version: \(version)<br>
+        build: \(build)<br>
         """
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
             mail.setToRecipients(["minimalApp@gmail.com"])
-            mail.setSubject("Miminal for Reddit App Feedback")
+            mail.setSubject("Miminal \(version)")
             mail.setMessageBody(body, isHTML: true)
             
             present(mail, animated: true)

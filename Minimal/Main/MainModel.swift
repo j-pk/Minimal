@@ -72,6 +72,8 @@ class MainModel {
                 }
                 self.populateValuesFor(user: user, completionHandler: completionHandler)
             }
+        } else {
+            populateValuesFor(user: user, category: category, timeFrame: timeFrame, completionHandler: completionHandler)
         }
     }
     
