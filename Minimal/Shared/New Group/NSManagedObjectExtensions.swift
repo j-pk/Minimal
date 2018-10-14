@@ -33,10 +33,13 @@ extension Manageable where Self: NSManagedObject {
         return try context.fetch(fetchRequest).first
     }
     
-    static func fetchObjects(inContext context: NSManagedObjectContext, predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) throws -> [Self] {
+    static func fetchObjects(inContext context: NSManagedObjectContext, predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil, fetchLimit: Int? = nil) throws -> [Self] {
         let fetchRequest = fetchRequestForEntity(inContext: context)
         fetchRequest.sortDescriptors = sortDescriptors
         fetchRequest.predicate = predicate
+        if let fetchLimit = fetchLimit {
+            fetchRequest.fetchLimit = fetchLimit
+        }
         return try context.fetch(fetchRequest)
     }
     

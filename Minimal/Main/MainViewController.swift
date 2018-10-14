@@ -125,24 +125,17 @@ class MainViewController: UIViewController {
     @IBAction func didPressTitleButton(_ sender: UIButton) {
         let alertController = UIAlertController(title: "Recent Subreddits", message: nil, preferredStyle: .actionSheet)
         alertController.setValue(NSAttributedString(string: "Recent Subreddits", attributes: [NSAttributedString.Key.font: themeManager.font(fontStyle: .primaryBold), NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
-        do {
-            guard let database = database else { return }
-            let recentPredicate = NSPredicate(format: "lastViewed < %@ AND lastViewed > %@", Date() as NSDate, Date().subtract(days: 14) as NSDate)
-            let recentSubreddits = try Subreddit.fetchObjects(inContext: database.viewContext, predicate: recentPredicate)
-            recentSubreddits.prefix(5).forEach({ subreddit in
-                let action = UIAlertAction(title: subreddit.displayName, style: .default, handler: { (action) in
-                    self.updateUIForRequestedListings(forSubreddit: subreddit, subredditId: subreddit.id, category: .hot, timeFrame: nil)
-                })
-                alertController.addAction(action)
+        
+        model?.fetchRecentlyViewedSubreddits().prefix(5).forEach({ subreddit in
+            let action = UIAlertAction(title: subreddit.displayName, style: .default, handler: { (action) in
+                self.updateUIForRequestedListings(forSubreddit: subreddit, subredditId: subreddit.id, category: .hot, timeFrame: nil)
             })
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            cancel.setValue(themeManager.theme.titleTextColor, forKey: "titleTextColor")
-            alertController.addAction(cancel)
-            present(alertController, animated: true, completion: nil)
-        } catch {
-            posLog(error: error)
-            return
-        }
+            alertController.addAction(action)
+        })
+        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        cancel.setValue(UIColor.red, forKey: "titleTextColor")
+        alertController.addAction(cancel)
+        present(alertController, animated: true, completion: nil)
     }
     
     func performFetch() {
@@ -208,6 +201,10 @@ class MainViewController: UIViewController {
             }
         }
     }
+    
+    func transitionToCommentsViewController(with segue: UIStoryboardSegue) {
+        
+    }
 }
 
 // MARK: Stackable
@@ -242,6 +239,7 @@ extension MainViewController: UICollectionViewDataSource {
         let listing = listingResultsController.object(at: indexPath)
         cell.configureCell(forListing: listing, with: model)
         cell.annotationView.delegate = self
+        cell.actionView.delegate = self
 
         return cell
     }
@@ -288,6 +286,22 @@ extension MainViewController: UIViewTappableDelegate {
         if let subredditId = data["subredditId"] as? String  {
             updateUIForRequestedListings(subredditId: subredditId, category: .hot)
         }
+    }
+}
+
+extension MainViewController: ActionViewDelegate {
+    func didSelectMoreButton(sender: UIButton, controller: UIAlertController) {
+        present(controller, animated: true, completion: nil)
+    }
+    
+    func didSelectCommentButton(sender: UIButton, listing: Listing?) {
+        guard let listing = listing else { return }
+        let commentsViewController: CommentsViewController = UIViewController.make(storyboard: .main)
+        commentsViewController.hidesBottomBarWhenPushed = true
+        commentsViewController.database = database
+        commentsViewController.listing = listing
+        commentsViewController.delegate = self
+        navigationController?.pushViewController(commentsViewController, animated: true)
     }
 }
 

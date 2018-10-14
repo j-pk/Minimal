@@ -40,6 +40,7 @@ extension Listing {
     @NSManaged public var after: String?
     @NSManaged public var domain: String?
     @NSManaged public var mediaType: String
+    @NSManaged public var voted: Int16
     @NSManaged public var subreddit: Subreddit?
     
 }

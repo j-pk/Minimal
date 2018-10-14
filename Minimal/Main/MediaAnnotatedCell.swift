@@ -26,11 +26,11 @@ class MediaAnnotatedCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         animatedImageView.prepareForReuse()
+        actionView.prepareForReuse()
         containerView.removeAttachedView()
         
         imageView.image = nil
         playerView.player = nil
-        actionView.listing = nil
         imageView.isHidden = true
         playerView.isHidden = true
         animatedImageView.isHidden = true
@@ -39,6 +39,7 @@ class MediaAnnotatedCell: UICollectionViewCell {
     func configureCell(forListing listing: Listing, with model: MainModel?) {
         annotationView.setLabels(forListing: listing)
         actionView.listing = listing
+        actionView.model = model
         model?.fetchAndCacheImage(for: listing, completionHandler: { [weak self] (imageData) in
             guard let this = self else { return }
             switch listing.type {

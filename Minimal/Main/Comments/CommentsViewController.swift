@@ -29,6 +29,7 @@ class CommentsViewController: UIViewController {
         view.backgroundColor = themeManager.theme.primaryColor
         bottomMenuBar.backgroundColor = themeManager.theme.primaryColor
         tableView.backgroundColor = themeManager.theme.primaryColor
+        actionView.delegate = self
         actionView.commentButton.isHidden = true
         actionView.pageDownButton.isHidden = false
     }
@@ -96,5 +97,28 @@ extension CommentsViewController: UIViewTappableDelegate {
 extension CommentsViewController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         dismiss(animated: true)
+    }
+}
+
+extension CommentsViewController: ActionViewDelegate {
+    func didSelectMoreButton(sender: UIButton, controller: UIAlertController) {
+        present(controller, animated: true, completion: nil)
+    }
+    
+    func didSelectUpvoteButton(sender: UIButton, listing: Listing?) {
+        guard let listing = listing else { return }
+        posLog(message: "Upvote")
+    }
+    
+    func didSelectDownvoteButton(sender: UIButton, listing: Listing?) {
+        //
+    }
+    
+    func didSelectPageDownButton(sender: UIButton, listing: Listing?) {
+        //
+    }
+    
+    func didSelectCommentButton(sender: UIButton, listing: Listing?) {
+        //
     }
 }

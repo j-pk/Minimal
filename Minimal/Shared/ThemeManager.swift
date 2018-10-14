@@ -74,6 +74,7 @@ struct ThemeManager {
         
         UIButton.appearance().setTitleColor(theme.titleTextColor, for: .normal)
         UIButton.appearance().setTitleColor(theme.subtitleTextColor, for: .selected)
+        UIButton.appearance().setTitleColor(theme.tintColor, for: .highlighted)
         UIButton.appearance().tintColor = theme.tintColor
                 
         UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self]).textColor = theme.titleTextColor

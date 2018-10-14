@@ -30,6 +30,16 @@ class MainModel {
         return (subreddit: subreddit, categoryAndTimeFrame: categoryAndTimeFrame)
     }
     
+    func fetchRecentlyViewedSubreddits() -> [Subreddit] {
+        guard let database = database else { return [] }
+        let recentPredicate = NSPredicate(format: "isDefault == false && lastViewed < %@ AND lastViewed > %@", Date() as NSDate, Date().subtract(days: 14) as NSDate)
+        let sortDescriptor = NSSortDescriptor(key: "lastViewed", ascending: false)
+        if let recentSubreddits = try? Subreddit.fetchObjects(inContext: database.viewContext, predicate: recentPredicate, sortDescriptors: [sortDescriptor], fetchLimit: 5) {
+            return recentSubreddits
+        }
+        return []
+    }
+    
     func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, subredditId: String? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil, completionHandler: ((String, String) -> Void)? = nil) {
         
         updateUserAndListings(forSubreddit: subreddit, subredditId: subredditId, category: category, timeFrame: timeFrame) { (results) in
@@ -208,5 +218,11 @@ class MainModel {
         default:
             completionHandler((image: nil, data: nil))
         }
+    }
+    
+    func vote(listing: Listing, dir: UserVoteDirection, completionHandler: @escaping OptionalErrorHandler) {
+        guard let database = database, let id = listing.id else { return }
+        let request = UserRequest(requestType: .vote(id: id, direction: dir))
+        UserManager().vote(request: request, direction: dir, database: database, listingManagedObjectId: listing.objectID, completionHandler: completionHandler)
     }
 }

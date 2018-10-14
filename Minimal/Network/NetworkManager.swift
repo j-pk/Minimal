@@ -55,7 +55,7 @@ class NetworkManager: NetworkEngine {
     }
 
     func session<T>(forRoute route: Routable, withDecodable decodable: T.Type, completionHandler: @escaping ResultCompletionHandler<T>) where T: Decodable  {
-        guard let request = route.urlRequest else { return }
+        guard let request = route.urlRequest else { completionHandler(.failure(NetworkError.generatedURLRequestFailed)); return }
         task = defaultSession.dataTask(with: request) { (data, urlResponse, error) in
             posLog(message: "Network Request: \(request.description)", category: String(describing: self))
             
@@ -88,6 +88,26 @@ class NetworkManager: NetworkEngine {
                 }
             } else  {
                 completionHandler(.failure(NetworkError.serverError(description: "Server Error: \(response)")))
+            }
+        }
+        task?.resume()
+    }
+    
+    func requestResponse(forRoute route: Routable, completionHandler: @escaping ResultCompletionHandler<HTTPURLResponse>) {
+        guard let request = route.urlRequest else { completionHandler(.failure(NetworkError.generatedURLRequestFailed)); return }
+        task = defaultSession.dataTask(with: request) { (data, urlResponse, error) in
+            if let error = error {
+                completionHandler(.failure(NetworkError.serverError(description: error.localizedDescription)))
+            }
+            
+            guard let response = urlResponse as? HTTPURLResponse else {
+                completionHandler(.failure(NetworkError.responseError(response: urlResponse)))
+                return
+            }
+            if response.statusCode >= 400 {
+                completionHandler(.failure(NetworkError.responseError(response: response)))
+            } else if response.statusCode == 200 {
+                completionHandler(.success(response))
             }
         }
         task?.resume()

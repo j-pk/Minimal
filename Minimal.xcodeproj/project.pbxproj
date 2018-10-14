@@ -53,6 +53,8 @@
 		C096E53C20AD1BFC0061442D /* ActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C096E53B20AD1BFC0061442D /* ActionView.swift */; };
 		C096E53E20AD1C0B0061442D /* ActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C096E53D20AD1C0B0061442D /* ActionView.xib */; };
 		C099266B216465A900441957 /* StoreReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C099266A216465A900441957 /* StoreReview.swift */; };
+		C099266D21700AFE00441957 /* UserRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C099266C21700AFE00441957 /* UserRouter.swift */; };
+		C099266F2172ADC500441957 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C099266E2172ADC500441957 /* UserManager.swift */; };
 		C09E91EB201D515300EFB3F5 /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09E91EA201D515300EFB3F5 /* Routable.swift */; };
 		C0A385761F9E54AF005064DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385751F9E54AF005064DF /* AppDelegate.swift */; };
 		C0A385781F9E54B0005064DF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385771F9E54B0005064DF /* SettingsViewController.swift */; };
@@ -140,6 +142,8 @@
 		C096E53B20AD1BFC0061442D /* ActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionView.swift; sourceTree = "<group>"; };
 		C096E53D20AD1C0B0061442D /* ActionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionView.xib; sourceTree = "<group>"; };
 		C099266A216465A900441957 /* StoreReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReview.swift; sourceTree = "<group>"; };
+		C099266C21700AFE00441957 /* UserRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRouter.swift; sourceTree = "<group>"; };
+		C099266E2172ADC500441957 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		C09E91EA201D515300EFB3F5 /* Routable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
 		C0A385721F9E54AF005064DF /* Minimal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minimal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A385751F9E54AF005064DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -206,6 +210,7 @@
 				C003B9001FC6139800A2B089 /* ListingRouter.swift */,
 				C020F9872016E43000A3E43A /* SubredditRouter.swift */,
 				C07FAE0E205C820D0049E9F0 /* AuthorizationRouter.swift */,
+				C099266C21700AFE00441957 /* UserRouter.swift */,
 			);
 			path = Routers;
 			sourceTree = "<group>";
@@ -218,6 +223,7 @@
 				C020F9852016E0DD00A3E43A /* SearchSubredditManager.swift */,
 				C0F110DF2122367000B62CC9 /* SubredditManager.swift */,
 				C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */,
+				C099266E2172ADC500441957 /* UserManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -605,7 +611,9 @@
 				C0EC9B9D1FC112B90073FF7A /* HeaderCell.swift in Sources */,
 				C0A3859E1F9E98AC005064DF /* MediaCascadeCell.swift in Sources */,
 				C07FAE092058B0C30049E9F0 /* SubscribedManager.swift in Sources */,
+				C099266D21700AFE00441957 /* UserRouter.swift in Sources */,
 				C096E53C20AD1BFC0061442D /* ActionView.swift in Sources */,
+				C099266F2172ADC500441957 /* UserManager.swift in Sources */,
 				C0EC9B9B1FC0ED9A0073FF7A /* AnnotationView.swift in Sources */,
 				C0EDC88F1FD78219009C0D39 /* User+CoreDataProperties.swift in Sources */,
 				C03EC9EC1FC8CCEC00ACA0F5 /* ThemeManager.swift in Sources */,

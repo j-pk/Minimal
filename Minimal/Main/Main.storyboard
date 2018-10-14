@@ -249,7 +249,7 @@
         <!--Comments View Controller-->
         <scene sceneID="kzk-bo-Eec">
             <objects>
-                <viewController id="gO7-rA-08V" customClass="CommentsViewController" customModule="Minimal" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommentsViewController" id="gO7-rA-08V" customClass="CommentsViewController" customModule="Minimal" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HWK-Lj-gYD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

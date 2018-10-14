@@ -27,7 +27,7 @@ public class User: NSManagedObject {
     }
     
     var lastViewedSubreddit: String {
-        let subreddit = self.subreddits?.map({ $0 }).sorted(by: { $0.lastViewed > $1.lastViewed }).first
+        let subreddit = self.subreddits?.compactMap({ $0 }).sorted(by: { $0.lastViewed > $1.lastViewed }).first
         return subreddit?.displayNamePrefixed ?? ""
     }
 }
