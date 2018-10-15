@@ -64,9 +64,7 @@ class NotificationView: UIView {
         get {
             return 777
         }
-        set {
-            
-        }
+        set { }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -93,12 +91,13 @@ class NotificationView: UIView {
         backgroundColor = state.backgroundColor
         
         let imageView = UIImageView(image: state.image)
-        imageView.tintColor = .black
+        imageView.tintColor = .white
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.text = state.message
+        descriptionLabel.textColor = .white
         descriptionLabel.backgroundColor = .clear
         
         [imageView, descriptionLabel].forEach({ addSubview($0) })

@@ -32,6 +32,27 @@ public enum NetworkError: Error {
     case generatedURLRequestFailed
 }
 
+extension NetworkError {
+    var errorCode: Int {
+        switch self {
+        case .responseError(let response as HTTPURLResponse):
+            return response.statusCode
+        default:
+            return 0
+        }
+    }
+    var errorDescription: String {
+        switch self {
+        case .failedToParse(let error):
+            return "Failed to parse with \(error.localizedDescription)"
+        case .responseError(let response as HTTPURLResponse):
+            return "Failed request with status code \(response.statusCode) with \(response.allHeaderFields)"
+        default:
+            return self.localizedDescription
+        }
+    }
+}
+
 public enum Result<T> {
     case success(T)
     case failure(Error)
