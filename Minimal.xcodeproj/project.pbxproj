@@ -55,6 +55,7 @@
 		C099266B216465A900441957 /* StoreReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C099266A216465A900441957 /* StoreReview.swift */; };
 		C099266D21700AFE00441957 /* UserRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C099266C21700AFE00441957 /* UserRouter.swift */; };
 		C099266F2172ADC500441957 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C099266E2172ADC500441957 /* UserManager.swift */; };
+		C09926712172EFA300441957 /* NotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09926702172EFA300441957 /* NotificationBanner.swift */; };
 		C09E91EB201D515300EFB3F5 /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09E91EA201D515300EFB3F5 /* Routable.swift */; };
 		C0A385761F9E54AF005064DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385751F9E54AF005064DF /* AppDelegate.swift */; };
 		C0A385781F9E54B0005064DF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A385771F9E54B0005064DF /* SettingsViewController.swift */; };
@@ -144,6 +145,7 @@
 		C099266A216465A900441957 /* StoreReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReview.swift; sourceTree = "<group>"; };
 		C099266C21700AFE00441957 /* UserRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRouter.swift; sourceTree = "<group>"; };
 		C099266E2172ADC500441957 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		C09926702172EFA300441957 /* NotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBanner.swift; sourceTree = "<group>"; };
 		C09E91EA201D515300EFB3F5 /* Routable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routable.swift; sourceTree = "<group>"; };
 		C0A385721F9E54AF005064DF /* Minimal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minimal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A385751F9E54AF005064DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */,
 				C04AED062040CDD400554C5E /* POSLogger.swift */,
 				C00B140A2029509B0064D1AF /* SegmentedController.swift */,
+				C09926702172EFA300441957 /* NotificationBanner.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 				C07FAE11205C96C40049E9F0 /* RequestAuthorization.swift in Sources */,
 				C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */,
 				C020F9842016DA3700A3E43A /* SubredditContract.swift in Sources */,
+				C09926712172EFA300441957 /* NotificationBanner.swift in Sources */,
 				C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */,
 				C08D623F1FD4DC5D00794B2A /* LabelBaseCell.swift in Sources */,
 				C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */,

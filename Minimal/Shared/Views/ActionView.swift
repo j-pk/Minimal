@@ -54,6 +54,9 @@ class ActionView: XibView {
         model?.vote(listing: listing, dir: direction, completionHandler: { [weak self] (error) in
             if let error = error {
                 posLog(error: error)
+                DispatchQueue.main.async {
+                    NotificationView(state: .vote(direction: direction))
+                }
             } else {
                 self?.downvoteButton.tintColor = self?.downvoteButton.tintColor == self?.themeManager.redditOrange ? self?.themeManager.theme.tintColor : self?.themeManager.redditOrange
                 self?.upvoteButton.tintColor = self?.themeManager.theme.tintColor
