@@ -37,34 +37,38 @@ class ActionView: XibView {
         applyShakeAnimationAndHapticFeedback(toButton: sender)
         guard let listing = listing else { return }
         let direction: UserVoteDirection = listing.voted == 0 ? .up : .cancel
-        model?.vote(listing: listing, dir: direction, completionHandler: { [weak self] (error) in
-            if let error = error {
-                posLog(error: error)
-            } else {
+        attemptVote(listing: listing, dir: direction) { [weak self] (isSuccessful) in
+            if isSuccessful {
                 self?.upvoteButton.tintColor = self?.upvoteButton.tintColor == self?.themeManager.redditOrange ? self?.themeManager.theme.tintColor : self?.themeManager.redditOrange
                 self?.downvoteButton.tintColor = self?.themeManager.theme.tintColor
             }
-        })
+        }
     }
     
     @IBAction func didSelectDownvoteButton(_ sender: UIButton) {
         applyShakeAnimationAndHapticFeedback(toButton: sender)
         guard let listing = listing else { return }
         let direction: UserVoteDirection = listing.voted == 0 ? .down : .cancel
-        model?.vote(listing: listing, dir: direction, completionHandler: { [weak self] (error) in
-            if let error = error as? NetworkError {
-                if error.errorCode == 401 {
-                    DispatchQueue.main.async {
-                        NotificationView(state: .error("Login to vote"))
-                    }
-                } else {
-                    
-                }
-                posLog(error: error)
-                
-            } else {
+        attemptVote(listing: listing, dir: direction) { [weak self] (isSuccessful) in
+            if isSuccessful {
                 self?.downvoteButton.tintColor = self?.downvoteButton.tintColor == self?.themeManager.redditOrange ? self?.themeManager.theme.tintColor : self?.themeManager.redditOrange
                 self?.upvoteButton.tintColor = self?.themeManager.theme.tintColor
+            }
+        }
+    }
+    
+    func attemptVote(listing: Listing, dir: UserVoteDirection, completionHandler: @escaping ((Bool)->())) {
+        model?.vote(listing: listing, dir: dir, completionHandler: { (error) in
+            if let error = error as? NetworkError {
+                if error.errorCode == 401 {
+                    NotificationBanner(state: .error("Login to vote"))
+                } else {
+                    NotificationBanner(state: .error("Meh, something went wrong"))
+                }
+                posLog(error: error)
+                completionHandler(false)
+            } else {
+                completionHandler(true)
             }
         })
     }

@@ -54,7 +54,22 @@ enum NotificationState {
     }
 }
 
-class NotificationView: UIView {
+class NotificationBanner {
+    let state: NotificationState
+
+    @discardableResult init(state: NotificationState) {
+        self.state = state
+        DispatchQueue.main.async {
+            self.displayNotification(for: state)
+        }
+    }
+    
+    func displayNotification(for state: NotificationState) {
+        NotificationView(state: state)
+    }
+}
+
+private class NotificationView: UIView {
     let state: NotificationState
     let viewController: UIViewController?
     var initialPositionConstraint: NSLayoutConstraint?
@@ -91,6 +106,7 @@ class NotificationView: UIView {
         backgroundColor = state.backgroundColor
         
         let imageView = UIImageView(image: state.image)
+        imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .white
         imageView.translatesAutoresizingMaskIntoConstraints = false
         

@@ -105,15 +105,6 @@ extension CommentsViewController: ActionViewDelegate {
         present(controller, animated: true, completion: nil)
     }
     
-    func didSelectUpvoteButton(sender: UIButton, listing: Listing?) {
-        guard let listing = listing else { return }
-        posLog(message: "Upvote")
-    }
-    
-    func didSelectDownvoteButton(sender: UIButton, listing: Listing?) {
-        //
-    }
-    
     func didSelectPageDownButton(sender: UIButton, listing: Listing?) {
         //
     }
