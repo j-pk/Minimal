@@ -195,8 +195,8 @@ class MainViewController: UIViewController {
                 guard let indexPath = collectionView.indexPath(for: cell) else { return }
                 let listing = self.listingResultsController.object(at: indexPath)
                 commentsViewController.hidesBottomBarWhenPushed = true
-                commentsViewController.database = database
                 commentsViewController.listing = listing
+                commentsViewController.database = database
                 commentsViewController.delegate = self
             }
         }

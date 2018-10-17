@@ -15,7 +15,13 @@ class CommentsViewController: UIViewController {
     @IBOutlet weak var actionView: ActionView!
     
     var listing: Listing?
-    var database: Database?
+    var database: Database? {
+        didSet {
+            guard let database = database, let listing = listing else { return }
+            commentsModel = CommentsModel(database: database, listing: listing)
+        }
+    }
+    var commentsModel: CommentsModel?
     weak var delegate: SubredditSelectionProtocol?
     var themeManager = ThemeManager()
     
@@ -34,6 +40,8 @@ class CommentsViewController: UIViewController {
         actionView.database = database
         actionView.commentButton.isHidden = true
         actionView.pageDownButton.isHidden = false
+        
+        commentsModel?.requestComments()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

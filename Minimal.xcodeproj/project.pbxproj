@@ -80,6 +80,7 @@
 		C0DF739721767B9700081E14 /* Comment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF739521767B9700081E14 /* Comment+CoreDataClass.swift */; };
 		C0DF739821767B9700081E14 /* Comment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF739621767B9700081E14 /* Comment+CoreDataProperties.swift */; };
 		C0DF739A2176CBA400081E14 /* CommentContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF73992176CBA400081E14 /* CommentContract.swift */; };
+		C0DF739C2177966300081E14 /* CommentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF739B2177966300081E14 /* CommentsModel.swift */; };
 		C0EC9B951FBFE3980073FF7A /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */; };
 		C0EC9B971FC0A1750073FF7A /* HiddenNavBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */; };
 		C0EC9B991FC0EC780073FF7A /* AnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EC9B981FC0EC780073FF7A /* AnnotationView.xib */; };
@@ -176,6 +177,7 @@
 		C0DF739521767B9700081E14 /* Comment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comment+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C0DF739621767B9700081E14 /* Comment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comment+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C0DF73992176CBA400081E14 /* CommentContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContract.swift; sourceTree = "<group>"; };
+		C0DF739B2177966300081E14 /* CommentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsModel.swift; sourceTree = "<group>"; };
 		C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenNavBarNavigationController.swift; sourceTree = "<group>"; };
 		C0EC9B981FC0EC780073FF7A /* AnnotationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnnotationView.xib; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 				C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */,
 				C0EC9B9C1FC112B90073FF7A /* HeaderCell.swift */,
 				C01B23041FD09DBE001F60B8 /* ImageViewController.swift */,
+				C0DF739B2177966300081E14 /* CommentsModel.swift */,
 			);
 			path = Comments;
 			sourceTree = "<group>";
@@ -662,6 +665,7 @@
 				C0A385761F9E54AF005064DF /* AppDelegate.swift in Sources */,
 				C0A3859C1F9E9796005064DF /* MainViewController.swift in Sources */,
 				C03F92271FA11DE7009EEEF3 /* NSManagedObjectExtensions.swift in Sources */,
+				C0DF739C2177966300081E14 /* CommentsModel.swift in Sources */,
 				C09E91EB201D515300EFB3F5 /* Routable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
