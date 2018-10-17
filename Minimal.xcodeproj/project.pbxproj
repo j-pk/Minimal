@@ -76,6 +76,10 @@
 		C0DA84D81FA00D10006BE949 /* Listing+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84D61FA00D10006BE949 /* Listing+CoreDataClass.swift */; };
 		C0DA84D91FA00D10006BE949 /* Listing+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */; };
 		C0DA84DC1FA01769006BE949 /* ListingEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA84DB1FA01769006BE949 /* ListingEnums.swift */; };
+		C0DF73942176427B00081E14 /* ActionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF73932176427B00081E14 /* ActionViewModel.swift */; };
+		C0DF739721767B9700081E14 /* Comment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF739521767B9700081E14 /* Comment+CoreDataClass.swift */; };
+		C0DF739821767B9700081E14 /* Comment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF739621767B9700081E14 /* Comment+CoreDataProperties.swift */; };
+		C0DF739A2176CBA400081E14 /* CommentContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF73992176CBA400081E14 /* CommentContract.swift */; };
 		C0EC9B951FBFE3980073FF7A /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */; };
 		C0EC9B971FC0A1750073FF7A /* HiddenNavBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */; };
 		C0EC9B991FC0EC780073FF7A /* AnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0EC9B981FC0EC780073FF7A /* AnnotationView.xib */; };
@@ -168,6 +172,10 @@
 		C0DA84D61FA00D10006BE949 /* Listing+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Listing+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Listing+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C0DA84DB1FA01769006BE949 /* ListingEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingEnums.swift; sourceTree = "<group>"; };
+		C0DF73932176427B00081E14 /* ActionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewModel.swift; sourceTree = "<group>"; };
+		C0DF739521767B9700081E14 /* Comment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comment+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C0DF739621767B9700081E14 /* Comment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comment+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C0DF73992176CBA400081E14 /* CommentContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContract.swift; sourceTree = "<group>"; };
 		C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		C0EC9B961FC0A1750073FF7A /* HiddenNavBarNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenNavBarNavigationController.swift; sourceTree = "<group>"; };
 		C0EC9B981FC0EC780073FF7A /* AnnotationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnnotationView.xib; sourceTree = "<group>"; };
@@ -252,6 +260,7 @@
 				C022E7FB2069D2A4002277B4 /* SubscribedHeaderView.swift */,
 				C022E7F92069D293002277B4 /* SubscribedHeaderView.xib */,
 				C096E53B20AD1BFC0061442D /* ActionView.swift */,
+				C0DF73932176427B00081E14 /* ActionViewModel.swift */,
 				C096E53D20AD1C0B0061442D /* ActionView.xib */,
 			);
 			path = Views;
@@ -367,6 +376,8 @@
 			children = (
 				C03F92231FA049AE009EEEF3 /* Manager */,
 				C0A3857C1F9E54B0005064DF /* Minimal.xcdatamodeld */,
+				C0DF739521767B9700081E14 /* Comment+CoreDataClass.swift */,
+				C0DF739621767B9700081E14 /* Comment+CoreDataProperties.swift */,
 				C0DA84D61FA00D10006BE949 /* Listing+CoreDataClass.swift */,
 				C0DA84D71FA00D10006BE949 /* Listing+CoreDataProperties.swift */,
 				C0C2AC44201842C000745869 /* Subreddit+CoreDataClass.swift */,
@@ -394,6 +405,7 @@
 				C0A385A31F9F885E005064DF /* ListingContract.swift */,
 				C020F9832016DA3700A3E43A /* SubredditContract.swift */,
 				C07FAE0C205C7E690049E9F0 /* AuthorizationContract.swift */,
+				C0DF73992176CBA400081E14 /* CommentContract.swift */,
 			);
 			path = "Data Contracts";
 			sourceTree = "<group>";
@@ -584,6 +596,7 @@
 				C0F110E02122367000B62CC9 /* SubredditManager.swift in Sources */,
 				C0ED1F9E1FB3F0DB00580C1E /* DateExtensions.swift in Sources */,
 				C07FAE0F205C820D0049E9F0 /* AuthorizationRouter.swift in Sources */,
+				C0DF739A2176CBA400081E14 /* CommentContract.swift in Sources */,
 				C0EC9BA31FC237BE0073FF7A /* PresentationView.swift in Sources */,
 				C0DA84DC1FA01769006BE949 /* ListingEnums.swift in Sources */,
 				C00B140D202FA3010064D1AF /* SubscribedCell.swift in Sources */,
@@ -604,6 +617,7 @@
 				C08D623F1FD4DC5D00794B2A /* LabelBaseCell.swift in Sources */,
 				C0A3857E1F9E54B0005064DF /* Minimal.xcdatamodeld in Sources */,
 				C099266B216465A900441957 /* StoreReview.swift in Sources */,
+				C0DF739721767B9700081E14 /* Comment+CoreDataClass.swift in Sources */,
 				C01A6DBD206D972900CA50C2 /* StringExtensions.swift in Sources */,
 				C03167C01FB175A900E420D0 /* MainCollectionViewFlowLayout.swift in Sources */,
 				C0EDC88E1FD78219009C0D39 /* User+CoreDataClass.swift in Sources */,
@@ -615,6 +629,7 @@
 				C0EC9B9D1FC112B90073FF7A /* HeaderCell.swift in Sources */,
 				C0A3859E1F9E98AC005064DF /* MediaCascadeCell.swift in Sources */,
 				C07FAE092058B0C30049E9F0 /* SubscribedManager.swift in Sources */,
+				C0DF73942176427B00081E14 /* ActionViewModel.swift in Sources */,
 				C099266D21700AFE00441957 /* UserRouter.swift in Sources */,
 				C096E53C20AD1BFC0061442D /* ActionView.swift in Sources */,
 				C099266F2172ADC500441957 /* UserManager.swift in Sources */,
@@ -622,6 +637,7 @@
 				C0EDC88F1FD78219009C0D39 /* User+CoreDataProperties.swift in Sources */,
 				C03EC9EC1FC8CCEC00ACA0F5 /* ThemeManager.swift in Sources */,
 				C03F92251FA049BE009EEEF3 /* DatabaseEngine.swift in Sources */,
+				C0DF739821767B9700081E14 /* Comment+CoreDataProperties.swift in Sources */,
 				C0DA84D91FA00D10006BE949 /* Listing+CoreDataProperties.swift in Sources */,
 				C08D62431FD617DD00794B2A /* UITableViewCellExtensions.swift in Sources */,
 				C01B23051FD09DBE001F60B8 /* ImageViewController.swift in Sources */,

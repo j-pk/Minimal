@@ -63,6 +63,7 @@ extension Listing: Manageable {
             listing.after = json.after
             listing.postHint = json.postHint
             listing.populatedDate = Date()
+            listing.permalink = json.permalink
             listing.urlString = modifyUrl(url: json.media?.mediaUrl ?? json.url)
             listing.thumbnailUrlString = json.media?.thumbnailUrl
             let imageSize = determineImageSize(fromDecodable: json)

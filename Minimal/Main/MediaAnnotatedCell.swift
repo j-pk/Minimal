@@ -39,7 +39,7 @@ class MediaAnnotatedCell: UICollectionViewCell {
     func configureCell(forListing listing: Listing, with model: MainModel?) {
         annotationView.setLabels(forListing: listing)
         actionView.listing = listing
-        actionView.model = model
+        actionView.database = model?.database
         model?.fetchAndCacheImage(for: listing, completionHandler: { [weak self] (imageData) in
             guard let this = self else { return }
             switch listing.type {

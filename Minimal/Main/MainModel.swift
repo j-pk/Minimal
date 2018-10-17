@@ -14,7 +14,7 @@ import Gifu
 typealias ImageData = (image: UIImage?, data: Data?)
 
 class MainModel {
-    private var database: Database?
+    var database: Database?
     
     init(database: Database) {
         self.database = database
@@ -226,3 +226,4 @@ class MainModel {
         UserManager().vote(request: request, direction: dir, database: database, listingManagedObjectId: listing.objectID, completionHandler: completionHandler)
     }
 }
+

@@ -30,6 +30,8 @@ class CommentsViewController: UIViewController {
         bottomMenuBar.backgroundColor = themeManager.theme.primaryColor
         tableView.backgroundColor = themeManager.theme.primaryColor
         actionView.delegate = self
+        actionView.listing = listing
+        actionView.database = database
         actionView.commentButton.isHidden = true
         actionView.pageDownButton.isHidden = false
     }

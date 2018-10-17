@@ -23,21 +23,28 @@ class ActionView: XibView {
     @IBOutlet weak var moreButton: UIButton!
     
     var listing: Listing?
-    var model: MainModel?
+    var database: Database? {
+        didSet {
+            guard let database = database, let listing = listing else { return }
+            actionModel = ActionViewModel(database: database, listing: listing)
+        }
+    }
+    var actionModel: ActionViewModel?
     weak var delegate: ActionViewDelegate?
     let themeManager = ThemeManager()
     
     func prepareForReuse() {
         listing = nil
-        model = nil
+        database = nil
+        actionModel = nil
     }
-    
+
     // NOTE: For votes, need to persist button state - update listing
     @IBAction func didSelectUpvoteButton(_ sender: UIButton) {
         applyShakeAnimationAndHapticFeedback(toButton: sender)
         guard let listing = listing else { return }
         let direction: UserVoteDirection = listing.voted == 0 ? .up : .cancel
-        attemptVote(listing: listing, dir: direction) { [weak self] (isSuccessful) in
+        actionModel?.attemptVote(dir: direction) { [weak self] (isSuccessful) in
             if isSuccessful {
                 self?.upvoteButton.tintColor = self?.upvoteButton.tintColor == self?.themeManager.redditOrange ? self?.themeManager.theme.tintColor : self?.themeManager.redditOrange
                 self?.downvoteButton.tintColor = self?.themeManager.theme.tintColor
@@ -49,7 +56,7 @@ class ActionView: XibView {
         applyShakeAnimationAndHapticFeedback(toButton: sender)
         guard let listing = listing else { return }
         let direction: UserVoteDirection = listing.voted == 0 ? .down : .cancel
-        attemptVote(listing: listing, dir: direction) { [weak self] (isSuccessful) in
+        actionModel?.attemptVote(dir: direction) { [weak self] (isSuccessful) in
             if isSuccessful {
                 self?.downvoteButton.tintColor = self?.downvoteButton.tintColor == self?.themeManager.redditOrange ? self?.themeManager.theme.tintColor : self?.themeManager.redditOrange
                 self?.upvoteButton.tintColor = self?.themeManager.theme.tintColor
@@ -57,21 +64,7 @@ class ActionView: XibView {
         }
     }
     
-    func attemptVote(listing: Listing, dir: UserVoteDirection, completionHandler: @escaping ((Bool)->())) {
-        model?.vote(listing: listing, dir: dir, completionHandler: { (error) in
-            if let error = error as? NetworkError {
-                if error.errorCode == 401 {
-                    NotificationBanner(state: .error("Login to vote"))
-                } else {
-                    NotificationBanner(state: .error("Meh, something went wrong"))
-                }
-                posLog(error: error)
-                completionHandler(false)
-            } else {
-                completionHandler(true)
-            }
-        })
-    }
+
     
     @IBAction func didSelectPageDownButton(_ sender: UIButton) {
         delegate?.didSelectPageDownButton(sender: sender, listing: listing)

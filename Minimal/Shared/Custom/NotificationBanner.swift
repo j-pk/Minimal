@@ -106,9 +106,9 @@ private class NotificationView: UIView {
         backgroundColor = state.backgroundColor
         
         let imageView = UIImageView(image: state.image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .white
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -122,10 +122,10 @@ private class NotificationView: UIView {
                                                                options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                                metrics: nil,
                                                                  views: ["imageView": imageView]))
-         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[descriptionLabel]-|",
-                                                                options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
+         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[view]-(<=1)-[descriptionLabel]",
+                                                                options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                                 metrics: nil,
-                                                                  views: ["descriptionLabel": descriptionLabel]))
+                                                                  views: ["view": self, "descriptionLabel": descriptionLabel]))
          addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-12-[imageView(20)]-12-[descriptionLabel]-|",
                                                                 options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
                                                                 metrics: nil,

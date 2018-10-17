@@ -25,10 +25,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bHj-S8-PKa">
-                    <rect key="frame" x="8" y="0.0" width="359" height="40"/>
+                    <rect key="frame" x="8" y="7.5" width="359" height="25"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mal-wJ-yOy">
-                            <rect key="frame" x="0.0" y="7.5" width="25" height="25"/>
+                            <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="25" id="Nt6-Dj-fCG"/>
                                 <constraint firstAttribute="width" constant="25" id="lfa-Qb-3cb"/>
@@ -39,28 +39,28 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHg-aP-oLv">
-                            <rect key="frame" x="111.5" y="7.5" width="25" height="25"/>
+                            <rect key="frame" x="111.5" y="0.0" width="25" height="25"/>
                             <state key="normal" image="downArrow"/>
                             <connections>
                                 <action selector="didSelectDownvoteButton:" destination="-1" eventType="touchUpInside" id="Mqh-b0-tqK"/>
                             </connections>
                         </button>
                         <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBy-w4-YEh">
-                            <rect key="frame" x="136.5" y="7.5" width="25" height="25"/>
+                            <rect key="frame" x="136.5" y="0.0" width="25" height="25"/>
                             <state key="normal" image="scrollDown"/>
                             <connections>
                                 <action selector="didSelectPageDownButton:" destination="-1" eventType="touchUpInside" id="hky-QH-TOe"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edX-sv-cup">
-                            <rect key="frame" x="222.5" y="7.5" width="25" height="25"/>
+                            <rect key="frame" x="222.5" y="0.0" width="25" height="25"/>
                             <state key="normal" image="comment"/>
                             <connections>
                                 <action selector="didSelectCommentButton:" destination="-1" eventType="touchUpInside" id="g6A-db-Wak"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RU-Ct-OCJ">
-                            <rect key="frame" x="334" y="7.5" width="25" height="25"/>
+                            <rect key="frame" x="334" y="0.0" width="25" height="25"/>
                             <state key="normal" image="more"/>
                             <connections>
                                 <action selector="didSelectMoreButton:" destination="-1" eventType="touchUpInside" id="gO4-Gx-n0P"/>
@@ -82,9 +82,8 @@
             </subviews>
             <constraints>
                 <constraint firstItem="bHj-S8-PKa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="LWU-Q9-fQa"/>
-                <constraint firstItem="bHj-S8-PKa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="MOg-f8-eDl"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bHj-S8-PKa" secondAttribute="bottom" id="ibO-U5-cxG"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bHj-S8-PKa" secondAttribute="trailing" constant="8" id="vE5-6s-lPU"/>
+                <constraint firstItem="bHj-S8-PKa" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="vhE-NF-2m3"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

@@ -49,6 +49,7 @@ struct ListingObject: Decodable {
     let over18: Bool
     let hidden: Bool
     let created: Double
+    let permalink: String
     let url: String
     let author: String
     let subredditNamePrefixed: String
@@ -76,6 +77,7 @@ struct ListingObject: Decodable {
         case over18 = "over_18"
         case hidden
         case created = "created_utc"
+        case permalink
         case url
         case author
         case subredditNamePrefixed = "subreddit_name_prefixed"
@@ -112,6 +114,7 @@ struct ListingObject: Decodable {
         hidden = try data.decode(Bool.self, forKey: .hidden)
         created = try data.decode(Double.self, forKey: .created)
         url = try data.decode(String.self, forKey: .url)
+        permalink = try data.decode(String.self, forKey: .permalink)
         author = try data.decode(String.self, forKey: .author)
         subredditNamePrefixed = try data.decode(String.self, forKey: .subredditNamePrefixed)
         numberOfComments = try data.decode(Int32.self, forKey: .numberOfComments)

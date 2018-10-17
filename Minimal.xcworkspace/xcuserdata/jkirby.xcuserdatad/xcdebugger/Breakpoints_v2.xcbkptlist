@@ -20,7 +20,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.136959"
+            timestampString = "561434997.354378"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
@@ -36,7 +36,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.1376441"
+            timestampString = "561434997.354477"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "87"
@@ -52,13 +52,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.137959"
+            timestampString = "561434997.354546"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "100"
             endingLineNumber = "100"
-            landmarkName = "requestSubreddit(withId:completionHandler:)"
+            landmarkName = "populateValuesFor(user:category:timeFrame:completionHandler:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Minimal.MainModel.(populateValuesFor in _7208AD65142DCF366BB3560FCD45ACA5)(user: Minimal.User, category: Swift.Optional&lt;Minimal.CategorySortType&gt;, timeFrame: Swift.Optional&lt;Minimal.CategoryTimeFrame&gt;, completionHandler: (Minimal.Result&lt;Minimal.User&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Minimal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Main/MainModel.swift"
+                  timestampString = "561434997.615496"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
+                  offsetFromSymbolStart = "474">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.NSManagedObjectContext) -&gt; () in Minimal.MainModel.(populateValuesFor in _7208AD65142DCF366BB3560FCD45ACA5)(user: Minimal.User, category: Swift.Optional&lt;Minimal.CategorySortType&gt;, timeFrame: Swift.Optional&lt;Minimal.CategoryTimeFrame&gt;, completionHandler: (Minimal.Result&lt;Minimal.User&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Minimal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Main/MainModel.swift"
+                  timestampString = "561434997.617066"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "49">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -68,12 +100,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.138247"
+            timestampString = "561434997.354611"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "109"
             endingLineNumber = "109"
-            landmarkName = "requestSubreddit(withId:completionHandler:)"
+            landmarkName = "populateValuesFor(user:category:timeFrame:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -84,13 +116,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.138519"
+            timestampString = "561434997.354674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
             endingLineNumber = "73"
             landmarkName = "updateUserAndListings(forSubreddit:subredditId:category:timeFrame:completionHandler:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Minimal.MainModel.(updateUserAndListings in _7208AD65142DCF366BB3560FCD45ACA5)(forSubreddit: Swift.Optional&lt;Minimal.Subreddit&gt;, subredditId: Swift.Optional&lt;Swift.String&gt;, category: Swift.Optional&lt;Minimal.CategorySortType&gt;, timeFrame: Swift.Optional&lt;Minimal.CategoryTimeFrame&gt;, completionHandler: (Minimal.Result&lt;Minimal.User&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Minimal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Main/MainModel.swift"
+                  timestampString = "561434997.62642"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "784">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Minimal.MainModel.(updateUserAndListings in _7208AD65142DCF366BB3560FCD45ACA5)(forSubreddit: Swift.Optional&lt;Minimal.Subreddit&gt;, subredditId: Swift.Optional&lt;Swift.String&gt;, category: Swift.Optional&lt;Minimal.CategorySortType&gt;, timeFrame: Swift.Optional&lt;Minimal.CategoryTimeFrame&gt;, completionHandler: (Minimal.Result&lt;Minimal.User&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Minimal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Main/MainModel.swift"
+                  timestampString = "561434997.628184"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "801">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -100,7 +164,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.138782"
+            timestampString = "561434997.354736"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
@@ -116,45 +180,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.139034"
+            timestampString = "561434997.354808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "60"
             endingLineNumber = "60"
             landmarkName = "updateUserAndListings(forSubreddit:subredditId:category:timeFrame:completionHandler:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__ObjC.NSManagedObjectContext) -&gt; () in Minimal.MainModel.(updateUserAndListings in _7208AD65142DCF366BB3560FCD45ACA5)(forSubreddit: Swift.Optional&lt;Minimal.Subreddit&gt;, subredditId: Swift.Optional&lt;Swift.String&gt;, category: Swift.Optional&lt;Minimal.CategorySortType&gt;, timeFrame: Swift.Optional&lt;Minimal.CategoryTimeFrame&gt;, completionHandler: (Minimal.Result&lt;Minimal.User&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Minimal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Main/MainModel.swift"
-                  timestampString = "555908239.071087"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "461">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Minimal.Result&lt;Minimal.Subreddit&gt;) -&gt; () in closure #1 (__ObjC.NSManagedObjectContext) -&gt; () in Minimal.MainModel.(updateUserAndListings in _7208AD65142DCF366BB3560FCD45ACA5)(forSubreddit: Swift.Optional&lt;Minimal.Subreddit&gt;, subredditId: Swift.Optional&lt;Swift.String&gt;, category: Swift.Optional&lt;Minimal.CategorySortType&gt;, timeFrame: Swift.Optional&lt;Minimal.CategoryTimeFrame&gt;, completionHandler: (Minimal.Result&lt;Minimal.User&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Minimal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Main/MainModel.swift"
-                  timestampString = "555908239.072643"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "61"
-                  endingLineNumber = "61"
-                  offsetFromSymbolStart = "43">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -164,7 +196,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.139281"
+            timestampString = "561434997.354871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "62"
@@ -180,7 +212,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.139527"
+            timestampString = "561434997.354933"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
@@ -196,7 +228,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.139768"
+            timestampString = "561434997.3549941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "67"
@@ -212,12 +244,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.140013"
+            timestampString = "561434997.355051"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
             endingLineNumber = "105"
-            landmarkName = "requestSubreddit(withId:completionHandler:)"
+            landmarkName = "populateValuesFor(user:category:timeFrame:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -228,12 +260,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.140257"
+            timestampString = "561434997.355108"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
             endingLineNumber = "108"
-            landmarkName = "requestSubreddit(withId:completionHandler:)"
+            landmarkName = "populateValuesFor(user:category:timeFrame:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -244,7 +276,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "555908862.1404901"
+            timestampString = "561434997.355168"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "111"
@@ -292,12 +324,12 @@
                   moduleName = "Minimal"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Network/Managers/SubredditManager.swift"
-                  timestampString = "555908239.0994101"
+                  timestampString = "561434997.663913"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "20"
                   endingLineNumber = "20"
-                  offsetFromSymbolStart = "257">
+                  offsetFromSymbolStart = "312">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -307,12 +339,12 @@
                   moduleName = "Minimal"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Network/Managers/SubredditManager.swift"
-                  timestampString = "555908239.101078"
+                  timestampString = "561434997.6654299"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "21"
                   endingLineNumber = "21"
-                  offsetFromSymbolStart = "22">
+                  offsetFromSymbolStart = "38">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -330,6 +362,38 @@
             startingLineNumber = "38"
             endingLineNumber = "38"
             landmarkName = "populateObject(fromDecodable:context:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Minimal/Network/NetworkManager.swift"
+            timestampString = "561434997.355371"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "session(forRoute:withDecodable:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Minimal/Network/Managers/ListingManager.swift"
+            timestampString = "561435520.309076"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "init(request:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

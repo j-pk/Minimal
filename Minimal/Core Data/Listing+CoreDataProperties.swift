@@ -36,11 +36,13 @@ extension Listing {
     @NSManaged public var subredditNamePrefixed: String?
     @NSManaged public var numberOfComments: Int32
     @NSManaged public var postHint: String?
+    @NSManaged public var permalink: String?
     @NSManaged public var before: String?
     @NSManaged public var after: String?
     @NSManaged public var domain: String?
     @NSManaged public var mediaType: String
     @NSManaged public var voted: Int16
     @NSManaged public var subreddit: Subreddit?
+    @NSManaged public var comments: Set<Comment>?
     
 }

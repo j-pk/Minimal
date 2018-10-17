@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Comment" representedClassName=".Comment" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="authorId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collapsed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="created" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="depth" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="downs" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="edited" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="id" attributeType="String" syncable="YES"/>
+        <attribute name="isSubmitter" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="listingId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parentId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="permalink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="score" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="scoreHidden" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sendReplies" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="subredditId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ups" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="voted" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="listing" toMany="YES" deletionRule="Nullify" destinationEntity="Listing" inverseName="comments" inverseEntity="Listing" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
     <entity name="Listing" representedClassName=".Listing" syncable="YES">
         <attribute name="after" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="author" attributeType="String" syncable="YES"/>
@@ -14,6 +42,7 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="numberOfComments" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="over18" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="permalink" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="populatedDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="postHint" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="saved" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -25,6 +54,7 @@
         <attribute name="urlString" attributeType="String" syncable="YES"/>
         <attribute name="voted" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="width" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="comments" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Comment" inverseName="listing" inverseEntity="Comment" syncable="YES"/>
         <relationship name="subreddit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subreddit" inverseName="listings" inverseEntity="Subreddit" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -62,8 +92,9 @@
         <relationship name="subreddits" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subreddit" inverseName="user" inverseEntity="Subreddit" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Listing" positionX="0" positionY="0" width="128" height="420"/>
-        <element name="Subreddit" positionX="0" positionY="153" width="128" height="255"/>
-        <element name="User" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="Listing" positionX="175.77734375" positionY="-225.984375" width="128" height="448"/>
+        <element name="Subreddit" positionX="-24.7578125" positionY="-83.234375" width="128" height="255"/>
+        <element name="User" positionX="-231.62890625" positionY="4.40234375" width="128" height="135"/>
+        <element name="Comment" positionX="397.75390625" positionY="-26.10546875" width="128" height="358"/>
     </elements>
 </model>
