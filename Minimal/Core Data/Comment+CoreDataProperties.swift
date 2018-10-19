@@ -17,10 +17,10 @@ extension Comment {
         return NSFetchRequest<Comment>(entityName: "Comment")
     }
 
-    @NSManaged public var ups: Int32
-    @NSManaged public var downs: Int32
-    @NSManaged public var score: Int32
-    @NSManaged public var listingId: String?
+    @NSManaged public var ups: NSNumber?
+    @NSManaged public var downs: NSNumber?
+    @NSManaged public var score: NSNumber?
+    @NSManaged public var listingId: String
     @NSManaged public var subredditId: String?
     @NSManaged public var id: String
     @NSManaged public var author: String?
@@ -29,9 +29,9 @@ extension Comment {
     @NSManaged public var body: String?
     @NSManaged public var permalink: String?
     @NSManaged public var name: String?
-    @NSManaged public var created: Int64
-    @NSManaged public var voted: Int16
-    @NSManaged public var depth: Int16
+    @NSManaged public var created: NSNumber?
+    @NSManaged public var voted: NSNumber?
+    @NSManaged public var depth: NSNumber?
     @NSManaged public var edited: Bool
     @NSManaged public var scoreHidden: Bool
     @NSManaged public var sendReplies: Bool

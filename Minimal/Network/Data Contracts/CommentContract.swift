@@ -70,20 +70,11 @@ struct Child: Codable {
 }
 
 struct ChildData: Codable {
-    let count: Int?
-    let name, id, parentID: String?
-    let depth: Int?
+    let id, linkID: String
+    let name, parentID, author, authorID, body, permalink, subredditID: String?
     let children: [String]?
-    let subredditID: String?
-    let ups: Int?
-    let linkID, author: String?
-    let sendReplies: Bool?
-    let score, downs: Int?
-    let body: String?
-    let collapsed, isSubmitter, scoreHidden: Bool?
-    let permalink: String?
-    let createdUTC: Int?
-    let authorID: String?
+    let count, score, ups, downs, depth, createdUTC: Int?
+    var sendReplies, edited, collapsed, isSubmitter, scoreHidden: Bool?
     let replies: CommentStoreElement?
     
     enum CodingKeys: String, CodingKey {
@@ -95,7 +86,7 @@ struct ChildData: Codable {
         case linkID = "link_id"
         case replies, author
         case sendReplies = "send_replies"
-        case score, downs, body, collapsed
+        case score, downs, body, edited, collapsed
         case isSubmitter = "is_submitter"
         case scoreHidden = "score_hidden"
         case permalink
@@ -108,19 +99,19 @@ struct ChildData: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         count = try container.decodeIfPresent(Int.self, forKey: .count)
         name = try container.decodeIfPresent(String.self, forKey: .name)
-        id = try container.decodeIfPresent(String.self, forKey: .id)
+        id = try container.decode(String.self, forKey: .id)
         parentID = try container.decodeIfPresent(String.self, forKey: .parentID)
         depth = try container.decodeIfPresent(Int.self, forKey: .depth)
         children = try container.decodeIfPresent([String].self, forKey: .children)
         subredditID = try container.decodeIfPresent(String.self, forKey: .subredditID)
         ups = try container.decodeIfPresent(Int.self, forKey: .ups)
-        linkID = try container.decodeIfPresent(String.self, forKey: .linkID)
+        linkID = try container.decodeIfPresent(String.self, forKey: .linkID) ?? ""
         author = try container.decodeIfPresent(String.self, forKey: .author)
         sendReplies = try container.decodeIfPresent(Bool.self, forKey: .sendReplies)
+        edited = try? container.decodeIfPresent(Bool.self, forKey: .edited) ?? false
         score = try container.decodeIfPresent(Int.self, forKey: .score)
         downs = try container.decodeIfPresent(Int.self, forKey: .downs)
         body = try container.decodeIfPresent(String.self, forKey: .body)
-        //edited = try container.decodeIfPresent(Bool.self, forKey: .edited)
         collapsed = try container.decodeIfPresent(Bool.self, forKey: .collapsed)
         isSubmitter = try container.decodeIfPresent(Bool.self, forKey: .isSubmitter)
         scoreHidden = try container.decodeIfPresent(Bool.self, forKey: .scoreHidden)
