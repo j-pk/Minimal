@@ -30,7 +30,8 @@ class CommentsViewController: UIViewController {
         //in addition to passing the listing, perhaps just pass the image to instead of setting it to do
         //calculations on sectionHeaderHeight
         tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
-
+        tableView.register(CommentCell.nib, forCellReuseIdentifier: CommentCell.identifier)
+        
         view.backgroundColor = themeManager.theme.primaryColor
         bottomMenuBar.backgroundColor = themeManager.theme.primaryColor
         tableView.backgroundColor = themeManager.theme.primaryColor
@@ -66,18 +67,18 @@ extension CommentsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let model = commentsModel else { return 1 }
-        return model.numberOfRows(in: section) + 1
+        return model.numberOfRows(in: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
         let nodes = commentsModel?.nodes[indexPath.section]
         
         switch indexPath.row {
         case 0:
-            cell.textLabel?.text = nodes?.value.author
+            cell.configure(for: nodes?.value)
         default:
-            cell.textLabel?.text = nodes?.children[indexPath.row - 1].value.author
+            cell.configure(for: nodes?.children[indexPath.row - 1].value)
         }
         
         return cell

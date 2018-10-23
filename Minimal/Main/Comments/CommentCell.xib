@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="70" id="cga-GK-wii" customClass="CommentCell" customModule="Minimal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cga-GK-wii" id="6eX-Ng-e58">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Zgn-DD-S6V">
+                        <rect key="frame" x="12" y="12" width="134" height="20.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lug-nb-bmd">
+                                <rect key="frame" x="0.0" y="0.0" width="42.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="votes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRM-TF-TTJ">
+                                <rect key="frame" x="50.5" y="0.0" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGI-RT-Dqj">
+                                <rect key="frame" x="100.5" y="0.0" width="33.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="body" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8X0-aI-5Oy">
+                        <rect key="frame" x="12" y="40.5" width="355" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="8X0-aI-5Oy" firstAttribute="top" secondItem="Zgn-DD-S6V" secondAttribute="bottom" constant="8" id="BbI-Vw-Igx"/>
+                    <constraint firstItem="Zgn-DD-S6V" firstAttribute="leading" secondItem="6eX-Ng-e58" secondAttribute="leading" constant="12" id="Ldp-Jg-YVo"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Zgn-DD-S6V" secondAttribute="trailing" priority="999" constant="8" id="TYv-nM-Hnx"/>
+                    <constraint firstAttribute="trailing" secondItem="8X0-aI-5Oy" secondAttribute="trailing" constant="8" id="TrF-Ga-6lh"/>
+                    <constraint firstItem="8X0-aI-5Oy" firstAttribute="leading" secondItem="Zgn-DD-S6V" secondAttribute="leading" id="arT-Hk-d5N"/>
+                    <constraint firstItem="Zgn-DD-S6V" firstAttribute="top" secondItem="6eX-Ng-e58" secondAttribute="top" constant="12" id="h9R-7F-5p7"/>
+                    <constraint firstAttribute="bottom" secondItem="8X0-aI-5Oy" secondAttribute="bottom" constant="12" id="wWg-kL-YjM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="authorLabel" destination="Lug-nb-bmd" id="SvP-IA-i2e"/>
+                <outlet property="bodyLabel" destination="8X0-aI-5Oy" id="scE-zb-aXK"/>
+                <outlet property="leadingConstraint" destination="Ldp-Jg-YVo" id="5ee-Vc-1L5"/>
+                <outlet property="timeCreatedLabel" destination="qGI-RT-Dqj" id="vDl-GB-G5p"/>
+                <outlet property="votesLabel" destination="cRM-TF-TTJ" id="QWi-Yw-agV"/>
+            </connections>
+            <point key="canvasLocation" x="-50.399999999999999" y="44.977511244377816"/>
+        </tableViewCell>
+    </objects>
+</document>

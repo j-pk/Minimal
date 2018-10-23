@@ -17,11 +17,7 @@ class CommentsModel {
         self.database = database
         self.listing = listing
     }
-    // fetch data for comments
-    // parse comments
-    // build datasource
-    // return datasource to tableView
-    
+
     func requestComments(completionHandler: @escaping VoidCompletionHandler) {
         guard let prefix = listing.subredditNamePrefixed, let permalink = listing.permalink else { return }
         let request = ListingRequest(requestType: .comments(prefix: prefix, permalink: permalink))
@@ -40,7 +36,7 @@ class CommentsModel {
     func modifyCommenStoreElementAndPopulateData(decoded: CommentStore, completionHandler: @escaping VoidCompletionHandler) {
         let childData = decoded.flatMap({ $0.data.children }).compactMap({ $0.data })
         let modifiedChildData = childData.filter({ !$0.linkID.isEmpty })
-        buildTree(from: modifiedChildData)
+        buildTreeNode(from: modifiedChildData)
         
         do {
             try Comment.populateObjects(fromJSON: modifiedChildData, database: database, completionHandler: { (error) in
@@ -57,7 +53,7 @@ class CommentsModel {
         posLog(values: nodes.count, nodes.map({ $0.children.count }), nodes.map({ $0.value.body }))
     }
 
-    func buildTree(from data: [ChildData]) {
+    func buildTreeNode(from data: [ChildData]) {
         data.forEach({ child in
             if child.linkID == child.parentID {
                 let node = TreeNode<ChildData>(value: child)
@@ -81,12 +77,14 @@ class CommentsModel {
         }
     }
     
+    // # of parent nodes
     func numberOfSections() -> Int {
         return nodes.count
     }
     
+    // Count for children including parent node
     func numberOfRows(in section: Int) -> Int {
-        return nodes[section].children.count
+        return nodes[section].children.count + 1
     }
     
 }
@@ -107,6 +105,7 @@ public class TreeNode<T> {
     }
 }
 
+// Recursive
 extension TreeNode where T: Equatable {
     func search(value: T) -> TreeNode? {
         if value == self.value {
