@@ -11,6 +11,7 @@ import Foundation
 class CommentsModel {
     let database: Database
     let listing: Listing
+    var nodes: [TreeNode<ChildData>] = []
     
     init(database: Database, listing: Listing) {
         self.database = database
@@ -21,7 +22,7 @@ class CommentsModel {
     // build datasource
     // return datasource to tableView
     
-    func requestComments() {
+    func requestComments(completionHandler: @escaping VoidCompletionHandler) {
         guard let prefix = listing.subredditNamePrefixed, let permalink = listing.permalink else { return }
         let request = ListingRequest(requestType: .comments(prefix: prefix, permalink: permalink))
         NetworkManager().session(forRoute: request.router, withDecodable: CommentStore.self) { (results) in
@@ -29,12 +30,14 @@ class CommentsModel {
             case .failure(let error):
                 posLog(error: error)
             case .success(let decoded):
-                self.modifyCommenStoreElementAndPopulateData(decoded: decoded)
+                self.modifyCommenStoreElementAndPopulateData(decoded: decoded) {
+                    completionHandler()
+                }
             }
         }
     }
     
-    func modifyCommenStoreElementAndPopulateData(decoded: CommentStore) {
+    func modifyCommenStoreElementAndPopulateData(decoded: CommentStore, completionHandler: @escaping VoidCompletionHandler) {
         let childData = decoded.flatMap({ $0.data.children }).compactMap({ $0.data })
         let modifiedChildData = childData.filter({ !$0.linkID.isEmpty })
         buildTree(from: modifiedChildData)
@@ -44,28 +47,46 @@ class CommentsModel {
                 if let error = error {
                     posLog(error: error)
                 } else {
+                    completionHandler()
                     posLog(message: "Stored")
                 }
             })
         } catch {
             posLog(error: error)
         }
+        posLog(values: nodes.count, nodes.map({ $0.children.count }), nodes.map({ $0.value.body }))
     }
-    
+
     func buildTree(from data: [ChildData]) {
-        var nodes: [TreeNode<ChildData>] = []
         data.forEach({ child in
             if child.linkID == child.parentID {
                 let node = TreeNode<ChildData>(value: child)
-                child.replies?.data.children.forEach({ replies in
-                    if child.name == replies.data.parentID {
-                        node.addChild(TreeNode<ChildData>(value: child))
-                    }
-                })
                 nodes.append(node)
+                addChild(toNode: node, forChildData: child)
             }
         })
-        posLog(values: nodes)
+    }
+    
+    // Recursive
+    func addChild(toNode node: TreeNode<ChildData>, forChildData data: ChildData) {
+        if let children = data.replies?.data.children {
+            for child in children {
+                if child.data.parentID == data.name {
+                    node.addChild(TreeNode<ChildData>(value: child.data))
+                    if child.data.replies != nil {
+                        addChild(toNode: node, forChildData: child.data)
+                    }
+                }
+            }
+        }
+    }
+    
+    func numberOfSections() -> Int {
+        return nodes.count
+    }
+    
+    func numberOfRows(in section: Int) -> Int {
+        return nodes[section].children.count
     }
     
 }
@@ -82,16 +103,48 @@ public class TreeNode<T> {
     
     public func addChild(_ node: TreeNode<T>) {
         children.append(node)
-        node.parent = self
+        node.parent = self 
     }
 }
 
-extension TreeNode: CustomStringConvertible {
-    public var description: String {
-        var s = "\(value)"
-        if !children.isEmpty {
-            s += " {" + children.map { $0.description }.joined(separator: ", ") + "}"
+extension TreeNode where T: Equatable {
+    func search(value: T) -> TreeNode? {
+        if value == self.value {
+            return self
         }
-        return s
+        for child in children {
+            if let found = child.search(value: value) {
+                return found
+            }
+        }
+        return nil
+    }
+    
+    func count() -> Int {
+        if parent == nil {
+            return 1
+        }
+        for child in children {
+            return child.count() + 1
+        }
+        return 1
+    }
+}
+
+extension TreeNode: Equatable {
+    static public func == (lhs: TreeNode<T>, rhs: TreeNode<T>) -> Bool {
+        return lhs.parent == rhs.parent
+    }
+}
+
+extension TreeNode where T: Equatable {
+    static func ==(lhs: TreeNode<T>, rhs: TreeNode<T>) -> Bool {
+        return lhs.parent == rhs.parent && lhs.value == rhs.value
+    }
+}
+
+extension ChildData: Equatable {
+    static public func == (lhs: ChildData, rhs: ChildData) -> Bool {
+        return lhs.id == rhs.id
     }
 }

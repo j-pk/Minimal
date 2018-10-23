@@ -52,24 +52,24 @@
 
 import Foundation
 
-typealias CommentStore = [CommentStoreElement]
+public typealias CommentStore = [CommentStoreElement]
 
-struct CommentStoreElement: Codable {
+public struct CommentStoreElement: Codable {
     let kind: String
     let data: CommentStoreData
 }
 
-struct CommentStoreData: Codable {
+public  struct CommentStoreData: Codable {
     let children: [Child]
     let after, before: JSONNull?
 }
 
-struct Child: Codable {
+public struct Child: Codable {
     let kind: String
     let data: ChildData
 }
 
-struct ChildData: Codable {
+public struct ChildData: Codable {
     let id, linkID: String
     let name, parentID, author, authorID, body, permalink, subredditID: String?
     let children: [String]?
@@ -95,7 +95,7 @@ struct ChildData: Codable {
     }
     
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         count = try container.decodeIfPresent(Int.self, forKey: .count)
         name = try container.decodeIfPresent(String.self, forKey: .name)

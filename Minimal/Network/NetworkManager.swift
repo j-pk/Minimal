@@ -12,6 +12,7 @@ import SafariServices
 typealias OptionalErrorHandler = (Error?) -> Void
 typealias DecodableCompletionHandler = (Error?, [Decodable]?) -> Void
 typealias ResultCompletionHandler<T> = (Result<T>) -> Void
+typealias VoidCompletionHandler = () -> Void
 
 public enum HTTPMethod: String {
     case options = "OPTIONS"

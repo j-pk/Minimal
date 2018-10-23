@@ -29,7 +29,6 @@ class CommentsViewController: UIViewController {
         super.viewDidLoad()
         //in addition to passing the listing, perhaps just pass the image to instead of setting it to do
         //calculations on sectionHeaderHeight
-        tableView.sectionHeaderHeight = 400
         tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
 
         view.backgroundColor = themeManager.theme.primaryColor
@@ -41,7 +40,11 @@ class CommentsViewController: UIViewController {
         actionView.commentButton.isHidden = true
         actionView.pageDownButton.isHidden = false
         
-        commentsModel?.requestComments()
+        commentsModel?.requestComments() {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -57,15 +60,27 @@ class CommentsViewController: UIViewController {
 
 extension CommentsViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        guard let model = commentsModel else { return 1 }
+        return model.numberOfSections()
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        guard let model = commentsModel else { return 1 }
+        return model.numberOfRows(in: section) + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let _ = tableView.dequeueReusableCell(withIdentifier: "", for: indexPath)
-        return UITableViewCell()
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+        let nodes = commentsModel?.nodes[indexPath.section]
+        
+        switch indexPath.row {
+        case 0:
+            cell.textLabel?.text = nodes?.value.author
+        default:
+            cell.textLabel?.text = nodes?.children[indexPath.row - 1].value.author
+        }
+        
+        return cell
     }
 }
 
@@ -82,6 +97,15 @@ extension CommentsViewController: UITableViewDelegate {
             return cell.contentView
         default:
             return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return 400
+        default:
+            return UITableView.automaticDimension
         }
     }
 }

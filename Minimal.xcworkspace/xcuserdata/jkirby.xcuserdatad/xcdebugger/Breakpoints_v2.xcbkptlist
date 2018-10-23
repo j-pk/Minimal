@@ -19,342 +19,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.383263"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "updateUserAndListings(forSubreddit:subredditId:category:timeFrame:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.383378"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "updateUserAndListings(forSubreddit:subredditId:category:timeFrame:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.383462"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "populateValuesFor(user:category:timeFrame:completionHandler:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Minimal.MainModel.(populateValuesFor in _7208AD65142DCF366BB3560FCD45ACA5)(user: Minimal.User, category: Swift.Optional&lt;Minimal.CategorySortType&gt;, timeFrame: Swift.Optional&lt;Minimal.CategoryTimeFrame&gt;, completionHandler: (Minimal.Result&lt;Minimal.User&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Minimal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Main/MainModel.swift"
-                  timestampString = "561513889.130205"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
-                  offsetFromSymbolStart = "474">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__C.NSManagedObjectContext) -&gt; () in Minimal.MainModel.(populateValuesFor in _7208AD65142DCF366BB3560FCD45ACA5)(user: Minimal.User, category: Swift.Optional&lt;Minimal.CategorySortType&gt;, timeFrame: Swift.Optional&lt;Minimal.CategoryTimeFrame&gt;, completionHandler: (Minimal.Result&lt;Minimal.User&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Minimal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Main/MainModel.swift"
-                  timestampString = "561513889.131808"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
-                  offsetFromSymbolStart = "49">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.383545"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "populateValuesFor(user:category:timeFrame:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.383615"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "updateUserAndListings(forSubreddit:subredditId:category:timeFrame:completionHandler:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Minimal.MainModel.(updateUserAndListings in _7208AD65142DCF366BB3560FCD45ACA5)(forSubreddit: Swift.Optional&lt;Minimal.Subreddit&gt;, subredditId: Swift.Optional&lt;Swift.String&gt;, category: Swift.Optional&lt;Minimal.CategorySortType&gt;, timeFrame: Swift.Optional&lt;Minimal.CategoryTimeFrame&gt;, completionHandler: (Minimal.Result&lt;Minimal.User&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Minimal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Main/MainModel.swift"
-                  timestampString = "561513889.140501"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "784">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Minimal.MainModel.(updateUserAndListings in _7208AD65142DCF366BB3560FCD45ACA5)(forSubreddit: Swift.Optional&lt;Minimal.Subreddit&gt;, subredditId: Swift.Optional&lt;Swift.String&gt;, category: Swift.Optional&lt;Minimal.CategorySortType&gt;, timeFrame: Swift.Optional&lt;Minimal.CategoryTimeFrame&gt;, completionHandler: (Minimal.Result&lt;Minimal.User&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Minimal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Main/MainModel.swift"
-                  timestampString = "561513889.143032"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "801">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.38368"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "updateUserAndListings(forSubreddit:subredditId:category:timeFrame:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.383744"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "updateUserAndListings(forSubreddit:subredditId:category:timeFrame:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.383806"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "updateUserAndListings(forSubreddit:subredditId:category:timeFrame:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.383868"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "updateUserAndListings(forSubreddit:subredditId:category:timeFrame:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.383931"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "updateUserAndListings(forSubreddit:subredditId:category:timeFrame:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.38399"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "populateValuesFor(user:category:timeFrame:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.384051"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "populateValuesFor(user:category:timeFrame:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/MainModel.swift"
-            timestampString = "561604853.384111"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "requestSubreddit(withId:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Network/Managers/SubredditManager.swift"
-            timestampString = "555908862.14073"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "init(request:database:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Network/Managers/SubredditManager.swift"
-            timestampString = "555908862.140973"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "init(request:database:completionHandler:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Minimal.Result&lt;Minimal.SubredditStore&gt;) -&gt; () in Minimal.SubredditManager.init(request: Minimal.Requestable, database: Minimal.ReadableDatabase &amp; Minimal.WritableDatabase, completionHandler: (Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; Minimal.SubredditManager"
-                  moduleName = "Minimal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Network/Managers/SubredditManager.swift"
-                  timestampString = "561513889.184881"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20"
-                  offsetFromSymbolStart = "312">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (Minimal.Result&lt;Minimal.SubredditStore&gt;) -&gt; () in Minimal.SubredditManager.init(request: Minimal.Requestable, database: Minimal.ReadableDatabase &amp; Minimal.WritableDatabase, completionHandler: (Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; Minimal.SubredditManager"
-                  moduleName = "Minimal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Network/Managers/SubredditManager.swift"
-                  timestampString = "561513889.1865081"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "38">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Minimal/Core Data/Subreddit+CoreDataClass.swift"
             timestampString = "555898397.734894"
             startingColumnNumber = "9223372036854775807"
@@ -362,6 +26,197 @@
             startingLineNumber = "38"
             endingLineNumber = "38"
             landmarkName = "populateObject(fromDecodable:context:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Minimal/Main/Comments/CommentsViewController.swift"
+            timestampString = "561953034.182215"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Minimal/Main/Comments/CommentsViewController.swift"
+            timestampString = "561953034.182585"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Minimal/Main/Comments/CommentsModel.swift"
+            timestampString = "561953034.182846"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "CommentsModel"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Minimal.CommentsModel.numberOfRows(in: Swift.Int) -&gt; Swift.Int"
+                  moduleName = "Minimal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Minimal/Main/Comments/CommentsModel.swift"
+                  timestampString = "561753596.349285"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "43">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Minimal.TreeNode&lt;Minimal.ChildData&gt;) -&gt; Swift.Array&lt;Minimal.TreeNode&lt;Minimal.ChildData&gt;&gt; in Minimal.CommentsModel.numberOfRows(in: Swift.Int) -&gt; Swift.Int"
+                  moduleName = "Minimal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Minimal/Main/Comments/CommentsModel.swift"
+                  timestampString = "561753596.350886"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "19">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Array&lt;Minimal.TreeNode&lt;Minimal.ChildData&gt;&gt;) -&gt; Swift.Array&lt;Minimal.TreeNode&lt;Minimal.ChildData&gt;&gt; in Minimal.CommentsModel.numberOfRows(in: Swift.Int) -&gt; Swift.Int"
+                  moduleName = "Minimal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Minimal/Main/Comments/CommentsModel.swift"
+                  timestampString = "561753596.352563"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Minimal/Main/Comments/CommentsModel.swift"
+            timestampString = "561953034.18293"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "modifyCommenStoreElementAndPopulateData(decoded:completionHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Minimal.CommentsModel.modifyCommenStoreElementAndPopulateData(decoded: Swift.Array&lt;Minimal.CommentStoreElement&gt;, completionHandler: () -&gt; ()) -&gt; ()"
+                  moduleName = "Minimal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Minimal/Main/Comments/CommentsModel.swift"
+                  timestampString = "561948391.592301"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "1209">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #5 (Minimal.TreeNode&lt;Minimal.ChildData&gt;) -&gt; Swift.Optional&lt;Swift.String&gt; in Minimal.CommentsModel.modifyCommenStoreElementAndPopulateData(decoded: Swift.Array&lt;Minimal.CommentStoreElement&gt;, completionHandler: () -&gt; ()) -&gt; ()"
+                  moduleName = "Minimal"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Minimal/Main/Comments/CommentsModel.swift"
+                  timestampString = "561948391.594651"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Minimal/Main/Comments/CommentsModel.swift"
+            timestampString = "561953034.182984"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "addChild(toNode:forChildData:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Minimal/Main/Comments/CommentsModel.swift"
+            timestampString = "561953034.183031"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "addChild(toNode:forChildData:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Minimal/Main/Comments/CommentsModel.swift"
+            timestampString = "561953034.183077"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "count()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
