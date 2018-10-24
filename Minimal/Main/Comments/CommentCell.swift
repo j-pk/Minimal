@@ -12,7 +12,7 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var votesLabel: UILabel!
     @IBOutlet weak var timeCreatedLabel: UILabel!
-    @IBOutlet weak var bodyLabel: UILabel!
+    @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
     
     class var identifier: String {
@@ -26,23 +26,52 @@ class CommentCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         leadingConstraint.constant = 12
+        authorLabel.isHidden = false
+        votesLabel.isHidden = false
+        timeCreatedLabel.isHidden = false
     }
     
     func configure(for node: ChildData?) {
-        authorLabel.text = node?.author
-        if let score = node?.score {
-            votesLabel.text = "\(score)"
+        setSeparatorInset(forInsetValue: .none)
+        selectionStyle = .none
+        guard let node = node else { return }
+        
+        var score: Int?
+        if let nodeScore = node.score {
+            score = nodeScore
         } else {
             votesLabel.isHidden =  true
         }
-        if let createdUTC = node?.createdUTC {
-            timeCreatedLabel.text = Date(timeIntervalSince1970: TimeInterval(createdUTC)).timeAgoSinceNow().lowercased()
+        var date: Date?
+        if let createdUTC = node.createdUTC {
+            date = Date(timeIntervalSince1970: TimeInterval(createdUTC))
         } else {
             timeCreatedLabel.isHidden = true
         }
-        bodyLabel.text = node?.body
+        
+        let textData = AnnotationTextFormatter().formatter(author: node.author, score: score ?? 0, date: date)
+        let scoreAttributedString = NSMutableAttributedString()
+        if let score = textData.score {
+            let attributes = score.attributes(at: 0, effectiveRange: nil)
+            scoreAttributedString.append(score)
+            scoreAttributedString.append(NSAttributedString(string: " points", attributes: attributes))
+        }
+        let dateAttributedString = NSMutableAttributedString()
+        if let date = textData.date {
+            let attributes = date.attributes(at: 0, effectiveRange: nil)
+            dateAttributedString.append(NSAttributedString(string: "∙  ", attributes: attributes))
+            dateAttributedString.append(date)
+        }
 
-        if let depth = node?.depth, depth > 0 {
+        
+        DispatchQueue.main.async {
+            self.authorLabel.attributedText = textData.author
+            self.votesLabel.attributedText = scoreAttributedString
+            self.timeCreatedLabel.attributedText = dateAttributedString
+        }
+        bodyTextView.text = node.body
+        
+        if let depth = node.depth, depth > 0 {
             leadingConstraint.constant = leadingConstraint.constant * CGFloat(depth + 1)
         }
     }

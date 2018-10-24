@@ -45,6 +45,7 @@
 		C07FAE11205C96C40049E9F0 /* RequestAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE10205C96C40049E9F0 /* RequestAuthorization.swift */; };
 		C085A816217EBDDB00AE1BBE /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C085A815217EBDDB00AE1BBE /* CommentCell.xib */; };
 		C085A818217EBDF700AE1BBE /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C085A817217EBDF700AE1BBE /* CommentCell.swift */; };
+		C085A81A217FE68900AE1BBE /* AnnotationTextFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C085A819217FE68900AE1BBE /* AnnotationTextFormatter.swift */; };
 		C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA31FAAC75900801E08 /* SearchViewController.swift */; };
 		C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA51FAAC89700801E08 /* SearchCell.swift */; };
 		C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA71FABB4FB00801E08 /* PlayerView.swift */; };
@@ -142,6 +143,7 @@
 		C07FAE10205C96C40049E9F0 /* RequestAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAuthorization.swift; sourceTree = "<group>"; };
 		C085A815217EBDDB00AE1BBE /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		C085A817217EBDF700AE1BBE /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		C085A819217FE68900AE1BBE /* AnnotationTextFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationTextFormatter.swift; sourceTree = "<group>"; };
 		C0897DA31FAAC75900801E08 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C0897DA51FAAC89700801E08 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		C0897DA71FABB4FB00801E08 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				C0110E131FB4DF5700410478 /* TypeName.swift */,
 				C07FAE062054C6230049E9F0 /* Defaults.swift */,
 				C099266A216465A900441957 /* StoreReview.swift */,
+				C085A819217FE68900AE1BBE /* AnnotationTextFormatter.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 				C0A41B171FE741B5005A3F58 /* ThemeCell.swift in Sources */,
 				C00B140B2029509B0064D1AF /* SegmentedController.swift in Sources */,
 				C08D62411FD4E39200794B2A /* AuthenticateCell.swift in Sources */,
+				C085A81A217FE68900AE1BBE /* AnnotationTextFormatter.swift in Sources */,
 				C0EC9B971FC0A1750073FF7A /* HiddenNavBarNavigationController.swift in Sources */,
 				C07A81DC20802CA80075164E /* ImageProcessor.swift in Sources */,
 				C0C2AC47201842C000745869 /* Subreddit+CoreDataProperties.swift in Sources */,

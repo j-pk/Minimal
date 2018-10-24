@@ -36,7 +36,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/Comments/CommentsViewController.swift"
-            timestampString = "561957440.743638"
+            timestampString = "562041324.420476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "46"
@@ -52,13 +52,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/Comments/CommentsModel.swift"
-            timestampString = "561957440.743699"
+            timestampString = "562041324.420931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
             endingLineNumber = "84"
-            landmarkName = "numberOfRows(in:)"
-            landmarkType = "7">
+            landmarkName = "CommentsModel"
+            landmarkType = "3">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -115,92 +115,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/Comments/CommentsModel.swift"
-            timestampString = "561957440.743775"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "buildTreeNode(from:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Minimal.CommentsModel.modifyCommenStoreElementAndPopulateData(decoded: Swift.Array&lt;Minimal.CommentStoreElement&gt;, completionHandler: () -&gt; ()) -&gt; ()"
-                  moduleName = "Minimal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Minimal/Main/Comments/CommentsModel.swift"
-                  timestampString = "561948391.592301"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57"
-                  offsetFromSymbolStart = "1209">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #5 (Minimal.TreeNode&lt;Minimal.ChildData&gt;) -&gt; Swift.Optional&lt;Swift.String&gt; in Minimal.CommentsModel.modifyCommenStoreElementAndPopulateData(decoded: Swift.Array&lt;Minimal.CommentStoreElement&gt;, completionHandler: () -&gt; ()) -&gt; ()"
-                  moduleName = "Minimal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jkirby/Developer/Minimal/Minimal/Minimal/Main/Comments/CommentsModel.swift"
-                  timestampString = "561948391.594651"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/Comments/CommentsModel.swift"
-            timestampString = "561957440.743821"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "addChild(toNode:forChildData:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/Comments/CommentsModel.swift"
-            timestampString = "561957440.7438641"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "addChild(toNode:forChildData:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/Comments/CommentsModel.swift"
-            timestampString = "561957440.743906"
+            timestampString = "562041324.4209909"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "127"
             endingLineNumber = "127"
             landmarkName = "count()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Minimal/Main/Comments/CommentCell.swift"
+            timestampString = "562041324.421043"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "configure(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

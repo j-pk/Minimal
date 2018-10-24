@@ -41,26 +41,27 @@
                             </label>
                         </subviews>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="body" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8X0-aI-5Oy">
-                        <rect key="frame" x="12" y="40.5" width="355" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mzF-06-bzB">
+                        <rect key="frame" x="7" y="32.5" width="360" height="29"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                    </textView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="8X0-aI-5Oy" firstAttribute="top" secondItem="Zgn-DD-S6V" secondAttribute="bottom" constant="8" id="BbI-Vw-Igx"/>
                     <constraint firstItem="Zgn-DD-S6V" firstAttribute="leading" secondItem="6eX-Ng-e58" secondAttribute="leading" constant="12" id="Ldp-Jg-YVo"/>
+                    <constraint firstAttribute="trailing" secondItem="mzF-06-bzB" secondAttribute="trailing" constant="8" id="SfZ-5Z-zRi"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Zgn-DD-S6V" secondAttribute="trailing" priority="999" constant="8" id="TYv-nM-Hnx"/>
-                    <constraint firstAttribute="trailing" secondItem="8X0-aI-5Oy" secondAttribute="trailing" constant="8" id="TrF-Ga-6lh"/>
-                    <constraint firstItem="8X0-aI-5Oy" firstAttribute="leading" secondItem="Zgn-DD-S6V" secondAttribute="leading" id="arT-Hk-d5N"/>
+                    <constraint firstItem="mzF-06-bzB" firstAttribute="leading" secondItem="Zgn-DD-S6V" secondAttribute="leading" constant="-5" id="URk-GP-Tyk"/>
+                    <constraint firstItem="mzF-06-bzB" firstAttribute="top" secondItem="Zgn-DD-S6V" secondAttribute="bottom" id="Z3p-wx-vdb"/>
                     <constraint firstItem="Zgn-DD-S6V" firstAttribute="top" secondItem="6eX-Ng-e58" secondAttribute="top" constant="12" id="h9R-7F-5p7"/>
-                    <constraint firstAttribute="bottom" secondItem="8X0-aI-5Oy" secondAttribute="bottom" constant="12" id="wWg-kL-YjM"/>
+                    <constraint firstAttribute="bottom" secondItem="mzF-06-bzB" secondAttribute="bottom" constant="8" id="xkn-vX-dwd"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="authorLabel" destination="Lug-nb-bmd" id="SvP-IA-i2e"/>
-                <outlet property="bodyLabel" destination="8X0-aI-5Oy" id="scE-zb-aXK"/>
+                <outlet property="bodyTextView" destination="mzF-06-bzB" id="Yp5-i7-49U"/>
                 <outlet property="leadingConstraint" destination="Ldp-Jg-YVo" id="5ee-Vc-1L5"/>
                 <outlet property="timeCreatedLabel" destination="qGI-RT-Dqj" id="vDl-GB-G5p"/>
                 <outlet property="votesLabel" destination="cRM-TF-TTJ" id="QWi-Yw-agV"/>

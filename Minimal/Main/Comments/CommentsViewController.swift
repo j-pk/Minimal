@@ -106,9 +106,14 @@ extension CommentsViewController: UITableViewDelegate {
         case 0:
             return 400
         default:
-            return UITableView.automaticDimension
+            return CGFloat.leastNormalMagnitude
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+    
 }
 
 extension CommentsViewController: UIViewTappableDelegate {

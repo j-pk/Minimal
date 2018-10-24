@@ -50,7 +50,6 @@ class CommentsModel {
         } catch {
             posLog(error: error)
         }
-        posLog(values: nodes.count, nodes.map({ $0.children.count }), nodes.map({ $0.value.body }))
     }
 
     func buildTreeNode(from data: [ChildData]) {
@@ -69,7 +68,7 @@ class CommentsModel {
             for child in children {
                 if child.data.parentID == data.name {
                     node.addChild(TreeNode<ChildData>(value: child.data))
-                    if child.data.replies != nil {
+                    if child.data.replies != nil && child.data.author != nil {
                         addChild(toNode: node, forChildData: child.data)
                     }
                 }

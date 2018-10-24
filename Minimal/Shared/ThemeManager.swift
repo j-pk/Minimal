@@ -92,7 +92,8 @@ struct ThemeManager {
         UITableView.appearance().separatorColor = theme.backgroundColor
         UITableView.appearance().backgroundColor = theme.primaryColor
         MediaAnnotatedCell.appearance().backgroundColor = theme.secondaryColor
-                
+        UITextView.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.titleTextColor
+        
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = theme.tintColor
         SegmentedController.appearance().tintColor = theme.tintColor
         UILabel.appearance(whenContainedInInstancesOf: [SegmentedController.self]).defaultFont = font(fontStyle: .secondary)
@@ -107,6 +108,7 @@ struct ThemeManager {
         HeaderLabel.appearance().defaultFont = font(fontStyle: .primary)
         WarningLabel.appearance().defaultFontBold = font(fontStyle: .primaryBold)
         UILabel.appearance(whenContainedInInstancesOf: [SegmentedController.self]).defaultFont = font(fontStyle: .secondary)
+        UITextView.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).font = font(fontStyle: .primary)
     }
     
     func font(fontStyle: FontStyle) -> UIFont {

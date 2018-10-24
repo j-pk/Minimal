@@ -42,11 +42,6 @@ class AnnotationView: XibView {
             NSAttributedString.Key.foregroundColor: themeManager.theme.subtitleTextColor
         ]
         
-        let scoreAttributes = [
-            NSAttributedString.Key.font: themeManager.font(fontStyle: .secondary),
-            NSAttributedString.Key.foregroundColor: themeManager.redditOrange
-        ]
-        
         let linkAttributes = [
             NSAttributedString.Key.font: themeManager.font(fontStyle: .secondaryBold),
             NSAttributedString.Key.foregroundColor: themeManager.linkTextColor
@@ -59,33 +54,20 @@ class AnnotationView: XibView {
         if let domain = listing.domain {
             attributedTitleString.append(NSAttributedString(string: " (\(domain))", attributes: regularAttributes))
         }
-        
-        let score = NumberFormatter.localizedString(from: NSNumber(value: listing.score), number: .decimal)
-        let scoreAttributedString = NSAttributedString(string: score, attributes: scoreAttributes)
-        
-        let autherAttributedString = NSMutableAttributedString()
-        
-        if let author = listing.author {
-            autherAttributedString.append(NSAttributedString(string: "u/\(author)", attributes: regularAttributes))
-        }
-        
-        let dateCreatedAttributedString = NSMutableAttributedString()
-        if let dateCreated = listing.created {
-            dateCreatedAttributedString.append(NSAttributedString(string: dateCreated.timeAgoSinceNow().lowercased(), attributes: regularAttributes))
-        }
-        
         let linkAttributedString = NSMutableAttributedString()
         if let prefixedSubreddit = listing.subredditNamePrefixed {
             linkAttributedString.append(NSAttributedString(string: prefixedSubreddit, attributes: linkAttributes))
         }
         
+        let textData = AnnotationTextFormatter().formatter(author: listing.author, score: Int(listing.score), date: listing.created)
+
         // Attributes don't take affect unless pushed on to the main thread 
         DispatchQueue.main.async {
             self.titleLabel.attributedText = attributedTitleString
             self.prefixedSubredditLabel.attributedText = linkAttributedString
-            self.upvoteCountLabel.attributedText = scoreAttributedString
-            self.authorLabel.attributedText = autherAttributedString
-            self.dateCreatedLabel.attributedText = dateCreatedAttributedString
+            self.upvoteCountLabel.attributedText = textData.score
+            self.authorLabel.attributedText = textData.author
+            self.dateCreatedLabel.attributedText = textData.date
         }
         
         data = ["subredditId": listing.subredditId]
