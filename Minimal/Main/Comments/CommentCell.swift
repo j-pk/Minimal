@@ -62,7 +62,6 @@ class CommentCell: UITableViewCell {
             dateAttributedString.append(NSAttributedString(string: "∙  ", attributes: attributes))
             dateAttributedString.append(date)
         }
-
         
         DispatchQueue.main.async {
             self.authorLabel.attributedText = textData.author

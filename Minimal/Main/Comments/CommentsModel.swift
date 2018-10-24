@@ -63,12 +63,14 @@ class CommentsModel {
     }
     
     // Recursive
+    // Note: Not all comments are parsed due to limitations around the reddit API
+    // [children: [String]] contains a list of collasped comments - currently filtered as it requires additional network calls 
     func addChild(toNode node: TreeNode<ChildData>, forChildData data: ChildData) {
         if let children = data.replies?.data.children {
             for child in children {
-                if child.data.parentID == data.name {
+                if child.data.parentID == data.name && child.data.author != nil {
                     node.addChild(TreeNode<ChildData>(value: child.data))
-                    if child.data.replies != nil && child.data.author != nil {
+                    if child.data.replies != nil {
                         addChild(toNode: node, forChildData: child.data)
                     }
                 }
