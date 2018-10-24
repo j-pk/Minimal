@@ -36,7 +36,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/Comments/CommentsViewController.swift"
-            timestampString = "562045001.18727"
+            timestampString = "562090208.834553"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "46"
@@ -52,13 +52,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/Comments/CommentsModel.swift"
-            timestampString = "562045001.187351"
+            timestampString = "562090208.834631"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "CommentsModel"
-            landmarkType = "3">
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "numberOfSections()"
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -115,28 +115,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/Comments/CommentsModel.swift"
-            timestampString = "562045001.187878"
+            timestampString = "562090208.834684"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
             landmarkName = "count()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Minimal/Main/Comments/CommentCell.swift"
-            timestampString = "562045001.1881469"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "configure(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

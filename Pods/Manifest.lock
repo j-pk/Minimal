@@ -1,20 +1,24 @@
 PODS:
+  - Down (0.5.2)
   - Gifu (3.1.0)
   - Nuke (7.4)
 
 DEPENDENCIES:
+  - Down
   - Gifu
   - Nuke (~> 7.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Down
     - Gifu
     - Nuke
 
 SPEC CHECKSUMS:
+  Down: 587371ad58002b06023d9c602519216862c3acbc
   Gifu: fd1e9e3a15ac5d90bae0a510e4ed9f94b485ab03
   Nuke: 2a1a0166bf522257c1fc1be4cad5e60b7960c789
 
-PODFILE CHECKSUM: e2d65a0d17f1ac674ce0658d5b661a16420185f9
+PODFILE CHECKSUM: 79c5399489c0ded09bb8a066d8bcd54e4ecea3fc
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.3

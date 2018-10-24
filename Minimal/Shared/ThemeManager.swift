@@ -93,7 +93,8 @@ struct ThemeManager {
         UITableView.appearance().backgroundColor = theme.primaryColor
         MediaAnnotatedCell.appearance().backgroundColor = theme.secondaryColor
         UITextView.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.titleTextColor
-        
+        UITextView.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).linkTextAttributes = [.foregroundColor: linkTextColor, .underlineStyle: NSUnderlineStyle.single.rawValue]
+
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = theme.tintColor
         SegmentedController.appearance().tintColor = theme.tintColor
         UILabel.appearance(whenContainedInInstancesOf: [SegmentedController.self]).defaultFont = font(fontStyle: .secondary)
@@ -122,6 +123,18 @@ struct ThemeManager {
         case .secondaryBold:
             return UIFont(name: font.bold, size: fontSize.rawValue - 2)!
         }
+    }
+    
+    func stylesheet() -> String {
+        let fontString = font == FontType.sanFrancisco ? "San Francisco" : font.regular
+        let stylesheet = """
+                        * {
+                        font-size: \(fontSize.rawValue)px;
+                        font-family: -apple-system, \(fontString);
+                        color: \(theme.titleTextColor.hexString);
+                        }
+                        """
+        return stylesheet
     }
 }
 

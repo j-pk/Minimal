@@ -5,4 +5,5 @@ use_frameworks!
 target 'Minimal' do
 	pod 'Nuke', '~> 7.0'
 	pod 'Gifu'
+	pod 'Down'
 end

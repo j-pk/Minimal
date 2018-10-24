@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Down
 
 class CommentCell: UITableViewCell {
     @IBOutlet weak var authorLabel: UILabel!
@@ -14,6 +15,8 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var timeCreatedLabel: UILabel!
     @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
+    
+    private var themeManager = ThemeManager()
     
     class var identifier: String {
         return String(describing: self)
@@ -29,6 +32,10 @@ class CommentCell: UITableViewCell {
         authorLabel.isHidden = false
         votesLabel.isHidden = false
         timeCreatedLabel.isHidden = false
+        authorLabel.text = nil
+        votesLabel.text = nil
+        timeCreatedLabel.text = nil
+        bodyTextView.text = nil
     }
     
     func configure(for node: ChildData?) {
@@ -62,14 +69,17 @@ class CommentCell: UITableViewCell {
             dateAttributedString.append(NSAttributedString(string: "∙  ", attributes: attributes))
             dateAttributedString.append(date)
         }
-        
+        let stylesheet = themeManager.stylesheet()
+        if let body = node.body {
+            let down = Down(markdownString: body)
+            self.bodyTextView.attributedText = try? down.toAttributedString(.default, stylesheet: stylesheet)
+        }
         DispatchQueue.main.async {
             self.authorLabel.attributedText = textData.author
             self.votesLabel.attributedText = scoreAttributedString
             self.timeCreatedLabel.attributedText = dateAttributedString
         }
-        bodyTextView.text = node.body
-        
+
         if let depth = node.depth, depth > 0 {
             leadingConstraint.constant = leadingConstraint.constant * CGFloat(depth + 1)
         }

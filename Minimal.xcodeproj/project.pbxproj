@@ -46,6 +46,7 @@
 		C085A816217EBDDB00AE1BBE /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C085A815217EBDDB00AE1BBE /* CommentCell.xib */; };
 		C085A818217EBDF700AE1BBE /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C085A817217EBDF700AE1BBE /* CommentCell.swift */; };
 		C085A81A217FE68900AE1BBE /* AnnotationTextFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C085A819217FE68900AE1BBE /* AnnotationTextFormatter.swift */; };
+		C085A81C2180CB0F00AE1BBE /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C085A81B2180CB0F00AE1BBE /* UIColorExtensions.swift */; };
 		C0897DA41FAAC75900801E08 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA31FAAC75900801E08 /* SearchViewController.swift */; };
 		C0897DA61FAAC89700801E08 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA51FAAC89700801E08 /* SearchCell.swift */; };
 		C0897DA81FABB4FB00801E08 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0897DA71FABB4FB00801E08 /* PlayerView.swift */; };
@@ -144,6 +145,7 @@
 		C085A815217EBDDB00AE1BBE /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		C085A817217EBDF700AE1BBE /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		C085A819217FE68900AE1BBE /* AnnotationTextFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationTextFormatter.swift; sourceTree = "<group>"; };
+		C085A81B2180CB0F00AE1BBE /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		C0897DA31FAAC75900801E08 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C0897DA51FAAC89700801E08 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		C0897DA71FABB4FB00801E08 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				C008B1C520156574005FC651 /* UISearchBarExtensions.swift */,
 				C01A6DBC206D972900CA50C2 /* StringExtensions.swift */,
 				C01A780420B2675000EA969E /* GifuExtensions.swift */,
+				C085A81B2180CB0F00AE1BBE /* UIColorExtensions.swift */,
 			);
 			name = Extensions;
 			path = "New Group";
@@ -580,11 +583,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Minimal/Pods-Minimal-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Down/Down.framework",
 				"${BUILT_PRODUCTS_DIR}/Gifu/Gifu.framework",
 				"${BUILT_PRODUCTS_DIR}/Nuke/Nuke.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Down.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gifu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nuke.framework",
 			);
@@ -679,6 +684,7 @@
 				C03F92271FA11DE7009EEEF3 /* NSManagedObjectExtensions.swift in Sources */,
 				C0DF739C2177966300081E14 /* CommentsModel.swift in Sources */,
 				C09E91EB201D515300EFB3F5 /* Routable.swift in Sources */,
+				C085A81C2180CB0F00AE1BBE /* UIColorExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

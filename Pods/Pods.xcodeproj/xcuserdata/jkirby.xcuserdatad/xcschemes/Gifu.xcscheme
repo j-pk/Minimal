@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5B9888C33DE4EBFB8177CEA845DEEA74"
+               BlueprintIdentifier = "8DB313788639CA3AE8C5821CF844489B"
                BlueprintName = "Gifu"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "Gifu.framework">
