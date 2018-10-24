@@ -36,7 +36,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/Comments/CommentsViewController.swift"
-            timestampString = "562090208.834553"
+            timestampString = "562101546.629274"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "46"
@@ -52,7 +52,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/Comments/CommentsModel.swift"
-            timestampString = "562090208.834631"
+            timestampString = "562101546.629354"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "86"
@@ -115,12 +115,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Minimal/Main/Comments/CommentsModel.swift"
-            timestampString = "562090208.834684"
+            timestampString = "562101546.629419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "129"
             endingLineNumber = "129"
             landmarkName = "count()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Minimal/Main/Comments/CommentCell.swift"
+            timestampString = "562101546.629468"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "configure(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

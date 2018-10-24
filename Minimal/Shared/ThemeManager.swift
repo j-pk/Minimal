@@ -126,12 +126,14 @@ struct ThemeManager {
     }
     
     func stylesheet() -> String {
-        let fontString = font == FontType.sanFrancisco ? "San Francisco" : font.regular
+        let fontString = font == FontType.sanFrancisco ? "-apple-system" : font.regular
         let stylesheet = """
                         * {
                         font-size: \(fontSize.rawValue)px;
-                        font-family: -apple-system, \(fontString);
+                        font-family: \(fontString);
                         color: \(theme.titleTextColor.hexString);
+                        line-height: \(fontSize.rawValue)px; 
+                        margin-bottom: 2px;
                         }
                         """
         return stylesheet
