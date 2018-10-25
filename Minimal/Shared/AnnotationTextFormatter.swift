@@ -25,8 +25,7 @@ struct AnnotationTextFormatter {
             NSAttributedString.Key.foregroundColor: themeManager.redditOrange
         ]
         
-        let score = NumberFormatter.localizedString(from: NSNumber(value: score), number: .decimal)
-        data.score = NSAttributedString(string: score, attributes: scoreAttributes)
+        data.score = NSAttributedString(string: score.abbrevation(), attributes: scoreAttributes)
         
         if let author = author {
             data.author = NSAttributedString(string: "u/\(author)", attributes: regularAttributes)
