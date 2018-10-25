@@ -146,7 +146,11 @@ extension CommentsViewController: ActionViewDelegate {
     }
     
     func didSelectPageDownButton(sender: UIButton, listing: Listing?) {
-        //
+        guard let model = commentsModel else { return }
+        guard model.nodes.count > 1 else { return }
+        guard let section = tableView.indexPathsForVisibleRows?.first?.section else { return }
+        let indexPath = IndexPath(row: 0, section: section + 1)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
     func didSelectCommentButton(sender: UIButton, listing: Listing?) {

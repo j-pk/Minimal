@@ -132,8 +132,8 @@ struct ThemeManager {
                         font-size: \(fontSize.rawValue)px;
                         font-family: \(fontString);
                         color: \(theme.titleTextColor.hexString);
-                        line-height: \(fontSize.rawValue)px; 
-                        margin-bottom: 2px;
+                        line-height: \(fontSize.rawValue - 2)px; 
+                        margin-bottom: 0px;
                         }
                         """
         return stylesheet

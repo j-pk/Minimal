@@ -73,7 +73,6 @@ class CommentCell: UITableViewCell {
         if let body = node.body {
             let down = Down(markdownString: body)
             bodyTextView.attributedText = try? down.toAttributedString(.default, stylesheet: stylesheet)
-            bodyTextView.sizeToFit()
         }
         DispatchQueue.main.async {
             self.authorLabel.attributedText = textData.author

@@ -80,12 +80,12 @@ class CommentsModel {
     
     // # of parent nodes
     func numberOfSections() -> Int {
-        return nodes.count
+        return nodes.count != 0 ? nodes.count : 1
     }
     
     // Count for children including parent node
     func numberOfRows(in section: Int) -> Int {
-        return nodes[section].children.count + 1
+        return nodes.count != 0 ? nodes[section].children.count + 1 : 0
     }
     
 }
