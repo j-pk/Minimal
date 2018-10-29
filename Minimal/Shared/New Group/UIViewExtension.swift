@@ -282,7 +282,6 @@ extension UIView {
             line.translatesAutoresizingMaskIntoConstraints = false
             addSubview(line)
             let leftInset = CGFloat(modifiedDepthPosition) * 12
-            posLog(values: leftInset)
             addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[line]-0-|",
                                                           options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
                                                           metrics: nil,
@@ -292,6 +291,7 @@ extension UIView {
                 metrics: nil,
                 views: ["line": line]))
         }
+        
         for _ in 1...modifiedDepthPosition {
             addDividerLineBasedOnDepth()
             modifiedDepthPosition -= 1

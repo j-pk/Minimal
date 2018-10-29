@@ -13,6 +13,7 @@ class CommentsViewController: UIViewController {
     @IBOutlet weak var bottomMenuBar: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var actionView: ActionView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var listing: Listing?
     var database: Database? {
@@ -41,11 +42,16 @@ class CommentsViewController: UIViewController {
         actionView.commentButton.isHidden = true
         actionView.pageDownButton.isHidden = false
         
-        commentsModel?.requestComments() {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        DispatchQueue.global(qos: .background).async { [weak self] () -> Void in
+            guard let this = self else { return }
+            this.commentsModel?.requestComments() {
+                DispatchQueue.main.async {
+                    this.activityIndicator.stopAnimating()
+                    this.tableView.reloadData()
+                }
             }
         }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

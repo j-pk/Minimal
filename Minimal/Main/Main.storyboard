@@ -77,23 +77,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKM-nF-srd" customClass="AnnotationView" customModule="Minimal" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="8" width="105" height="20"/>
+                                                    <rect key="frame" x="8" y="8" width="105" height="64"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="250" constant="20" id="NC1-9V-04g"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5EX-GB-BME">
-                                                    <rect key="frame" x="0.0" y="36" width="121" height="114"/>
+                                                    <rect key="frame" x="0.0" y="80" width="121" height="70"/>
                                                     <subviews>
                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raS-e8-6Qz" customClass="PlayerView" customModule="Minimal" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="114"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="70"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xk4-30-Gbs">
-                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="114"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="70"/>
                                                         </imageView>
                                                         <view hidden="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Rd-T2-jrZ" customClass="GIFImageView" customModule="Gifu">
-                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="114"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="70"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                     </subviews>
@@ -265,11 +265,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="399.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M2C-DC-EMD" customClass="AnnotationView" customModule="Minimal" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2C-DC-EMD" customClass="AnnotationView" customModule="Minimal" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="323.66666666666669" width="374" height="64"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5s4-rs-Pud" customClass="PresentationView" customModule="Minimal" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5s4-rs-Pud" customClass="PresentationView" customModule="Minimal" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="312"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
@@ -297,6 +297,9 @@
                                     <outlet property="delegate" destination="gO7-rA-08V" id="aRD-9T-8Ud"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="9sj-nF-tKX">
+                                <rect key="frame" x="188.66666666666666" y="351" width="37" height="37"/>
+                            </activityIndicatorView>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dsv-20-lsS">
                                 <rect key="frame" x="0.0" y="637" width="414" height="50"/>
                                 <subviews>
@@ -316,9 +319,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="9sj-nF-tKX" firstAttribute="centerX" secondItem="HWK-Lj-gYD" secondAttribute="centerX" id="1eg-un-Y8j"/>
                             <constraint firstItem="UcT-V0-iMp" firstAttribute="trailing" secondItem="veW-cm-XEw" secondAttribute="trailing" id="2bY-X0-vZe"/>
                             <constraint firstItem="Dsv-20-lsS" firstAttribute="top" secondItem="UcT-V0-iMp" secondAttribute="bottom" id="6Vj-k4-GdA"/>
                             <constraint firstItem="Dsv-20-lsS" firstAttribute="leading" secondItem="HWK-Lj-gYD" secondAttribute="leading" id="bLw-2y-y79"/>
+                            <constraint firstItem="9sj-nF-tKX" firstAttribute="centerY" secondItem="HWK-Lj-gYD" secondAttribute="centerY" constant="15" id="ddo-1k-75y"/>
                             <constraint firstItem="UcT-V0-iMp" firstAttribute="top" secondItem="veW-cm-XEw" secondAttribute="top" id="kBJ-zW-rhw"/>
                             <constraint firstItem="Dsv-20-lsS" firstAttribute="bottom" secondItem="veW-cm-XEw" secondAttribute="bottom" id="s6D-qL-h0v"/>
                             <constraint firstAttribute="trailing" secondItem="Dsv-20-lsS" secondAttribute="trailing" id="t2a-83-3Bw"/>
@@ -328,6 +333,7 @@
                     </view>
                     <connections>
                         <outlet property="actionView" destination="ACR-tR-Gm2" id="Dt8-Bd-kk9"/>
+                        <outlet property="activityIndicator" destination="9sj-nF-tKX" id="DvP-Pj-4Nb"/>
                         <outlet property="bottomMenuBar" destination="Dsv-20-lsS" id="F4K-o2-sQx"/>
                         <outlet property="tableView" destination="UcT-V0-iMp" id="k5B-zL-Fmo"/>
                         <segue destination="Omd-kR-zBF" kind="show" identifier="imageViewControllerSegue" id="4ld-3Q-grL"/>

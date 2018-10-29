@@ -58,6 +58,14 @@ class CommentCell: UITableViewCell {
         }
         
         let textData = AnnotationTextFormatter().formatter(author: node.author, score: score ?? 0, date: date)
+        let authorAttributedString = NSMutableAttributedString()
+        if let author = textData.author {
+            authorAttributedString.append(author)
+            if let op = node.isSubmitter, op {
+                let opAttributes = [NSAttributedString.Key.font: themeManager.font(fontStyle: .secondaryBold), NSAttributedString.Key.foregroundColor: themeManager.linkTextColor]
+                authorAttributedString.append(NSAttributedString(string: " OP", attributes: opAttributes))
+            }
+        }
         let scoreAttributedString = NSMutableAttributedString()
         if let score = textData.score {
             let attributes = score.attributes(at: 0, effectiveRange: nil)
@@ -76,7 +84,7 @@ class CommentCell: UITableViewCell {
             bodyTextView.attributedText = try? down.toAttributedString(.default, stylesheet: stylesheet)
         }
         DispatchQueue.main.async {
-            self.authorLabel.attributedText = textData.author
+            self.authorLabel.attributedText = authorAttributedString
             self.votesLabel.attributedText = scoreAttributedString
             self.timeCreatedLabel.attributedText = dateAttributedString
         }
