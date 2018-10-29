@@ -270,4 +270,31 @@ extension UIView {
                                                                     metrics: nil,
                                                                     views: ["label": label]))
     }
+    
+    func attachDividerLine(forDepth depth: Int) {
+        var modifiedDepthPosition = depth
+
+        func addDividerLineBasedOnDepth() {
+            let themeManager = ThemeManager()
+            let line = UIView()
+            line.tag = 1
+            line.backgroundColor = themeManager.theme.secondaryColor
+            line.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(line)
+            let leftInset = CGFloat(modifiedDepthPosition) * 12
+            posLog(values: leftInset)
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[line]-0-|",
+                                                          options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
+                                                          metrics: nil,
+                                                          views: ["line": line]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(\(leftInset))-[line(1)]",
+                options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
+                metrics: nil,
+                views: ["line": line]))
+        }
+        for _ in 1...modifiedDepthPosition {
+            addDividerLineBasedOnDepth()
+            modifiedDepthPosition -= 1
+        }
+    }
 }

@@ -150,7 +150,10 @@ extension CommentsViewController: ActionViewDelegate {
         guard model.nodes.count > 1 else { return }
         guard let section = tableView.indexPathsForVisibleRows?.first?.section else { return }
         let indexPath = IndexPath(row: 0, section: section + 1)
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        // Forces scrolling to complete
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
     }
     
     func didSelectCommentButton(sender: UIButton, listing: Listing?) {

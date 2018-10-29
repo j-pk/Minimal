@@ -36,6 +36,7 @@ class CommentCell: UITableViewCell {
         votesLabel.text = nil
         timeCreatedLabel.text = nil
         bodyTextView.text = nil
+        contentView.removeAttachedView()
     }
     
     func configure(for node: ChildData?) {
@@ -81,7 +82,9 @@ class CommentCell: UITableViewCell {
         }
 
         if let depth = node.depth, depth > 0 {
-            leadingConstraint.constant = leadingConstraint.constant * CGFloat(depth + 1)
+            let leftPosition = leadingConstraint.constant * CGFloat(depth + 1)
+            leadingConstraint.constant = leftPosition
+            contentView.attachDividerLine(forDepth: depth)
         }
     }
 }
