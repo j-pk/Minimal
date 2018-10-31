@@ -6,7 +6,7 @@
 //  Copyright © 2018 Parker Kirby. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class CommentsModel {
     let database: Database
@@ -86,6 +86,29 @@ class CommentsModel {
     // Count for children including parent node
     func numberOfRows(in section: Int) -> Int {
         return nodes.count != 0 ? nodes[section].children.count + 1 : 0
+    }
+    
+    func presentAction(forNode node: ChildData) -> UIAlertController {
+        // upvote, reply, share, report, collapse?
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let shareAction = UIAlertAction(title: "Upvote", style: .default) { (action) in
+            // shareAction
+        }
+        let saveAction = UIAlertAction(title: "Reply", style: .default) { (action) in
+            // saveAction
+        }
+        let hideAction = UIAlertAction(title: "Share", style: .default) { (action) in
+            // hideAction
+        }
+        let reportAction = UIAlertAction(title: "Report", style: .default) { (action) in
+            // reportAction
+            posLog(message: "Report")
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+        let actions = [shareAction, saveAction, hideAction, reportAction, cancelAction]
+        actions.forEach({ controller.addAction($0) })
+        return controller
     }
     
 }

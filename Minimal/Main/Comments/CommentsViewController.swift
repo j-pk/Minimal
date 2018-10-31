@@ -120,6 +120,20 @@ extension CommentsViewController: UITableViewDelegate {
         return CGFloat.leastNormalMagnitude
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let nodes = commentsModel?.nodes[indexPath.section]
+        var node: ChildData?
+        switch indexPath.row {
+        case 0:
+            node = nodes?.value
+        default:
+           node = nodes?.children[indexPath.row - 1].value
+        }
+        guard let model = commentsModel, let unwrappedNode = node else { return }
+        present(model.presentAction(forNode: unwrappedNode), animated: true, completion: nil)
+        // upvote, reply, share, report
+    }
+    
 }
 
 extension CommentsViewController: UIViewTappableDelegate {

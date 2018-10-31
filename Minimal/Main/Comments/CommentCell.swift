@@ -63,7 +63,7 @@ class CommentCell: UITableViewCell {
             authorAttributedString.append(author)
             if let op = node.isSubmitter, op {
                 let opAttributes = [NSAttributedString.Key.font: themeManager.font(fontStyle: .secondaryBold), NSAttributedString.Key.foregroundColor: themeManager.linkTextColor]
-                authorAttributedString.append(NSAttributedString(string: " OP", attributes: opAttributes))
+                authorAttributedString.append(NSAttributedString(string: " [OP]", attributes: opAttributes))
             }
         }
         let scoreAttributedString = NSMutableAttributedString()

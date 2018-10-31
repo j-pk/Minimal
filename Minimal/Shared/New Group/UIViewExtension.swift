@@ -278,7 +278,7 @@ extension UIView {
             let themeManager = ThemeManager()
             let line = UIView()
             line.tag = 1
-            line.backgroundColor = themeManager.theme.secondaryColor.withAlphaComponent(CGFloat(modifiedDepthPosition) * 0.2)
+            line.backgroundColor = themeManager.theme.tintColor.withAlphaComponent(CGFloat(modifiedDepthPosition) * 0.2)
             line.translatesAutoresizingMaskIntoConstraints = false
             addSubview(line)
             let leftInset = CGFloat(modifiedDepthPosition) * 12
