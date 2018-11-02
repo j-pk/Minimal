@@ -11,7 +11,7 @@ import UIKit
 class DisplayCell: UITableViewCell {
     @IBOutlet weak var displayImageView: UIImageView!
     @IBOutlet weak var displayLabel: UILabel!
-    
+    let themeManager = ThemeManager()
     class var identifier: String {
         return String(describing: self)
     }
@@ -20,6 +20,7 @@ class DisplayCell: UITableViewCell {
         super.awakeFromNib()
         selectionStyle = .none
         setSeparatorInset(forInsetValue: .none)
+        displayImageView.tintColor = themeManager.theme.tintColor
     }
 
 }
