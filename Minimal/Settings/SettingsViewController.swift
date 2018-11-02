@@ -82,7 +82,7 @@ extension SettingsViewController: UITableViewDataSource {
         enum ThemeSection: Int {
             case userInterface
             case fontStyle
-            case unknown
+            case display
             
             init?(indexPath: IndexPath) {
                 self.init(rawValue: indexPath.row)
@@ -176,6 +176,9 @@ extension SettingsViewController: UITableViewDelegate {
             case .fontStyle?:
                 let fontViewController: FontViewController = UIViewController.make(storyboard: .settings)
                 navigationController?.pushViewController(fontViewController, animated: true)
+            case .display?:
+                let displayViewController: DisplayViewController = UIViewController.make(storyboard: .settings)
+                navigationController?.pushViewController(displayViewController, animated: true)
             default:
                 break
             }
