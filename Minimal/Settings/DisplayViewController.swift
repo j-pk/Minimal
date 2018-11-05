@@ -45,6 +45,14 @@ extension DisplayViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = self.tableView.cellForRow(at: indexPath) as? DisplayCell {
+            cell.checkmark.isHidden = false
+            let deselectedCells = tableView.visibleCells.compactMap({ $0 as? DisplayCell }).filter({ $0 != cell })
+            deselectedCells.forEach({ $0.checkmark.isHidden = true })
+        }
+    }
 }
 
 extension DisplayViewController {

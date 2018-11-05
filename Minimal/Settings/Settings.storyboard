@@ -245,16 +245,26 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card" translatesAutoresizingMaskIntoConstraints="NO" id="ls1-yB-TVq">
                                                     <rect key="frame" x="15" y="11" width="112" height="58"/>
                                                 </imageView>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="aZC-tj-3K9">
+                                                    <rect key="frame" x="345" y="30" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="kFg-mV-z5c"/>
+                                                        <constraint firstAttribute="height" constant="20" id="sIY-3m-FiG"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="aZC-tj-3K9" secondAttribute="trailing" constant="10" id="7Bf-za-OVy"/>
                                                 <constraint firstItem="MvQ-hQ-SSC" firstAttribute="centerX" secondItem="t14-Nb-FrY" secondAttribute="centerX" id="7kK-yx-LbC"/>
                                                 <constraint firstItem="MvQ-hQ-SSC" firstAttribute="centerY" secondItem="t14-Nb-FrY" secondAttribute="centerY" id="9MC-eD-n9h"/>
                                                 <constraint firstItem="ls1-yB-TVq" firstAttribute="bottom" secondItem="t14-Nb-FrY" secondAttribute="bottomMargin" id="RtS-lY-0fy"/>
                                                 <constraint firstItem="ls1-yB-TVq" firstAttribute="leading" secondItem="t14-Nb-FrY" secondAttribute="leadingMargin" id="azg-3b-ZKl"/>
                                                 <constraint firstItem="ls1-yB-TVq" firstAttribute="top" secondItem="t14-Nb-FrY" secondAttribute="topMargin" id="cuf-DN-NZj"/>
+                                                <constraint firstItem="aZC-tj-3K9" firstAttribute="centerY" secondItem="MvQ-hQ-SSC" secondAttribute="centerY" id="zYa-44-mok"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="checkmark" destination="aZC-tj-3K9" id="ZrH-jL-2Zk"/>
                                             <outlet property="displayImageView" destination="ls1-yB-TVq" id="BU1-dm-tFb"/>
                                             <outlet property="displayLabel" destination="MvQ-hQ-SSC" id="qKU-zf-g0q"/>
                                         </connections>
