@@ -36,6 +36,9 @@ extension DisplayViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: DisplayCell.identifier, for: indexPath) as! DisplayCell
         cell.displayLabel.text = DisplayOptions.allCases[indexPath.row].title
         cell.displayImageView.image = DisplayOptions.allCases[indexPath.row].image
+        if let defaults = Defaults.retrieve() {
+            cell.checkmark.isHidden = DisplayOptions.allCases[indexPath.row] != DisplayOptions(rawValue: defaults.displayOption)
+        }
         return cell
     }
     
