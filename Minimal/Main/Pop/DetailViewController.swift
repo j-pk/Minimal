@@ -46,7 +46,7 @@ class DetailViewController: UIViewController {
     func configureDetailViewControllerViews() {
         guard let listing = listing else { return }
         annotationView.delegate = self
-        annotationView.setLabels(forListing: listing)
+        annotationView.setAnnotations(forListing: listing)
         presentationView.setView(forListing: listing)
     }
 

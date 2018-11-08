@@ -24,17 +24,7 @@ class MainViewController: UIViewController {
     private var subredditString: String?
     private var listingResultsController: NSFetchedResultsController<Listing>!
     private var model: MainModel?
-    
-    private let collectionViewLayout: CHTCollectionViewWaterfallLayout = {
-        let layout = CHTCollectionViewWaterfallLayout()
-        layout.minimumColumnSpacing = 20.0
-        layout.minimumInteritemSpacing = 20.0
-        layout.columnCount = 1
-        layout.headerHeight = 10
-        layout.footerHeight = 10
-        layout.sectionInset = UIEdgeInsets(top: 54, left: 0, bottom: 0, right: 0)
-        return layout
-    }()
+    private var displayOption: DisplayOptions!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,11 +37,15 @@ class MainViewController: UIViewController {
         // NUKE
         ImagePipeline.Configuration.isAnimatedImageDataEnabled = true
         
+        if let defaults = Defaults.retrieve() {
+            displayOption = DisplayOptions(rawValue: defaults.displayOption)
+        }
+        
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         collectionView.alwaysBounceVertical = true
-        collectionView.collectionViewLayout = collectionViewLayout
+        collectionView.collectionViewLayout = displayOption.layout
         collectionView.prefetchDataSource = self
-
+        
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         let refreshYAxis = headerView.frame.height - view.safeAreaLayoutGuide.layoutFrame.size.height
@@ -74,6 +68,14 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setPlayerStateForViewControllerTransition(isReturning: true)
+
+        if let defaults = Defaults.retrieve(), displayOption != DisplayOptions(rawValue: defaults.displayOption) {
+            displayOption = DisplayOptions(rawValue: defaults.displayOption)
+            UIView.performWithoutAnimation {
+                collectionView.collectionViewLayout.invalidateLayout()
+                collectionView.collectionViewLayout = displayOption.layout
+            }
+        }
         collectionView.reloadData()
     }
     
@@ -234,25 +236,52 @@ extension MainViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaAnnotatedCell.identifier, for: indexPath) as! MediaAnnotatedCell
-        
         let listing = listingResultsController.object(at: indexPath)
-        cell.configureCell(forListing: listing, with: model)
-        cell.annotationView.delegate = self
-        cell.actionView.delegate = self
+        switch displayOption {
+        case .standard?:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCompactCell.identifier, for: indexPath) as! MediaCompactCell
+            cell.configureCell(forListing: listing, with: model)
+            cell.actionView.delegate = self
+            return cell
 
-        return cell
+        case .card?:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaAnnotatedCell.identifier, for: indexPath) as! MediaAnnotatedCell
+            cell.configureCell(forListing: listing, with: model)
+            cell.actionView.delegate = self
+            return cell
+
+        case .gallery?:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCascadeCell.identifier, for: indexPath) as! MediaCascadeCell
+            cell.configureCell(forListing: listing, with: model)
+            return cell
+
+        default:
+            return UICollectionViewCell()
+        }
     }
 }
 
 // MARK: CHTCollectionViewDelegateWaterfallLayout
 extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        return calculateSizeForItem(atIndexPath: indexPath)
+        if displayOption == .card || displayOption == .gallery {
+            return calculateSizeForItem(atIndexPath: indexPath)
+        } else {
+            let listing = listingResultsController.object(at: indexPath)
+            guard let title = listing.title else { return CGSize.zero}
+            let textview = UITextView()
+            
+            textview.text = title
+            textview.font = UIFont.systemFont(ofSize: 12)
+            
+            let actualsize = textview.sizeThatFits(CGSize(width: collectionView.frame.size.width - 85, height: CGFloat.greatestFiniteMagnitude))
+            
+            return CGSize(width: collectionView.frame.size.width - 10, height: actualsize.height + 90)
+        }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, annotationForItemAtIndexPath indexPath: IndexPath) -> String? {
-        return configureAnnotationForItem(atIndexPath: indexPath)
+        return displayOption == .card ? configureAnnotationForItem(atIndexPath: indexPath) : nil 
     }
 }
 
@@ -298,8 +327,8 @@ extension MainViewController: ActionViewDelegate {
         guard let listing = listing else { return }
         let commentsViewController: CommentsViewController = UIViewController.make(storyboard: .main)
         commentsViewController.hidesBottomBarWhenPushed = true
-        commentsViewController.database = database
         commentsViewController.listing = listing
+        commentsViewController.database = database
         commentsViewController.delegate = self
         navigationController?.pushViewController(commentsViewController, animated: true)
     }

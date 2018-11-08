@@ -18,6 +18,8 @@ struct DateComponentUnitFormatter {
         
         let futureSingular: String
         let pastSingular: String
+        
+        let abbreviated: String
     }
     
     private let formats: [DateComponentUnitFormat] = [
@@ -26,47 +28,54 @@ struct DateComponentUnitFormatter {
                                 singularUnit: "year",
                                 pluralUnit: "years",
                                 futureSingular: "Next year",
-                                pastSingular: "Last year"),
+                                pastSingular: "Last year",
+                                abbreviated: "y"),
         
         DateComponentUnitFormat(unit: .month,
                                 singularUnit: "month",
                                 pluralUnit: "months",
                                 futureSingular: "Next month",
-                                pastSingular: "Last month"),
+                                pastSingular: "Last month",
+                                abbreviated: "m"),
         
         DateComponentUnitFormat(unit: .weekOfYear,
                                 singularUnit: "week",
                                 pluralUnit: "weeks",
                                 futureSingular: "Next week",
-                                pastSingular: "Last week"),
+                                pastSingular: "Last week",
+                                abbreviated: "w"),
         
         DateComponentUnitFormat(unit: .day,
                                 singularUnit: "day",
                                 pluralUnit: "days",
                                 futureSingular: "Tomorrow",
-                                pastSingular: "Yesterday"),
+                                pastSingular: "Yesterday",
+                                abbreviated: "d"),
         
         DateComponentUnitFormat(unit: .hour,
                                 singularUnit: "hour",
                                 pluralUnit: "hours",
                                 futureSingular: "In an hour",
-                                pastSingular: "An hour ago"),
+                                pastSingular: "An hour ago",
+                                abbreviated: "h"),
         
         DateComponentUnitFormat(unit: .minute,
                                 singularUnit: "minute",
                                 pluralUnit: "minutes",
                                 futureSingular: "In a minute",
-                                pastSingular: "A minute ago"),
+                                pastSingular: "A minute ago",
+                                abbreviated: "m"),
         
         DateComponentUnitFormat(unit: .second,
                                 singularUnit: "second",
                                 pluralUnit: "seconds",
                                 futureSingular: "Just now",
-                                pastSingular: "Just now"),
+                                pastSingular: "Just now",
+                                abbreviated: "s"),
         
         ]
     
-    func string(forDateComponents dateComponents: DateComponents, useNumericDates: Bool) -> String {
+    func string(forDateComponents dateComponents: DateComponents, useNumericDates: Bool, abbreviated: Bool) -> String {
         for format in self.formats {
             let unitValue: Int
             
@@ -90,14 +99,20 @@ struct DateComponentUnitFormatter {
                 return ""
             }
             
+            
+            
             switch unitValue {
             case 2 ..< Int.max:
+                if abbreviated { return "\(unitValue)\(format.abbreviated)" }
                 return "\(unitValue) \(format.pluralUnit) ago"
             case 1:
+                if abbreviated { return "\(unitValue)\(format.abbreviated)" }
                 return useNumericDates ? "\(unitValue) \(format.singularUnit) ago" : format.pastSingular
             case -1:
+                if abbreviated { return "\(unitValue)\(format.abbreviated)" }
                 return useNumericDates ? "In \(-unitValue) \(format.singularUnit)" : format.futureSingular
             case Int.min ..< -1:
+                if abbreviated { return "\(unitValue)\(format.abbreviated)" }
                 return "In \(-unitValue) \(format.pluralUnit)"
             default:
                 break
@@ -119,7 +134,7 @@ extension Date {
         return date
     }
     
-    func timeAgoSinceNow(useNumericDates: Bool = false) -> String {
+    func timeAgoSinceNow(useNumericDates: Bool = false, abbreviated: Bool = false) -> String {
         
         let calendar = Calendar.current
         let unitFlags: Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]
@@ -127,7 +142,7 @@ extension Date {
         let components = calendar.dateComponents(unitFlags, from: self, to: now)
         
         let formatter = DateComponentUnitFormatter()
-        return formatter.string(forDateComponents: components, useNumericDates: useNumericDates)
+        return formatter.string(forDateComponents: components, useNumericDates: useNumericDates, abbreviated: abbreviated)
     }
 
 }

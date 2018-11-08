@@ -17,6 +17,7 @@ protocol ActionViewDelegate: class {
 class ActionView: XibView {
     
     @IBOutlet weak var upvoteButton: UIButton!
+    @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var downvoteButton: UIButton!
     @IBOutlet weak var pageDownButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
@@ -27,6 +28,7 @@ class ActionView: XibView {
         didSet {
             guard let database = database, let listing = listing else { return }
             actionModel = ActionViewModel(database: database, listing: listing)
+            scoreLabel.text = Int(listing.score).abbrevation()
         }
     }
     var actionModel: ActionViewModel?
@@ -37,6 +39,7 @@ class ActionView: XibView {
         listing = nil
         database = nil
         actionModel = nil
+        scoreLabel.text = nil
     }
 
     // NOTE: For votes, need to persist button state - update listing
@@ -63,8 +66,6 @@ class ActionView: XibView {
             }
         }
     }
-    
-
     
     @IBAction func didSelectPageDownButton(_ sender: UIButton) {
         delegate?.didSelectPageDownButton(sender: sender, listing: listing)

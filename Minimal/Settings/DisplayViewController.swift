@@ -51,30 +51,8 @@ extension DisplayViewController: UITableViewDelegate {
             cell.checkmark.isHidden = false
             let deselectedCells = tableView.visibleCells.compactMap({ $0 as? DisplayCell }).filter({ $0 != cell })
             deselectedCells.forEach({ $0.checkmark.isHidden = true })
+            themeManager.display = DisplayOptions.allCases[indexPath.row]
         }
     }
 }
 
-extension DisplayViewController {
-    enum DisplayOptions: CaseIterable {
-        case card
-        case standard
-        case gallery
-        
-        var title: String {
-            switch self {
-            case .card: return "Card"
-            case .standard: return "Standard"
-            case .gallery: return "Gallery"
-            }
-        }
-        
-        var image: UIImage {
-            switch self {
-            case .card: return #imageLiteral(resourceName: "card")
-            case .standard: return #imageLiteral(resourceName: "standard")
-            case .gallery: return #imageLiteral(resourceName: "gallery")
-            }
-        }
-    }
-}

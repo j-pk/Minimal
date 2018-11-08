@@ -8,12 +8,12 @@
 
 import UIKit
 
-typealias FormattedAnnotationText = (author: NSAttributedString?, score: NSAttributedString?, date: NSAttributedString?)
+typealias FormattedAnnotationText = (subreddit: NSAttributedString?, author: NSAttributedString?, score: NSAttributedString?, date: NSAttributedString?)
 
 struct AnnotationTextFormatter {
-    func formatter(author: String?, score: Int, date: Date?) -> FormattedAnnotationText {
+    func formatter(subreddit: String?, author: String?, score: Int, date: Date?) -> FormattedAnnotationText {
         let themeManager = ThemeManager()
-        var data: FormattedAnnotationText = (author: nil, score: nil, date: nil)
+        var data: FormattedAnnotationText = (subreddit: nil, author: nil, score: nil, date: nil)
         
         let regularAttributes = [
             NSAttributedString.Key.font: themeManager.font(fontStyle: .secondary),
@@ -26,7 +26,9 @@ struct AnnotationTextFormatter {
         ]
         
         data.score = NSAttributedString(string: score.abbrevation(), attributes: scoreAttributes)
-        
+        if let subreddit = subreddit {
+            data.subreddit = NSAttributedString(string: subreddit, attributes: regularAttributes)
+        }
         if let author = author {
             data.author = NSAttributedString(string: "u/\(author)", attributes: regularAttributes)
         }

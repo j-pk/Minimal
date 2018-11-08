@@ -25,7 +25,7 @@ class HeaderCell: UITableViewCell {
     
     func configureCell(forListing listing: Listing) {
         contentView.backgroundColor = themeManager.theme.primaryColor
-        annotationView.setLabels(forListing: listing)
+        annotationView.setAnnotations(forListing: listing)
         presentationView.setView(forListing: listing)
         layoutIfNeeded()
     }

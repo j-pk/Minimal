@@ -21,7 +21,7 @@ class AnnotationView: XibView {
     private var data: [String: Any?] = [:]
     private let themeManager = ThemeManager()
     
-    func setLabels(forListing listing: Listing) {
+    func setAnnotations(forListing listing: Listing) {
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.clipsToBounds = true
         iconImageView.tintColor = themeManager.theme.tintColor
@@ -59,7 +59,7 @@ class AnnotationView: XibView {
             linkAttributedString.append(NSAttributedString(string: prefixedSubreddit, attributes: linkAttributes))
         }
         
-        let textData = AnnotationTextFormatter().formatter(author: listing.author, score: Int(listing.score), date: listing.created)
+        let textData = AnnotationTextFormatter().formatter(subreddit: nil, author: listing.author, score: Int(listing.score), date: listing.created)
 
         // Attributes don't take affect unless pushed on to the main thread 
         DispatchQueue.main.async {

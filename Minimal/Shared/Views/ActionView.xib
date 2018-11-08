@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,6 +16,7 @@
                 <outlet property="downvoteButton" destination="GHg-aP-oLv" id="8G8-qy-AGC"/>
                 <outlet property="moreButton" destination="0RU-Ct-OCJ" id="riK-i3-MRX"/>
                 <outlet property="pageDownButton" destination="NBy-w4-YEh" id="dTV-PP-RWY"/>
+                <outlet property="scoreLabel" destination="obX-HS-wB9" id="fZL-Wx-A3T"/>
                 <outlet property="upvoteButton" destination="Mal-wJ-yOy" id="RHa-xx-CSN"/>
             </connections>
         </placeholder>
@@ -24,14 +25,19 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bHj-S8-PKa">
-                    <rect key="frame" x="8" y="7.5" width="359" height="25"/>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bHj-S8-PKa">
+                    <rect key="frame" x="8" y="0.0" width="359" height="40"/>
                     <subviews>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obX-HS-wB9">
+                            <rect key="frame" x="0.0" y="-5" width="0.0" height="50"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mal-wJ-yOy">
-                            <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="25" id="Nt6-Dj-fCG"/>
-                                <constraint firstAttribute="width" constant="25" id="lfa-Qb-3cb"/>
+                                <constraint firstAttribute="width" secondItem="Mal-wJ-yOy" secondAttribute="height" multiplier="1:1" id="kab-TF-heN"/>
                             </constraints>
                             <state key="normal" image="upArrow"/>
                             <connections>
@@ -39,28 +45,40 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHg-aP-oLv">
-                            <rect key="frame" x="111.5" y="0.0" width="25" height="25"/>
+                            <rect key="frame" x="106.5" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="GHg-aP-oLv" secondAttribute="height" multiplier="1:1" id="Ccn-WN-asm"/>
+                            </constraints>
                             <state key="normal" image="downArrow"/>
                             <connections>
                                 <action selector="didSelectDownvoteButton:" destination="-1" eventType="touchUpInside" id="Mqh-b0-tqK"/>
                             </connections>
                         </button>
                         <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBy-w4-YEh">
-                            <rect key="frame" x="136.5" y="0.0" width="25" height="25"/>
+                            <rect key="frame" x="146.5" y="20" width="0.0" height="0.0"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="NBy-w4-YEh" secondAttribute="height" multiplier="1:1" id="foN-K7-mJs"/>
+                            </constraints>
                             <state key="normal" image="scrollDown"/>
                             <connections>
                                 <action selector="didSelectPageDownButton:" destination="-1" eventType="touchUpInside" id="hky-QH-TOe"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edX-sv-cup">
-                            <rect key="frame" x="222.5" y="0.0" width="25" height="25"/>
+                            <rect key="frame" x="212.5" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="edX-sv-cup" secondAttribute="height" multiplier="1:1" id="JfU-pJ-stt"/>
+                            </constraints>
                             <state key="normal" image="comment"/>
                             <connections>
                                 <action selector="didSelectCommentButton:" destination="-1" eventType="touchUpInside" id="g6A-db-Wak"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RU-Ct-OCJ">
-                            <rect key="frame" x="334" y="0.0" width="25" height="25"/>
+                            <rect key="frame" x="319" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="0RU-Ct-OCJ" secondAttribute="height" multiplier="1:1" id="f1b-Lv-ScD"/>
+                            </constraints>
                             <state key="normal" image="more"/>
                             <connections>
                                 <action selector="didSelectMoreButton:" destination="-1" eventType="touchUpInside" id="gO4-Gx-n0P"/>
@@ -68,20 +86,12 @@
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.79215686269999996" green="0.82352941180000006" blue="0.77647058820000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstItem="GHg-aP-oLv" firstAttribute="width" secondItem="Mal-wJ-yOy" secondAttribute="width" id="76K-bh-oqx"/>
-                        <constraint firstItem="0RU-Ct-OCJ" firstAttribute="height" secondItem="Mal-wJ-yOy" secondAttribute="height" id="9w4-KC-lmF"/>
-                        <constraint firstItem="edX-sv-cup" firstAttribute="height" secondItem="Mal-wJ-yOy" secondAttribute="height" id="QJa-z6-tKc"/>
-                        <constraint firstItem="NBy-w4-YEh" firstAttribute="width" secondItem="Mal-wJ-yOy" secondAttribute="width" id="V8W-Im-Hce"/>
-                        <constraint firstItem="GHg-aP-oLv" firstAttribute="height" secondItem="Mal-wJ-yOy" secondAttribute="height" id="fHh-7D-OVG"/>
-                        <constraint firstItem="edX-sv-cup" firstAttribute="width" secondItem="Mal-wJ-yOy" secondAttribute="width" id="gK3-8h-My9"/>
-                        <constraint firstItem="0RU-Ct-OCJ" firstAttribute="width" secondItem="Mal-wJ-yOy" secondAttribute="width" id="iY3-4O-qZS"/>
-                        <constraint firstItem="NBy-w4-YEh" firstAttribute="height" secondItem="Mal-wJ-yOy" secondAttribute="height" id="q38-et-ARD"/>
-                    </constraints>
                 </stackView>
             </subviews>
             <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bHj-S8-PKa" secondAttribute="bottom" id="DhV-da-7Rk"/>
                 <constraint firstItem="bHj-S8-PKa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="LWU-Q9-fQa"/>
+                <constraint firstItem="bHj-S8-PKa" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="OaV-XL-moG"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bHj-S8-PKa" secondAttribute="trailing" constant="8" id="vE5-6s-lPU"/>
                 <constraint firstItem="bHj-S8-PKa" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="vhE-NF-2m3"/>
             </constraints>

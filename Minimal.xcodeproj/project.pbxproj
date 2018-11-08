@@ -39,6 +39,7 @@
 		C06E18651FFD381800AB4F3A /* FontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18641FFD381800AB4F3A /* FontViewController.swift */; };
 		C07A81DC20802CA80075164E /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07A81DB20802CA80075164E /* ImageProcessor.swift */; };
 		C07E81F3218BD7F200E79169 /* DisplayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07E81F2218BD7F200E79169 /* DisplayCell.swift */; };
+		C07E81F52190D73300E79169 /* MediaCompactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07E81F42190D73300E79169 /* MediaCompactCell.swift */; };
 		C07FAE072054C6230049E9F0 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE062054C6230049E9F0 /* Defaults.swift */; };
 		C07FAE092058B0C30049E9F0 /* SubscribedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */; };
 		C07FAE0D205C7E690049E9F0 /* AuthorizationContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07FAE0C205C7E690049E9F0 /* AuthorizationContract.swift */; };
@@ -140,6 +141,7 @@
 		C06E18641FFD381800AB4F3A /* FontViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontViewController.swift; sourceTree = "<group>"; };
 		C07A81DB20802CA80075164E /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 		C07E81F2218BD7F200E79169 /* DisplayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayCell.swift; sourceTree = "<group>"; };
+		C07E81F42190D73300E79169 /* MediaCompactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCompactCell.swift; sourceTree = "<group>"; };
 		C07FAE062054C6230049E9F0 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		C07FAE082058B0C30049E9F0 /* SubscribedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribedManager.swift; sourceTree = "<group>"; };
 		C07FAE0C205C7E690049E9F0 /* AuthorizationContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationContract.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 				C03167BF1FB175A900E420D0 /* MainCollectionViewFlowLayout.swift */,
 				C0A3859D1F9E98AC005064DF /* MediaCascadeCell.swift */,
 				C01A6DBA206B39BD00CA50C2 /* MediaAnnotatedCell.swift */,
+				C07E81F42190D73300E79169 /* MediaCompactCell.swift */,
 				C0EC9B9F1FC2352B0073FF7A /* Pop */,
 				C0EC9B9E1FC235050073FF7A /* Comments */,
 			);
@@ -646,6 +649,7 @@
 				C01A6DBD206D972900CA50C2 /* StringExtensions.swift in Sources */,
 				C03167C01FB175A900E420D0 /* MainCollectionViewFlowLayout.swift in Sources */,
 				C0EDC88E1FD78219009C0D39 /* User+CoreDataClass.swift in Sources */,
+				C07E81F52190D73300E79169 /* MediaCompactCell.swift in Sources */,
 				C0ED1F9C1FB2AC1900580C1E /* DetailViewController.swift in Sources */,
 				C085A81E2181725800AE1BBE /* IntExtensions.swift in Sources */,
 				C003B9011FC6139800A2B089 /* ListingRouter.swift in Sources */,

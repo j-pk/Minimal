@@ -57,7 +57,7 @@ class CommentCell: UITableViewCell {
             timeCreatedLabel.isHidden = true
         }
         
-        let textData = AnnotationTextFormatter().formatter(author: node.author, score: score ?? 0, date: date)
+        let textData = AnnotationTextFormatter().formatter(subreddit: nil, author: node.author, score: score ?? 0, date: date)
         let authorAttributedString = NSMutableAttributedString()
         if let author = textData.author {
             authorAttributedString.append(author)

@@ -58,6 +58,21 @@ struct ThemeManager {
         }
     }
     
+    var display: DisplayOptions {
+        set(newValue) {
+            if var defaults = Defaults.retrieve() {
+                defaults.displayOption = newValue.rawValue
+                defaults.store()
+            }
+        }
+        get {
+            if let defaults = Defaults.retrieve() {
+                return DisplayOptions(rawValue: defaults.displayOption) ?? .standard
+            }
+            return .standard
+        }
+    }
+    
     let linkTextColor = #colorLiteral(red: 0.2389388382, green: 0.5892125368, blue: 0.8818323016, alpha: 1)
     let redditOrange = #colorLiteral(red: 0.987544477, green: 0.6673021317, blue: 0, alpha: 1)
     let redditBlue = #colorLiteral(red: 0.6029270887, green: 0.6671635509, blue: 0.8504692912, alpha: 1)
@@ -98,7 +113,8 @@ struct ThemeManager {
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = theme.tintColor
         SegmentedController.appearance().tintColor = theme.tintColor
         UILabel.appearance(whenContainedInInstancesOf: [SegmentedController.self]).defaultFont = font(fontStyle: .secondary)
-        
+        UILabel.appearance(whenContainedInInstancesOf: [ActionView.self]).textColor = redditOrange
+        UILabel.appearance(whenContainedInInstancesOf: [ActionView.self]).font = UIFont.systemFont(ofSize: 12, weight: .bold)
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = theme.blurEffect == .dark ? .white : .black
     }
     
@@ -323,3 +339,50 @@ extension FontType {
         }
     }
 }
+
+enum DisplayOptions: String, CaseIterable {
+    case card
+    case standard
+    case gallery
+    
+    var title: String {
+        switch self {
+        case .card: return "Card"
+        case .standard: return "Standard"
+        case .gallery: return "Gallery"
+        }
+    }
+    
+    var image: UIImage {
+        switch self {
+        case .card: return #imageLiteral(resourceName: "card")
+        case .standard: return #imageLiteral(resourceName: "standard")
+        case .gallery: return #imageLiteral(resourceName: "gallery")
+        }
+    }
+    
+    var layout: UICollectionViewLayout {
+        let layout = CHTCollectionViewWaterfallLayout()
+        layout.minimumColumnSpacing = 20.0
+        layout.minimumInteritemSpacing = 20.0
+        switch self {
+        case .card:
+            layout.columnCount = 1
+            layout.sectionInset = UIEdgeInsets(top: 54, left: 0, bottom: 0, right: 0)
+            return layout
+        case .gallery:
+            layout.columnCount = 2
+            layout.sectionInset = UIEdgeInsets(top: 54, left: 10, bottom: 10, right: 10)
+            return layout
+        case .standard:
+            let layout = UICollectionViewFlowLayout()
+            let width = UIScreen.main.bounds.width
+            layout.itemSize = CGSize(width: width - 10, height: (width * 2) / 3)
+            layout.sectionInset = UIEdgeInsets(top: 54, left: 0, bottom: 0, right: 0)
+            layout.minimumInteritemSpacing = 0
+            layout.minimumLineSpacing = 10
+            return layout
+        }
+    }
+}
+

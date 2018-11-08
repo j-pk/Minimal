@@ -48,8 +48,9 @@ struct Defaults: Codable, Storable {
     var fontSize: CGFloat
     var rateCount: Int
     var lastVersionPromptedForReview: String
+    var displayOption: String
     
-    @discardableResult init(accessToken: String? = nil, refreshToken: String? = nil, id: String? = nil, lastAuthenticated: Date? = nil, expiry: Date? = nil, theme: String = Theme.minimalTheme.rawValue, font: Int = FontType.sanFrancisco.rawValue, fontSize: CGFloat = FontSize.normal.rawValue, rateCount: Int = 0, lastVersionPromptedForReview: String = "1.0") {
+    @discardableResult init(accessToken: String? = nil, refreshToken: String? = nil, id: String? = nil, lastAuthenticated: Date? = nil, expiry: Date? = nil, theme: String = Theme.minimalTheme.rawValue, font: Int = FontType.sanFrancisco.rawValue, fontSize: CGFloat = FontSize.normal.rawValue, rateCount: Int = 0, lastVersionPromptedForReview: String = "1.0", displayPreference: String = DisplayOptions.standard.rawValue) {
         self.accessToken = accessToken
         self.refreshToken = refreshToken
         self.id = id
@@ -60,6 +61,7 @@ struct Defaults: Codable, Storable {
         self.fontSize = fontSize
         self.rateCount = rateCount
         self.lastVersionPromptedForReview = lastVersionPromptedForReview
+        self.displayOption = displayPreference
         self.store()
     }
 }
