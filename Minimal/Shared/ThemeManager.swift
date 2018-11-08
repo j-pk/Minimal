@@ -368,17 +368,17 @@ enum DisplayOptions: String, CaseIterable {
         switch self {
         case .card:
             layout.columnCount = 1
-            layout.sectionInset = UIEdgeInsets(top: 54, left: 0, bottom: 0, right: 0)
+            layout.sectionInset = UIEdgeInsets(top: 60, left: 0, bottom: 0, right: 0)
             return layout
         case .gallery:
             layout.columnCount = 2
-            layout.sectionInset = UIEdgeInsets(top: 54, left: 10, bottom: 10, right: 10)
+            layout.sectionInset = UIEdgeInsets(top: 60, left: 10, bottom: 10, right: 10)
             return layout
         case .standard:
             let layout = UICollectionViewFlowLayout()
             let width = UIScreen.main.bounds.width
             layout.itemSize = CGSize(width: width - 10, height: (width * 2) / 3)
-            layout.sectionInset = UIEdgeInsets(top: 54, left: 0, bottom: 0, right: 0)
+            layout.sectionInset = UIEdgeInsets(top: 60, left: 0, bottom: 0, right: 0)
             layout.minimumInteritemSpacing = 0
             layout.minimumLineSpacing = 10
             return layout

@@ -55,6 +55,7 @@ extension DisplayViewController: UITableViewDelegate {
             let deselectedCells = tableView.visibleCells.compactMap({ $0 as? DisplayCell }).filter({ $0 != cell })
             deselectedCells.forEach({ $0.checkmark.isHidden = true })
             themeManager.display = DisplayOptions.allCases[indexPath.row]
+            navigationController?.popViewController(animated: true)
         }
     }
 }
