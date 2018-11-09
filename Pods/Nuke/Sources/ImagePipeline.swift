@@ -62,6 +62,10 @@ public /* final */ class ImageTask: Hashable {
 
     // MARK: - Cancellation
 
+    fileprivate var isCancelled: Bool {
+        return _wasCancelled == 1
+    }
+
     private var _wasCancelled: Int32 = 0
 
     /// Marks task as being cancelled.
@@ -455,7 +459,7 @@ public /* final */ class ImagePipeline: ImageTaskDelegate {
         let (completed, total) = (Int64(session.data.count), response.expectedContentLength + session.resumedDataCount)
         let tasks = session.tasks
         DispatchQueue.main.async {
-            for (task, handlers) in tasks {
+            for (task, handlers) in tasks where !task.isCancelled {
                 (task.completedUnitCount, task.totalUnitCount) = (completed, total)
                 handlers.progress?(nil, completed, total)
                 task._progress?.completedUnitCount = completed
@@ -701,8 +705,9 @@ public /* final */ class ImagePipeline: ImageTaskDelegate {
         guard sessions[session.key] === session else { return }
 
         let response = ImageResponse(image: image, urlResponse: session.urlResponse)
-        if let handlers = session.tasks[task], let progress = handlers.progress {
+        if let handler = session.tasks[task], let progress = handler.progress {
             DispatchQueue.main.async {
+                guard !task.isCancelled else { return }
                 progress(response, task.completedUnitCount, task.totalUnitCount)
             }
         }
@@ -753,6 +758,7 @@ public /* final */ class ImagePipeline: ImageTaskDelegate {
     private func _didCompleteTask(_ task: ImageTask, response: ImageResponse?, error: Error?, completion: ImageTask.Completion?) {
         task.metrics.endDate = Date()
         DispatchQueue.main.async {
+            guard !task.isCancelled else { return }
             completion?(response, error)
             self.didFinishCollectingMetrics?(task, task.metrics)
         }
@@ -789,8 +795,8 @@ private final class ImageLoadingSession {
     /// The original request with which the session was created.
     let request: ImageRequest
     let key: AnyHashable // loading key
-    let cts = _CancellationTokenSource()
-    var token: _CancellationToken { return cts.token }
+    let cts = CancellationTokenSource()
+    var token: CancellationToken { return cts.token }
 
     // Registered image tasks.
     var tasks = [ImageTask: Handlers]()

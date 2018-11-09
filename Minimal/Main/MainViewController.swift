@@ -96,30 +96,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func didPressCategoryButton(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "Sort by Category", message: nil, preferredStyle: .actionSheet)
-        alertController.setValue(NSAttributedString(string: "Sort by Category", attributes: [NSAttributedString.Key.font: themeManager.font(fontStyle: .primaryBold), NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
-        let timeFrameAlertController = UIAlertController(title: "Time Frame", message: nil, preferredStyle: .actionSheet)
-        timeFrameAlertController.setValue(NSAttributedString(string: "Time Frame", attributes: [NSAttributedString.Key.font: themeManager.font(fontStyle: .primaryBold), NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
-
-        CategorySortType.allValues.forEach({ category in
-            let action = UIAlertAction(title: category.rawValue.capitalized, style: .default, handler: { (action) in
-                guard let selectedCategory = CategorySortType.allValues.first(where: { $0.rawValue.capitalized == action.title }) else { return }
-                if selectedCategory.isSetByTimeframe {
-                    CategoryTimeFrame.allValues.forEach({ timeFrame in
-                        let action = UIAlertAction(title: timeFrame.titleValue.capitalized, style: .default, handler: { (action) in
-                            guard let selectedTimeFrame = CategoryTimeFrame.allValues.first(where: { $0.titleValue.capitalized == action.title }) else { return }
-                            self.model?.updateUserAndListings(forSubreddit: nil, subredditId: nil, category: category, timeFrame: selectedTimeFrame)
-                        })
-                        timeFrameAlertController.addAction(action)
-                    })
-                    self.present(timeFrameAlertController, animated: true, completion: nil)
-                } else {
-                    self.model?.updateUserAndListings(forSubreddit: nil, subredditId: nil, category: selectedCategory, timeFrame: nil)
-                }
-            })
-            alertController.addAction(action)
-        })
-        present(alertController, animated: true, completion: nil)
+        model?.buildControllerForCategoryAndTimeframe()
     }
     
     @IBAction func didPressTitleButton(_ sender: UIButton) {
@@ -179,9 +156,7 @@ class MainViewController: UIViewController {
         }
     }
     
-    func transitionToCommentsViewController(with segue: UIStoryboardSegue) {
-        
-    }
+    func transitionToCommentsViewController(with segue: UIStoryboardSegue) { }
 }
 
 // MARK: Stackable
@@ -201,6 +176,10 @@ extension MainViewController: Stackable {
 }
 
 extension MainViewController: MainListingDelegate {
+    func presentCategotyAndTime(with controller: UIAlertController) {
+        present(controller, animated: true, completion: nil)
+    }
+    
     func presentRecentViewedSubreddits(with controller: UIAlertController) {
         present(controller, animated: true, completion: nil)
     }
@@ -217,80 +196,6 @@ extension MainViewController: MainListingDelegate {
             self.categoryButton.sizeToFit()
             self.collectionView.reloadData()
         }
-    }
-}
-
-// MARK: UICollectionViewDataSource
-extension MainViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return listingResultsController.fetchedObjects?.count ?? 0
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let listing = listingResultsController.object(at: indexPath)
-        switch displayOption {
-        case .standard?:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCompactCell.identifier, for: indexPath) as! MediaCompactCell
-            cell.configureCell(forListing: listing, with: model)
-            cell.actionView.delegate = self
-            return cell
-
-        case .card?:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaAnnotatedCell.identifier, for: indexPath) as! MediaAnnotatedCell
-            cell.configureCell(forListing: listing, with: model)
-            cell.actionView.delegate = self
-            return cell
-
-        case .gallery?:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCascadeCell.identifier, for: indexPath) as! MediaCascadeCell
-            cell.configureCell(forListing: listing, with: model)
-            return cell
-
-        default:
-            return UICollectionViewCell()
-        }
-    }
-}
-
-// MARK: CHTCollectionViewDelegateWaterfallLayout
-extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
-    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        if displayOption == .card || displayOption == .gallery {
-            return calculateSizeForItem(atIndexPath: indexPath)
-        } else {
-            let listing = listingResultsController.object(at: indexPath)
-            guard let title = listing.title else { return CGSize.zero}
-            let textview = UITextView()
-            
-            textview.text = title
-            textview.font = UIFont.systemFont(ofSize: 12)
-            
-            let actualsize = textview.sizeThatFits(CGSize(width: collectionView.frame.size.width - 85, height: CGFloat.greatestFiniteMagnitude))
-            
-            return CGSize(width: collectionView.frame.size.width - 10, height: actualsize.height + 90)
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, annotationForItemAtIndexPath indexPath: IndexPath) -> String? {
-        return displayOption == .card ? configureAnnotationForItem(atIndexPath: indexPath) : nil 
-    }
-}
-
-// MARK: UICollectionViewDataSourcePrefetching
-extension MainViewController: UICollectionViewDataSourcePrefetching {
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        //let urls = indexPaths.map({ listingResultsController.object(at: $0).request })
-        //let preheater = ImagePreheater(pipeline: ImagePipeline.shared, maxConcurrentRequestCount: 5)
-        //preheater.startPreheating(with: urls)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        //let preheater = ImagePreheater(pipeline: ImagePipeline.shared, maxConcurrentRequestCount: 5)
-        //preheater.stopPreheating()
     }
 }
 
@@ -386,6 +291,79 @@ extension MainViewController: UIScrollViewDelegate {
     }
 }
 
+// MARK: UICollectionViewDataSource
+extension MainViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return listingResultsController.fetchedObjects?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let listing = listingResultsController.object(at: indexPath)
+        switch displayOption {
+        case .standard?:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCompactCell.identifier, for: indexPath) as! MediaCompactCell
+            cell.configureCell(forListing: listing, with: model)
+            cell.actionView.delegate = self
+            return cell
+            
+        case .card?:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaAnnotatedCell.identifier, for: indexPath) as! MediaAnnotatedCell
+            cell.configureCell(forListing: listing, with: model)
+            cell.actionView.delegate = self
+            return cell
+            
+        case .gallery?:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCascadeCell.identifier, for: indexPath) as! MediaCascadeCell
+            cell.configureCell(forListing: listing, with: model)
+            return cell
+            
+        default:
+            return UICollectionViewCell()
+        }
+    }
+}
+
+// MARK: CHTCollectionViewDelegateWaterfallLayout
+extension MainViewController: CHTCollectionViewDelegateWaterfallLayout {
+    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+        if displayOption == .card || displayOption == .gallery {
+            return calculateSizeForItem(atIndexPath: indexPath)
+        } else {
+            let listing = listingResultsController.object(at: indexPath)
+            guard let title = listing.title else { return CGSize.zero}
+            let textview = UITextView()
+            
+            textview.text = title
+            textview.font = UIFont.systemFont(ofSize: 12)
+            
+            let actualsize = textview.sizeThatFits(CGSize(width: collectionView.frame.size.width - 85, height: CGFloat.greatestFiniteMagnitude))
+            
+            return CGSize(width: collectionView.frame.size.width - 10, height: actualsize.height + 90)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, annotationForItemAtIndexPath indexPath: IndexPath) -> String? {
+        return displayOption == .card ? configureAnnotationForItem(atIndexPath: indexPath) : nil
+    }
+}
+
+// MARK: UICollectionViewDataSourcePrefetching
+extension MainViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let urls = indexPaths.map({ listingResultsController.object(at: $0).request })
+        let preheater = ImagePreheater(pipeline: ImagePipeline.shared, maxConcurrentRequestCount: 5)
+        preheater.startPreheating(with: urls)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        let preheater = ImagePreheater(pipeline: ImagePipeline.shared, maxConcurrentRequestCount: 5)
+        preheater.stopPreheating()
+    }
+}
 
 // MARK: NSFetchedResultsControllerDelegate
 extension MainViewController: NSFetchedResultsControllerDelegate {

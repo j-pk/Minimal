@@ -146,26 +146,42 @@ public struct ImageRequest {
 
     #if !os(macOS)
 
-    // Convenience initializers with `targetSize` and `contentMode`. The reason
-    // why those are implemented as separate init methods is to take advantage
-    // of memorized `decompressor` when custom parameters are not needed.
+    /// Initializes a request with the given URL.
+    /// - parameter processor: Custom image processer.
+    public init<Processor: ImageProcessing>(url: URL, processor: Processor) {
+        self.init(url: url)
+        self.processor = AnyImageProcessor(processor)
+    }
+
+    /// Initializes a request with the given request.
+    /// - parameter processor: Custom image processer.
+    public init<Processor: ImageProcessing>(urlRequest: URLRequest, processor: Processor) {
+        self.init(urlRequest: urlRequest)
+        self.processor = AnyImageProcessor(processor)
+    }
 
     /// Initializes a request with the given URL.
     /// - parameter targetSize: Size in pixels.
     /// - parameter contentMode: An option for how to resize the image
     /// to the target size.
-    public init(url: URL, targetSize: CGSize, contentMode: ImageDecompressor.ContentMode) {
-        self = ImageRequest(url: url)
-        self.processor = AnyImageProcessor(ImageDecompressor(targetSize: targetSize, contentMode: contentMode))
+    public init(url: URL, targetSize: CGSize, contentMode: ImageDecompressor.ContentMode, upscale: Bool = false) {
+        self.init(url: url, processor: ImageDecompressor(
+            targetSize: targetSize,
+            contentMode: contentMode,
+            upscale: upscale
+        ))
     }
 
     /// Initializes a request with the given request.
     /// - parameter targetSize: Size in pixels.
     /// - parameter contentMode: An option for how to resize the image
     /// to the target size.
-    public init(urlRequest: URLRequest, targetSize: CGSize, contentMode: ImageDecompressor.ContentMode) {
-        self = ImageRequest(urlRequest: urlRequest)
-        self.processor = AnyImageProcessor(ImageDecompressor(targetSize: targetSize, contentMode: contentMode))
+    public init(urlRequest: URLRequest, targetSize: CGSize, contentMode: ImageDecompressor.ContentMode, upscale: Bool = false) {
+        self.init(urlRequest: urlRequest, processor: ImageDecompressor(
+            targetSize: targetSize,
+            contentMode: contentMode,
+            upscale: upscale
+        ))
     }
 
     fileprivate static let decompressor = AnyImageProcessor(ImageDecompressor())

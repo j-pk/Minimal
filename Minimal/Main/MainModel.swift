@@ -16,6 +16,7 @@ typealias ImageData = (image: UIImage?, data: Data?)
 protocol MainListingDelegate {
     func lastViewedSubreddit(data: (subreddit: String, categoryAndTimeFrame: String))
     func presentRecentViewedSubreddits(with controller: UIAlertController)
+    func presentCategotyAndTime(with controller: UIAlertController)
     func updateViewWithRequestedListings(for subreddit: String, with categoryAndTimeFrame: String)
 }
 
@@ -62,6 +63,34 @@ class MainModel {
         cancel.setValue(UIColor.red, forKey: "titleTextColor")
         alertController.addAction(cancel)
         delegate.presentRecentViewedSubreddits(with: alertController)
+    }
+    
+    func buildControllerForCategoryAndTimeframe() {
+        let themeManager =  ThemeManager()
+        let alertController = UIAlertController(title: "Sort by Category", message: nil, preferredStyle: .actionSheet)
+        alertController.setValue(NSAttributedString(string: "Sort by Category", attributes: [NSAttributedString.Key.font: themeManager.font(fontStyle: .primaryBold), NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
+        let timeFrameAlertController = UIAlertController(title: "Time Frame", message: nil, preferredStyle: .actionSheet)
+        timeFrameAlertController.setValue(NSAttributedString(string: "Time Frame", attributes: [NSAttributedString.Key.font: themeManager.font(fontStyle: .primaryBold), NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
+        
+        CategorySortType.allValues.forEach({ category in
+            let action = UIAlertAction(title: category.rawValue.capitalized, style: .default, handler: { (action) in
+                guard let selectedCategory = CategorySortType.allValues.first(where: { $0.rawValue.capitalized == action.title }) else { return }
+                if selectedCategory.isSetByTimeframe {
+                    CategoryTimeFrame.allValues.forEach({ timeFrame in
+                        let action = UIAlertAction(title: timeFrame.titleValue.capitalized, style: .default, handler: { (action) in
+                            guard let selectedTimeFrame = CategoryTimeFrame.allValues.first(where: { $0.titleValue.capitalized == action.title }) else { return }
+                            self.updateUserAndListings(forSubreddit: nil, subredditId: nil, category: category, timeFrame: selectedTimeFrame)
+                        })
+                        timeFrameAlertController.addAction(action)
+                    })
+                    self.delegate.presentCategotyAndTime(with: timeFrameAlertController)
+                } else {
+                    self.updateUserAndListings(forSubreddit: nil, subredditId: nil, category: selectedCategory, timeFrame: nil)
+                }
+            })
+            alertController.addAction(action)
+        })
+        delegate.presentCategotyAndTime(with: alertController)
     }
     
     func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, subredditId: String? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil) {

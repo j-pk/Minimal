@@ -31,10 +31,6 @@ public final class ImagePreheater {
         case diskCache
     }
 
-    deinit {
-        stopPreheating()
-    }
-
     /// Initializes the `Preheater` instance.
     /// - parameter manager: `Loader.shared` by default.
     /// - parameter `maxConcurrentRequestCount`: 2 by default.
@@ -156,7 +152,7 @@ public final class ImagePreheater {
     private final class Task {
         let key: PreheatKey
         let request: ImageRequest
-        let cts = _CancellationTokenSource()
+        let cts = CancellationTokenSource()
 
         init(request: ImageRequest, key: PreheatKey) {
             self.request = request

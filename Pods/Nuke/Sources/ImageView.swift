@@ -168,16 +168,16 @@ public struct ImageLoadingOptions {
         }
         #else
         /// Content mode to be used for the loaded image.
-        public var success: UIView.ContentMode
+        public var success: UIViewContentMode
         /// Content mode to be used when displaying a `failureImage`.
-        public var failure: UIView.ContentMode
+        public var failure: UIViewContentMode
         /// Content mode to be used when displaying a `placeholder`.
-        public var placeholder: UIView.ContentMode
+        public var placeholder: UIViewContentMode
 
         /// - parameter success: A content mode to be used with a loaded image.
         /// - parameter failure: A content mode to be used with a `failureImage`.
         /// - parameter placeholder: A content mode to be used with a `placeholder`.
-        public init(success: UIView.ContentMode, failure: UIView.ContentMode, placeholder: UIView.ContentMode) {
+        public init(success: UIViewContentMode, failure: UIViewContentMode, placeholder: UIViewContentMode) {
             self.success = success; self.failure = failure; self.placeholder = placeholder
         }
         #endif
@@ -220,7 +220,7 @@ public struct ImageLoadingOptions {
             #if swift(>=4.2)
             let options: UIView.AnimationOptions
             #else
-            let options: UIView.AnimationOptions
+            let options: UIViewAnimationOptions
             #endif
             #endif
         }
@@ -238,7 +238,7 @@ public struct ImageLoadingOptions {
             return Transition(style: .fadeIn(parameters:  Parameters(duration: duration, options: options)))
         }
         #else
-        public static func fadeIn(duration: TimeInterval, options: UIView.AnimationOptions = .allowUserInteraction) -> Transition {
+        public static func fadeIn(duration: TimeInterval, options: UIViewAnimationOptions = .allowUserInteraction) -> Transition {
             return Transition(style: .fadeIn(parameters:  Parameters(duration: duration, options: options)))
         }
         #endif
@@ -340,12 +340,10 @@ private final class ImageViewController {
             }
         }
 
-        // Make sure that view reuse is handled correctly.
-        self.taskId += 1
+        // Makes sure that view reuse is handled correctly.
         let taskId = self.taskId
 
         // Start the request.
-        // A delegate-based approach would probably work better here.
         self.task = pipeline.loadImage(
             with: request,
             progress: { [weak self] response, completed, total in
@@ -363,6 +361,7 @@ private final class ImageViewController {
     }
 
     func cancelOutstandingTask() {
+        taskId += 1
         task?.cancel()
         task = nil
     }
@@ -437,7 +436,7 @@ private final class ImageViewController {
     #if swift(>=4.2)
     private typealias _ContentMode = UIView.ContentMode
     #else
-    private typealias _ContentMode = UIView.ContentMode
+    private typealias _ContentMode = UIViewContentMode
     #endif
 
     private func _runFadeInTransition(image: Image, params: ImageLoadingOptions.Transition.Parameters, contentMode: _ContentMode?) {

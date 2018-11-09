@@ -64,7 +64,7 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
 
 #### Placeholders, Transitions and More
 
-Use an  `options` parameter (`ImageLoadingOptions`)  to customize the way images are loaded and displayed. You can provide a placeholder, select one of the built-in transitions or provide a custom one.
+Use an  `options` parameter (`ImageLoadingOptions`)  to customize the way images are loaded and displayed. You can provide a placeholder, select one of the built-in transitions or provide a custom one. When using transitions, be aware that UIKit may keep a reference to the image, preventing it from being removed for long animations or loading many transitions at once.
 
 ```swift
 Nuke.loadImage(
@@ -83,7 +83,7 @@ There is a very common scenario when the placeholder (or the failure image) need
 let options = ImageLoadingOptions(
     placeholder: UIImage(named: "placeholder"),
     failureImage: UIImage(named: "failure_image"),
-    contentModes = .init(
+    contentModes: .init(
         success: .scaleAspectFill,
         failure: .center,
         placeholder: .center
@@ -436,7 +436,7 @@ Nuke is fully asynchronous and works great under stress. `ImagePipeline` schedul
 
 Another important performance characteristic is memory usage. Nuke uses a custom memory cache with [LRU (least recently used)](https://en.wikipedia.org/wiki/Cache_algorithms#Examples) replacement algorithm. It has a limit which prevents it from using more than ~20% of available RAM. As a good citizen, `ImageCache` automatically evicts images on memory warnings and removes most of the images when the application enters background.
 
-### Performance Metrics (Beta)
+### Performance Metrics
 
 When optimizing performance, it's important to measure. Nuke collects detailed performance metrics during the execution of each image task:
 
