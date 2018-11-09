@@ -13,24 +13,31 @@ import Gifu
 
 typealias ImageData = (image: UIImage?, data: Data?)
 
+protocol MainListingDelegate {
+    func lastViewedSubreddit(data: (subreddit: String, categoryAndTimeFrame: String))
+    func presentRecentViewedSubreddits(with controller: UIAlertController)
+    func updateViewWithRequestedListings(for subreddit: String, with categoryAndTimeFrame: String)
+}
+
 class MainModel {
     var database: Database?
-    
-    init(database: Database) {
+    var delegate: MainListingDelegate
+    init(database: Database, delegate: MainListingDelegate) {
         self.database = database
+        self.delegate = delegate
     }
     
-    func fetchLastViewedSubredditData() -> (subreddit: String, categoryAndTimeFrame: String) {
-        guard let database = database, let user = User.current(context: database.viewContext) else { return (subreddit: "", categoryAndTimeFrame: "") }
+    func fetchLastViewedSubredditData() {
+        guard let database = database, let user = User.current(context: database.viewContext) else { return }
         let subreddit = user.lastViewedSubreddit != "" ? user.lastViewedSubreddit : "Front Page"
         var categoryAndTimeFrame = user.category.rawValue.capitalized
         if let timeFrame = user.timeFrame?.rawValue.capitalized {
             categoryAndTimeFrame += " | " + timeFrame
         }
-        return (subreddit: subreddit, categoryAndTimeFrame: categoryAndTimeFrame)
+        delegate.lastViewedSubreddit(data: (subreddit: subreddit, categoryAndTimeFrame: categoryAndTimeFrame))
     }
     
-    func fetchRecentlyViewedSubreddits() -> [Subreddit] {
+    private func fetchRecentlyViewedSubreddits() -> [Subreddit] {
         guard let database = database else { return [] }
         let recentPredicate = NSPredicate(format: "isDefault == false && lastViewed < %@ AND lastViewed > %@", Date() as NSDate, Date().subtract(days: 14) as NSDate)
         let sortDescriptor = NSSortDescriptor(key: "lastViewed", ascending: false)
@@ -40,8 +47,24 @@ class MainModel {
         return []
     }
     
-    func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, subredditId: String? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil, completionHandler: ((String, String) -> Void)? = nil) {
+    func buildControllerForRecentlyViewedSubreddits() {
+        let themeManager =  ThemeManager()
+        let alertController = UIAlertController(title: "Recent Subreddits", message: nil, preferredStyle: .actionSheet)
+        alertController.setValue(NSAttributedString(string: "Recent Subreddits", attributes: [NSAttributedString.Key.font: themeManager.font(fontStyle: .primaryBold), NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
         
+        fetchRecentlyViewedSubreddits().prefix(5).forEach({ subreddit in
+            let action = UIAlertAction(title: subreddit.displayName, style: .default, handler: { (action) in
+                self.updateUserAndListings(forSubreddit: subreddit, subredditId: subreddit.id, category: .hot, timeFrame: nil)
+            })
+            alertController.addAction(action)
+        })
+        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        cancel.setValue(UIColor.red, forKey: "titleTextColor")
+        alertController.addAction(cancel)
+        delegate.presentRecentViewedSubreddits(with: alertController)
+    }
+    
+    func updateUserAndListings(forSubreddit subreddit: Subreddit? = nil, subredditId: String? = nil, category: CategorySortType? = nil, timeFrame: CategoryTimeFrame? = nil) {
         updateUserAndListings(forSubreddit: subreddit, subredditId: subredditId, category: category, timeFrame: timeFrame) { (results) in
             switch results {
             case .failure(let error):
@@ -57,7 +80,7 @@ class MainModel {
                     if let timeFrame = user.timeFrame?.rawValue.capitalized {
                         category += " | " + timeFrame
                     }
-                    completionHandler?(subreddit, category)
+                    self.delegate.updateViewWithRequestedListings(for: subreddit, with: category)
                 }
             }
         }

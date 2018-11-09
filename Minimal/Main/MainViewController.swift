@@ -26,6 +26,7 @@ class MainViewController: UIViewController {
     private var model: MainModel?
     private var displayOption: DisplayOptions!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if traitCollection.forceTouchCapability == .available {
@@ -59,10 +60,7 @@ class MainViewController: UIViewController {
         }
         
         headerView.addShadow()
-
-        let data = model?.fetchLastViewedSubredditData()
-        titleButton.setTitle(data?.subreddit, for: UIControl.State())
-        categoryButton.setTitle(data?.categoryAndTimeFrame, for: UIControl.State())
+        model?.fetchLastViewedSubredditData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,13 +108,13 @@ class MainViewController: UIViewController {
                     CategoryTimeFrame.allValues.forEach({ timeFrame in
                         let action = UIAlertAction(title: timeFrame.titleValue.capitalized, style: .default, handler: { (action) in
                             guard let selectedTimeFrame = CategoryTimeFrame.allValues.first(where: { $0.titleValue.capitalized == action.title }) else { return }
-                            self.updateUIForRequestedListings(category: category, timeFrame: selectedTimeFrame)
+                            self.model?.updateUserAndListings(forSubreddit: nil, subredditId: nil, category: category, timeFrame: selectedTimeFrame)
                         })
                         timeFrameAlertController.addAction(action)
                     })
                     self.present(timeFrameAlertController, animated: true, completion: nil)
                 } else {
-                    self.updateUIForRequestedListings(category: selectedCategory, timeFrame: nil)
+                    self.model?.updateUserAndListings(forSubreddit: nil, subredditId: nil, category: selectedCategory, timeFrame: nil)
                 }
             })
             alertController.addAction(action)
@@ -125,19 +123,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func didPressTitleButton(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "Recent Subreddits", message: nil, preferredStyle: .actionSheet)
-        alertController.setValue(NSAttributedString(string: "Recent Subreddits", attributes: [NSAttributedString.Key.font: themeManager.font(fontStyle: .primaryBold), NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
-        
-        model?.fetchRecentlyViewedSubreddits().prefix(5).forEach({ subreddit in
-            let action = UIAlertAction(title: subreddit.displayName, style: .default, handler: { (action) in
-                self.updateUIForRequestedListings(forSubreddit: subreddit, subredditId: subreddit.id, category: .hot, timeFrame: nil)
-            })
-            alertController.addAction(action)
-        })
-        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-        cancel.setValue(UIColor.red, forKey: "titleTextColor")
-        alertController.addAction(cancel)
-        present(alertController, animated: true, completion: nil)
+        model?.buildControllerForRecentlyViewedSubreddits()
     }
     
     func performFetch() {
@@ -151,17 +137,6 @@ class MainViewController: UIViewController {
     @objc func handleRefresh(_ sender: UIRefreshControl) {
         model?.requestListings()
         sender.endRefreshing()
-    }
-    
-    func updateUIForRequestedListings(forSubreddit subreddit: Subreddit? = nil, subredditId: String? = nil, category: CategorySortType, timeFrame: CategoryTimeFrame? = nil) {
-        model?.updateUserAndListings(forSubreddit: subreddit, subredditId: subredditId, category: category, timeFrame: timeFrame, completionHandler: { (subreddit, categoryAndTimeFrame) in
-            DispatchQueue.main.async {
-                self.titleButton.setTitle(subreddit, for: UIControl.State())
-                self.categoryButton.setTitle(categoryAndTimeFrame, for: UIControl.State())
-                self.categoryButton.sizeToFit()
-                self.collectionView.reloadData()
-            }
-        })
     }
     
     func setPlayerStateForViewControllerTransition(isReturning: Bool) {
@@ -221,7 +196,27 @@ extension MainViewController: Stackable {
         fetchedResultsController.delegate = self
         listingResultsController = fetchedResultsController
         
-        model = MainModel(database: database)
+        model = MainModel(database: database, delegate: self)
+    }
+}
+
+extension MainViewController: MainListingDelegate {
+    func presentRecentViewedSubreddits(with controller: UIAlertController) {
+        present(controller, animated: true, completion: nil)
+    }
+    
+    func lastViewedSubreddit(data: (subreddit: String, categoryAndTimeFrame: String)) {
+        titleButton.setTitle(data.subreddit, for: UIControl.State())
+        categoryButton.setTitle(data.categoryAndTimeFrame, for: UIControl.State())
+    }
+    
+    func updateViewWithRequestedListings(for subreddit: String, with categoryAndTimeFrame: String) {
+        DispatchQueue.main.async {
+            self.titleButton.setTitle(subreddit, for: UIControl.State())
+            self.categoryButton.setTitle(categoryAndTimeFrame, for: UIControl.State())
+            self.categoryButton.sizeToFit()
+            self.collectionView.reloadData()
+        }
     }
 }
 
@@ -302,18 +297,18 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
 // MARK: UISearchActionDelegate
 extension MainViewController: SubredditSelectionProtocol {
     func didSelect(subreddit: Subreddit) {
-        updateUIForRequestedListings(forSubreddit: subreddit, category: .hot)
+        model?.updateUserAndListings(forSubreddit: subreddit, subredditId: nil, category: .hot, timeFrame: nil)
     }
     
     func didSelect(defaultSubreddit: DefaultSubreddit) {
-        updateUIForRequestedListings(subredditId: "\(defaultSubreddit.rawValue)", category: .hot)
+        model?.updateUserAndListings(forSubreddit: nil, subredditId: "\(defaultSubreddit.rawValue)", category: .hot, timeFrame: nil)
     }
 }
 
 extension MainViewController: UIViewTappableDelegate {
     func didTapView(sender: UITapGestureRecognizer, data: [String: Any?]) {
         if let subredditId = data["subredditId"] as? String  {
-            updateUIForRequestedListings(subredditId: subredditId, category: .hot)
+            model?.updateUserAndListings(forSubreddit: nil, subredditId: subredditId, category: .hot, timeFrame: nil)
         }
     }
 }
