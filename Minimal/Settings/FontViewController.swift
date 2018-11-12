@@ -23,16 +23,16 @@ class FontViewController: UIViewController {
     }
     
     func configure(cellForFont cell: LabelBaseCell, indexPath: IndexPath) {
-        let fontForRow = FontSection.allValues[indexPath.row]
+        let fontForRow = FontSection.allCases[indexPath.row]
         cell.selectionImageButton.isHidden = fontForRow.rawValue != themeManager.font.rawValue
-        cell.titleLabel.text = FontSection.allValues[indexPath.row].titleValue
+        cell.titleLabel.text = FontSection.allCases[indexPath.row].titleValue
         cell.titleLabel.defaultFont = FontType(rawValue: fontForRow.rawValue)?.font
     }
     
     func configure(cellForSize cell: LabelBaseCell, indexPath: IndexPath) {
-        let sizeForRow = SizeSection.allValues[indexPath.row]
+        let sizeForRow = SizeSection.allCases[indexPath.row]
         cell.selectionImageButton.isHidden = sizeForRow.size != themeManager.fontSize.rawValue
-        cell.titleLabel.text = SizeSection.allValues[indexPath.row].titleValue
+        cell.titleLabel.text = SizeSection.allCases[indexPath.row].titleValue
         cell.titleLabel.font = themeManager.font(fontStyle: .primary)
     }
 }
@@ -43,14 +43,14 @@ extension FontViewController: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return FontTableViewSections.allValues.count
+        return FontTableViewSections.allCases.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if FontTableViewSections(rawValue: section) == .font {
-            return FontSection.allValues.count
+            return FontSection.allCases.count
         }
-        return SizeSection.allValues.count
+        return SizeSection.allCases.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -85,7 +85,7 @@ extension FontViewController: UITableViewDelegate {
             }
         } else {
             if let cell = self.tableView.cellForRow(at: indexPath) as? LabelBaseCell  {
-                let fontSize = SizeSection.allValues[indexPath.row]
+                let fontSize = SizeSection.allCases[indexPath.row]
                 themeManager.fontSize = FontSize(rawValue: fontSize.size)!
                 configureSelectedCell(cell: cell)
             }
@@ -102,7 +102,7 @@ extension FontViewController: UITableViewDelegate {
     }
 }
 
-private enum FontTableViewSections: Int {
+private enum FontTableViewSections: Int, CaseIterable {
     case font
     case size
     
@@ -118,11 +118,9 @@ private enum FontTableViewSections: Int {
             return "Size"
         }
     }
-    
-    static let allValues = [font, size]
 }
 
-private enum FontSection: Int {
+private enum FontSection: Int, CaseIterable {
     case avenir
     case sanFrancisco
     case georgia
@@ -144,11 +142,9 @@ private enum FontSection: Int {
             return "Helvetica Neue"
         }
     }
-    
-    static let allValues = [avenir, sanFrancisco, georgia, helveticaNeue]
 }
 
-private enum SizeSection: Int {
+private enum SizeSection: Int, CaseIterable {
     case small
     case normal
     case large
@@ -183,6 +179,4 @@ private enum SizeSection: Int {
         case .gigantic: return FontSize.gigantic.rawValue
         }
     }
-    
-    static let allValues = [small, normal, large, huge, gigantic]
 }
