@@ -130,36 +130,39 @@ struct SubredditObject: Decodable {
     let iconImage: String?
     let subscribers: Int
     let publicDescription: String?
-    let allowImages: Bool
-    let allowVideoGifs: Bool
+    let allowImages: Bool?
+    let allowVideoGifs: Bool?
     let isSubscribed: Bool?
     
     enum CodingKeys: String, CodingKey {
         case data
         case id
         case displayNamePrefixed = "display_name_prefixed"
+        case subredditNamePrefixed = "subreddit_name_prefixed"
         case displayName = "display_name"
+        case subreddit
         case iconImage = "icon_img"
         case publicDescription = "public_description"
+        case selftext
         case allowImages = "allow_images"
         case allowVideoGifs = "allow_videogifs"
         case isSubscribed = "user_is_subscriber"
-        case over18
-        case subscribers
+        case over18 = "over_18"
+        case subscribers = "subreddit_subscribers"
     }
     
     init(from decoder: Decoder) throws {
         let root = try decoder.container(keyedBy: CodingKeys.self)
         let data = try root.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
         id = try data.decode(String.self, forKey: .id)
-        displayNamePrefixed = try data.decodeIfPresent(String.self, forKey: .displayNamePrefixed)
-        displayName = try data.decodeIfPresent(String.self, forKey: .displayName)
+        displayNamePrefixed = try data.decodeIfPresent(String.self, forKey: .displayNamePrefixed) ?? data.decodeIfPresent(String.self, forKey: .subredditNamePrefixed)
+        displayName = try data.decodeIfPresent(String.self, forKey: .displayName) ?? data.decodeIfPresent(String.self, forKey: .subreddit)
         over18 = try data.decode(Bool.self, forKey: .over18)
         iconImage = try data.decodeIfPresent(String.self, forKey: .iconImage)
         subscribers = try data.decode(Int.self, forKey: .subscribers)
-        publicDescription = try data.decodeIfPresent(String.self, forKey: .publicDescription)
-        allowImages = try data.decode(Bool.self, forKey: .allowImages)
-        allowVideoGifs = try data.decode(Bool.self, forKey: .allowVideoGifs)
+        publicDescription = try data.decodeIfPresent(String.self, forKey: .publicDescription) ?? data.decodeIfPresent(String.self, forKey: .selftext)
+        allowImages = try data.decodeIfPresent(Bool.self, forKey: .allowImages)
+        allowVideoGifs = try data.decodeIfPresent(Bool.self, forKey: .allowVideoGifs)
         isSubscribed = try data.decodeIfPresent(Bool.self, forKey: .isSubscribed)
     }
 }
