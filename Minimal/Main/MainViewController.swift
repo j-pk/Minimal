@@ -308,11 +308,13 @@ extension MainViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaCompactCell.identifier, for: indexPath) as! MediaCompactCell
             cell.configureCell(forListing: listing, with: model)
             cell.actionView.delegate = self
+            cell.delegate = self
             return cell
             
         case .card?:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaAnnotatedCell.identifier, for: indexPath) as! MediaAnnotatedCell
             cell.configureCell(forListing: listing, with: model)
+            cell.annotationView.delegate = self
             cell.actionView.delegate = self
             return cell
             

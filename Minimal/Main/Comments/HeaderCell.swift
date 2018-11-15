@@ -29,4 +29,5 @@ class HeaderCell: UITableViewCell {
         presentationView.setView(forListing: listing)
         layoutIfNeeded()
     }
+    
 }

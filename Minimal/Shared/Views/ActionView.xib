@@ -89,11 +89,10 @@
                 </stackView>
             </subviews>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bHj-S8-PKa" secondAttribute="bottom" id="DhV-da-7Rk"/>
+                <constraint firstAttribute="bottom" secondItem="bHj-S8-PKa" secondAttribute="bottom" id="DhV-da-7Rk"/>
                 <constraint firstItem="bHj-S8-PKa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="LWU-Q9-fQa"/>
-                <constraint firstItem="bHj-S8-PKa" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="OaV-XL-moG"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bHj-S8-PKa" secondAttribute="trailing" constant="8" id="vE5-6s-lPU"/>
-                <constraint firstItem="bHj-S8-PKa" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="vhE-NF-2m3"/>
+                <constraint firstItem="bHj-S8-PKa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="OaV-XL-moG"/>
+                <constraint firstAttribute="trailing" secondItem="bHj-S8-PKa" secondAttribute="trailing" constant="8" id="vE5-6s-lPU"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

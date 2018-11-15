@@ -21,6 +21,18 @@ class AnnotationView: XibView {
     private var data: [String: Any?] = [:]
     private let themeManager = ThemeManager()
     
+    func prepareForReuse() {
+        removeGestureRecognizer(tapGestureRecognizer)
+        data = [:]
+        titleLabel.text = nil
+        iconImageView.image = nil
+        prefixedSubredditLabel.text = nil
+        upvoteCountLabel.text = nil
+        upvoteCountLabel.text = nil
+        authorLabel.text = nil
+        dateCreatedLabel.text = nil
+    }
+    
     func setAnnotations(forListing listing: Listing) {
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.clipsToBounds = true

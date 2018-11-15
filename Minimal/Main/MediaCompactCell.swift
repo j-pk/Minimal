@@ -21,7 +21,9 @@ class MediaCompactCell: UICollectionViewCell {
     @IBOutlet weak var titleTextView: UITextView!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var actionView: ActionView!
-    let themeManager = ThemeManager()
+    weak var delegate: UIViewTappableDelegate?
+    private var data: [String:Any?] = [:]
+    private let themeManager = ThemeManager()
     
     class var identifier: String {
         return String(describing: self)
@@ -32,9 +34,11 @@ class MediaCompactCell: UICollectionViewCell {
         animatedImageView.prepareForReuse()
         actionView.prepareForReuse()
         containerView.removeAttachedView()
+        removeGestureRecognizer(tapGestureRecognizer)
         
         imageView.image = nil
         playerView.player = nil
+        data = [:]
         imageView.isHidden = true
         playerView.isHidden = true
         animatedImageView.isHidden = true
@@ -101,13 +105,17 @@ class MediaCompactCell: UICollectionViewCell {
             NSAttributedString.Key.font: themeManager.font(fontStyle: .secondary),
             NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor
         ]
+        let linkAttributes = [
+            NSAttributedString.Key.font: themeManager.font(fontStyle: .secondaryBold),
+            NSAttributedString.Key.foregroundColor: themeManager.linkTextColor
+        ]
         let titleAttributedString = NSMutableAttributedString()
         if let title = listing.title {
             titleAttributedString.append(NSAttributedString(string: title, attributes: titleAttributes))
         }
         let subredditAttributedString = NSMutableAttributedString()
         if let subreddit = listing.subredditNamePrefixed {
-            subredditAttributedString.append(NSAttributedString(string: subreddit, attributes: regularAttributes))
+            subredditAttributedString.append(NSAttributedString(string: subreddit, attributes: linkAttributes))
         }
         let dateAttributedString = NSMutableAttributedString()
         if let date = listing.created {
@@ -127,6 +135,18 @@ class MediaCompactCell: UICollectionViewCell {
             self.titleTextView.isUserInteractionEnabled = false
         }
         
+        data = ["subredditId": listing.subredditId]
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        subredditLabel.isUserInteractionEnabled = true
+        subredditLabel.addGestureRecognizer(tapGestureRecognizer)
+    }
+}
 
+extension MediaCompactCell: Tappable, Recognizer {
+    func didTapView(_ sender: UITapGestureRecognizer) {
+        delegate?.didTapView(sender: sender, data: data)
     }
 }

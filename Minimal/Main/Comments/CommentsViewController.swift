@@ -10,10 +10,8 @@ import UIKit
 import SafariServices
 
 class CommentsViewController: UIViewController {
-    @IBOutlet weak var bottomMenuBar: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var actionView: ActionView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var listing: Listing?
     var database: Database? {
@@ -25,7 +23,8 @@ class CommentsViewController: UIViewController {
     var commentsModel: CommentsModel?
     weak var delegate: SubredditSelectionProtocol?
     var themeManager = ThemeManager()
-    
+    let activityIndicator = UIActivityIndicatorView(style: .white)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //in addition to passing the listing, perhaps just pass the image to instead of setting it to do
@@ -34,24 +33,22 @@ class CommentsViewController: UIViewController {
         tableView.register(CommentCell.nib, forCellReuseIdentifier: CommentCell.identifier)
         
         view.backgroundColor = themeManager.theme.primaryColor
-        bottomMenuBar.backgroundColor = themeManager.theme.primaryColor
         tableView.backgroundColor = themeManager.theme.primaryColor
         actionView.delegate = self
         actionView.listing = listing
         actionView.database = database
         actionView.commentButton.isHidden = true
         actionView.pageDownButton.isHidden = false
-        
+
         DispatchQueue.global(qos: .background).async { [weak self] () -> Void in
             guard let this = self else { return }
             this.commentsModel?.requestComments() {
                 DispatchQueue.main.async {
-                    this.activityIndicator.stopAnimating()
                     this.tableView.reloadData()
+                    this.activityIndicator.stopAnimating()
                 }
             }
         }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -60,6 +57,24 @@ class CommentsViewController: UIViewController {
                 guard let listing = listing else { return }
                 destination.request = listing.request
             }
+        }
+    }
+    
+    func attachActivityIndicator(withPosition position: CGFloat) {
+        if !activityIndicator.isDescendant(of: view) {
+            activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+            activityIndicator.startAnimating()
+            activityIndicator.hidesWhenStopped = true
+            view.addSubview(activityIndicator)
+            
+            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(\(position))-[activityIndicator]",
+                                                               options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
+                                                               metrics: nil,
+                                                               views: ["activityIndicator":activityIndicator]))
+            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[activityIndicator]-|",
+                                                               options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
+                                                               metrics: nil,
+                                                               views: ["activityIndicator":activityIndicator]))
         }
     }
 }
@@ -101,6 +116,8 @@ extension CommentsViewController: UITableViewDelegate {
                 cell.annotationView.delegate = self
                 cell.presentationView.delegate = self
             }
+            let position = cell.contentView.bounds.height + (cell.contentView.bounds.height / 5)
+            attachActivityIndicator(withPosition: position)
             return cell.contentView
         default:
             return nil

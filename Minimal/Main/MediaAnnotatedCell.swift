@@ -27,6 +27,7 @@ class MediaAnnotatedCell: UICollectionViewCell {
         super.prepareForReuse()
         animatedImageView.prepareForReuse()
         actionView.prepareForReuse()
+        annotationView.prepareForReuse()
         containerView.removeAttachedView()
         
         imageView.image = nil

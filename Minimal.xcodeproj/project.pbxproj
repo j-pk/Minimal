@@ -35,6 +35,9 @@
 		C04AED072040CDD400554C5E /* POSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04AED062040CDD400554C5E /* POSLogger.swift */; };
 		C050C34C200173CB00863B52 /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C050C34B200173CB00863B52 /* UILabelExtensions.swift */; };
 		C055A0AE204CBAF700D09405 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C055A0AD204CBAF700D09405 /* UIImageViewExtensions.swift */; };
+		C05DED962199FFE90083608C /* MainListingDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05DED952199FFE90083608C /* MainListingDelegateTests.swift */; };
+		C05DED9E219A01690083608C /* MockDatabaseEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05DED9D219A01690083608C /* MockDatabaseEngine.swift */; };
+		C05DEDA0219CDE740083608C /* Comments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C05DED9F219CDE740083608C /* Comments.storyboard */; };
 		C06E18631FFC6B1300AB4F3A /* UITabBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */; };
 		C06E18651FFD381800AB4F3A /* FontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E18641FFD381800AB4F3A /* FontViewController.swift */; };
 		C07A81DC20802CA80075164E /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07A81DB20802CA80075164E /* ImageProcessor.swift */; };
@@ -137,6 +140,11 @@
 		C04AED062040CDD400554C5E /* POSLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POSLogger.swift; sourceTree = "<group>"; };
 		C050C34B200173CB00863B52 /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
 		C055A0AD204CBAF700D09405 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
+		C05DED932199FFE90083608C /* MinimalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MinimalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C05DED952199FFE90083608C /* MainListingDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListingDelegateTests.swift; sourceTree = "<group>"; };
+		C05DED972199FFE90083608C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C05DED9D219A01690083608C /* MockDatabaseEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDatabaseEngine.swift; sourceTree = "<group>"; };
+		C05DED9F219CDE740083608C /* Comments.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Comments.storyboard; sourceTree = "<group>"; };
 		C06E18621FFC6B1300AB4F3A /* UITabBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarExtensions.swift; sourceTree = "<group>"; };
 		C06E18641FFD381800AB4F3A /* FontViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontViewController.swift; sourceTree = "<group>"; };
 		C07A81DB20802CA80075164E /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
@@ -461,6 +469,7 @@
 		C0EC9B9E1FC235050073FF7A /* Comments */ = {
 			isa = PBXGroup;
 			children = (
+				C05DED9F219CDE740083608C /* Comments.storyboard */,
 				C0EC9B941FBFE3980073FF7A /* CommentsViewController.swift */,
 				C0EC9B9C1FC112B90073FF7A /* HeaderCell.swift */,
 				C01B23041FD09DBE001F60B8 /* ImageViewController.swift */,
@@ -561,6 +570,7 @@
 				C0A385971F9E9130005064DF /* Settings.storyboard in Resources */,
 				C0EC9BA11FC237AA0073FF7A /* PresentationView.xib in Resources */,
 				C011383E2067582000FBD5E7 /* SubscribedCell.xib in Resources */,
+				C05DEDA0219CDE740083608C /* Comments.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
