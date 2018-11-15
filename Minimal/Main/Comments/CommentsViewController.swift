@@ -116,7 +116,7 @@ extension CommentsViewController: UITableViewDelegate {
                 cell.annotationView.delegate = self
                 cell.presentationView.delegate = self
             }
-            let position = cell.contentView.bounds.height + (cell.contentView.bounds.height / 5)
+            let position = cell.contentView.bounds.height + (cell.contentView.bounds.height * 0.125)
             attachActivityIndicator(withPosition: position)
             return cell.contentView
         default:

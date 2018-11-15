@@ -24,13 +24,6 @@ class AnnotationView: XibView {
     func prepareForReuse() {
         removeGestureRecognizer(tapGestureRecognizer)
         data = [:]
-        titleLabel.text = nil
-        iconImageView.image = nil
-        prefixedSubredditLabel.text = nil
-        upvoteCountLabel.text = nil
-        upvoteCountLabel.text = nil
-        authorLabel.text = nil
-        dateCreatedLabel.text = nil
     }
     
     func setAnnotations(forListing listing: Listing) {
