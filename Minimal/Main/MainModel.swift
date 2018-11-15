@@ -72,13 +72,13 @@ class MainModel {
         let timeFrameAlertController = UIAlertController(title: "Time Frame", message: nil, preferredStyle: .actionSheet)
         timeFrameAlertController.setValue(NSAttributedString(string: "Time Frame", attributes: [NSAttributedString.Key.font: themeManager.font(fontStyle: .primaryBold), NSAttributedString.Key.foregroundColor: themeManager.theme.titleTextColor]), forKey: "attributedTitle")
         
-        CategorySortType.allValues.forEach({ category in
+        CategorySortType.allCases.forEach({ category in
             let action = UIAlertAction(title: category.rawValue.capitalized, style: .default, handler: { (action) in
-                guard let selectedCategory = CategorySortType.allValues.first(where: { $0.rawValue.capitalized == action.title }) else { return }
+                guard let selectedCategory = CategorySortType.allCases.first(where: { $0.rawValue.capitalized == action.title }) else { return }
                 if selectedCategory.isSetByTimeframe {
-                    CategoryTimeFrame.allValues.forEach({ timeFrame in
+                    CategoryTimeFrame.allCases.forEach({ timeFrame in
                         let action = UIAlertAction(title: timeFrame.titleValue.capitalized, style: .default, handler: { (action) in
-                            guard let selectedTimeFrame = CategoryTimeFrame.allValues.first(where: { $0.titleValue.capitalized == action.title }) else { return }
+                            guard let selectedTimeFrame = CategoryTimeFrame.allCases.first(where: { $0.titleValue.capitalized == action.title }) else { return }
                             self.updateUserAndListings(forSubreddit: nil, subredditId: nil, category: category, timeFrame: selectedTimeFrame)
                         })
                         timeFrameAlertController.addAction(action)
@@ -178,8 +178,9 @@ class MainModel {
                         do {
                             if let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: database.viewContext, predicate: NSPredicate(format: "id == %@", id)) {
                                 completionHandler(.success(subreddit))
+                            } else {
+                                completionHandler(.failure(CoreDataError.failedToFetchObject("Subreddit")))
                             }
-                            completionHandler(.failure(CoreDataError.failedToFetchObject("Subreddit")))
                         } catch {
                             completionHandler(.failure(error))
                         }

@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 /// Override point for customization after application launch.
-private extension AppDelegate {
+extension AppDelegate {
     
     func configureDatabase() {
         if let tabBarController = window?.rootViewController as? UITabBarController {

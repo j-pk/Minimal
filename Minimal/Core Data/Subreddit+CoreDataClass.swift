@@ -22,8 +22,8 @@ extension Subreddit: Manageable {
             let subreddit: Subreddit = try Subreddit.fetchFirst(inContext: context, predicate: NSPredicate(format: "id == %@", json.id)) ?? Subreddit.insertObject(inContext: context)
             
             subreddit.id = json.id
-            subreddit.allowImages = json.allowImages
-            subreddit.allowVideoGifs = json.allowVideoGifs
+            subreddit.allowImages = json.allowImages ?? true
+            subreddit.allowVideoGifs = json.allowVideoGifs ?? true
             subreddit.displayName = json.displayName
             subreddit.displayNamePrefixed = json.displayNamePrefixed
             subreddit.iconImage = json.iconImage

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum CategorySortType: String  {
+enum CategorySortType: String, CaseIterable  {
     case hot = "hot"
     case new = "new"
     case rising = "rising"
@@ -22,11 +22,9 @@ enum CategorySortType: String  {
             return false
         }
     }
-    
-    static let allValues = [hot, new, rising, controversial, top]
 }
 
-enum CategoryTimeFrame: String {
+enum CategoryTimeFrame: String, CaseIterable {
     case hour = "hour"
     case twentyFourHours = "day"
     case week = "week"
@@ -44,8 +42,6 @@ enum CategoryTimeFrame: String {
         case .allTime: return "all time"
         }
     }
-    
-    static let allValues = [hour, twentyFourHours, week, month, year, allTime]
 }
 
 enum ListingPostHint: String {
@@ -77,12 +73,11 @@ enum ListingMediaType: String {
     }
 }
 
-enum ListingMediaFormat: String {
+enum ListingMediaFormat: String, CaseIterable {
     case png
     case jpeg
     case jpg
     case gif
     case mp4
     case m3u8
-    static let allValues = [png, jpeg, jpg, gif, mp4, m3u8]
 }

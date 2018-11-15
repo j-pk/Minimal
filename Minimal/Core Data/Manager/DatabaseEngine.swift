@@ -28,7 +28,6 @@ protocol WritableDatabase {
 
 protocol ReadableDatabase {
     var viewContext: NSManagedObjectContext { get }
-    var backgroundContext: NSManagedObjectContext { get }
 }
 
 protocol Stackable {
@@ -45,12 +44,6 @@ class DatabaseEngine: Database {
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
         persistentContainer.viewContext.mergePolicy = NSMergePolicy(merge: .mergeByPropertyObjectTrumpMergePolicyType)
         return persistentContainer.viewContext
-    }()
-    
-    //background context
-    lazy var backgroundContext: NSManagedObjectContext = {
-        let backgroundContext = persistentContainer.newBackgroundContext()
-        return backgroundContext
     }()
     
     lazy var persistentContainer: NSPersistentContainer = {
@@ -105,6 +98,8 @@ extension DatabaseEngine {
     }
     
     func purgeRecords(entity: String, completionHandler: @escaping OptionalErrorHandler) {
+        guard persistentContainer.persistentStoreDescriptions.filter({ $0.type == NSInMemoryStoreType }).isEmpty else { completionHandler(nil); return }
+
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         persistentContainer.performBackgroundTask({ context in
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
