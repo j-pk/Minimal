@@ -30,11 +30,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2C-DC-EMD" customClass="AnnotationView" customModule="Minimal" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="323.66666666666669" width="335" height="64"/>
+                                                    <rect key="frame" x="20" y="323.66666666666669" width="374" height="64"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5s4-rs-Pud" customClass="PresentationView" customModule="Minimal" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="312"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="315.66666666666669"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                             </subviews>
@@ -43,7 +43,7 @@
                                                 <constraint firstItem="5s4-rs-Pud" firstAttribute="top" secondItem="Oww-ax-EaB" secondAttribute="top" id="2vk-Oo-Qha"/>
                                                 <constraint firstAttribute="trailing" secondItem="M2C-DC-EMD" secondAttribute="trailing" constant="20" id="Akp-6T-zts"/>
                                                 <constraint firstItem="5s4-rs-Pud" firstAttribute="centerX" secondItem="Oww-ax-EaB" secondAttribute="centerX" id="HFG-b3-peZ"/>
-                                                <constraint firstItem="M2C-DC-EMD" firstAttribute="top" secondItem="5s4-rs-Pud" secondAttribute="bottom" constant="11.666666666666686" id="asy-sG-XLp"/>
+                                                <constraint firstItem="M2C-DC-EMD" firstAttribute="top" secondItem="5s4-rs-Pud" secondAttribute="bottom" constant="8" id="asy-sG-XLp"/>
                                                 <constraint firstAttribute="trailing" secondItem="5s4-rs-Pud" secondAttribute="trailing" id="eBx-yN-Dzp"/>
                                                 <constraint firstItem="M2C-DC-EMD" firstAttribute="centerX" secondItem="5s4-rs-Pud" secondAttribute="centerX" id="l5y-zM-OGI"/>
                                                 <constraint firstItem="5s4-rs-Pud" firstAttribute="leading" secondItem="Oww-ax-EaB" secondAttribute="leading" id="lmN-CZ-yLa"/>
@@ -84,7 +84,7 @@
                     <connections>
                         <outlet property="actionView" destination="ACR-tR-Gm2" id="N9R-EY-l3b"/>
                         <outlet property="tableView" destination="UcT-V0-iMp" id="Fro-Ss-Rv9"/>
-                        <segue destination="Omd-kR-zBF" kind="show" identifier="imageViewController" id="fYC-EV-wDk"/>
+                        <segue destination="Omd-kR-zBF" kind="show" identifier="imageViewControllerSegue" id="fYC-EV-wDk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RU7-c5-kh7" userLabel="First Responder" sceneMemberID="firstResponder"/>

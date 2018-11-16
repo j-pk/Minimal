@@ -40,7 +40,7 @@ class MainModel {
     
     private func fetchRecentlyViewedSubreddits() -> [Subreddit] {
         guard let database = database else { return [] }
-        let recentPredicate = NSPredicate(format: "isDefault == false && lastViewed < %@ AND lastViewed > %@", Date() as NSDate, Date().subtract(days: 14) as NSDate)
+        let recentPredicate = NSPredicate(format: "lastViewed < %@ AND lastViewed > %@", Date() as NSDate, Date().subtract(days: 14) as NSDate)
         let sortDescriptor = NSSortDescriptor(key: "lastViewed", ascending: false)
         if let recentSubreddits = try? Subreddit.fetchObjects(inContext: database.viewContext, predicate: recentPredicate, sortDescriptors: [sortDescriptor], fetchLimit: 5) {
             return recentSubreddits
