@@ -86,7 +86,7 @@ class SearchViewController: UIViewController {
         let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, over18Predicate, isDefault])
         
         searchResultsController.fetchRequest.predicate = compoundPredicate
-        searchResultsController.fetchRequest.sortDescriptors = descriptors ?? [NSSortDescriptor(key: "displayName", ascending: true)]
+        searchResultsController.fetchRequest.sortDescriptors = descriptors ?? [NSSortDescriptor(key: "displayName", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare))]
         
         do {
             try searchResultsController.performFetch()
@@ -242,7 +242,7 @@ extension SearchViewController: Stackable {
         self.database = database
         
         let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "displayName", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "displayName", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare))]
         searchResultsController = NSFetchedResultsController<Subreddit>(fetchRequest: fetchRequest, managedObjectContext: database.viewContext, sectionNameKeyPath: "displayName", cacheName: nil)
         
         if let subscribedViewController = self.children.filter({ $0 is Stackable }).first as? Stackable {

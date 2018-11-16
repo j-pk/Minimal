@@ -25,7 +25,7 @@ class SearchSubredditManager {
             case .failure(let error):
                 posLog(error: error, category: String(describing: self))
             case .success(let store):
-                if self.requestCount <= 75 {
+                if self.requestCount <= 500 {
                     if let database = self.database {
                         do {
                             try Subreddit.populateObjects(fromJSON: store.subreddits, database: database, completionHandler: { (error) in

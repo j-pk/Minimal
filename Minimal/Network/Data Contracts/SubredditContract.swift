@@ -132,7 +132,11 @@ struct SubredditObject: Decodable {
     let publicDescription: String?
     let allowImages: Bool?
     let allowVideoGifs: Bool?
+    let allowVideos: Bool?
     let isSubscribed: Bool?
+    let bannerBackgroundImage: String?
+    let title: String?
+    let headerTitle: String?
     
     enum CodingKeys: String, CodingKey {
         case data
@@ -146,9 +150,13 @@ struct SubredditObject: Decodable {
         case selftext
         case allowImages = "allow_images"
         case allowVideoGifs = "allow_videogifs"
+        case allowVideos = "allow_videos"
         case isSubscribed = "user_is_subscriber"
-        case over18 = "over_18"
-        case subscribers = "subreddit_subscribers"
+        case over18
+        case subscribers
+        case bannerBackgroundImage = "banner_background_image"
+        case title
+        case headerTitle = "header_title"
     }
     
     init(from decoder: Decoder) throws {
@@ -163,7 +171,11 @@ struct SubredditObject: Decodable {
         publicDescription = try data.decodeIfPresent(String.self, forKey: .publicDescription) ?? data.decodeIfPresent(String.self, forKey: .selftext)
         allowImages = try data.decodeIfPresent(Bool.self, forKey: .allowImages)
         allowVideoGifs = try data.decodeIfPresent(Bool.self, forKey: .allowVideoGifs)
+        allowVideos = try data.decodeIfPresent(Bool.self, forKey: .allowVideos)
         isSubscribed = try data.decodeIfPresent(Bool.self, forKey: .isSubscribed)
+        bannerBackgroundImage = try data.decodeIfPresent(String.self, forKey: .bannerBackgroundImage)
+        title = try data.decodeIfPresent(String.self, forKey: .title)
+        headerTitle = try data.decodeIfPresent(String.self, forKey: .headerTitle)
     }
 }
 
