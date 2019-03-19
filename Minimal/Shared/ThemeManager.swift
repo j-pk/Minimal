@@ -86,6 +86,7 @@ struct ThemeManager {
         UITabBar.appearance().tintColor = theme.tintColor
         UITabBar.appearance().barTintColor = theme.primaryColor
         UIVisualEffectView.appearance().effect = UIBlurEffect(style: theme.blurEffect)
+        UIActivityIndicatorView.appearance().color = theme.tintColor
         
         UIButton.appearance().setTitleColor(theme.titleTextColor, for: .normal)
         UIButton.appearance().setTitleColor(theme.subtitleTextColor, for: .selected)

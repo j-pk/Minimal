@@ -88,12 +88,10 @@ class DetailViewController: UIViewController {
             animator.addBehavior(itemBehavior)
             animator.addBehavior(imagePushBehavior)
             
-            UIView.animate(withDuration: 0.5, animations: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.view.alpha = 0
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.dismiss(animated: false, completion: nil)
-                }
-            })
+                self.dismiss(animated: false, completion: nil)
+            }
         }
     }
 }
