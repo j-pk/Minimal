@@ -35,7 +35,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mal-wJ-yOy">
-                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                            <rect key="frame" x="0.0" y="2" width="36" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="Mal-wJ-yOy" secondAttribute="height" multiplier="1:1" id="kab-TF-heN"/>
                             </constraints>
@@ -45,7 +45,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHg-aP-oLv">
-                            <rect key="frame" x="106.5" y="0.0" width="40" height="40"/>
+                            <rect key="frame" x="107.5" y="2" width="36" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="GHg-aP-oLv" secondAttribute="height" multiplier="1:1" id="Ccn-WN-asm"/>
                             </constraints>
@@ -55,7 +55,7 @@
                             </connections>
                         </button>
                         <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBy-w4-YEh">
-                            <rect key="frame" x="146.5" y="20" width="0.0" height="0.0"/>
+                            <rect key="frame" x="143.5" y="20" width="0.0" height="0.0"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="NBy-w4-YEh" secondAttribute="height" multiplier="1:1" id="foN-K7-mJs"/>
                             </constraints>
@@ -65,7 +65,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edX-sv-cup">
-                            <rect key="frame" x="212.5" y="0.0" width="40" height="40"/>
+                            <rect key="frame" x="215.5" y="2" width="36" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="edX-sv-cup" secondAttribute="height" multiplier="1:1" id="JfU-pJ-stt"/>
                             </constraints>
@@ -75,7 +75,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RU-Ct-OCJ">
-                            <rect key="frame" x="319" y="0.0" width="40" height="40"/>
+                            <rect key="frame" x="323" y="2" width="36" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="0RU-Ct-OCJ" secondAttribute="height" multiplier="1:1" id="f1b-Lv-ScD"/>
                             </constraints>
@@ -86,6 +86,16 @@
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.79215686269999996" green="0.82352941180000006" blue="0.77647058820000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="Mal-wJ-yOy" firstAttribute="top" secondItem="bHj-S8-PKa" secondAttribute="top" constant="2" id="1X3-it-5tz"/>
+                        <constraint firstItem="GHg-aP-oLv" firstAttribute="bottom" secondItem="Mal-wJ-yOy" secondAttribute="bottom" id="8fz-Dw-LSJ"/>
+                        <constraint firstItem="edX-sv-cup" firstAttribute="bottom" secondItem="Mal-wJ-yOy" secondAttribute="bottom" id="IgI-p9-BnJ"/>
+                        <constraint firstItem="0RU-Ct-OCJ" firstAttribute="top" secondItem="Mal-wJ-yOy" secondAttribute="top" id="V64-Os-ZjZ"/>
+                        <constraint firstItem="GHg-aP-oLv" firstAttribute="top" secondItem="Mal-wJ-yOy" secondAttribute="top" id="VVq-A9-316"/>
+                        <constraint firstItem="edX-sv-cup" firstAttribute="top" secondItem="Mal-wJ-yOy" secondAttribute="top" id="ffI-Hb-eXJ"/>
+                        <constraint firstAttribute="bottom" secondItem="Mal-wJ-yOy" secondAttribute="bottom" constant="2" id="fqG-Ii-onj"/>
+                        <constraint firstItem="0RU-Ct-OCJ" firstAttribute="bottom" secondItem="Mal-wJ-yOy" secondAttribute="bottom" id="uEk-TZ-s3A"/>
+                    </constraints>
                 </stackView>
             </subviews>
             <constraints>

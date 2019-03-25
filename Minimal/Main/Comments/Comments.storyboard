@@ -29,11 +29,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="399.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2C-DC-EMD" customClass="AnnotationView" customModule="Minimal" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M2C-DC-EMD" customClass="AnnotationView" customModule="Minimal" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="323.66666666666669" width="374" height="64"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5s4-rs-Pud" customClass="PresentationView" customModule="Minimal" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5s4-rs-Pud" customClass="PresentationView" customModule="Minimal" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="315.66666666666669"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
@@ -62,7 +62,7 @@
                                     <outlet property="delegate" destination="nQ1-gg-07Y" id="haB-5y-bNU"/>
                                 </connections>
                             </tableView>
-                            <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACR-tR-Gm2" customClass="ActionView" customModule="Minimal" customModuleProvider="target">
+                            <view opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACR-tR-Gm2" customClass="ActionView" customModule="Minimal" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="832" width="414" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Aiu-nS-of1"/>

@@ -184,7 +184,7 @@
                                                                 <constraint firstAttribute="bottom" secondItem="0S4-IZ-fjg" secondAttribute="bottom" id="wof-Nr-Qcf"/>
                                                             </constraints>
                                                         </view>
-                                                        <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcM-hU-71D" customClass="ActionView" customModule="Minimal" customModuleProvider="target">
+                                                        <view opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcM-hU-71D" customClass="ActionView" customModule="Minimal" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="110" width="394" height="22"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" priority="999" constant="22" id="nl4-xM-EoT"/>

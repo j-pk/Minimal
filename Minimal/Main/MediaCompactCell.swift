@@ -119,7 +119,9 @@ class MediaCompactCell: UICollectionViewCell {
         }
         let dateAttributedString = NSMutableAttributedString()
         if let date = listing.created {
-            dateAttributedString.append(NSAttributedString(string: "∙ " + date.timeAgoSinceNow(abbreviated: true), attributes: regularAttributes))
+            dateAttributedString.append(NSAttributedString(string: "∙ ", attributes: [NSAttributedString.Key.font: themeManager.font(fontStyle: .secondary),
+                NSAttributedString.Key.foregroundColor: themeManager.theme.tintColor]))
+            dateAttributedString.append(NSAttributedString(string: date.timeAgoSinceNow(abbreviated: true), attributes: regularAttributes))
         }
         
         titleTextView.contentInset = UIEdgeInsets(top: -8, left: 0, bottom: -8, right: 0)
