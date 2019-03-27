@@ -39,29 +39,29 @@ class CommentCell: UITableViewCell {
         contentView.removeAttachedView()
     }
     
-    func configure(for node: ChildData?) {
+    func configure(for comment: Comment?) {
         setSeparatorInset(forInsetValue: .none)
         selectionStyle = .none
-        guard let node = node else { return }
+        guard let comment = comment else { return }
         
         var score: Int?
-        if let nodeScore = node.score {
-            score = nodeScore
+        if let commentScore = comment.score?.intValue {
+            score = commentScore
         } else {
             votesLabel.isHidden =  true
         }
         var date: Date?
-        if let createdUTC = node.createdUTC {
-            date = Date(timeIntervalSince1970: TimeInterval(createdUTC))
+        if let createdUTC = comment.created {
+            date = Date(timeIntervalSince1970: TimeInterval(truncating: createdUTC))
         } else {
             timeCreatedLabel.isHidden = true
         }
         
-        let textData = AnnotationTextFormatter().formatter(subreddit: nil, author: node.author, score: score ?? 0, date: date)
+        let textData = AnnotationTextFormatter().formatter(subreddit: nil, author: comment.author, score: score ?? 0, date: date)
         let authorAttributedString = NSMutableAttributedString()
         if let author = textData.author {
             authorAttributedString.append(author)
-            if let op = node.isSubmitter, op {
+            if comment.isSubmitter {
                 let opAttributes = [NSAttributedString.Key.font: themeManager.font(fontStyle: .secondaryBold), NSAttributedString.Key.foregroundColor: themeManager.linkTextColor]
                 authorAttributedString.append(NSAttributedString(string: " [OP]", attributes: opAttributes))
             }
@@ -79,7 +79,7 @@ class CommentCell: UITableViewCell {
             dateAttributedString.append(date)
         }
         let stylesheet = themeManager.stylesheet()
-        if let body = node.body {
+        if let body = comment.body {
             let down = Down(markdownString: body)
             bodyTextView.attributedText = try? down.toAttributedString(.default, stylesheet: stylesheet)
         }
@@ -88,8 +88,8 @@ class CommentCell: UITableViewCell {
             self.votesLabel.attributedText = scoreAttributedString
             self.timeCreatedLabel.attributedText = dateAttributedString
         }
-
-        if let depth = node.depth, depth > 0 {
+        
+        if let depth = comment.depth?.intValue, depth > 0 {
             let leftPosition = leadingConstraint.constant * CGFloat(depth + 1)
             leadingConstraint.constant = leftPosition
             contentView.attachDividerLine(forDepth: depth)

@@ -42,10 +42,14 @@ class CommentsViewController: UIViewController {
 
         DispatchQueue.global(qos: .background).async { [weak self] () -> Void in
             guard let this = self else { return }
-            this.commentsModel?.requestComments() {
+            this.commentsModel?.requestComments() { error in
                 DispatchQueue.main.async {
-                    this.tableView.reloadData()
-                    this.activityIndicator.stopAnimating()
+                    if error == nil {
+                        this.tableView.reloadData()
+                        this.activityIndicator.stopAnimating()
+                    } else {
+                        posLog(error: error)
+                    }
                 }
             }
         }
@@ -93,15 +97,8 @@ extension CommentsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
-        let nodes = commentsModel?.nodes[indexPath.section]
-        
-        switch indexPath.row {
-        case 0:
-            cell.configure(for: nodes?.value)
-        default:
-            cell.configure(for: nodes?.children[indexPath.row - 1].value)
-        }
-        
+        let comment = commentsModel?.comment(atIndexPath: indexPath)
+        cell.configure(for: comment)
         return cell
     }
 }
@@ -138,16 +135,8 @@ extension CommentsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nodes = commentsModel?.nodes[indexPath.section]
-        var node: ChildData?
-        switch indexPath.row {
-        case 0:
-            node = nodes?.value
-        default:
-           node = nodes?.children[indexPath.row - 1].value
-        }
-        guard let model = commentsModel, let unwrappedNode = node else { return }
-        present(model.presentAction(forNode: unwrappedNode), animated: true, completion: nil)
+        guard let model = commentsModel else { return }
+        present(model.presentAction(forComment: model.comment(atIndexPath: indexPath)), animated: true, completion: nil)
         // upvote, reply, share, report
     }
     
@@ -184,7 +173,7 @@ extension CommentsViewController: ActionViewDelegate {
     
     func didSelectPageDownButton(sender: UIButton, listing: Listing?) {
         guard let model = commentsModel else { return }
-        guard model.nodes.count > 1 else { return }
+        guard model.comments.count > 1 else { return }
         guard let section = tableView.indexPathsForVisibleRows?.first?.section else { return }
         let indexPath = IndexPath(row: 0, section: section + 1)
         // Forces scrolling to complete

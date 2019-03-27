@@ -112,7 +112,7 @@
                                                         <constraint firstItem="raS-e8-6Qz" firstAttribute="top" secondItem="5EX-GB-BME" secondAttribute="top" id="zUt-Oj-5yB"/>
                                                     </constraints>
                                                 </view>
-                                                <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8W-bp-exD" customClass="ActionView" customModule="Minimal" customModuleProvider="target">
+                                                <view opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8W-bp-exD" customClass="ActionView" customModule="Minimal" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="162" width="121" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="25" id="gq6-kH-T1H"/>
