@@ -22,7 +22,7 @@
         <attribute name="ups" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="voted" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Comment" inverseName="parent" inverseEntity="Comment" syncable="YES"/>
-        <relationship name="listing" toMany="YES" deletionRule="Nullify" destinationEntity="Listing" inverseName="comments" inverseEntity="Listing" syncable="YES"/>
+        <relationship name="listing" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Listing" inverseName="comments" inverseEntity="Listing" syncable="YES"/>
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Comment" inverseName="comments" inverseEntity="Comment" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -56,7 +56,7 @@
         <attribute name="urlString" attributeType="String" syncable="YES"/>
         <attribute name="voted" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="width" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="comments" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Comment" inverseName="listing" inverseEntity="Comment" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="listing" inverseEntity="Comment" syncable="YES"/>
         <relationship name="subreddit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subreddit" inverseName="listings" inverseEntity="Subreddit" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -94,8 +94,8 @@
         <relationship name="subreddits" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subreddit" inverseName="user" inverseEntity="Subreddit" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Comment" positionX="397.75390625" positionY="-26.10546875" width="128" height="390"/>
-        <element name="Listing" positionX="175.77734375" positionY="-225.984375" width="128" height="448"/>
+        <element name="Comment" positionX="397.75390625" positionY="-26.10546875" width="128" height="388"/>
+        <element name="Listing" positionX="175.77734375" positionY="-225.984375" width="128" height="450"/>
         <element name="Subreddit" positionX="-24.7578125" positionY="-83.234375" width="128" height="255"/>
         <element name="User" positionX="-231.62890625" positionY="4.40234375" width="128" height="135"/>
     </elements>

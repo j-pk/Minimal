@@ -37,7 +37,7 @@ extension Comment {
     @NSManaged public var sendReplies: Bool
     @NSManaged public var collapsed: Bool
     @NSManaged public var isSubmitter: Bool
-    @NSManaged public var listing: Listing
+    @NSManaged public var listing: Listing?
     @NSManaged public var comments: NSOrderedSet?
     @NSManaged public var parent: Comment?
 
