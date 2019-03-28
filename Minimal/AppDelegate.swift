@@ -25,8 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        posLog(values: urls[urls.count-1] as URL)
+        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        posLog(values:paths[0]) 
         
         return true
     }

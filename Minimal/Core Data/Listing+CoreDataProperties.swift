@@ -2,8 +2,8 @@
 //  Listing+CoreDataProperties.swift
 //  Minimal
 //
-//  Created by Jameson Kirby on 10/24/17.
-//  Copyright © 2017 Parker Kirby. All rights reserved.
+//  Created by Jameson Kirby on 3/28/19.
+//  Copyright © 2019 Parker Kirby. All rights reserved.
 //
 //
 
@@ -44,5 +44,22 @@ extension Listing {
     @NSManaged public var voted: Int16
     @NSManaged public var subreddit: Subreddit?
     @NSManaged public var comments: Set<Comment>?
-    
+
+}
+
+// MARK: Generated accessors for comments
+extension Listing {
+
+    @objc(addCommentsObject:)
+    @NSManaged public func addToComments(_ value: Comment)
+
+    @objc(removeCommentsObject:)
+    @NSManaged public func removeFromComments(_ value: Comment)
+
+    @objc(addComments:)
+    @NSManaged public func addToComments(_ values: NSSet)
+
+    @objc(removeComments:)
+    @NSManaged public func removeFromComments(_ values: NSSet)
+
 }

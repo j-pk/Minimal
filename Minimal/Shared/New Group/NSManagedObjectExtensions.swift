@@ -64,6 +64,7 @@ extension Manageable where Self: NSManagedObject {
     static func populateObjects(fromJSON json: [Decodable], database: Database, completionHandler: @escaping OptionalErrorHandler) throws {
         database.performBackgroundTask { (context) in
             do {
+                
                 json.forEach { (object) in
                     self.populateObject(fromDecodable: object, context: context, completionHandler: { error in
                         if error != nil {
