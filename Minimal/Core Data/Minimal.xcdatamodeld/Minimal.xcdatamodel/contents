@@ -94,7 +94,7 @@
         <relationship name="subreddits" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subreddit" inverseName="user" inverseEntity="Subreddit" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Comment" positionX="397.75390625" positionY="-26.10546875" width="128" height="388"/>
+        <element name="Comment" positionX="401.59765625" positionY="-105.4375" width="128" height="388"/>
         <element name="Listing" positionX="175.77734375" positionY="-225.984375" width="128" height="450"/>
         <element name="Subreddit" positionX="-24.7578125" positionY="-83.234375" width="128" height="255"/>
         <element name="User" positionX="-231.62890625" positionY="4.40234375" width="128" height="135"/>
