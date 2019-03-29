@@ -31,7 +31,7 @@ extension DefaultSubredditsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DefaultSubreddit.allValues.count
+        return DefaultSubreddit.allCases.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

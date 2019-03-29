@@ -105,7 +105,7 @@ struct ThemeManager {
         
         UICollectionView.appearance().backgroundColor = theme.primaryColor
         UITableViewCell.appearance().backgroundColor = theme.primaryColor
-        UITableView.appearance().separatorColor = theme.backgroundColor
+        UITableView.appearance().separatorColor = theme.secondaryColor
         UITableView.appearance().backgroundColor = theme.primaryColor
         MediaAnnotatedCell.appearance().backgroundColor = theme.secondaryColor
         UITextView.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = theme.titleTextColor

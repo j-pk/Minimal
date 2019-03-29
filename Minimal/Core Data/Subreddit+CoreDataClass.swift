@@ -31,6 +31,9 @@ extension Subreddit: Manageable {
             subreddit.over18 = json.over18
             subreddit.publicDescription = json.publicDescription
             subreddit.subscribers = Int64(json.subscribers)
+            if let isSubscribed = json.isSubscribed, isSubscribed {
+                subreddit.user = User.current(context: context)
+            }
             
             completionHandler(nil)
             
@@ -42,7 +45,7 @@ extension Subreddit: Manageable {
     static func populateDefaultSubreddits(database: Database) {
         database.performBackgroundTask { (context) in
             do {
-                try DefaultSubreddit.allValues.filter({ $0 != .random }).forEach({ (defaultSubreddit) in
+                try DefaultSubreddit.allCases.filter({ $0 != .random }).forEach({ (defaultSubreddit) in
                     let subreddit: Subreddit = try Subreddit.insertObject(inContext: context)
                     subreddit.id = "\(defaultSubreddit.rawValue)"
                     subreddit.isDefault = true
@@ -66,7 +69,7 @@ extension Subreddit: Manageable {
     }
 }
 
-enum DefaultSubreddit: Int {
+enum DefaultSubreddit: Int, CaseIterable {
     case home
     case popular
     case all
@@ -107,6 +110,4 @@ enum DefaultSubreddit: Int {
         case .random: return "random"
         }
     }
-    
-    static let allValues = [home, popular, all, random]
 }
