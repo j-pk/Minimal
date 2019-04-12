@@ -1,7 +1,7 @@
 PODS:
-  - Down (0.6.2)
+  - Down (0.6.6)
   - Gifu (3.2.0)
-  - Nuke (7.5.2)
+  - Nuke (7.6)
 
 DEPENDENCIES:
   - Down
@@ -15,9 +15,9 @@ SPEC REPOS:
     - Nuke
 
 SPEC CHECKSUMS:
-  Down: 8c59a03cb229ef28dfa774b2132da860f3dee0ac
+  Down: 71bf4af3c04fa093e65dffa25c4b64fa61287373
   Gifu: 7bcb6427457d85e0b4dff5a84ec5947ac19a93ea
-  Nuke: 0350d346a688426e8f2331253ef28dc2fc4f6178
+  Nuke: aa1c6a5919b543debe814530881f2fccb58c26d4
 
 PODFILE CHECKSUM: 79c5399489c0ded09bb8a066d8bcd54e4ecea3fc
 

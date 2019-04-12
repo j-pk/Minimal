@@ -120,7 +120,7 @@ public struct ChildData: Codable {
         authorID = try container.decodeIfPresent(String.self, forKey: .authorID)
 
         if container.contains(.replies) {
-            if let parsedReplies = try? container.decodeIfPresent(CommentStoreElement.self, forKey: .replies) {
+            if let parsedReplies: CommentStoreElement? = try? container.decodeIfPresent(CommentStoreElement.self, forKey: .replies) {
                 replies = parsedReplies
             } else {
                 replies = nil
@@ -139,10 +139,6 @@ class JSONNull: Codable, Hashable {
         return true
     }
     
-    public var hashValue: Int {
-        return 0
-    }
-    
     public init() {}
     
     public required init(from decoder: Decoder) throws {
@@ -155,5 +151,9 @@ class JSONNull: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encodeNil()
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        
     }
 }

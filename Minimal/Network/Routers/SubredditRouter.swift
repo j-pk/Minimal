@@ -39,7 +39,7 @@ struct SubredditRequest: Requestable {
         case .paginate:
             return SubredditRouter.paginate(count: count, after: after)
         case .getSubscribed:
-            return SubredditRouter.getSubscribed()
+            return SubredditRouter.getSubscribed
         }
     }
 }
@@ -48,7 +48,7 @@ struct SubredditRequest: Requestable {
 enum SubredditRouter: Routable {
     case subreddit(id: String?)
     case paginate(count: Int?, after: String?)
-    case getSubscribed()
+    case getSubscribed
     
     var path: String {
         var buildPath = ""

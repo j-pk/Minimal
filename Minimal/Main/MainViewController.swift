@@ -284,7 +284,7 @@ extension MainViewController: UIScrollViewDelegate {
     
     // Pagination
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if (scrollView.contentOffset.y + 150 >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
+        if (scrollView.contentOffset.y + scrollView.bounds.height >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
             guard let lastViewedListing = listingResultsController.fetchedObjects?.last else { return }
             model?.paginate(forLastViewedListing: lastViewedListing)
         }
@@ -421,6 +421,8 @@ extension MainViewController: NSFetchedResultsControllerDelegate {
                     }
                 })
             )
+        default:
+            break
         }
     }
 }

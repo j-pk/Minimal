@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2015-2018 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2015-2019 Alexander Grebenyuk (github.com/kean).
 
 import Foundation
 
@@ -11,6 +11,8 @@ import Foundation
 /// to maintain a reference to the task unless it is useful to do so for your
 /// app’s internal bookkeeping purposes.
 public /* final */ class ImageTask: Hashable {
+    private var lock = os_unfair_lock_s()
+
     /// An identifier uniquely identifies the task within a given pipeline. Only
     /// unique within this pipeline.
     public let taskId: Int
@@ -63,10 +65,12 @@ public /* final */ class ImageTask: Hashable {
     // MARK: - Cancellation
 
     fileprivate var isCancelled: Bool {
-        return _wasCancelled == 1
+        os_unfair_lock_lock(&lock)
+        defer { os_unfair_lock_unlock(&lock) }
+        return _isCancelled
     }
 
-    private var _wasCancelled: Int32 = 0
+    private var _isCancelled: Bool = false
 
     /// Marks task as being cancelled.
     ///
@@ -74,20 +78,30 @@ public /* final */ class ImageTask: Hashable {
     /// unless there is an equivalent outstanding task running (see
     /// `ImagePipeline.Configuration.isDeduplicationEnabled` for more info).
     public func cancel() {
+        func tryCancel() -> Bool {
+            os_unfair_lock_lock(&lock)
+            defer { os_unfair_lock_unlock(&lock) }
+            guard !_isCancelled else {
+                return false
+            }
+            _isCancelled = true
+            return true
+        }
+
         // Make sure that we ignore if `cancel` being called more than once.
-        if OSAtomicCompareAndSwap32Barrier(0, 1, &_wasCancelled) {
+        if tryCancel() {
             delegate?.imageTaskWasCancelled(self)
         }
     }
 
     // MARK: - Hashable
 
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self).hashValue)
+    }
+    
     public static func == (lhs: ImageTask, rhs: ImageTask) -> Bool {
         return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
-    }
-
-    public var hashValue: Int {
-        return ObjectIdentifier(self).hashValue
     }
 }
 
@@ -130,8 +144,9 @@ public /* final */ class ImagePipeline: ImageTaskDelegate {
     // Image loading sessions. One or more tasks can be handled by the same session.
     private var sessions = [AnyHashable: ImageLoadingSession]()
 
-    private var nextTaskId: Int32 = 0
-    private var nextSessionId: Int32 = 0
+    private var nextTaskId: Int = 0
+    private var nextSessionId: Int = 0
+    private var lock = os_unfair_lock_s()
 
     private let rateLimiter: RateLimiter
 
@@ -242,7 +257,7 @@ public /* final */ class ImagePipeline: ImageTaskDelegate {
     /// Loads an image for the given request using image loading pipeline.
     @discardableResult
     public func loadImage(with request: ImageRequest, progress: ImageTask.ProgressHandler? = nil, completion: ImageTask.Completion? = nil) -> ImageTask {
-        let task = ImageTask(taskId: Int(OSAtomicIncrement32(&nextTaskId)), request: request)
+        let task = ImageTask(taskId: getNextTaskId(), request: request)
         task.delegate = self
         queue.async {
             // Fast memory cache lookup. We do this asynchronously because we
@@ -260,6 +275,20 @@ public /* final */ class ImagePipeline: ImageTaskDelegate {
             )
         }
         return task
+    }
+
+    private func getNextTaskId() -> Int {
+        os_unfair_lock_lock(&lock)
+        defer { os_unfair_lock_unlock(&lock) }
+        nextTaskId += 1
+        return nextTaskId
+    }
+
+    private func getNextSessionId() -> Int {
+        os_unfair_lock_lock(&lock)
+        defer { os_unfair_lock_unlock(&lock) }
+        nextSessionId += 1
+        return nextSessionId
     }
 
     private func _startLoadingImage(for task: ImageTask, handlers: ImageLoadingSession.Handlers) {
@@ -309,7 +338,7 @@ public /* final */ class ImagePipeline: ImageTaskDelegate {
         if let session = sessions[key] {
             return session
         }
-        let session = ImageLoadingSession(sessionId: Int(OSAtomicIncrement32(&nextSessionId)), request: request, key: key)
+        let session = ImageLoadingSession(sessionId: getNextSessionId(), request: request, key: key)
         sessions[key] = session
         _loadImage(for: session) // Start the pipeline
         return session

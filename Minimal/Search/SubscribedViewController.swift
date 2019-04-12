@@ -115,9 +115,7 @@ extension SubscribedViewController: NSFetchedResultsControllerDelegate {
             tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
         case .delete:
             tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
-        case .move:
-            break
-        case .update:
+        default:
             break
         }
     }
@@ -140,6 +138,8 @@ extension SubscribedViewController: NSFetchedResultsControllerDelegate {
             if let indexPath = indexPath, let newIndexPath = newIndexPath {
                 tableView.moveRow(at: indexPath, to: newIndexPath)
             }
+        default:
+            break
         }
     }
     

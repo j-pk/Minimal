@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2015-2018 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2015-2019 Alexander Grebenyuk (github.com/kean).
 
 import Foundation
 
@@ -120,7 +120,8 @@ internal final class RateLimiter {
 internal final class Operation: Foundation.Operation {
     private var _isExecuting = false
     private var _isFinished = false
-    private var _isFinishCalled: Int32 = 0
+    private var isFinishCalled = false
+    private var lock = os_unfair_lock_s()
 
     override var isExecuting: Bool {
         set {
@@ -168,8 +169,19 @@ internal final class Operation: Foundation.Operation {
     }
 
     private func _finish() {
+        func tryFinish() -> Bool {
+            os_unfair_lock_lock(&lock)
+            defer { os_unfair_lock_unlock(&lock) }
+            guard !isFinishCalled else {
+                return false
+            }
+            isFinishCalled = true
+            return true
+        }
+
+
         // Make sure that we ignore if `finish` is called more than once.
-        if OSAtomicCompareAndSwap32Barrier(0, 1, &_isFinishCalled) {
+        if tryFinish() {
             isExecuting = false
             isFinished = true
         }
@@ -539,15 +551,6 @@ final class Property<T> {
 
 // MARK: - Misc
 
-#if !swift(>=4.1)
-extension Sequence {
-    public func compactMap<ElementOfResult>(_ transform: (Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult] {
-        return try flatMap(transform)
-    }
-}
-#endif
-
-#if swift(>=4.2)
 import CommonCrypto
 
 extension String {
@@ -558,14 +561,21 @@ extension String {
     /// // prints "50334ee0b51600df6397ce93ceed4728c37fee4e"
     /// ```
     var sha1: String? {
-        guard let input = self.data(using: .utf8) else {
-            return nil
+        guard let input = self.data(using: .utf8) else { return nil }
+        
+        #if swift(>=5.0)
+        let hash = input.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) -> [UInt8] in
+            var hash = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
+            CC_SHA1(bytes.baseAddress, CC_LONG(input.count), &hash)
+            return hash
         }
+        #else
         var hash = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
         input.withUnsafeBytes {
             _ = CC_SHA1($0, CC_LONG(input.count), &hash)
         }
+        #endif
+        
         return hash.map({ String(format: "%02x", $0) }).joined()
     }
 }
-#endif
