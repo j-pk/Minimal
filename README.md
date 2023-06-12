@@ -1,7 +1,7 @@
 # Minimal
 An improved reddit client to help users see the bigger picture
 
-This app was my original creation that complemented the Reddit website when there was no official app and few third-party options in the App Store. Originally named mite in the App Store in 2015. It offered the following features:
+This app was my original creation that complemented the Reddit website when there was no official app and few third-party options in the App Store. Originally named mité in the App Store in 2015. It offered the following features:
 
 - Dynamic view options: Transform subreddit thumbnails into first-party candidates, enabling users to switch between compact, media, multi-row, and more.
 - Custom theming: Personalize the app's visual style to suit your preferences.
