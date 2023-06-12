@@ -10,4 +10,6 @@ This app was my original creation that complemented the Reddit website when ther
 - Offline viewing with Core Data: Access your favorite subreddits even without an internet connection.
 - Commenting on posts: Engage with the Reddit community by leaving comments.
 
-This version represents a renamed upgrade of the original app I had on worked on years ago. I enjoyed reddit, but I wonder what's next? 
+This version represents a renamed upgrade of the original app I had on worked on years ago. It would of been neat having another go utilzing some more modern APIs that Apple has since released. 
+
+I enjoyed reddit, but I wonder what's next? 
